@@ -1,0 +1,6 @@
+@PlacementCellBackend_HostAddress = http://localhost:5280
+
+GET {{PlacementCellBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
