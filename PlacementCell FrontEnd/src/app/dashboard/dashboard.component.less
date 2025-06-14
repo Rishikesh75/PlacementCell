@@ -1,0 +1,53 @@
+/* Main container */
+.review-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 15vh;
+}
+
+/* White theme */
+.white {
+    background-color: white;
+}
+
+/* Individual review box */
+.review-box {
+    width: 400px;
+    height: 300px;
+    background-color: #f8f9fa;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, background-color 0.3s;
+    text-decoration: none;
+    padding: 15px;
+}
+
+/* Images inside the boxes */
+.review-box img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 8px;
+}
+
+/* Links inside the boxes */
+.review-box a {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Hover effects */
+.review-box:hover {
+    transform: scale(1.05);
+    background-color: #e0e0e0;
+}

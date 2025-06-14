@@ -1,0 +1,90 @@
+.student-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+}
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.student-card {
+    width: 300px;
+    height: 250px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Profile photo as background */
+.student-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    transition: opacity 0.3s;
+}
+
+/* Default view (shown initially) */
+.default-view {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    text-align: center;
+    transition: opacity 0.3s;
+}
+
+/* Interview Experience (Hidden initially) */
+.experience-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    text-align: center;
+    opacity: 0;
+    overflow-y: auto; /* Enables scrolling for longer text */
+    transition: opacity 0.3s, height 0.3s;
+}
+
+/* Hover Effect: Expand div & show experience */
+.student-card:hover {
+    height: 300px; /* Expand card height */
+}
+
+.student-card:hover .default-view {
+    opacity: 0;
+}
+
+.student-card:hover .experience-view {
+    opacity: 1;
+}
+
+/* Make sure experience text is readable */
+.experience-view p {
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 10px;
+}

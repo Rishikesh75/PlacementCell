@@ -1,0 +1,32 @@
+
+    <div class="student-card">
+        <!-- Student photo as background -->
+        <div class="student-photo" style="background-image: url('student-photo.jpg');"></div>
+
+        <!-- Default view (Contact, LinkedIn, Resume) -->
+        <div class="student-info default-view">
+            <h3 [innerText]="student.rollNo"></h3>
+            <p class="contact"><strong>Contact:</strong> <span [innerText]="student.contactNo"></span></p>
+        <p class="linkedin">
+            <strong>LinkedIn:</strong> 
+            <a [href]="student.linkdIn" target="_blank" [innerText]="'View Profile'"></a>
+        </p>
+        </div>
+
+        <!-- Interview Experience (Hidden initially, expands on hover) -->
+        <div class="student-info experience-view">
+            <div>
+                <!--app-editable-text></app-editable-text-->
+                <app-editable-text [text]="student.interviewExperience" [editMode]="editMode" [deleteMode]="deleteMode" (textChange)="onTextChange($event)"></app-editable-text>
+            </div>
+            <!-- Delete and Edit text for Admin User -->
+            <div class="actions">
+                <app-button (click)="Edittext()" label="Edit"></app-button>
+                <app-button (click)="DeleteText()" label="Delete"></app-button>
+            </div>
+        </div>
+
+        
+    </div>
+    
+

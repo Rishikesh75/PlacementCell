@@ -1,0 +1,41 @@
+.fields {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+.field {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+    position: relative;
+}
+
+.field:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+/* Add an underline effect on hover */
+.field::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+    width: 0;
+    height: 3px;
+    background-color: #2c56b8;
+    transition: 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.field:hover::after {
+    width: 100%;
+}
