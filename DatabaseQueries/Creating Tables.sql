@@ -1,0 +1,85 @@
+-- -- CREATE TABLE Student (
+-- --     StudentId BIGINT PRIMARY KEY,
+-- --     name VARCHAR,
+-- --     Major VARCHAR,
+-- --     Email VARCHAR,
+-- --     GraduationYear BIGINT,
+-- --     PhoneNO VARCHAR
+-- -- );
+-- CREATE TABLE Alumni (
+--     AlumniID BIGINT PRIMARY KEY,
+--     Position VARCHAR,
+--     LinkedInUrl VARCHAR,
+--     CompanyID BIGINT,
+--     FOREIGN KEY (AlumniID) REFERENCES Student(StudentId),
+--     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID)
+-- );
+-- -- CREATE TABLE Teacher (
+-- --     Teacher_Id BIGINT PRIMARY KEY,
+-- --     Name VARCHAR,
+-- --     Email VARCHAR,
+-- --     Department BIGINT
+-- -- );
+-- CREATE TABLE Company (
+--     CompanyID BIGINT PRIMARY KEY,
+--     CompanyName VARCHAR,
+--     Industry VARCHAR
+-- );
+-- -- CREATE TABLE CompanyEmployee (
+-- --     ID BIGINT PRIMARY KEY,
+-- --     Name VARCHAR,
+-- --     CompanyID BIGINT,
+-- --     Position VARCHAR,
+-- --     Email VARCHAR,
+-- --     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID)
+-- -- );
+-- -- CREATE TABLE PlacementOppurtunity (
+-- --     TeacherID INT,
+-- --     Employeemail VARCHAR,
+-- --     CompanyID VARCHAR,
+-- --     FOREIGN KEY (TeacherID) REFERENCES Teacher(Teacher_Id),
+-- --     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID),
+-- --     FOREIGN KEY (Employeemail) REFERENCES CompanyEmployee(Email)
+-- -- );
+-- -- CREATE TABLE Restaurants (
+-- --     RestaurantID BIGINT PRIMARY KEY,
+-- --     Name VARCHAR,
+-- --     ContactInfo VARCHAR,
+-- --     CusienType VARCHAR,
+-- --     Rating INT
+-- -- );
+-- -- CREATE TABLE Food (
+-- --     RestaurantID BIGINT,
+-- --     CompanyID BIGINT,
+-- --     Description VARCHAR,
+-- --     Date DATE,
+-- --     FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID),
+-- --     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID)
+-- -- );
+-- -- CREATE TABLE FeedbackonCompany (
+-- --     Feedbackid BIGINT PRIMARY KEY,
+-- --     CompanyID VARCHAR,
+-- --     AlumniID VARCHAR,
+-- --     Description VARCHAR,
+-- --     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID),
+-- --     FOREIGN KEY (AlumniID) REFERENCES Alumni(AlumniID)
+-- -- );
+-- -- CREATE TABLE ExperienceOpenings (
+-- --     CompanyID VARCHAR,
+-- --     JobID VARCHAR,
+-- --     Role VARCHAR,
+-- --     Experience INT,
+-- --     CompanyEmployeeEn VARCHAR,
+-- --     FOREIGN KEY (CompanyID) REFERENCES Company(CompanyID),
+-- --     FOREIGN KEY (CompanyEmployeeEn) REFERENCES CompanyEmployee(Email)
+-- -- );
+-- -- CREATE TABLE EmployeeFeedBack (
+-- --     CompanyEm_id BIGINT,
+-- --     Batch BIGINT,
+-- --     Description VARCHAR,
+-- --     FOREIGN KEY (CompanyEm_id) REFERENCES CompanyEmployee(ID)
+-- -- );
+SELECT table_name 
+FROM information_schema.tables 
+WHERE table_schema = 'public' AND table_type = 'BASE TABLE';
+
