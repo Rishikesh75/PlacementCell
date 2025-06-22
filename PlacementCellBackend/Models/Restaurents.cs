@@ -1,7 +1,10 @@
-﻿namespace PlacementCellBackend.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PlacementCellBackend.Models
 {
     public class Restaurents
     {
+        [Key]
         public int RestaurentId { get; set; } = 0;
         public string Name { get; set; } = string.Empty;
         public string contact { get; set; } = string.Empty; 

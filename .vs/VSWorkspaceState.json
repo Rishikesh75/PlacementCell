@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\PlacementCellBackend"
+    "\\PlacementCellBackend",
+    "\\PlacementCellBackend\\Controllers"
   ],
-  "SelectedNode": "\\PlacementCellBackend\\WeatherForecast.cs",
+  "SelectedNode": "\\PlacementCellBackend\\Controllers\\StudentController.cs",
   "PreviewInSolutionExplorer": false
 }

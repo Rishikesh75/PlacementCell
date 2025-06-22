@@ -40,7 +40,7 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateStudent(long id, Student student)
+        public async Task<IActionResult> UpdateStudent(string id, Student student)
         {
             if (id != student.studentid)
                 return BadRequest();
@@ -55,7 +55,6 @@ namespace PlacementCellBackend.Controllers
             existingStudent.email = student.email;
             existingStudent.graduationyear = student.graduationyear;
             existingStudent.phoneno = student.phoneno;
-
             await _context.SaveChangesAsync();
             return NoContent();
         }

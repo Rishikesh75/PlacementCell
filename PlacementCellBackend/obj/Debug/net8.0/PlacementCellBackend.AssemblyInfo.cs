@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PlacementCellBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ae31544dcb67f5bfd95451622a65a38ea630ff6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b6ebafc9b1bc858b2b3ab68bfd147c2a215564f")]
 [assembly: System.Reflection.AssemblyProductAttribute("PlacementCellBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PlacementCellBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
