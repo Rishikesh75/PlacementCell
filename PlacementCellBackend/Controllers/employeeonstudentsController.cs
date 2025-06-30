@@ -23,7 +23,6 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpPost]
-
         public IActionResult PostEmployeeOnStudent(EmployeeonStudent employeeonStudent)
         {
             if (employeeonStudent == null)
@@ -32,7 +31,7 @@ namespace PlacementCellBackend.Controllers
             }
             _context.employeeonStudents.Add(employeeonStudent);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetEmployeeOnStudents), new { id = employeeonStudent.RecordId }, employeeonStudent);
+            return CreatedAtAction(nameof(GetEmployeeOnStudents), new { RecordId = employeeonStudent.RecordId }, employeeonStudent);
 
         }
     }

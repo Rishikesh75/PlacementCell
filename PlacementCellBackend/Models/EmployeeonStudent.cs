@@ -5,7 +5,7 @@ namespace PlacementCellBackend.Models
 {
     public class EmployeeonStudent
     {
-        
+        [Key]
         public int RecordId { get; set; } // Primary key for this table
         [Required]
         public string CompnayEmpId { get; set; } = string.Empty;

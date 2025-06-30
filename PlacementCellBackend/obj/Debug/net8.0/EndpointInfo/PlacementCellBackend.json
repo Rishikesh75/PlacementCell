@@ -1733,8 +1733,8 @@
             "format": "int32"
           },
           "restaurentId": {
-            "minLength": 1,
-            "type": "string"
+            "type": "integer",
+            "format": "int32"
           },
           "restaurent": {
             "$ref": "#/components/schemas/Restaurents"

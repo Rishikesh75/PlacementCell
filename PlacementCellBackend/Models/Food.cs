@@ -4,10 +4,10 @@ namespace PlacementCellBackend.Models
 {
     public class Food
     {
-
+        [Key]
         public int Id { get; set; }=0;
         [Required]
-        public string restaurentId { get; set; } = string.Empty;
+        public int restaurentId { get; set; } =0;
         [ForeignKey("restaurentId")]
         public Restaurents? Restaurent { get; set; }
         [Required]
