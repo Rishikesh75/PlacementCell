@@ -26,7 +26,7 @@ namespace PlacementCellBackend.Controllers
         {
             _context.feedbackoncompany.Add(feedback);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetFeedbackOnCompany), new { id = feedback.FeedbackId }, feedback);
+            return CreatedAtAction(nameof(GetFeedbackOnCompany), new { id = feedback.feedbackid }, feedback);
         }
     }
 }

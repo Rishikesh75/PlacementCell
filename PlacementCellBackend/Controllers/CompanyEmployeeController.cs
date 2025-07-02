@@ -19,26 +19,26 @@ namespace PlacementCellBackend.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCompanyEmployees()
         {
-            var companyEmployees = await _context.companyEmployee.ToListAsync();
+            var companyEmployees = await _context.companyemployee.ToListAsync();
             return Ok(companyEmployees);
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostCompanyEmployee(CompanyEmployee companyEmployee)
+        public async Task<IActionResult> PostCompanyEmployee(Companyemployee companyEmployee)
         {
             if (companyEmployee == null)
             {
                 return BadRequest("Company employee data is null.");
             }
-            _context.companyEmployee.Add(companyEmployee);
+            _context.companyemployee.Add(companyEmployee);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetCompanyEmployees), new { id = companyEmployee.EmployeeId }, companyEmployee);
+            return CreatedAtAction(nameof(GetCompanyEmployees), new { id = companyEmployee.employeeid }, companyEmployee);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompanyEmployee(string id, CompanyEmployee updatedCompanyEmployee)
+        public async Task<IActionResult> PutCompanyEmployee(string id, Companyemployee updatedCompanyEmployee)
         {
-            if (id != updatedCompanyEmployee.EmployeeId)
+            if (id != updatedCompanyEmployee.employeeid)
             {
                 return BadRequest("ID mismatch.");
             }
@@ -60,18 +60,18 @@ namespace PlacementCellBackend.Controllers
 
         private bool CompanyEmployeeExists(string id)
         {
-            return _context.companyEmployee.Any(e => e.EmployeeId == id);
+            return _context.companyemployee.Any(e => e.employeeid == id);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompanyEmployee(string id)
         {
-            var companyEmployee = await _context.companyEmployee.FindAsync(id);
+            var companyEmployee = await _context.companyemployee.FindAsync(id);
             if (companyEmployee == null)
             {
                 return NotFound("Company employee not found.");
             }
-            _context.companyEmployee.Remove(companyEmployee);
+            _context.companyemployee.Remove(companyEmployee);
             await _context.SaveChangesAsync();
             return NoContent();
         }

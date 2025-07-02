@@ -3,23 +3,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlacementCellBackend.Models
 {
-    public class TeacherPlacement
+    public class TeacherPlacements
     {
         [Key]
-        public int Id { get; set; } // Primary key for this table (optional but recommended)
+        public int id { get; set; } // Primary key for this table (optional but recommended)
 
         [Required]
-        public string TeacherId { get; set; } = string.Empty;
+        public string teacherid { get; set; } = string.Empty;
 
-        [ForeignKey("TeacherId")]
+        [ForeignKey("teacherid")]
         public Teacher? Teacher { get; set; }
 
         [Required]
-        public string CompanyId { get; set; } = string.Empty;
+        public string companyid { get; set; } = string.Empty;
 
-        [ForeignKey("CompanyId")]
+        [ForeignKey("companyid")]
         public Company? Company { get; set; }
 
-        public string EmployeeEmail { get; set; } = string.Empty;
+        public string employeeemail { get; set; } = string.Empty;
     }
 }

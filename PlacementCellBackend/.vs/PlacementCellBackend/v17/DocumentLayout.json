@@ -3,48 +3,88 @@
   "WorkspaceRootPath": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\alumnicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\alumnicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\restaurents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\restaurents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\teacherplacement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\teacherplacement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\employeeonstudent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\employeeonstudent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\employeeonstudentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\employeeonstudentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\teacherplacementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\teacherplacementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\restaurentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\restaurentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\restaurents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\restaurents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\experienceopeningcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\experienceopeningcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\food.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\foodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\foodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\feedbackoncompanycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\feedbackoncompanycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\experienceopening.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\experienceopening.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\employeeonstudentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\employeeonstudentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\employeeonstudent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\employeeonstudent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\companyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\companyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\companyemployeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\companyemployeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\alumni.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\alumni.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\alumnicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\alumnicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\company.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\teacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -57,22 +97,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\placementcellbackend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
       "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:placementcellbackend.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\models\\companyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:models\\companyemployee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\companyemployeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\companyemployeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\foodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\foodcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|c:\\users\\kreddy\\documents\\placementcelliiitdm\\placementcellbackend\\controllers\\feedbackoncompanycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FF42243C-46C0-4BD5-B5C5-87A0BFC3DF80}|PlacementCellBackend.csproj|solutionrelative:controllers\\feedbackoncompanycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -82,7 +106,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -118,106 +142,253 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "student.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\student.cs",
-              "RelativeDocumentMoniker": "Models\\student.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\student.cs",
-              "RelativeToolTip": "Models\\student.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAwAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "TeacherPlacementController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\TeacherPlacementController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TeacherPlacementController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\TeacherPlacementController.cs",
+              "RelativeToolTip": "Controllers\\TeacherPlacementController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-30T17:16:33.239Z",
+              "WhenOpened": "2025-07-01T14:17:10.45Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TeacherPlacement.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\TeacherPlacement.cs",
+              "RelativeDocumentMoniker": "Models\\TeacherPlacement.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\TeacherPlacement.cs",
+              "RelativeToolTip": "Models\\TeacherPlacement.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAywBMAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T11:06:25.367Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "appDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Data\\appDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\appDbContext.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Data\\appDbContext.cs",
+              "RelativeToolTip": "Data\\appDbContext.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAhwA8AAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-15T12:02:58.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RestaurentController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\RestaurentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RestaurentController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\RestaurentController.cs",
+              "RelativeToolTip": "Controllers\\RestaurentController.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAgwBUAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T17:36:18.674Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Restaurents.cs",
               "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Restaurents.cs",
               "RelativeDocumentMoniker": "Models\\Restaurents.cs",
               "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Restaurents.cs",
               "RelativeToolTip": "Models\\Restaurents.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAUAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-23T14:18:04.636Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "appsettings.Development.json",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\appsettings.Development.json",
-              "RelativeDocumentMoniker": "appsettings.Development.json",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\appsettings.Development.json",
-              "RelativeToolTip": "appsettings.Development.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-06-23T13:56:36.787Z"
+              "DocumentIndex": 5,
+              "Title": "experienceopeningController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\experienceopeningController.cs",
+              "RelativeDocumentMoniker": "Controllers\\experienceopeningController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\experienceopeningController.cs",
+              "RelativeToolTip": "Controllers\\experienceopeningController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAQwDsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T16:57:35.417Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Food.cs",
               "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Food.cs",
               "RelativeDocumentMoniker": "Models\\Food.cs",
               "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Food.cs",
               "RelativeToolTip": "Models\\Food.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T14:15:34.038Z"
+              "WhenOpened": "2025-06-23T14:15:34.038Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
+              "Title": "FoodController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\FoodController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FoodController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\FoodController.cs",
+              "RelativeToolTip": "Controllers\\FoodController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD8AAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T13:25:47.056Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "feedbackoncompanyController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\feedbackoncompanyController.cs",
+              "RelativeDocumentMoniker": "Controllers\\feedbackoncompanyController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\feedbackoncompanyController.cs",
+              "RelativeToolTip": "Controllers\\feedbackoncompanyController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAABeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T11:21:54.909Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ExperienceOpening.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\ExperienceOpening.cs",
+              "RelativeDocumentMoniker": "Models\\ExperienceOpening.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\ExperienceOpening.cs",
+              "RelativeToolTip": "Models\\ExperienceOpening.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T14:06:48.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "employeeonstudentsController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\employeeonstudentsController.cs",
+              "RelativeDocumentMoniker": "Controllers\\employeeonstudentsController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\employeeonstudentsController.cs",
+              "RelativeToolTip": "Controllers\\employeeonstudentsController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T14:01:53.146Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CompanyEmployee.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\CompanyEmployee.cs",
+              "RelativeDocumentMoniker": "Models\\CompanyEmployee.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\CompanyEmployee.cs",
+              "RelativeToolTip": "Models\\CompanyEmployee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T11:49:16.402Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CompanyEmployeeController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\CompanyEmployeeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CompanyEmployeeController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\CompanyEmployeeController.cs",
+              "RelativeToolTip": "Controllers\\CompanyEmployeeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T13:30:05.026Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Alumni.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Alumni.cs",
+              "RelativeDocumentMoniker": "Models\\Alumni.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Alumni.cs",
+              "RelativeToolTip": "Models\\Alumni.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAADwvw4AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T12:27:01.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "Controllers\\StudentController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "Controllers\\StudentController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABUAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-01T14:51:44.296Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "EmployeeonStudent.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\EmployeeonStudent.cs",
+              "RelativeDocumentMoniker": "Models\\EmployeeonStudent.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\EmployeeonStudent.cs",
+              "RelativeToolTip": "Models\\EmployeeonStudent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAwAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T14:08:12.698Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "AlumniController.cs",
               "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\AlumniController.cs",
               "RelativeDocumentMoniker": "Controllers\\AlumniController.cs",
               "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\AlumniController.cs",
               "RelativeToolTip": "Controllers\\AlumniController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwEkAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-22T11:42:03.111Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TeacherController.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\TeacherController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TeacherController.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\TeacherController.cs",
-              "RelativeToolTip": "Controllers\\TeacherController.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAADwvxsAAABFAAAAAAAAAA==",
+              "DocumentIndex": 19,
+              "Title": "student.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\student.cs",
+              "RelativeDocumentMoniker": "Models\\student.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\student.cs",
+              "RelativeToolTip": "Models\\student.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAMAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T13:52:06.142Z"
+              "WhenOpened": "2025-06-30T17:16:33.239Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TeacherPlacement.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\TeacherPlacement.cs",
-              "RelativeDocumentMoniker": "Models\\TeacherPlacement.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\TeacherPlacement.cs",
-              "RelativeToolTip": "Models\\TeacherPlacement.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAeAAAAAAAAAA==",
+              "DocumentIndex": 17,
+              "Title": "Company.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Company.cs",
+              "RelativeDocumentMoniker": "Models\\Company.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Company.cs",
+              "RelativeToolTip": "Models\\Company.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T11:06:25.367Z"
+              "WhenOpened": "2025-07-01T13:54:46.295Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "EmployeeonStudent.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\EmployeeonStudent.cs",
-              "RelativeDocumentMoniker": "Models\\EmployeeonStudent.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\EmployeeonStudent.cs",
-              "RelativeToolTip": "Models\\EmployeeonStudent.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T14:08:12.698Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 18,
               "Title": "Teacher.cs",
               "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Teacher.cs",
               "RelativeDocumentMoniker": "Models\\Teacher.cs",
@@ -229,7 +400,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 21,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "appsettings.Development.json",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\appsettings.Development.json",
+              "RelativeToolTip": "appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-23T13:56:36.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "TeacherController.cs",
+              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\TeacherController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TeacherController.cs",
+              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\TeacherController.cs",
+              "RelativeToolTip": "Controllers\\TeacherController.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAADwvxsAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-23T13:52:06.142Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
               "Title": "PlacementCellBackend.http",
               "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\PlacementCellBackend.http",
               "RelativeDocumentMoniker": "PlacementCellBackend.http",
@@ -241,7 +436,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 22,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -250,90 +445,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-06-23T13:56:46.877Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "employeeonstudentsController.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\employeeonstudentsController.cs",
-              "RelativeDocumentMoniker": "Controllers\\employeeonstudentsController.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\employeeonstudentsController.cs",
-              "RelativeToolTip": "Controllers\\employeeonstudentsController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-23T14:01:53.146Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Alumni.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Alumni.cs",
-              "RelativeDocumentMoniker": "Models\\Alumni.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\Alumni.cs",
-              "RelativeToolTip": "Models\\Alumni.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T12:27:01.257Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "appDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Data\\appDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\appDbContext.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Data\\appDbContext.cs",
-              "RelativeToolTip": "Data\\appDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAMAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-15T12:02:58.012Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "FoodController.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\FoodController.cs",
-              "RelativeDocumentMoniker": "Controllers\\FoodController.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\FoodController.cs",
-              "RelativeToolTip": "Controllers\\FoodController.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAADgv0IAAAAyAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T13:25:47.056Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "feedbackoncompanyController.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\feedbackoncompanyController.cs",
-              "RelativeDocumentMoniker": "Controllers\\feedbackoncompanyController.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\feedbackoncompanyController.cs",
-              "RelativeToolTip": "Controllers\\feedbackoncompanyController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAABfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T11:21:54.909Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "CompanyEmployee.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\CompanyEmployee.cs",
-              "RelativeDocumentMoniker": "Models\\CompanyEmployee.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Models\\CompanyEmployee.cs",
-              "RelativeToolTip": "Models\\CompanyEmployee.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T11:49:16.402Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "CompanyEmployeeController.cs",
-              "DocumentMoniker": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\CompanyEmployeeController.cs",
-              "RelativeDocumentMoniker": "Controllers\\CompanyEmployeeController.cs",
-              "ToolTip": "C:\\Users\\kreddy\\Documents\\PlacementCellIIITDM\\PlacementCellBackend\\Controllers\\CompanyEmployeeController.cs",
-              "RelativeToolTip": "Controllers\\CompanyEmployeeController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-22T13:30:05.026Z"
             }
           ]
         },

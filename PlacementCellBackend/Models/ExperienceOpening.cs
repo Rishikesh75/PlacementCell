@@ -5,18 +5,18 @@ namespace PlacementCellBackend.Models
 {
     public class ExperienceOpening
     {
-        public int Id { get; set; } = 0;
+        public int id { get; set; } = 0;
         [Required]
-        public string CompanyId { get; set; } = string.Empty;
+        public string companyid { get; set; } = string.Empty;
 
-        [ForeignKey("CompanyId")]
+        [ForeignKey("companyid")]
         public Company? Company { get; set; }
         [Required]
-        public string JobID { get; set; } = string.Empty;
-        public string JobTitle { get; set; } = string.Empty;
-        public string ExperienceRequired { get; set; } = string.Empty;
+        public string jobid { get; set; } = string.Empty;
+        public string jobtitle { get; set; } = string.Empty;
+        public string experiencerequired { get; set; } = string.Empty;
 
-        public string CompanyEmpEmail { get; set; } = string.Empty;
+        public string companyempemail { get; set; } = string.Empty;
 
     }
 }

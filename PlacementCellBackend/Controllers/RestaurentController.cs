@@ -19,7 +19,7 @@ namespace PlacementCellBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Restaurents>>> GetAllRestaurents()
         {
-            return Ok(await _context.student.ToListAsync());
+            return Ok(await _context.restaurents.ToListAsync());
         }
         [HttpGet]
         [Route("{id}")]
@@ -35,21 +35,21 @@ namespace PlacementCellBackend.Controllers
         {
             _context.restaurents.Add(restaurent);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetRestaurentById), new { id = restaurent.RestaurentId }, restaurent);
+            return CreatedAtAction(nameof(GetRestaurentById), new { id = restaurent.restaurentid }, restaurent);
         }
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRestaurent(int id, Restaurents restaurent)
         {
-            if (id != restaurent.RestaurentId)
+            if (id != restaurent.restaurentid)
                 return BadRequest();
             var existingRestaurent = await _context.restaurents.FindAsync(id);
             if (existingRestaurent == null)
                 return NotFound();
             // Update fields
-            existingRestaurent.Name = restaurent.Name;
+            existingRestaurent.name = restaurent.name;
             existingRestaurent.contact = restaurent.contact;
             existingRestaurent.address = restaurent.address;
-            existingRestaurent.Rating = restaurent.Rating;
+            existingRestaurent.rating = restaurent.rating;
             await _context.SaveChangesAsync();
             return NoContent();
         }

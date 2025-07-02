@@ -388,17 +388,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompanyEmployee"
+                "$ref": "#/components/schemas/Companyemployee"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompanyEmployee"
+                "$ref": "#/components/schemas/Companyemployee"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CompanyEmployee"
+                "$ref": "#/components/schemas/Companyemployee"
               }
             }
           }
@@ -429,17 +429,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompanyEmployee"
+                "$ref": "#/components/schemas/Companyemployee"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CompanyEmployee"
+                "$ref": "#/components/schemas/Companyemployee"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CompanyEmployee"
+                "$ref": "#/components/schemas/Companyemployee"
               }
             }
           }
@@ -1184,7 +1184,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TeacherPlacement"
+                    "$ref": "#/components/schemas/TeacherPlacements"
                   }
                 }
               },
@@ -1192,7 +1192,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TeacherPlacement"
+                    "$ref": "#/components/schemas/TeacherPlacements"
                   }
                 }
               },
@@ -1200,7 +1200,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/TeacherPlacement"
+                    "$ref": "#/components/schemas/TeacherPlacements"
                   }
                 }
               }
@@ -1216,17 +1216,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TeacherPlacement"
+                "$ref": "#/components/schemas/TeacherPlacements"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TeacherPlacement"
+                "$ref": "#/components/schemas/TeacherPlacements"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TeacherPlacement"
+                "$ref": "#/components/schemas/TeacherPlacements"
               }
             }
           }
@@ -1237,17 +1237,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TeacherPlacement"
+                  "$ref": "#/components/schemas/TeacherPlacements"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TeacherPlacement"
+                  "$ref": "#/components/schemas/TeacherPlacements"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TeacherPlacement"
+                  "$ref": "#/components/schemas/TeacherPlacements"
                 }
               }
             }
@@ -1272,17 +1272,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TeacherPlacement"
+                "$ref": "#/components/schemas/TeacherPlacements"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TeacherPlacement"
+                "$ref": "#/components/schemas/TeacherPlacements"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TeacherPlacement"
+                "$ref": "#/components/schemas/TeacherPlacements"
               }
             }
           }
@@ -1315,17 +1315,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/TeacherPlacement"
+                  "$ref": "#/components/schemas/TeacherPlacements"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TeacherPlacement"
+                  "$ref": "#/components/schemas/TeacherPlacements"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/TeacherPlacement"
+                  "$ref": "#/components/schemas/TeacherPlacements"
                 }
               }
             }
@@ -1541,11 +1541,11 @@
     "schemas": {
       "Alumni": {
         "required": [
-          "companyId"
+          "companyid"
         ],
         "type": "object",
         "properties": {
-          "alumniId": {
+          "alumniid": {
             "type": "string",
             "nullable": true
           },
@@ -1553,11 +1553,11 @@
             "type": "string",
             "nullable": true
           },
-          "linkdinProfile": {
+          "linkdinprofile": {
             "type": "string",
             "nullable": true
           },
-          "companyId": {
+          "companyid": {
             "minLength": 1,
             "type": "string"
           },
@@ -1581,24 +1581,17 @@
           "industry": {
             "type": "string",
             "nullable": true
-          },
-          "teacherPlacements": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TeacherPlacement"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "CompanyEmployee": {
+      "Companyemployee": {
         "required": [
-          "companyId"
+          "companyid"
         ],
         "type": "object",
         "properties": {
-          "employeeId": {
+          "employeeid": {
             "type": "string",
             "nullable": true
           },
@@ -1614,7 +1607,7 @@
             "type": "string",
             "nullable": true
           },
-          "companyId": {
+          "companyid": {
             "minLength": 1,
             "type": "string"
           },
@@ -1639,7 +1632,7 @@
             "type": "string"
           },
           "companyEmployee": {
-            "$ref": "#/components/schemas/CompanyEmployee"
+            "$ref": "#/components/schemas/Companyemployee"
           },
           "batchId": {
             "type": "string",
@@ -1654,8 +1647,8 @@
       },
       "ExperienceOpening": {
         "required": [
-          "companyId",
-          "jobID"
+          "companyid",
+          "jobid"
         ],
         "type": "object",
         "properties": {
@@ -1663,26 +1656,26 @@
             "type": "integer",
             "format": "int32"
           },
-          "companyId": {
+          "companyid": {
             "minLength": 1,
             "type": "string"
           },
           "company": {
             "$ref": "#/components/schemas/Company"
           },
-          "jobID": {
+          "jobid": {
             "minLength": 1,
             "type": "string"
           },
-          "jobTitle": {
+          "jobtitle": {
             "type": "string",
             "nullable": true
           },
-          "experienceRequired": {
+          "experiencerequired": {
             "type": "string",
             "nullable": true
           },
-          "companyEmpEmail": {
+          "companyempemail": {
             "type": "string",
             "nullable": true
           }
@@ -1691,23 +1684,23 @@
       },
       "FeedBackOnCompany": {
         "required": [
-          "alumniID",
-          "companyId"
+          "alumniid",
+          "companyid"
         ],
         "type": "object",
         "properties": {
-          "feedbackId": {
+          "feedbackid": {
             "type": "string",
             "nullable": true
           },
-          "companyId": {
+          "companyid": {
             "minLength": 1,
             "type": "string"
           },
           "company": {
             "$ref": "#/components/schemas/Company"
           },
-          "alumniID": {
+          "alumniid": {
             "minLength": 1,
             "type": "string"
           },
@@ -1723,8 +1716,8 @@
       },
       "Food": {
         "required": [
-          "companyID",
-          "restaurentId"
+          "companyid",
+          "restaurentid"
         ],
         "type": "object",
         "properties": {
@@ -1732,14 +1725,14 @@
             "type": "integer",
             "format": "int32"
           },
-          "restaurentId": {
+          "restaurentid": {
             "type": "integer",
             "format": "int32"
           },
           "restaurent": {
             "$ref": "#/components/schemas/Restaurents"
           },
-          "companyID": {
+          "companyid": {
             "minLength": 1,
             "type": "string"
           },
@@ -1760,7 +1753,7 @@
       "Restaurents": {
         "type": "object",
         "properties": {
-          "restaurentId": {
+          "restaurentid": {
             "type": "integer",
             "format": "int32"
           },
@@ -1835,10 +1828,10 @@
         },
         "additionalProperties": false
       },
-      "TeacherPlacement": {
+      "TeacherPlacements": {
         "required": [
-          "companyId",
-          "teacherId"
+          "companyid",
+          "teacherid"
         ],
         "type": "object",
         "properties": {
@@ -1846,21 +1839,21 @@
             "type": "integer",
             "format": "int32"
           },
-          "teacherId": {
+          "teacherid": {
             "minLength": 1,
             "type": "string"
           },
           "teacher": {
             "$ref": "#/components/schemas/Teacher"
           },
-          "companyId": {
+          "companyid": {
             "minLength": 1,
             "type": "string"
           },
           "company": {
             "$ref": "#/components/schemas/Company"
           },
-          "employeeEmail": {
+          "employeeemail": {
             "type": "string",
             "nullable": true
           }

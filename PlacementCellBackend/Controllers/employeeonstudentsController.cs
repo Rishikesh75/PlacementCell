@@ -18,7 +18,7 @@ namespace PlacementCellBackend.Controllers
         [HttpGet]
         public IActionResult GetEmployeeOnStudents()
         {
-            var employeeOnStudents = _context.employeeonStudents.ToList();
+            var employeeOnStudents = _context.employeeonstudent.ToList();
             return Ok(employeeOnStudents);
         }
 
@@ -29,7 +29,7 @@ namespace PlacementCellBackend.Controllers
             {
                 return BadRequest("Invalid data.");
             }
-            _context.employeeonStudents.Add(employeeonStudent);
+            _context.employeeonstudent.Add(employeeonStudent);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetEmployeeOnStudents), new { RecordId = employeeonStudent.RecordId }, employeeonStudent);
 

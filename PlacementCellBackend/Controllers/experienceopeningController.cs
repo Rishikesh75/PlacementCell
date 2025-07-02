@@ -40,14 +40,14 @@ namespace PlacementCellBackend.Controllers
             }
             _context.experienceopening.Add(opening);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetExperienceOpeningById), new { id = opening.Id }, opening);
+            return CreatedAtAction(nameof(GetExperienceOpeningById), new { id = opening.id }, opening);
         }
 
         [HttpPut]
         [Route("{id}")]
         public IActionResult UpdateExperienceOpening(int id, ExperienceOpening updatedOpening)
         {
-            if (updatedOpening == null || updatedOpening.Id != id)
+            if (updatedOpening == null || updatedOpening.id != id)
             {
                 return BadRequest("Invalid experience opening data.");
             }
@@ -56,11 +56,11 @@ namespace PlacementCellBackend.Controllers
             {
                 return NotFound();
             }
-            existingOpening.CompanyId = updatedOpening.CompanyId;
-            existingOpening.JobID = updatedOpening.JobID;
-            existingOpening.JobTitle = updatedOpening.JobTitle;
-            existingOpening.ExperienceRequired = updatedOpening.ExperienceRequired;
-            existingOpening.CompanyEmpEmail = updatedOpening.CompanyEmpEmail;
+            existingOpening.companyid = updatedOpening.companyid;
+            existingOpening.jobid = updatedOpening.jobid;
+            existingOpening.jobtitle = updatedOpening.jobtitle;
+            existingOpening.experiencerequired = updatedOpening.experiencerequired;
+            existingOpening.companyempemail = updatedOpening.companyempemail;
             _context.SaveChanges();
             return NoContent();
         }

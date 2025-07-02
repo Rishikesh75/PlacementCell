@@ -46,13 +46,13 @@ namespace PlacementCellBackend.Controllers
             }
             _context.food.Add(foodItem); // Assuming FoodItems is a DbSet in AppDbContext
             _context.SaveChanges();
-            return CreatedAtAction(nameof(GetFoodItem), new { id = foodItem.Id }, foodItem);
+            return CreatedAtAction(nameof(GetFoodItem), new { id = foodItem.id }, foodItem);
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateFoodItem(int id, Food foodItem)
         {
-            if (id != foodItem.Id)
+            if (id != foodItem.id)
             {
                 return BadRequest("Food item ID mismatch.");
             }
@@ -61,10 +61,10 @@ namespace PlacementCellBackend.Controllers
             {
                 return NotFound();
             }
-            existingFoodItem.restaurentId = foodItem.restaurentId; // Update properties as needed
-            existingFoodItem.companyID = foodItem.companyID;
-            existingFoodItem.Description = foodItem.Description;
-            existingFoodItem.Date = foodItem.Date;// Update properties as needed
+            existingFoodItem.restaurentid = foodItem.restaurentid; // Update propertie as needed
+            existingFoodItem.companyid = foodItem.companyid;
+            existingFoodItem.description = foodItem.description;
+            existingFoodItem.date = foodItem.date;
             _context.SaveChanges();
             return NoContent();
         }

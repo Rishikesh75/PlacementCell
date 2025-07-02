@@ -5,16 +5,16 @@ namespace PlacementCellBackend.Models
     public class FeedBackOnCompany
     {
         [Key]
-        public string FeedbackId { get; set; } = string.Empty;
+        public string feedbackid { get; set; } = string.Empty;
         [Required]
-        public string CompanyId { get; set; } = string.Empty;
+        public string companyid { get; set; } = string.Empty;
 
-        [ForeignKey("CompanyId")]
+        [ForeignKey("companyid")]
         public Company? Company { get; set; }
         [Required]
-        public string AlumniID { get; set; } = string.Empty;
-        [ForeignKey("AlumniID")]
+        public string alumniid { get; set; } = string.Empty;
+        [ForeignKey("alumniid")]
         public Alumni? Alumni { get; set; }
-        public string Description { get; set; } = string.Empty;
+        public string description { get; set; } = string.Empty;
     }
 }

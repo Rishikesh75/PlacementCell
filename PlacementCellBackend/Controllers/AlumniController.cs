@@ -28,7 +28,7 @@ namespace PlacementCellBackend.Controllers
         {
             _context.alumni.Add(alumni);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetAlumni), new { id = alumni.AlumniId }, alumni);
+            return CreatedAtAction(nameof(GetAlumni), new { id = alumni.alumniid }, alumni);
         }
 
         [HttpGet("{id}")]
@@ -45,7 +45,7 @@ namespace PlacementCellBackend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAlumni(string id, Alumni updatedAlumni)
         {
-            if (id != updatedAlumni.AlumniId)
+            if (id != updatedAlumni.alumniid)
             {
                 return BadRequest();
             }
@@ -71,7 +71,7 @@ namespace PlacementCellBackend.Controllers
 
         private bool AlumniExists(string id)
         {
-            return _context.alumni.Any(e => e.AlumniId == id);
+            return _context.alumni.Any(e => e.alumniid == id);
         }
         // DELETE: api/alumni/{id}
         [HttpDelete("{id}")]

@@ -9,7 +9,6 @@ namespace PlacementCellBackend.Models
         public string company_name { get; set; } = string.Empty;
 
         public string industry { get; set; } = string.Empty;
-        public ICollection<TeacherPlacement>? TeacherPlacements { get; set; }
     }
 
 }

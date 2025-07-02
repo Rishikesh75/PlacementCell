@@ -10,7 +10,7 @@ namespace PlacementCellBackend.Models
         [Required]
         public string CompnayEmpId { get; set; } = string.Empty;
         [ForeignKey("CompanyEmpId")]
-        public CompanyEmployee? CompanyEmployee { get; set; }
+        public Companyemployee? CompanyEmployee { get; set; }
 
         public string BatchId { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;

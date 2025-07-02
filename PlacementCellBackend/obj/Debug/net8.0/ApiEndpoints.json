@@ -237,7 +237,7 @@
     "Parameters": [
       {
         "Name": "companyEmployee",
-        "Type": "PlacementCellBackend.Models.CompanyEmployee",
+        "Type": "PlacementCellBackend.Models.Companyemployee",
         "IsRequired": true
       }
     ],
@@ -258,7 +258,7 @@
       },
       {
         "Name": "updatedCompanyEmployee",
-        "Type": "PlacementCellBackend.Models.CompanyEmployee",
+        "Type": "PlacementCellBackend.Models.Companyemployee",
         "IsRequired": true
       }
     ],
@@ -706,7 +706,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[PlacementCellBackend.Models.TeacherPlacement, PlacementCellBackend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PlacementCellBackend.Models.TeacherPlacements, PlacementCellBackend, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -726,13 +726,13 @@
     "Parameters": [
       {
         "Name": "teacherPlacement",
-        "Type": "PlacementCellBackend.Models.TeacherPlacement",
+        "Type": "PlacementCellBackend.Models.TeacherPlacements",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "PlacementCellBackend.Models.TeacherPlacement",
+        "Type": "PlacementCellBackend.Models.TeacherPlacements",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -757,7 +757,7 @@
       },
       {
         "Name": "updatedTeacherPlacement",
-        "Type": "PlacementCellBackend.Models.TeacherPlacement",
+        "Type": "PlacementCellBackend.Models.TeacherPlacements",
         "IsRequired": true
       }
     ],
@@ -779,7 +779,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "PlacementCellBackend.Models.TeacherPlacement",
+        "Type": "PlacementCellBackend.Models.TeacherPlacements",
         "MediaTypes": [
           "text/plain",
           "application/json",
