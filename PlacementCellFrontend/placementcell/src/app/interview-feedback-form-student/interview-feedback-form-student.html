@@ -1,0 +1,296 @@
+<div #outer class="form-container" (scroll)="onScroll($event)">
+  <!-- Left Static Column -->
+  <div #left class="stepper-wrapper">
+    <div class="stepper">
+      <div 
+        *ngFor="let step of steps; let i = index" 
+        class="step" 
+        [ngClass]="{ 'active': i === currentStep }">
+        {{ step }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Scrollable Column -->
+  <div #right class="form-content">
+    <div class="btn-container">
+      <button *ngIf="currentStep > 0" (click)="prevStep()" type="button" class="btn prev-btn">&larr; Previous</button>
+      <button *ngIf="currentStep < steps.length - 1" (click)="nextStep()" type="button" class="btn next-btn">Next &rarr;</button>
+      <button *ngIf="currentStep === steps.length - 1" (click)="onSubmit()" type="submit" class="btn submit-btn">Submit</button>
+    </div>
+
+    <div class="slider-wrapper">
+      <div class="form-slider" [ngStyle]="{ 'transform': getSliderTransform() }">
+        <!--Comapny Details-->
+        <div  class="form-page" [hidden]="currentStep !== 0" #formPage>
+          <ng-container>
+               <form [formGroup]="companyDetailsForm">
+          <div class="vertical-stack">
+                <h2>{{ steps[0] }}</h2>
+                <app-drop-down [DropDownOptions]="companies" (CompanySelected)="this.FeedbackFormData.companydetails.companyName = $event"></app-drop-down>
+
+                  <span class="section-title">Job Profiles:</span>
+                  <div class="job-profiles">
+                    <app-radio-group name="jobProfile" (valueChange)="handleJobProfileChange($event)"> 
+                      <app-radio-button 
+                          label="SDE" 
+                          name="jobProfile" 
+                          value="sde" 
+                          >
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="AI/ML" 
+                          name="jobProfile" 
+                          value="aiml">
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Others" 
+                          name="jobProfile" 
+                          value="others">
+                        </app-radio-button>
+                    </app-radio-group>
+                        
+
+                  </div>
+                  
+                <div class="container">
+                  <span class="section-title">No of Rounds:</span>
+                  <app-counter (countChange)="FeedbackFormData.companydetails.numRounds = $event"></app-counter>
+                </div>
+                
+                  <span class="section-title">Job Type:</span>
+                  <div class="job-profiles">
+                    <app-radio-group name="jobType" (valueChange)="handleJobTypeChange($event)"> 
+                      <app-radio-button 
+                          label="intern" 
+                          name="jobType" 
+                          value="intern" 
+                        >
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="intern+fte" 
+                          name="jobType" 
+                          value="intern+fte">
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Fte" 
+                          name="jobType" 
+                          value="Fte">
+                        </app-radio-button>  
+                    
+                    </app-radio-group>    
+                    
+                  </div>
+                  
+                  <div class="container">
+                  <span class="section-title">CTC:</span>
+                  <app-number-input (valueChange)="FeedbackFormData.companydetails.ctc = $event"></app-number-input>
+                </div>
+
+                <span class="section-title">Work Mode:</span>
+                  <div class="job-profiles">
+                      <app-radio-group name="WorkMode" (valueChange)="FeedbackFormData.companydetails.workMode = $event">
+                        <app-radio-button 
+                          label="WFH" 
+                          name="WorkMode" 
+                          value="WFH" 
+                          >
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Hybrid" 
+                          name="WorkMode" 
+                          value="Hybrid">
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Onsite" 
+                          name="WorkMode" 
+                          value="Onsite">
+                        </app-radio-button>
+                      </app-radio-group>  
+                      
+                  </div>
+
+                  <span class="section-title">Location:</span>
+                  <app-drop-down [Label]="'Select Location'" [DropDownOptions]="locations" (CompanySelected)="FeedbackFormData.companydetails.location = $event"></app-drop-down>
+            </div>
+            
+
+          </form>
+
+
+          </ng-container>
+         
+        </div>
+        <!-- Coding Round -->
+        <div  class="form-page" [hidden]="currentStep !== 1" #formPage>
+          
+          <ng-container>
+              <form [formGroup]="companyDetailsForm">
+           <div class="vertical-stack">
+            <h2>{{ steps[1] }}</h2>
+             <span class="section-title">Coding Platform:</span>
+                  
+                <div class="job-profiles">
+                  <app-radio-group name="jobProfile" (valueChange)="FeedbackFormData.codingroundinfo.codingPlatform = $event">
+                      <app-radio-button 
+                          label="HackerRank" 
+                          name="jobProfile" 
+                          value="sde" 
+                          >
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Leetcode" 
+                          name="jobProfile" 
+                          value="aiml">
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="HackerEarth" 
+                          name="jobProfile" 
+                          value="others">
+                        </app-radio-button>
+                        <app-radio-button 
+                          label="Others" 
+                          name="jobProfile" 
+                          value="others">
+                        </app-radio-button>
+                  
+                  </app-radio-group>      
+                  
+                  </div>
+
+            <span class="section-title">Duration:</span>
+                  <app-duration-selector></app-duration-selector>
+            <span class="section-title">Question Asked:</span>
+                <app-greybox section="CodingQuestion"  (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+            <span class="section-title">Dificulty Level:</span>   
+                  <app-radio-group name="Dificulty Level" (valueChange)="FeedbackFormData.codingroundinfo.codingDifficulty = $event">
+                    <div class="job-profiles">
+                        <app-radio-button 
+                          label="Easy" 
+                          name="Dificulty Level" 
+                          value="Easy" 
+                          >
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Medium" 
+                          name="Dificulty Level" 
+                          value="Medium">
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Difficult" 
+                          name="Dificulty Level" 
+                          value="Difficult">
+                        </app-radio-button>
+                  </div>
+                  
+                  </app-radio-group>
+            
+                  <span class="section-title">Interview Mode:</span>
+                <div class="job-profiles">
+                  <app-radio-group name="codingDifficulty" (valueChange)="FeedbackFormData.codingroundinfo.codingDifficulty = $event">
+                    <app-radio-button 
+                    label="Online" 
+                    name="interviewMode" 
+                    value="online" 
+                    >
+                  </app-radio-button>
+
+                  <app-radio-button 
+                    label="Offline" 
+                    name="interviewMode" 
+                    value="offline">
+                  </app-radio-button>
+                  </app-radio-group>
+                  
+                </div>
+           </div>
+         
+        </form>
+
+          </ng-container>
+          
+        </div>
+        <!--Technical Round-->
+        <div  class="form-page" [hidden]="currentStep !== 2" #formPage >
+          <ng-container>
+            <form [formGroup]="companyDetailsForm">
+              <div class="vertical-stack">
+                <h2>{{ steps[2] }}</h2>
+                <span class="section-title">Interview Mode:</span>
+                <div class="job-profiles">
+                  <app-radio-group name="interviewMode" (valueChange)="FeedbackFormData.TechnicalRound.Interviewmode = $event">
+                    <app-radio-button 
+                    label="Online" 
+                    name="interviewMode" 
+                    value="online" 
+                    >
+                  </app-radio-button>
+
+                  <app-radio-button 
+                    label="Offline" 
+                    name="interviewMode" 
+                    value="offline">
+                  </app-radio-button>
+                    </app-radio-group>
+                  
+                </div>
+
+                <span class="section-title">Interview Duration:</span>
+                <app-duration-selector (durationChange)="FeedbackFormData.TechnicalRound.Duration = $event"></app-duration-selector>
+
+                <span class="section-title">DSA question:</span>
+                <app-greybox section="DSAQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+
+
+                <span class="section-title">DBMS/OS/OPPS/CN Questions</span>
+                <app-greybox section="DBMSQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+
+                <span class="section-title">System Design Questions</span>
+                <app-greybox section="SystemDesign" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+
+                <span class="section-title">PuzzleBased Questions:</span>
+                <app-greybox section="PuzzleBasedQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+              </div>
+            </form>
+          </ng-container>
+        </div>
+        <!--HR Round-->
+        <div  class="form-page"  [hidden]="currentStep !== 3" #formPage>
+           
+          <ng-container>
+
+            <div class="vertical-stack">
+                <h2>{{ steps[3] }}</h2>
+              <span class="section-title">SituationBased Questions:</span>
+                <app-greybox section="SituationBasedQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+
+                <span class="section-title">Unexpected Questions:</span>
+                <app-greybox section="UnexpectedQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+              </div>
+           </ng-container>
+        </div>
+        <!--Resources Used-->
+        <div  class="form-page" [hidden]="currentStep !== 4" #formPage>
+          <div class="vertical-stack">
+                <h2>{{ steps[4] }}</h2>
+          <ng-container>
+            <span class="section-title">Resources:</span>
+                <app-greybox section="Resources" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+
+         </ng-container>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>      

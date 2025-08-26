@@ -1,0 +1,8 @@
+<div class="content">
+  <!-- <input type="text" placeholder="Enter text..." /> -->
+   <textarea 
+   placeholder="Enter text..." 
+   [(ngModel)]="textValue"
+    (keydown.enter)="onEnterPressed($event)"
+   class="limited-text"></textarea>
+</div>

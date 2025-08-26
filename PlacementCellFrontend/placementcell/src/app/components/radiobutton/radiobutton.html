@@ -1,0 +1,11 @@
+<label>
+  <input 
+    type="radio" 
+    [name]="name" 
+    [value]="value" 
+    [checked]="value === innerValue"
+    (change)="onChangeHandler($event)"
+    
+  />
+  {{ label }}
+</label>

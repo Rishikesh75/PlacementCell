@@ -1,0 +1,291 @@
+<div class="grey-box">
+  <div>
+    <button (click)="onAddClick()">Add</button>
+  </div>
+
+  <!-- i works like in a normal for loop -->
+  <div class="SubContainer">
+    <ng-container *ngIf="section === 'CodingQuestion'">
+    <ng-container *ngFor="let box of inputBoxes; let idx = index">
+      <div class="CodingQuestion-Container">
+        <div class="InputContainer">
+          <app-inputquestionbox (submitted)="onTextSubmitted($event)"></app-inputquestionbox>
+        </div>
+        <div class="Done">
+          <button (click)="onDone(idx)"><img src="assets/Done.png" alt="Done"></button>
+        </div>
+        <div class="DeleteButton">
+          <button (click)="onDeleteClick(idx)"><img src="assets/delete.png" alt="Delete"></button>
+        </div>
+      </div>
+      
+    </ng-container>
+    </ng-container>
+    <!-- DSA Questions -->
+    <ng-container *ngIf="section === 'DSAQuestions'">
+    <ng-container *ngFor="let box of inputBoxes; let idx = index">
+      <div class="DSAContainer">
+        <div>
+          <app-drop-down [Label]="'Select DSA Question'" [DropDownOptions]="dsaquestiontype" (CompanySelected)="onCoreCSquestionType($event,idx)"></app-drop-down>
+        </div>
+        <div>
+          <app-inputquestionbox (submitted)="onTextSubmitted($event,idx)"></app-inputquestionbox>
+        </div>
+       
+         <div>
+            <span class="section-title">Dificulty Level:</span>   
+             <div class="job-profiles">
+                        <app-radio-group name="DificultyLevel" (valueChange)="handleJobProfileChange($event,idx)" >
+                          <app-radio-button 
+                          label="Easy" 
+                          name="DificultyLevel" 
+                          value="Easy" 
+                          >
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Medium" 
+                          name="DificultyLevel" 
+                          value="Medium">
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Difficult" 
+                          name="DificultyLevel" 
+                          value="Difficult">
+                        </app-radio-button>
+
+                        </app-radio-group>
+                        
+              </div>
+          </div>
+
+           <div>
+              <div class="Done">
+              <button (click)="onDone(idx)"><img src="assets/Done.png" alt="Done"></button>
+            </div>
+            <div class="DeleteButton">
+              <button (click)="onDeleteClick(idx)"><img src="assets/delete.png" alt="Delete"></button>
+            </div>
+          </div>
+      </div>
+      
+    </ng-container>
+  </ng-container>
+  
+
+  <!--DBMS Questions -->
+  <ng-container *ngIf="section === 'DBMSQuestions'">
+    <ng-container *ngFor="let box of inputBoxes; let idx = index">
+      <div class="DSAContainer">
+        <div>
+          <app-drop-down [Label]="'Select CoreCS Question Type'" [DropDownOptions]="corecsquestiontype" (CompanySelected)="onCoreCSquestionType($event,idx)"></app-drop-down>
+        </div>
+        <div>
+          <app-inputquestionbox (submitted)="onTextSubmitted($event)"></app-inputquestionbox>
+        </div>
+        <div>
+            <span class="section-title">Dificulty Level:</span>   
+             <div class="job-profiles">
+                      <app-radio-group name="jobProfile" (valueChange)="handleJobProfileChange($event,idx)"><!---->
+                        <app-radio-button 
+                          label="Easy" 
+                          name="DBMSQuestionsDifficulty" 
+                          value="Easy" 
+                          >
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Medium" 
+                          name="DBMSQuestionsDifficulty" 
+                          value="Medium">
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Difficult" 
+                          name="DBMSQuestionsDifficulty" 
+                          value="Difficult">
+                        </app-radio-button>
+
+
+                      </app-radio-group>  
+                      
+              </div>
+      </div>
+       <div>
+              <div class="Done">
+              <button (click)="onDone(idx)"><img src="assets/Done.png" alt="Done"></button>
+            </div>
+            <div class="DeleteButton">
+              <button (click)="onDeleteClick(idx)"><img src="assets/delete.png" alt="Delete"></button>
+            </div>
+          </div>
+          
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <!-- System Design Questions -->
+  <ng-container *ngIf="section === 'SystemDesign'">
+    <ng-container *ngFor="let box of inputBoxes; let idx = index">
+      <div class="SystemDesignContainer">
+        <div>
+            <span class="section-title">Dificulty Level:</span>   
+             <div class="job-profiles">
+                        <app-radio-group name="SystemDesignQuestionsDifficulty" (valueChange)="SystemDesignQuestionsType($event,idx)">
+                          <app-radio-button 
+                            label="HLD" 
+                            name="SystemDesignQuestionsDifficulty" 
+                            value="HLD" 
+                            >
+                          </app-radio-button>
+                          <app-radio-button 
+                            label="LLD" 
+                            name="SystemDesignQuestionsDifficulty" 
+                            value="LLD">
+                          </app-radio-button>
+                         </app-radio-group>
+              </div>
+        </div>
+        <div>
+          <app-inputquestionbox (submitted)="onTextSubmitted($event)"></app-inputquestionbox>
+        </div>
+         <div>
+              <div class="Done">
+              <button (click)="onDone(idx)"><img src="assets/Done.png" alt="Done"></button>
+            </div>
+            <div class="DeleteButton">
+              <button (click)="onDeleteClick(idx)"><img src="assets/delete.png" alt="Delete"></button>
+            </div>
+          </div>
+      </div>
+      
+    
+
+    </ng-container>
+    
+  </ng-container> 
+
+  <!-- Puzzle Based Questions -->
+  <ng-container *ngIf="section === 'PuzzleBasedQuestions'">
+    <ng-container *ngFor="let box of inputBoxes; let idx = index">
+     
+     <div class="SystemDesignContainer">
+      <div>
+        <span class="section-title">Dificulty Level:</span>   
+                        
+                        <div class="job-profiles">
+                        <app-radio-group name="PuzzleBasedQuestionsDifficulty" (valueChange)="handleJobProfileChange($event,idx)">
+                            <app-radio-button 
+                          label="Easy" 
+                          name="PuzzleBasedQuestionsDifficulty" 
+                          value="Easy" 
+                          >
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Medium" 
+                          name="PuzzleBasedQuestionsDifficulty" 
+                          value="Medium">
+                        </app-radio-button>
+
+                        <app-radio-button 
+                          label="Difficult" 
+                          name="jobProfile" 
+                          value="Difficult">
+                        </app-radio-button>
+                        </app-radio-group>
+                          
+              </div>
+      </div>
+      <div>
+        <app-inputquestionbox (submitted)="onTextSubmitted($event)"></app-inputquestionbox>
+      </div>
+      <div>
+              <div class="Done">
+              <button (click)="onDone(idx)"><img src="assets/Done.png" alt="Done"></button>
+            </div>
+            <div class="DeleteButton">
+              <button (click)="onDeleteClick(idx)"><img src="assets/delete.png" alt="Delete"></button>
+            </div>
+      </div>
+     </div>
+      
+    
+              
+
+    </ng-container>
+    
+  </ng-container>
+  
+  <ng-container *ngIf="section === 'SituationBasedQuestions'">
+    <ng-container *ngFor="let box of inputBoxes; let idx = index">
+      <div class="SituationBasedQuestionsContainer">
+        <div>
+          <app-inputquestionbox (submitted)="onQuestion($event,idx)"></app-inputquestionbox>
+        </div>
+        <div>
+          <app-inputquestionbox (submitted)="onAnswer($event,idx)"></app-inputquestionbox>
+        </div>
+        <div>
+              <div class="Done">
+              <button (click)="onDone(idx)"><img src="assets/Done.png" alt="Done"></button>
+            </div>
+            <div class="DeleteButton">
+              <button (click)="onDeleteClick(idx)"><img src="assets/delete.png" alt="Delete"></button>
+            </div>
+      </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="section === 'UnexpectedQuestions'">
+    <ng-container *ngFor="let box of inputBoxes; let idx = index">
+     <div class="SituationBasedQuestionsContainer">
+        <div>
+          <app-inputquestionbox (submitted)="onQuestion($event,idx)"></app-inputquestionbox>
+        </div>
+        <div>
+          <app-inputquestionbox (submitted)="onAnswer($event,idx)"></app-inputquestionbox>
+        </div>
+        <div>
+              <div class="Done">
+              <button (click)="onDone(idx)"><img src="assets/Done.png" alt="Done"></button>
+            </div>
+            <div class="DeleteButton">
+              <button (click)="onDeleteClick(idx)"><img src="assets/delete.png" alt="Delete"></button>
+            </div>
+      </div>
+      </div>
+      
+    </ng-container>
+  </ng-container>
+
+
+  <ng-container *ngIf="section === 'Resources'">
+    <ng-container *ngFor="let box of inputBoxes; let idx = index">
+      <div class="ResourceContainer">
+        <div>
+          <app-drop-down [Label]="'Select CoreCS Question Type'" [DropDownOptions]="resourceCategory" (CompanySelected)="onResourceType($event,idx)"></app-drop-down>
+        </div>
+        <div>
+          <app-inputquestionbox (submitted)="onResourceLink($event, idx)"></app-inputquestionbox>
+        </div>
+        <div>
+          <app-inputquestionbox (submitted)="onResourceDescription($event, idx)"></app-inputquestionbox>
+        </div>
+        <div>
+              <div class="Done">
+              <button (click)="onDone(idx)"><img src="assets/Done.png" alt="Done"></button>
+            </div>
+            <div class="DeleteButton">
+              <button (click)="onDeleteClick(idx)"><img src="assets/delete.png" alt="Delete"></button>
+            </div>
+      </div>
+      </div>
+    </ng-container>
+    
+  </ng-container>
+  
+  </div>
+</div>

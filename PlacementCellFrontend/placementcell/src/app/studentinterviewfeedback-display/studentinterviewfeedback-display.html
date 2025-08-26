@@ -1,0 +1,10 @@
+<div class="feedback-list">
+  <app-feedbackcard
+    *ngFor="let f of FeedbackcardSample"
+    [CompanyDetails]="f.companydetails"
+    [CodingRoundInfo]="f.codingroundinfo"
+    [TechnicalRound]="f.TechnicalRound"
+    [HRRound]="f.HRRound"
+    [Resources]="f.Resources">
+  </app-feedbackcard>
+</div>

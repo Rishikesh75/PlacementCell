@@ -1,0 +1,9 @@
+<div class="number-input-wrapper">
+  <label *ngIf="label">{{ label }}</label>
+  <input
+    type="number"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="onValueChange($event)"
+  />
+</div>

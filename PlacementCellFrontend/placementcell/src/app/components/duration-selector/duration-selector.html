@@ -1,0 +1,15 @@
+<div class="duration-selector">
+  <label>
+    <span>Hours:</span>
+    <select [(ngModel)]="hours" (change)="onDurationChange()">
+      <option *ngFor="let h of hoursList" [value]="h">{{ h }}</option>
+    </select>
+  </label>
+
+  <label>
+    <span>Minutes:</span>
+    <select [(ngModel)]="minutes" (change)="onDurationChange()">
+      <option *ngFor="let m of minutesList" [value]="m">{{ m | number: '2.0' }}</option>
+    </select>
+  </label>
+</div>

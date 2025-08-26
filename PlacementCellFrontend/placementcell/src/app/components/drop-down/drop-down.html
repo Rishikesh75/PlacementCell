@@ -1,0 +1,8 @@
+<mat-form-field appearance="fill" class="custom-select-field">
+  <mat-label>{{ Label }}</mat-label>
+  <mat-select [(value)]="selectedCompany" panelClass="custom-select-panel" (selectionChange)="onCompanyChange($event.value)" >
+    <mat-option *ngFor="let value of DropDownOptions" [value]="value">
+      {{ value }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
