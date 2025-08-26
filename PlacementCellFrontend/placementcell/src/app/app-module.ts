@@ -17,15 +17,19 @@ import {StudentinterviewfeedbackDisplay} from './studentinterviewfeedback-displa
 import { Mainpage } from './mainpage/mainpage';
 import {Feedbackcard} from './feedbackcard/feedbackcard';
 import {RadioGroupComponent} from './components/radio-group/radio-group';
+import { HttpClientModule } from '@angular/common/http';
+import {Singleinput} from './components/singleinput/singleinput';
+import {Notification} from './components/notification/notification';
 @NgModule({
-  declarations: [InterviewFeedbackFormStudent,DropDown,Radiobutton,Counter, NumberInput, DurationSelector,Greybox, Inputquestionbox, Loginpage, StudentinterviewfeedbackDisplay, Mainpage, Feedbackcard, RadioGroupComponent],
+  declarations: [InterviewFeedbackFormStudent,DropDown,Radiobutton,Counter, NumberInput, DurationSelector,Greybox, Inputquestionbox, Loginpage, StudentinterviewfeedbackDisplay, Mainpage, Feedbackcard, RadioGroupComponent, Singleinput, Notification],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ]
 })
 export class AppModule { }

@@ -6,8 +6,9 @@
 
   <!-- Login Form -->
   <form>
-    <input type="text" placeholder="Username" required>
-    <input type="password" placeholder="Password" required>
+    <!--input type="text" placeholder="Username" required-->
+    <app-singleinput (valueChange)="onUsernameChange($event)"></app-singleinput>
+    <app-singleinput (valueChange)="onPasswordChange($event)"></app-singleinput>
     <button type="submit" (click)="Submit()">Login</button>
   </form>
 </div>

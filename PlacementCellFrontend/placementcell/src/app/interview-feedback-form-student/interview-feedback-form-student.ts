@@ -2,7 +2,8 @@ import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angu
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {Companies, Question} from '../models/feedbackcard.model';
 import { Locations } from '../models/feedbackcard.model';
-import {feedbackcarddata} from '../models/feedbackcard.model'
+import {feedbackcarddata} from '../models/feedbackcard.model';
+import {FeedbackFormstudent} from '../service/feedback-formstudent';
 @Component({
   selector: 'app-interview-feedback-form-student',
   standalone:false,
@@ -25,7 +26,7 @@ export class InterviewFeedbackFormStudent {
   FeedbackFormData:feedbackcarddata ;
   temp: any;
   // 2. Inject FormBuilder and initialize the form inside the constructor
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private feedbackFormService: FeedbackFormstudent) {
     this.companyDetailsForm = this.fb.group({
       
     });
@@ -55,6 +56,14 @@ export class InterviewFeedbackFormStudent {
   onSubmit(): void {
     console.log("Form Submitted!");
     console.log(this.FeedbackFormData);
+    this.feedbackFormService.submitForm(this.FeedbackFormData).subscribe({
+      next: (response) => {
+        console.log('Form submitted successfully', response);
+      },
+      error: (error) => {
+        console.error('Error submitting form', error);
+      }
+    });
   }
    @ViewChild('scrollContainer') scrollContainer!: ElementRef;
 

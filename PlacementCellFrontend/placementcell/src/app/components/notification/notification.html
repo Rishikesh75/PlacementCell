@@ -1,0 +1,4 @@
+<div *ngIf="visible" class="notification" [ngClass]="type">
+  <span>{{ message }}</span>
+  <button (click)="closeNotification()">✖</button>
+</div>
