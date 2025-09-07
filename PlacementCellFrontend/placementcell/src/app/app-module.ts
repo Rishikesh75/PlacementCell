@@ -17,7 +17,7 @@ import {StudentinterviewfeedbackDisplay} from './studentinterviewfeedback-displa
 import { Mainpage } from './mainpage/mainpage';
 import {Feedbackcard} from './feedbackcard/feedbackcard';
 import {RadioGroupComponent} from './components/radio-group/radio-group';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import {Singleinput} from './components/singleinput/singleinput';
 import {Notification} from './components/notification/notification';
 @NgModule({
@@ -29,7 +29,9 @@ import {Notification} from './components/notification/notification';
     MatSelectModule,
     MatOptionModule,
     FormsModule,
-    HttpClientModule
+  ],
+  providers: [
+    provideHttpClient()
   ]
 })
 export class AppModule { }

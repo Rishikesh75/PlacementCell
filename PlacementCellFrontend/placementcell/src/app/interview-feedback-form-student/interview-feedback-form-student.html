@@ -167,7 +167,7 @@
                   </div>
 
             <span class="section-title">Duration:</span>
-                  <app-duration-selector></app-duration-selector>
+                  <app-duration-selector (durationChange)="FeedbackFormData.codingroundinfo.codingDuration = $event"></app-duration-selector>
             <span class="section-title">Question Asked:</span>
                 <app-greybox section="CodingQuestion"  (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
             <span class="section-title">Dificulty Level:</span>   

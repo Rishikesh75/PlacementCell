@@ -19,7 +19,7 @@ export class Loginpage {
     else {
       alert("Invalid Credentials");
     }
-    this.notifier.show('Data saved successfully!', 'success');
+    // this.notifier.show('Data saved successfully!', 'success');
   }
   Submit() {
     this.navigateTo('student/mainpage');

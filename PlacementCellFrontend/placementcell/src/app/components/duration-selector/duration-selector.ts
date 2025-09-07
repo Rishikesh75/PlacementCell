@@ -14,7 +14,7 @@ export class DurationSelector {
   minutesList = [0, 15, 30, 45];
 
   onDurationChange() {
-    const totalMinutes = this.hours * 60 + this.minutes;
+    const totalMinutes = `${this.hours}:${this.minutes}`;
     this.durationChange.emit(totalMinutes.toString());
     console.log('Duration in minutes:', totalMinutes);
   }

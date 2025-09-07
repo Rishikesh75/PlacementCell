@@ -141,7 +141,7 @@ export class InterviewFeedbackFormStudent {
       jobProfile: '',
       numRounds: 0,
       jobType: '',
-      ctc: 0,
+      ctc: 6,
       workMode: '',
       location: ''
     },

@@ -11,6 +11,7 @@ export class Mainpage {
   constructor(private router: Router) {}
 
   navigateTo(route: string) {
+    console.log('Navigating to:', route);
     this.router.navigate([route]);
   }
 }
