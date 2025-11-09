@@ -13,15 +13,19 @@ import { DurationSelector } from './components/duration-selector/duration-select
 import { Greybox } from './components/greybox/greybox';
 import { Inputquestionbox } from './components/inputquestionbox/inputquestionbox';
 import { Loginpage } from './loginpage/loginpage';
-import {StudentinterviewfeedbackDisplay} from './studentinterviewfeedback-display/studentinterviewfeedback-display';
+// Old import - keeping for backwards compatibility
+// import {StudentinterviewfeedbackDisplay} from './studentinterviewfeedback-display/studentinterviewfeedback-display';
+// New import - using layered architecture
+import { FeedbackDisplayPageComponent } from './features/interview-feedback/presentation/pages/feedback-display-page/feedback-display-page.component';
 import { Mainpage } from './mainpage/mainpage';
 import {Feedbackcard} from './feedbackcard/feedbackcard';
 import {RadioGroupComponent} from './components/radio-group/radio-group';
 import { provideHttpClient } from '@angular/common/http';
 import {Singleinput} from './components/singleinput/singleinput';
 import {Notification} from './components/notification/notification';
+import { INFRASTRUCTURE_PROVIDERS } from './features/interview-feedback/infrastructure/providers';
 @NgModule({
-  declarations: [InterviewFeedbackFormStudent,DropDown,Radiobutton,Counter, NumberInput, DurationSelector,Greybox, Inputquestionbox, Loginpage, StudentinterviewfeedbackDisplay, Mainpage, Feedbackcard, RadioGroupComponent, Singleinput, Notification],
+  declarations: [InterviewFeedbackFormStudent,DropDown,Radiobutton,Counter, NumberInput, DurationSelector,Greybox, Inputquestionbox, Loginpage, FeedbackDisplayPageComponent, Mainpage, Feedbackcard, RadioGroupComponent, Singleinput, Notification],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -31,7 +35,8 @@ import {Notification} from './components/notification/notification';
     FormsModule,
   ],
   providers: [
-    provideHttpClient()
+    provideHttpClient(),
+    ...INFRASTRUCTURE_PROVIDERS
   ]
 })
 export class AppModule { }
