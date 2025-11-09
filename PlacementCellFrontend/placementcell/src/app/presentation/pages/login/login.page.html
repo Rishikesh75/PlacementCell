@@ -1,0 +1,15 @@
+<div class="container">
+  <!-- Student Logo -->
+  <img src="assets/student.png" alt="Student Logo" class="logo">
+
+  <h2>Student Login</h2>
+
+  <!-- Login Form -->
+  <form>
+    <!--input type="text" placeholder="Username" required-->
+    <app-singleinput (valueChange)="onUsernameChange($event)"></app-singleinput>
+    <app-singleinput (valueChange)="onPasswordChange($event)"></app-singleinput>
+    <button type="submit" (click)="onSubmit()">Login</button>
+  </form>
+</div>
+

@@ -6,7 +6,7 @@ export * from './constants';
 export * from './enums';
 export * from './services';
 export * from './guards';
-export * from './interceptors';
 export * from './utilities';
 // export * from './models';
+// Note: interceptors moved to infrastructure layer
 

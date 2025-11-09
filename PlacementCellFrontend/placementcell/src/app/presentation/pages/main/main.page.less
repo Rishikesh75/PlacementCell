@@ -1,0 +1,39 @@
+@light-gray: #f8f8f8;
+@primary-color: #4CAF50;
+@hover-shadow: rgba(0, 0, 0, 0.15);
+
+.container {
+    height: 30vh;
+    width: 30vw;
+    background-color: @light-gray;
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    gap: 1rem;
+}
+
+.logo-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px @hover-shadow;
+    }
+
+    img.logo {
+        width: 100px;
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
+}
+

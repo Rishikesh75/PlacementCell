@@ -18,14 +18,14 @@
     </div>
 
     <!-- Feedback Cards -->
-    <app-feedbackcard
+    <app-feedback-card
       *ngFor="let feedback of feedbacks"
       [CompanyDetails]="feedback.companydetails"
       [CodingRoundInfo]="feedback.codingroundinfo"
       [TechnicalRound]="feedback.TechnicalRound"
       [HRRound]="feedback.HRRound"
       [Resources]="feedback.Resources">
-    </app-feedbackcard>
+    </app-feedback-card>
   </div>
 </div>
 
