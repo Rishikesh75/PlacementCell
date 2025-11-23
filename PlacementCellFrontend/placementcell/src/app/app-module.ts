@@ -25,8 +25,8 @@ import { Singleinput } from './presentation/components/singleinput/singleinput';
 import { Notification } from './presentation/components/notification/notification';
 
 // Feature Modules
-import { FeedbackDisplayPageComponent } from './features/interview-feedback/presentation/pages/feedback-display-page/feedback-display-page.component';
-import { INFRASTRUCTURE_PROVIDERS } from './features/interview-feedback/infrastructure/providers';
+import { FeedbackDisplayPageComponent } from './presentation/pages/feedback-display-page/feedback-display-page.component';
+import { INFRASTRUCTURE_PROVIDERS } from './infrastructure/providers';
 
 @NgModule({
   declarations: [

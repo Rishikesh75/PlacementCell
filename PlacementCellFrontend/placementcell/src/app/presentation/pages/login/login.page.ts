@@ -7,7 +7,7 @@ import { NotificationType } from '../../../core/enums/notification.enum';
   selector: 'app-login-page',
   standalone: false,
   templateUrl: './login.page.html',
-  styleUrl: './login.page.less'
+  styleUrl: '../../../styles/pages/login.less'
 })
 export class LoginPage {
   private username: string = '';

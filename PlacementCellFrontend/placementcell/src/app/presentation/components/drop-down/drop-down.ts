@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'app-drop-down',
   standalone:false,
   templateUrl: './drop-down.html',
-  styleUrl: './drop-down.less'
+  styleUrl: '../../../styles/components/drop-down.less'
 })
 export class DropDown {
   selectedCompany = '';

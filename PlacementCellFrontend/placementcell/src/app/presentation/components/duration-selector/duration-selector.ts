@@ -4,7 +4,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-duration-selector',
   standalone:false,
   templateUrl: './duration-selector.html',
-  styleUrls: ['./duration-selector.less']
+  styleUrls: ['../../../styles/components/duration-selector.less']
 })
 export class DurationSelector {
   hours = 0;

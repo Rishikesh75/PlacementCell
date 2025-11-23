@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, Output, output } from '@angular/core';
   selector: 'app-radio-button',
   standalone:false,
   templateUrl: './radiobutton.html',
-  styleUrl: './radiobutton.less'
+  styleUrl: '../../../styles/components/radiobutton.less'
 })
 export class Radiobutton {
   

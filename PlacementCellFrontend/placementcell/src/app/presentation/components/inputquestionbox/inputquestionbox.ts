@@ -4,7 +4,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-inputquestionbox',
   standalone:false,
   templateUrl: './inputquestionbox.html',
-  styleUrl: './inputquestionbox.less'
+  styleUrl: '../../../styles/components/inputquestionbox.less'
 })
 export class Inputquestionbox {
    textValue: string = '';

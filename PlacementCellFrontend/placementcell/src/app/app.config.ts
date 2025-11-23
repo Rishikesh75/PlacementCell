@@ -2,7 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessC
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { routes } from './app.routes';
-import { INFRASTRUCTURE_PROVIDERS } from './features/interview-feedback/infrastructure/providers';
+import { INFRASTRUCTURE_PROVIDERS } from './infrastructure/providers';
 
 export const appConfig: ApplicationConfig = {
   providers: [

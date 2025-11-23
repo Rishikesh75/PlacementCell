@@ -6,7 +6,7 @@ import { MainPage } from './presentation/pages/main/main.page';
 import { InterviewFeedbackFormPage } from './presentation/pages/interview-feedback-form/interview-feedback-form.page';
 
 // Feature Modules
-import { FeedbackDisplayPageComponent } from './features/interview-feedback/presentation/pages/feedback-display-page/feedback-display-page.component';
+import { FeedbackDisplayPageComponent } from './presentation/pages/feedback-display-page/feedback-display-page.component';
 
 export const routes: Routes = [
     {

@@ -4,7 +4,7 @@ import { DSAQuestionType, CoreCSquestionType, ResourceCategory } from '../../../
   selector: 'app-greybox',
   standalone: false,
   templateUrl: './greybox.html',
-  styleUrl: './greybox.less'
+  styleUrl: '../../../styles/components/greybox.less'
 })
 export class Greybox implements OnInit, OnChanges {
 @Input() section: string = '';

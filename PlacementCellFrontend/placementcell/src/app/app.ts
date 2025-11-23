@@ -5,7 +5,7 @@ import {AppModule} from './app-module'
   selector: 'app-root',
   imports: [RouterOutlet,AppModule],
   templateUrl: './app.html',
-  styleUrl: './app.less'
+  styleUrl: './styles/app.less'
 })
 export class App {
   protected readonly title = signal('placementcell');

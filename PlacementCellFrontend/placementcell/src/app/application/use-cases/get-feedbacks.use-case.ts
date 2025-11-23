@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FeedbackCardData } from '../../domain/entities/feedback.entity';
-import { FeedbackRepository } from '../../infrastructure/repositories/feedback.repository';
+import { Feedback } from '../../domain/entities';
+import { IFeedbackRepository, FEEDBACK_REPOSITORY_TOKEN } from '../../domain/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetFeedbacksUseCase {
-  constructor(private feedbackRepository: FeedbackRepository) {}
+  constructor(@Inject(FEEDBACK_REPOSITORY_TOKEN) private feedbackRepository: IFeedbackRepository) {}
 
-  execute(): Observable<FeedbackCardData[]> {
-    return this.feedbackRepository.getFeedbacks();
+  execute(): Observable<Feedback[]> {
+    return this.feedbackRepository.getAllFeedbacks();
   }
 }
 

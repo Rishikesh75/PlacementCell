@@ -1,13 +1,12 @@
 // Use Cases
-export * from './use-cases/submit-feedback.use-case';
-export * from './use-cases/get-feedbacks.use-case';
+export * from './use-cases';
 
 // Facades
-export * from './facades/feedback.facade';
+export * from './facades';
 
 // DTOs
-export * from './dtos/feedback-form.dto';
+export * from './dtos';
 
 // Mappers
-export * from './mappers/feedback.mapper';
+export * from './mappers';
 

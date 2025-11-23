@@ -1,74 +1,46 @@
-export interface FeedbackCardData {
-  companydetails: CompanyDetails;
-  codingroundinfo: CodingRoundInfo;
-  TechnicalRound: TechnicalRound;
-  HRRound: HRRound;
-  Resources: Resources[];
+/**
+ * Main Feedback Entity
+ * Represents a complete interview feedback submission
+ */
+
+import { CompanyDetails } from './company-details.entity';
+import { CodingRound } from './coding-round.entity';
+import { TechnicalRound } from './technical-round.entity';
+import { HRRound } from './hr-round.entity';
+import { Resource } from './resource.entity';
+import type { FeedbackRequestDto } from '../../application/dtos';
+
+export class Feedback {
+  constructor(
+    public companyDetails: CompanyDetails,
+    public codingRound: CodingRound,
+    public technicalRound: TechnicalRound,
+    public hrRound: HRRound,
+    public resources: Resource[]
+  ) {}
+
+  /**
+   * Validate if the feedback is complete
+   */
+  isValid(): boolean {
+    return (
+      this.companyDetails.isValid() &&
+      this.codingRound.isValid() &&
+      this.technicalRound.isValid() &&
+      this.hrRound.isValid()
+    );
+  }
+
+  /**
+   * Get the total number of interview rounds
+   */
+  getTotalRounds(): number {
+    return this.companyDetails.numRounds;
+  }
 }
 
-export interface CompanyDetails {
-  companyName: string;
-  jobProfile: string;
-  numRounds: number;
-  jobType: string;
-  ctc: number | string;
-  workMode: string;
-  location: string;
-}
-
-export interface CodingRoundInfo {
-  codingPlatform: string;
-  codingDuration: string;
-  codingQuestions: Question[];
-  codingDifficulty: string;
-  interviewMode: string;
-}
-
-export interface TechnicalRound {
-  Interviewmode: string;
-  Duration: string;
-  DSAQuestion: DSAQuestion[];
-  ComputerCoreQuestion: ComputerCoreQuestion[];
-  SystemDesignQuestion: SystemDesignQuestion[];
-  PuzzleBasedQuestion: PuzzleBasedQuestion[];
-}
-
-export interface HRRound {
-  SituationBasedQuestions: SituationBasedQuestions[];
-  UnexpectedQuestions: UnexpectedQuestions[];
-}
-
-export interface Question {
-  question: string;
-}
-
-/* Technical Interview Questions */
-export interface BaseQuestion extends Question {
-  difficulty: string;
-}
-
-export interface PuzzleBasedQuestion extends BaseQuestion {}
-
-export interface DSAQuestion extends BaseQuestion {
-  questionType: string;
-}
-
-export interface ComputerCoreQuestion extends BaseQuestion {
-  questionType: string;
-}
-
-export interface SystemDesignQuestion extends BaseQuestion {
-  questionType: string;
-}
-
-/* HR Round Questions */
-export interface SituationBasedQuestions extends Question {}
-export interface UnexpectedQuestions extends Question {}
-
-/* Resource Section */
-export interface Resources {
-  category?: string;
-  Description?: string;
-  Link?: string;
-}
-
+/**
+ * @deprecated Use FeedbackRequestDto from application/dtos instead
+ * This type alias is for backward compatibility only
+ */
+export type FeedbackCardData = FeedbackRequestDto;

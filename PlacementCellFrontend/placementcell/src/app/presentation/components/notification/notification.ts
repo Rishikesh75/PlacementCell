@@ -4,7 +4,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
   selector: 'app-notification',
   standalone:false,
   templateUrl: './notification.html',
-  styleUrl: './notification.less'
+  styleUrl: '../../../styles/components/notification.less'
 })
 export class Notification  {
   @Input() message: string = '';

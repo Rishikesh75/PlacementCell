@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { FeedbackCardData } from '../../domain/entities/feedback.entity';
+import { Observable, map } from 'rxjs';
+import { Feedback } from '../../domain/entities';
+import { FeedbackRequestDto, FeedbackResponseDto } from '../dtos';
+import { FeedbackMapper } from '../mappers';
 import { SubmitFeedbackUseCase } from '../use-cases/submit-feedback.use-case';
-import { GetFeedbacksUseCase } from '../use-cases/get-feedbacks.use-case';
+import { GetAllFeedbacksUseCase } from '../use-cases/get-all-feedbacks.use-case';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +12,23 @@ import { GetFeedbacksUseCase } from '../use-cases/get-feedbacks.use-case';
 export class FeedbackFacade {
   constructor(
     private submitFeedbackUseCase: SubmitFeedbackUseCase,
-    private getFeedbacksUseCase: GetFeedbacksUseCase
+    private getAllFeedbacksUseCase: GetAllFeedbacksUseCase,
+    private feedbackMapper: FeedbackMapper
   ) {}
 
-  submitFeedback(data: FeedbackCardData): Observable<any> {
-    return this.submitFeedbackUseCase.execute(data);
+  submitFeedback(data: FeedbackRequestDto): Observable<FeedbackResponseDto> {
+    // Convert DTO to entity
+    const entity = this.feedbackMapper.fromResponseDto(data as FeedbackResponseDto);
+    // Execute use case and convert back to DTO
+    return this.submitFeedbackUseCase.execute(entity).pipe(
+      map(result => this.feedbackMapper.toRequestDto(result) as FeedbackResponseDto)
+    );
   }
 
-  getAllFeedbacks(): Observable<FeedbackCardData[]> {
-    return this.getFeedbacksUseCase.execute();
+  getAllFeedbacks(): Observable<FeedbackResponseDto[]> {
+    return this.getAllFeedbacksUseCase.execute().pipe(
+      map(entities => entities.map(e => this.feedbackMapper.toRequestDto(e) as FeedbackResponseDto))
+    );
   }
 }
 

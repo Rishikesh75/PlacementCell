@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
   selector: 'app-main-page',
   standalone: false,
   templateUrl: './main.page.html',
-  styleUrl: './main.page.less'
+  styleUrl: '../../../styles/pages/main.less'
 })
 export class MainPage {
   constructor(private router: Router) {}

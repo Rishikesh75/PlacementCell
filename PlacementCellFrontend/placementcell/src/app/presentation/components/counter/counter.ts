@@ -5,7 +5,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-counter',
   standalone:false,
   templateUrl: './counter.html',
-  styleUrl: './counter.less'
+  styleUrl: '../../../styles/components/counter.less'
 })
 export class Counter {
   count = 1;

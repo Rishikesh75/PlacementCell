@@ -1,17 +1,29 @@
-import { Injectable } from '@angular/core';
+/**
+ * Submit Feedback Use Case
+ * Business logic for submitting interview feedback
+ */
+
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FeedbackCardData } from '../../domain/entities/feedback.entity';
-import { FeedbackRepository } from '../../infrastructure/repositories/feedback.repository';
+import { Feedback } from '../../domain/entities';
+import { IFeedbackRepository, FEEDBACK_REPOSITORY_TOKEN } from '../../domain/interfaces';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SubmitFeedbackUseCase {
-  constructor(private feedbackRepository: FeedbackRepository) {}
+  constructor(@Inject(FEEDBACK_REPOSITORY_TOKEN) private feedbackRepository: IFeedbackRepository) {}
 
-  execute(feedbackData: FeedbackCardData): Observable<any> {
-    // Add any business logic or validation here
-    return this.feedbackRepository.submitFeedback(feedbackData);
+  /**
+   * Execute the submit feedback use case
+   * @param feedback - The feedback entity to submit
+   * @returns Observable of the submitted feedback
+   */
+  execute(feedback: Feedback): Observable<Feedback> {
+    // Validate feedback before submission
+    if (!feedback.isValid()) {
+      throw new Error('Invalid feedback data. Please fill all required fields.');
+    }
+
+    // Submit via repository
+    return this.feedbackRepository.submitFeedback(feedback);
   }
 }
-

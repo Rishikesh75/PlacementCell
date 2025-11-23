@@ -1,0 +1,43 @@
+@blue-color: #007bff;   // Main blue color
+@hover-blue: #0056b3;   // Darker blue for hover
+
+// Apply styles to the form field
+.custom-select-field {
+  width: 250px;
+
+  &.mat-form-field {
+    .mat-form-field-label {
+      color: @blue-color;
+    }
+
+    &.mat-focused .mat-form-field-label {
+      color: @blue-color !important;
+    }
+
+    .mat-form-field-outline {
+      color: @blue-color;
+    }
+
+    .mat-form-field-outline-thick {
+      stroke: @blue-color;
+    }
+  }
+}
+
+// Apply styles to the dropdown panel
+.custom-select-panel {
+  max-height: 200px !important;
+  background-color: white !important; // White background
+
+  overflow-y: auto !important;
+
+  .mat-option {
+    color: @blue-color !important; // Blue text
+
+    &:hover {
+      background-color: @blue-color !important; // Blue background on hover
+      color: white !important; // White text on hover
+    }
+  }
+}
+

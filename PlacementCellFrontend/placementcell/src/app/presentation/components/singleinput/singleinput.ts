@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-singleinput',
   standalone:false,
   templateUrl: './singleinput.html',
-  styleUrl: './singleinput.less'
+  styleUrl: '../../../styles/components/singleinput.less'
 })
 export class Singleinput {
   inputValue: string = '';

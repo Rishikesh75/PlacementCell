@@ -1,26 +1,26 @@
 import { Component, Input } from '@angular/core';
 import { 
-  CompanyDetails, 
-  CodingRoundInfo, 
-  TechnicalRound, 
-  HRRound, 
-  Resources 
-} from '../../../domain/entities/feedback.entity';
+  CompanyDetailsDto, 
+  CodingRoundInfoDto, 
+  TechnicalRoundDto, 
+  HRRoundDto, 
+  ResourceDto 
+} from '../../../application/dtos';
 
 @Component({
   selector: 'app-feedback-card',
   standalone: false,
   templateUrl: './feedback-card.component.html',
-  styleUrl: './feedback-card.component.less'
+  styleUrl: '../../../styles/components/feedback-card.less'
 })
 export class FeedbackCardComponent {
   isCardOpen = false;
 
-  @Input() CompanyDetails: CompanyDetails | undefined;
-  @Input() CodingRoundInfo: CodingRoundInfo | undefined;
-  @Input() TechnicalRound: TechnicalRound | undefined;
-  @Input() HRRound: HRRound | undefined;
-  @Input() Resources: Resources[] | undefined;
+  @Input() CompanyDetails: CompanyDetailsDto | undefined;
+  @Input() CodingRoundInfo: CodingRoundInfoDto | undefined;
+  @Input() TechnicalRound: TechnicalRoundDto | undefined;
+  @Input() HRRound: HRRoundDto | undefined;
+  @Input() Resources: ResourceDto[] | undefined;
 
   // Compact card data
   companyName = "Google";
