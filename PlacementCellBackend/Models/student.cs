@@ -4,7 +4,9 @@ namespace PlacementCellBackend.Models
     public class Student
     {
         [Key]
-        public string studentid { get; set; } = string.Empty; 
+        public string studentid { get; set; } = string.Empty;
+
+        public string password { get; set; } = "password123";
         public string name { get; set; } = string.Empty;
         public string major { get; set; } = string.Empty;
         public string email { get; set; } = string.Empty;

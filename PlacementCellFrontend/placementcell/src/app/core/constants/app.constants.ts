@@ -7,11 +7,11 @@ export const APP_CONSTANTS = {
    * API Configuration
    */
   API: {
-    BASE_URL: 'http://localhost:3000/api',
+    BASE_URL: 'https://localhost:7070/api',
     ENDPOINTS: {
       FORMS: '/forms',
       AUTH: '/auth',
-      STUDENTS: '/students'
+      STUDENTS: '/Students'
     }
   },
 
