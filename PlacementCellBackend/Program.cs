@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlacementCellBackend.Data;
+using Npgsql;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -13,9 +15,14 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Configure Npgsql to enable dynamic JSON serialization
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("DefaultConnection"));
+dataSourceBuilder.EnableDynamicJson();
+var dataSource = dataSourceBuilder.Build();
+
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(dataSource));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

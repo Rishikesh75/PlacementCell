@@ -4,6 +4,6 @@
     "\\PlacementCellBackend",
     "\\PlacementCellBackend\\Controllers"
   ],
-  "SelectedNode": "\\PlacementCellBackend\\Controllers\\StudentController.cs",
+  "SelectedNode": "\\PlacementCellBackend\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
