@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { 
   CompanyDetailsDto, 
   CodingRoundInfoDto, 
@@ -13,33 +13,24 @@ import {
   templateUrl: './feedback-card.component.html',
   styleUrl: '../../../styles/components/feedback-card.less'
 })
-export class FeedbackCardComponent {
+export class FeedbackCardComponent implements OnChanges {
   isCardOpen = false;
 
+  // Inputs from API
+  @Input() feedbackId: string | undefined;
+  @Input() companyId: string | undefined;
+  @Input() alumniId: string | undefined;
   @Input() CompanyDetails: CompanyDetailsDto | undefined;
   @Input() CodingRoundInfo: CodingRoundInfoDto | undefined;
   @Input() TechnicalRound: TechnicalRoundDto | undefined;
   @Input() HRRound: HRRoundDto | undefined;
   @Input() Resources: ResourceDto[] | undefined;
 
-  // Compact card data
-  companyName = "Google";
-  jobProfile = "SDE";
-  numRounds = 3;
-  jobType = "Full-Time";
-  ctc = "₹20 LPA";
-  workMode = "Hybrid";
-  location = "Bangalore";
-
-  // Expanded card data
-  codingPlatform = "HackerRank";
-  codingDuration = "90 minutes";
-  codingQuestions = "3 (DSA + Problem Solving)";
-  codingDifficulty = "Medium";
-  interviewMode = "Online";
-  technicalInfo = "Focused on DSA, OOPs, and system design basics.";
-  hrInfo = "General HR questions, company culture, salary negotiation.";
-  resources = "LeetCode, GeeksforGeeks, System Design Primer";
+  ngOnChanges(changes: SimpleChanges): void {
+    // The input properties are already bound to the template
+    // No need to maintain separate local variables anymore
+    // The template will directly use CompanyDetails, CodingRoundInfo, etc.
+  }
 
   openCard(): void {
     this.isCardOpen = true;

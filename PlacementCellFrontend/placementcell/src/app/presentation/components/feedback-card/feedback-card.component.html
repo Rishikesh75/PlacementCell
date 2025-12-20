@@ -12,8 +12,8 @@
 <!-- Expanded Overlay -->
 <div class="overlay" *ngIf="isCardOpen" (click)="closeCard()">
   <div class="job-card expanded" (click)="$event.stopPropagation()">
-    <h2 class="company">{{ companyName }}</h2>
-    <h3>{{ jobProfile }} — {{ ctc }}</h3>
+    <h2 class="company">{{ CompanyDetails?.companyName }}</h2>
+    <h3>{{ CompanyDetails?.jobProfile }} — {{ CompanyDetails?.ctc }}</h3>
 
     <div class="section">
       <h4>Coding Round</h4>

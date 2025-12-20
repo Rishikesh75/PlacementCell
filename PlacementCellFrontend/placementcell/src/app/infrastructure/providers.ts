@@ -8,7 +8,7 @@ import { FEEDBACK_REPOSITORY_TOKEN } from '../domain/interfaces';
 import { FeedbackRepository } from './repositories/feedback.repository';
 import { FeedbackApiService } from './api/feedback-api.service';
 import { FeedbackMapper } from '../application/mappers';
-import { SubmitFeedbackUseCase, GetAllFeedbacksUseCase, GetFeedbacksByCompanyUseCase } from '../application/use-cases';
+import { SubmitFeedbackUseCase, GetAllFeedbacksUseCase, GetFeedbacksByCompanyUseCase, GetFeedbacksOnCompanyUseCase } from '../application/use-cases';
 import { InterviewFeedbackFacade } from '../application/facades';
 
 /**
@@ -34,6 +34,7 @@ export const INFRASTRUCTURE_PROVIDERS: Provider[] = [
   SubmitFeedbackUseCase,
   GetAllFeedbacksUseCase,
   GetFeedbacksByCompanyUseCase,
+  GetFeedbacksOnCompanyUseCase,
   InterviewFeedbackFacade
 ];
 

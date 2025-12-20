@@ -1,30 +1,22 @@
 <div class="feedback-display-page">
-  <!-- Loading State -->
-  <div *ngIf="loading" class="loading-container">
-    <p>Loading feedback submissions...</p>
-  </div>
-
-  <!-- Error State -->
-  <div *ngIf="error && !loading" class="error-container">
-    <p class="error-message">{{ error }}</p>
-    <button (click)="refresh()" class="retry-button">Retry</button>
-  </div>
-
-  <!-- Feedback List -->
-  <div *ngIf="!loading && !error" class="feedback-list">
+  <!-- Feedback List (from /api/feedbackoncompany) -->
+  <div  class="feedback-list">
     <!-- Empty State -->
-    <div *ngIf="feedbacks.length === 0" class="empty-state">
+    <div *ngIf="feedbacksOnCompany.length === 0" class="empty-state">
       <p>No feedback submissions found.</p>
     </div>
 
-    <!-- Feedback Cards -->
+    <!-- Feedback Cards with API data -->
     <app-feedback-card
-      *ngFor="let feedback of feedbacks"
-      [CompanyDetails]="feedback.companydetails"
-      [CodingRoundInfo]="feedback.codingroundinfo"
-      [TechnicalRound]="feedback.TechnicalRound"
-      [HRRound]="feedback.HRRound"
-      [Resources]="feedback.Resources">
+      *ngFor="let feedback of feedbacksOnCompany"
+      [feedbackId]="feedback.feedbackId"
+      [companyId]="feedback.companyId"
+      [alumniId]="feedback.alumniId"
+      [CompanyDetails]="feedback.companyDetails"
+      [CodingRoundInfo]="feedback.codingRoundInfo"
+      [TechnicalRound]="feedback.technicalRound"
+      [HRRound]="feedback.hrRound"
+      [Resources]="feedback.resources">
     </app-feedback-card>
   </div>
 </div>

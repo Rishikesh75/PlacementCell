@@ -6,9 +6,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Feedback } from '../../domain/entities';
-import { SubmitFeedbackUseCase, GetAllFeedbacksUseCase, GetFeedbacksByCompanyUseCase } from '../use-cases';
-import { FeedbackMapper } from '../mappers';
-import { FeedbackRequestDto, FeedbackResponseDto } from '../dtos';
+import { SubmitFeedbackUseCase, GetAllFeedbacksUseCase, GetFeedbacksByCompanyUseCase, GetFeedbacksOnCompanyUseCase } from '../use-cases';
+import { FeedbackMapper, FeedbackOnCompanyMapper } from '../mappers';
+import { FeedbackRequestDto, FeedbackResponseDto, FeedbackOnCompanyResponseDto } from '../dtos';
 
 @Injectable()
 export class InterviewFeedbackFacade {
@@ -16,6 +16,7 @@ export class InterviewFeedbackFacade {
     private submitFeedbackUseCase: SubmitFeedbackUseCase,
     private getAllFeedbacksUseCase: GetAllFeedbacksUseCase,
     private getFeedbacksByCompanyUseCase: GetFeedbacksByCompanyUseCase,
+    private getFeedbacksOnCompanyUseCase: GetFeedbacksOnCompanyUseCase,
     private feedbackMapper: FeedbackMapper
   ) {}
 
@@ -49,6 +50,19 @@ export class InterviewFeedbackFacade {
   getFeedbacksByCompany(companyName: string): Observable<FeedbackResponseDto[]> {
     return this.getFeedbacksByCompanyUseCase.execute(companyName).pipe(
       map(entities => entities.map(e => this.feedbackMapper.toRequestDto(e) as FeedbackResponseDto))
+    );
+  }
+
+  /**
+   * Get all feedbacks on company from /api/feedbackoncompany endpoint
+   * Returns mapped data ready for display in feedback cards
+   * @returns Observable of mapped feedback data array
+   */
+  getFeedbacksOnCompany(): Observable<any[]> {
+    return this.getFeedbacksOnCompanyUseCase.execute().pipe(
+      map(apiResponses => apiResponses.map(response => 
+        FeedbackOnCompanyMapper.mapFeedbackOnCompanyResponse(response)
+      ))
     );
   }
 

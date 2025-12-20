@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FeedbackRequestDto, FeedbackResponseDto } from '../../application/dtos';
+import { FeedbackRequestDto, FeedbackResponseDto, FeedbackOnCompanyResponseDto } from '../../application/dtos';
 import { APP_CONSTANTS } from '../../core/constants';
 
 @Injectable()
@@ -76,5 +76,14 @@ export class FeedbackApiService {
    */
   deleteFeedback(id: string): Observable<{ success: boolean }> {
     return this.http.delete<{ success: boolean }>(`${this.apiUrl}/${id}`);
+  }
+
+  /**
+   * Get all feedbacks on company from /api/feedbackoncompany endpoint
+   * @returns Observable of feedback on company response DTOs array
+   */
+  getFeedbacksOnCompany(): Observable<FeedbackOnCompanyResponseDto[]> {
+    const url = `${APP_CONSTANTS.API.BASE_URL}${APP_CONSTANTS.API.ENDPOINTS.FEEDBACK_ON_COMPANY}`;
+    return this.http.get<FeedbackOnCompanyResponseDto[]>(url);
   }
 }

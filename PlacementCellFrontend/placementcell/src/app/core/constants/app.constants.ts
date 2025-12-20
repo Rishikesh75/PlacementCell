@@ -11,7 +11,8 @@ export const APP_CONSTANTS = {
     ENDPOINTS: {
       FORMS: '/forms',
       AUTH: '/auth',
-      STUDENTS: '/Students'
+      STUDENTS: '/Students',
+      FEEDBACK_ON_COMPANY: '/feedbackoncompany'
     }
   },
 

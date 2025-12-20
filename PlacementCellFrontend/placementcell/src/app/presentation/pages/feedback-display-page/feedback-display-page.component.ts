@@ -1,11 +1,6 @@
-/**
- * Feedback Display Page Component
- * Displays a list of interview feedback submissions
- */
-
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { InterviewFeedbackFacade } from '../../../application/facades';
-import { FeedbackResponseDto } from '../../../application/dtos';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-feedback-display-page',
@@ -14,61 +9,49 @@ import { FeedbackResponseDto } from '../../../application/dtos';
   styleUrl: '../../../styles/pages/feedback-display-page.less'
 })
 export class FeedbackDisplayPageComponent implements OnInit {
-  feedbacks: FeedbackResponseDto[] = [];
-  loading = false;
+  feedbacksOnCompany: any[] = []; // Mapped data from /api/feedbackoncompany
+  loading = true; // Start with loading state to prevent empty state flash
   error: string | null = null;
 
-  constructor(private feedbackFacade: InterviewFeedbackFacade) {}
+  constructor(
+    private feedbackFacade: InterviewFeedbackFacade,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.loadFeedbacks();
+    this.loadFeedbacksOnCompany();
   }
 
   /**
-   * Load all feedback submissions
+   * Load all feedback submissions from /api/feedbackoncompany
    */
-  loadFeedbacks(): void {
+  async loadFeedbacksOnCompany(): Promise<void> {
     this.loading = true;
     this.error = null;
 
-    this.feedbackFacade.getAllFeedbacks().subscribe({
-      next: (feedbacks) => {
-        this.feedbacks = feedbacks;
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error loading feedbacks:', error);
-        this.error = 'Failed to load feedback submissions';
-        this.loading = false;
-      }
-    });
-  }
-
-  /**
-   * Filter feedbacks by company
-   */
-  filterByCompany(companyName: string): void {
-    this.loading = true;
-    this.error = null;
-
-    this.feedbackFacade.getFeedbacksByCompany(companyName).subscribe({
-      next: (feedbacks) => {
-        this.feedbacks = feedbacks;
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Error filtering feedbacks:', error);
-        this.error = `Failed to load feedbacks for ${companyName}`;
-        this.loading = false;
-      }
-    });
+    try {
+      const feedbacks = await firstValueFrom(this.feedbackFacade.getFeedbacksOnCompany()) as any[];
+      this.feedbacksOnCompany = feedbacks;
+      this.loading = false;
+      console.log('✅ Feedbacks loaded successfully:', feedbacks.length, 'items');
+      console.log('✅ Feedbacks:', feedbacks);
+      
+      // Manually trigger change detection
+      this.cdr.detectChanges();
+    } catch (error) {
+      console.error('❌ Error loading feedbacks:', error);
+      this.error = 'Failed to load feedback submissions';
+      this.loading = false;
+      
+      // Trigger change detection on error too
+      this.cdr.detectChanges();
+    }
   }
 
   /**
    * Refresh the feedback list
    */
   refresh(): void {
-    this.loadFeedbacks();
+    this.loadFeedbacksOnCompany();
   }
 }
-
