@@ -45,7 +45,13 @@ export class FeedbackOnCompanyMapper {
    */
   private mapToCodingRound(apiResponse: FeedbackOnCompanyResponseDto): CodingRound {
     const codingInfo = apiResponse.codingRoundInfo;
-    const codingQuestions = codingInfo.codingQuestions.map(
+    
+    // Handle null/undefined codingRoundInfo
+    if (!codingInfo) {
+      return new CodingRound('', '', [], '', '');
+    }
+    
+    const codingQuestions = (codingInfo.codingQuestions || []).map(
       (q: string) => new Question(q)
     );
     
@@ -64,7 +70,12 @@ export class FeedbackOnCompanyMapper {
   private mapToTechnicalRound(apiResponse: FeedbackOnCompanyResponseDto): TechnicalRound {
     const techInfo = apiResponse.technicalRoundInfo;
     
-    const dsaQuestions: DSAQuestion[] = techInfo.dsaQuestions.map(q => 
+    // Handle null/undefined technicalRoundInfo
+    if (!techInfo) {
+      return new TechnicalRound('', '', [], [], [], []);
+    }
+    
+    const dsaQuestions: DSAQuestion[] = (techInfo.dsaQuestions || []).map(q => 
       new DSAQuestion(
         q.question,
         'Medium', // Default as API doesn't provide this
@@ -72,7 +83,7 @@ export class FeedbackOnCompanyMapper {
       )
     );
 
-    const dbmsQuestions: ComputerCoreQuestion[] = techInfo.dbmsQuestions.map(q => 
+    const dbmsQuestions: ComputerCoreQuestion[] = (techInfo.dbmsQuestions || []).map(q => 
       new ComputerCoreQuestion(
         q.question,
         'Medium', // Default as API doesn't provide this
@@ -80,7 +91,7 @@ export class FeedbackOnCompanyMapper {
       )
     );
 
-    const systemDesignQuestions: SystemDesignQuestion[] = techInfo.systemDesignQuestions.map(q => 
+    const systemDesignQuestions: SystemDesignQuestion[] = (techInfo.systemDesignQuestions || []).map(q => 
       new SystemDesignQuestion(
         q.question,
         'Medium', // Default as API doesn't provide this
@@ -88,7 +99,7 @@ export class FeedbackOnCompanyMapper {
       )
     );
 
-    const puzzleBasedQuestions: PuzzleBasedQuestion[] = techInfo.puzzleBasedQuestions.map(q => 
+    const puzzleBasedQuestions: PuzzleBasedQuestion[] = (techInfo.puzzleBasedQuestions || []).map(q => 
       new PuzzleBasedQuestion(
         q.question,
         'Medium' // Default as API doesn't provide this
@@ -111,15 +122,20 @@ export class FeedbackOnCompanyMapper {
   private mapToHRRound(apiResponse: FeedbackOnCompanyResponseDto): HRRound {
     const hrInfo = apiResponse.hrRoundInfo;
     
+    // Handle null/undefined hrRoundInfo
+    if (!hrInfo) {
+      return new HRRound([], []);
+    }
+    
     const situationBasedQuestions: SituationBasedQuestion[] = 
-      hrInfo.situationBasedQuestions.map(q => 
+      (hrInfo.situationBasedQuestions || []).map(q => 
         new SituationBasedQuestion(
           q.answer ? `${q.question} - Answer: ${q.answer}` : q.question
         )
       );
 
     const unexpectedQuestions: UnexpectedQuestion[] = 
-      hrInfo.unExpectedQuestions.map(q => 
+      (hrInfo.unExpectedQuestions || []).map(q => 
         new UnexpectedQuestion(
           q.answer ? `${q.question} - Answer: ${q.answer}` : q.question
         )
