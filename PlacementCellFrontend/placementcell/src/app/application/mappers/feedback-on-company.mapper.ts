@@ -23,7 +23,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map difficulty level number to string
    */
-  static mapDifficultyLevel(difficultyLevel: number): string {
+   mapDifficultyLevel(difficultyLevel: number): string {
     switch (difficultyLevel) {
       case 0:
         return 'Easy';
@@ -39,7 +39,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map API response to CompanyDetailsDto
    */
-  static mapToCompanyDetails(apiResponse: FeedbackOnCompanyResponseDto): CompanyDetails {
+   mapToCompanyDetails(apiResponse: FeedbackOnCompanyResponseDto): CompanyDetails {
     return {
     companyname: apiResponse.companydetails.companyname || 'Unknown Company',
     jobProfile: apiResponse.companydetails.jobProfile,
@@ -57,7 +57,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Calculate the number of rounds based on available round info
    */
-  private static calculateNumRounds(apiResponse: FeedbackOnCompanyResponseDto): number {
+  private  calculateNumRounds(apiResponse: FeedbackOnCompanyResponseDto): number {
     let rounds = 0;
     if (apiResponse.codingRoundInfo && apiResponse.codingRoundInfo.codingQuestions?.length > 0) {
       rounds++;
@@ -74,7 +74,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map API response to CodingRoundInfoDto
    */
-  static mapToCodingRoundInfo(apiResponse: FeedbackOnCompanyResponseDto): CodingRoundInfoApiDto {
+   mapToCodingRoundInfo(apiResponse: FeedbackOnCompanyResponseDto): CodingRoundInfoApiDto {
     const codingInfo = apiResponse.codingRoundInfo;
     return {
       codingPlatform: codingInfo.codingPlatform,
@@ -88,7 +88,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map API response to TechnicalRoundDto
    */
-  static mapToTechnicalRound(apiResponse: FeedbackOnCompanyResponseDto): TechnicalRoundInfoApiDto {
+   mapToTechnicalRound(apiResponse: FeedbackOnCompanyResponseDto): TechnicalRoundInfoApiDto {
     const techInfo = apiResponse.technicalRoundInfo;
     
     const dsaQuestions: DSAQuestionDto[] = techInfo.dsaQuestions.map(q => ({
@@ -127,7 +127,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map API response to HRRoundDto
    */
-  static mapToHRRound(apiResponse: FeedbackOnCompanyResponseDto): HRRoundInfoApiDto {
+   mapToHRRound(apiResponse: FeedbackOnCompanyResponseDto): HRRoundInfoApiDto {
     const hrInfo = apiResponse.hrRoundInfo;
     
     const situationBasedQuestions: SituationBasedQuestionDto[] = 
@@ -149,7 +149,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map API response to ResourceApiDto array
    */
-  static mapToResources(apiResponse: FeedbackOnCompanyResponseDto): any[] {
+   mapToResources(apiResponse: FeedbackOnCompanyResponseDto): any[] {
     if (!apiResponse.resourcesInfo || !apiResponse.resourcesInfo.resourcesList) {
       return [];
     }
@@ -164,7 +164,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map complete API response to all required DTOs
    */
-  static mapFeedbackOnCompanyResponse(apiResponse: FeedbackOnCompanyResponseDto) {
+   mapFeedbackOnCompanyResponse(apiResponse: FeedbackOnCompanyResponseDto) {
     return {
       feedbackId: apiResponse.companydetails.feedbackid,
       companyName: apiResponse.companydetails.companyname,

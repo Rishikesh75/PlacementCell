@@ -8,13 +8,13 @@ import { Observable, map } from 'rxjs';
 import { Feedback } from '../../domain/entities';
 import { IFeedbackRepository } from '../../domain/interfaces';
 import { FeedbackApiService } from '../api/feedback-api.service';
-import { FeedbackMapper } from '../../application/mappers';
+import { FeedbackOnCompanyMapper } from '../../application/mappers';
 
 @Injectable()
 export class FeedbackRepository implements IFeedbackRepository {
   constructor(
     private feedbackApi: FeedbackApiService,
-    private feedbackMapper: FeedbackMapper
+    private feedbackMapper: FeedbackOnCompanyMapper
   ) {}
 
   

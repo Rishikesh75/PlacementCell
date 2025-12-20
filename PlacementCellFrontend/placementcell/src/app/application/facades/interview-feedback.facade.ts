@@ -6,14 +6,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { GetFeedbacksOnCompanyUseCase, SubmitFeedbackUseCase } from '../use-cases';
-import { FeedbackMapper, FeedbackOnCompanyMapper } from '../mappers';
+import {  FeedbackOnCompanyMapper } from '../mappers';
 
 @Injectable()
 export class InterviewFeedbackFacade {
   constructor(
     private getFeedbacksOnCompanyUseCase: GetFeedbacksOnCompanyUseCase,
     private submitFeedbackUseCase: SubmitFeedbackUseCase,
-    private feedbackMapper: FeedbackMapper
+    private feedbackMapper: FeedbackOnCompanyMapper
   ) {}
 
   /**
@@ -24,7 +24,7 @@ export class InterviewFeedbackFacade {
   getFeedbacksOnCompany(): Observable<any[]> {
     return this.getFeedbacksOnCompanyUseCase.execute().pipe(
       map(apiResponses => apiResponses.map(response => 
-        FeedbackOnCompanyMapper.mapFeedbackOnCompanyResponse(response)
+        this.feedbackMapper.mapFeedbackOnCompanyResponse(response)
       ))
     );
   }

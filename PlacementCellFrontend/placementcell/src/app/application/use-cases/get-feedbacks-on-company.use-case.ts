@@ -35,20 +35,3 @@ export class SubmitFeedbackUseCase {
   }
 }
 
-@Injectable()
-export class GetAllFeedbacksUseCase {
-  constructor(private feedbackApiService: FeedbackApiService) {}
-
-  execute(): Observable<FeedbackOnCompanyResponseDto[]> {
-    return this.feedbackApiService.getFeedbacksOnCompany();
-  }
-}
-
-@Injectable()
-export class GetFeedbacksByCompanyUseCase {
-  constructor(private feedbackApiService: FeedbackApiService) {}
-
-  execute(companyId: string): Observable<FeedbackOnCompanyResponseDto[]> {
-    return this.feedbackApiService.getFeedbacksOnCompany();
-  }
-}
