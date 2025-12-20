@@ -1,7 +1,14 @@
 import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Companies ,Locations} from '../../../core/constants/companies.constants';
-import { FeedbackCardData } from '../../../domain/entities';
+import { Companies, Locations } from '../../../core/constants/companies.constants';
+import {
+  Feedback,
+  CompanyDetails,
+  CodingRound,
+  TechnicalRound,
+  HRRound,
+  Resource
+} from '../../../domain/entities';
 import { InterviewFeedbackFacade } from '../../../application/facades/interview-feedback.facade';
 
 @Component({
@@ -22,8 +29,7 @@ export class InterviewFeedbackFormPage {
   companyDetailsForm: FormGroup;
   companies = Companies;
   locations = Locations;
-  FeedbackFormData: FeedbackCardData;
-  temp: any;
+  FeedbackFormData: Feedback;
 
   @ViewChild('scrollContainer') scrollContainer!: ElementRef;
   @ViewChildren('formPage') formPages!: QueryList<ElementRef>;
@@ -92,67 +98,44 @@ export class InterviewFeedbackFormPage {
 
   OnCodingQuestions([arr, val]: [any[], any]): void {
     if (val == 'DSAQuestions') {
-      this.FeedbackFormData.technicalRoundInfo.dsaQuestions = arr;
+      this.FeedbackFormData.technicalRound.dsaQuestions = arr;
     } else if (val == 'DBMSQuestions') {
-      this.FeedbackFormData.technicalRoundInfo.dbmsQuestions = arr;
+      this.FeedbackFormData.technicalRound.computerCoreQuestions = arr;
     } else if (val == 'SystemDesign') {
-      this.FeedbackFormData.technicalRoundInfo.systemDesignQuestions = arr;
+      this.FeedbackFormData.technicalRound.systemDesignQuestions = arr;
     } else if (val == 'PuzzleBasedQuestions') {
-      this.FeedbackFormData.technicalRoundInfo.puzzleBasedQuestions = arr;
+      this.FeedbackFormData.technicalRound.puzzleBasedQuestions = arr;
     } else if (val == 'SituationBasedQuestions') {
-      this.FeedbackFormData.hrRoundInfo.situationBasedQuestions = arr;
+      this.FeedbackFormData.hrRound.situationBasedQuestions = arr;
     } else if (val == 'UnexpectedQuestions') {
-      this.FeedbackFormData.hrRoundInfo.unExpectedQuestions = arr;
+      this.FeedbackFormData.hrRound.unexpectedQuestions = arr;
     } else if (val == 'Resources') {
-      this.FeedbackFormData.resourcesInfo.resourcesList = arr;
+      this.FeedbackFormData.resources = arr;
     }
   }
 
   handleJobProfileChange(event: string): void {
-    this.FeedbackFormData.companydetails.jobProfile = event;
+    this.FeedbackFormData.companyDetails.jobProfile = event;
   }
 
   handleJobTypeChange(event: string): void {
-    this.FeedbackFormData.companydetails.jobType = event as any;
+    this.FeedbackFormData.companyDetails.jobType = event as any;
   }
 
-  private getDefaultFeedbackFormData(): FeedbackCardData {
-    return {
-      companydetails:{
-        feedbackid: '',
-        companyname: '',
-        alumniid: '',
-        jobProfile: '',
-        jobType: '',
-        jobLocation: '',
-        ctc: 6,
-        workMode: '',
-        numRounds: 0,
-        location: ''
-      },
-      codingRoundInfo: {
-        codingPlatform: '',
-        codingDuration: '',
-        codingQuestions: [],
-        codingDifficulty: '',
-        interviewMode: '',
-      },
-      technicalRoundInfo: {
-        interviewMode: '',
-        interviewDuration: '',
-        dsaQuestions: [],
-        dbmsQuestions: [],
-        systemDesignQuestions: [],
-        puzzleBasedQuestions: []
-      },
-      hrRoundInfo: {
-        situationBasedQuestions: [],
-        unExpectedQuestions: []
-      },
-      resourcesInfo: {
-        resourcesList: []
-      }
-    };
+  private getDefaultFeedbackFormData(): Feedback {
+    const companyDetails = new CompanyDetails('', '', 0, '', 6, '', '');
+    const codingRound = new CodingRound('', '', [], '', '');
+    const technicalRound = new TechnicalRound('', '', [], [], [], []);
+    const hrRound = new HRRound([], []);
+    const resources: Resource[] = [];
+
+    return new Feedback(
+      companyDetails,
+      codingRound,
+      technicalRound,
+      hrRound,
+      resources
+    );
   }
 }
 

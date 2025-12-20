@@ -1,6 +1,6 @@
 <!-- Compact Card -->
 <div class="job-card" (click)="openCard()">
-  <h2 class="company">{{ CompanyDetails?.companyname }}</h2>
+  <h2 class="company">{{ CompanyDetails?.companyName }}</h2>
   <p class="profile">Profile: {{ CompanyDetails?.jobProfile }}</p>
   <p class="rounds">Rounds: {{ CompanyDetails?.numRounds }}</p>
   <p class="job-type">Job Type: {{ CompanyDetails?.jobType }}</p>
@@ -12,7 +12,7 @@
 <!-- Expanded Overlay -->
 <div class="overlay" *ngIf="isCardOpen" (click)="closeCard()">
   <div class="job-card expanded" (click)="$event.stopPropagation()">
-    <h2 class="company">{{ CompanyDetails?.companyname }}</h2>
+    <h2 class="company">{{ CompanyDetails?.companyName }}</h2>
     <h3>{{ CompanyDetails?.jobProfile }} — {{ CompanyDetails?.ctc }}</h3>
 
     <div class="section">
@@ -36,7 +36,7 @@
       <h4>Technical Round</h4>
       <div class="sub-container">
         <p><strong>InterviewMode:</strong> {{ TechnicalRound?.interviewMode }}</p>
-      <p><strong>Duration:</strong> {{ TechnicalRound?.interviewDuration}}</p>
+      <p><strong>Duration:</strong> {{ TechnicalRound?.duration}}</p>
       <p><strong>DSA Questions Asked:</strong></p>
       <ul>
         <li *ngFor="let q of TechnicalRound?.dsaQuestions">
@@ -53,7 +53,7 @@
       </ul>
       <p><strong>Computer Core Questions Asked:</strong></p>
       <ul>
-        <li *ngFor="let q of TechnicalRound?.dbmsQuestions">
+        <li *ngFor="let q of TechnicalRound?.computerCoreQuestions">
           {{ q.questionType }}
           {{ q.question }}
         </li>
@@ -80,7 +80,7 @@
       </ul>
       <p><strong>UnexpectedQuestions Questions Asked:</strong></p>
       <ul>
-        <li *ngFor="let q of HRRound?.unExpectedQuestions">
+        <li *ngFor="let q of HRRound?.unexpectedQuestions">
           {{ q.question }}
         </li>
       </ul>
@@ -93,7 +93,7 @@
       <div class="sub-container">
         <div class="resource" *ngFor="let q of Resources">
           <div>
-            <strong>Category:</strong> {{ q.type }} <br>
+            <strong>Category:</strong> {{ q }} <br>
             <strong>Link:</strong> <a [href]="q.link" target="_blank">{{ q.link }}</a>
           </div>
           <div>

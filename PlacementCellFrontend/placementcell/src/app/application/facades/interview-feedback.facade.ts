@@ -6,7 +6,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { GetFeedbacksOnCompanyUseCase, SubmitFeedbackUseCase } from '../use-cases';
-import {  FeedbackOnCompanyMapper } from '../mappers';
+import { FeedbackOnCompanyMapper } from '../mappers';
+import { Feedback } from '../../domain/entities';
 
 @Injectable()
 export class InterviewFeedbackFacade {
@@ -18,13 +19,13 @@ export class InterviewFeedbackFacade {
 
   /**
    * Get all feedbacks on company from /api/feedbackoncompany endpoint
-   * Returns mapped data ready for display in feedback cards
-   * @returns Observable of mapped feedback data array
+   * Returns domain entities ready for display in feedback cards
+   * @returns Observable of Feedback domain entities array
    */
-  getFeedbacksOnCompany(): Observable<any[]> {
+  getFeedbacksOnCompany(): Observable<Feedback[]> {
     return this.getFeedbacksOnCompanyUseCase.execute().pipe(
       map(apiResponses => apiResponses.map(response => 
-        this.feedbackMapper.mapFeedbackOnCompanyResponse(response)
+        this.feedbackMapper.mapToFeedbackEntity(response)
       ))
     );
   }

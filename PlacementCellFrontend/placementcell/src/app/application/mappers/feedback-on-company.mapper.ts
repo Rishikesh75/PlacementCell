@@ -1,180 +1,170 @@
 /**
  * Feedback On Company Mapper
- * Maps API response from /api/feedbackoncompany to component-friendly format
+ * Maps API response from /api/feedbackoncompany to domain entities
  */
 
+import { Injectable } from '@angular/core';
+import { FeedbackOnCompanyResponseDto } from '../dtos';
 import {
-  FeedbackOnCompanyResponseDto,
-  CodingRoundInfoApiDto,
-  TechnicalRoundInfoApiDto,
-  HRRoundInfoApiDto,
-  ResourcesInfoApiDto,
+  Feedback,
   CompanyDetails,
-  DSAQuestionDto,
-  ComputerCoreQuestionDto,
-  SystemDesignQuestionDto,
-  PuzzleBasedQuestionDto,
-  SituationBasedQuestionDto,
-  UnexpectedQuestionDto
-} from '../dtos';
+  CodingRound,
+  TechnicalRound,
+  HRRound,
+  Resource,
+  Question,
+  DSAQuestion,
+  ComputerCoreQuestion,
+  SystemDesignQuestion,
+  PuzzleBasedQuestion,
+  SituationBasedQuestion,
+  UnexpectedQuestion
+} from '../../domain/entities';
 
-
+@Injectable({
+  providedIn: 'root'
+})
 export class FeedbackOnCompanyMapper {
   /**
-   * Map difficulty level number to string
+   * Map API response to CompanyDetails entity
    */
-   mapDifficultyLevel(difficultyLevel: number): string {
-    switch (difficultyLevel) {
-      case 0:
-        return 'Easy';
-      case 1:
-        return 'Medium';
-      case 2:
-        return 'Hard';
-      default:
-        return 'Medium';
-    }
+  private mapToCompanyDetails(apiResponse: FeedbackOnCompanyResponseDto): CompanyDetails {
+    return new CompanyDetails(
+      apiResponse.companyname || 'Unknown Company',
+      apiResponse.jobProfile || '',
+      apiResponse.numRounds || 0,
+      apiResponse.jobType || '',
+      apiResponse.ctc || 0,
+      apiResponse.workMode || '',
+      apiResponse.location || ''
+    );
   }
 
   /**
-   * Map API response to CompanyDetailsDto
+   * Map API response to CodingRound entity
    */
-   mapToCompanyDetails(apiResponse: FeedbackOnCompanyResponseDto): CompanyDetails {
-    return {
-    companyname: apiResponse.companydetails.companyname || 'Unknown Company',
-    jobProfile: apiResponse.companydetails.jobProfile,
-    numRounds: apiResponse.companydetails.numRounds,
-    jobType: apiResponse.companydetails.jobType,
-    ctc: apiResponse.companydetails.ctc,
-    workMode: apiResponse.companydetails.workMode,
-    location: apiResponse.companydetails.location,
-    feedbackid: '',
-    alumniid: '',
-    jobLocation: '',
-  };
-  }
-
-  /**
-   * Calculate the number of rounds based on available round info
-   */
-  private  calculateNumRounds(apiResponse: FeedbackOnCompanyResponseDto): number {
-    let rounds = 0;
-    if (apiResponse.codingRoundInfo && apiResponse.codingRoundInfo.codingQuestions?.length > 0) {
-      rounds++;
-    }
-    if (apiResponse.technicalRoundInfo) {
-      rounds++;
-    }
-    if (apiResponse.hrRoundInfo) {
-      rounds++;
-    }
-    return rounds;
-  }
-
-  /**
-   * Map API response to CodingRoundInfoDto
-   */
-   mapToCodingRoundInfo(apiResponse: FeedbackOnCompanyResponseDto): CodingRoundInfoApiDto {
+  private mapToCodingRound(apiResponse: FeedbackOnCompanyResponseDto): CodingRound {
     const codingInfo = apiResponse.codingRoundInfo;
-    return {
-      codingPlatform: codingInfo.codingPlatform,
-      codingDuration: codingInfo.codingDuration,
-      codingQuestions: codingInfo.codingQuestions,
-      codingDifficulty: codingInfo.codingDifficulty,
-      interviewMode: codingInfo.interviewMode
-    };
+    const codingQuestions = codingInfo.codingQuestions.map(
+      (q: string) => new Question(q)
+    );
+    
+    return new CodingRound(
+      codingInfo.codingPlatform || '',
+      codingInfo.codingDuration || '',
+      codingQuestions,
+      codingInfo.codingDifficulty || '',
+      codingInfo.interviewMode || ''
+    );
   }
 
   /**
-   * Map API response to TechnicalRoundDto
+   * Map API response to TechnicalRound entity
    */
-   mapToTechnicalRound(apiResponse: FeedbackOnCompanyResponseDto): TechnicalRoundInfoApiDto {
+  private mapToTechnicalRound(apiResponse: FeedbackOnCompanyResponseDto): TechnicalRound {
     const techInfo = apiResponse.technicalRoundInfo;
     
-    const dsaQuestions: DSAQuestionDto[] = techInfo.dsaQuestions.map(q => ({
-      questionType: q.questionType || 'General',
-      question: q.question,
-      difficulty: 'Medium' // Default as API doesn't provide this
-    }));
+    const dsaQuestions: DSAQuestion[] = techInfo.dsaQuestions.map(q => 
+      new DSAQuestion(
+        q.question,
+        'Medium', // Default as API doesn't provide this
+        q.questionType || 'General'
+      )
+    );
 
-    const dbmsQuestions: ComputerCoreQuestionDto[] = techInfo.dbmsQuestions.map(q => ({
-      questionType: q.questionType || 'DBMS',
-      question: q.question,
-      difficulty: 'Medium' // Default as API doesn't provide this
-    }));
+    const dbmsQuestions: ComputerCoreQuestion[] = techInfo.dbmsQuestions.map(q => 
+      new ComputerCoreQuestion(
+        q.question,
+        'Medium', // Default as API doesn't provide this
+        q.questionType || 'DBMS'
+      )
+    );
 
-    const systemDesignQuestions: SystemDesignQuestionDto[] = techInfo.systemDesignQuestions.map(q => ({
-      questionType: q.questionType || 'System Design',
-      question: q.question,
-      difficulty: 'Medium' // Default as API doesn't provide this
-    }));
+    const systemDesignQuestions: SystemDesignQuestion[] = techInfo.systemDesignQuestions.map(q => 
+      new SystemDesignQuestion(
+        q.question,
+        'Medium', // Default as API doesn't provide this
+        q.questionType || 'System Design'
+      )
+    );
 
-    const puzzleBasedQuestions: PuzzleBasedQuestionDto[] = techInfo.puzzleBasedQuestions.map(q => ({
-      question: q.question,
-      difficulty: 'Medium' // Default as API doesn't provide this
-    }));
+    const puzzleBasedQuestions: PuzzleBasedQuestion[] = techInfo.puzzleBasedQuestions.map(q => 
+      new PuzzleBasedQuestion(
+        q.question,
+        'Medium' // Default as API doesn't provide this
+      )
+    );
 
-    return {
-      interviewMode: techInfo.interviewMode,
-      interviewDuration: techInfo.interviewDuration,
-      dsaQuestions: dsaQuestions,
-      dbmsQuestions: dbmsQuestions,
-      systemDesignQuestions: systemDesignQuestions,
-      puzzleBasedQuestions: puzzleBasedQuestions
-    };
+    return new TechnicalRound(
+      techInfo.interviewMode || '',
+      techInfo.interviewDuration || '',
+      dsaQuestions,
+      dbmsQuestions,
+      systemDesignQuestions,
+      puzzleBasedQuestions
+    );
   }
 
   /**
-   * Map API response to HRRoundDto
+   * Map API response to HRRound entity
    */
-   mapToHRRound(apiResponse: FeedbackOnCompanyResponseDto): HRRoundInfoApiDto {
+  private mapToHRRound(apiResponse: FeedbackOnCompanyResponseDto): HRRound {
     const hrInfo = apiResponse.hrRoundInfo;
     
-    const situationBasedQuestions: SituationBasedQuestionDto[] = 
-      hrInfo.situationBasedQuestions.map(q => ({
-        question: q.answer ? `${q.question} - Answer: ${q.answer}` : q.question
-      }));
+    const situationBasedQuestions: SituationBasedQuestion[] = 
+      hrInfo.situationBasedQuestions.map(q => 
+        new SituationBasedQuestion(
+          q.answer ? `${q.question} - Answer: ${q.answer}` : q.question
+        )
+      );
 
-    const unexpectedQuestions: UnexpectedQuestionDto[] = 
-      hrInfo.unExpectedQuestions.map(q => ({
-        question: q.answer ? `${q.question} - Answer: ${q.answer}` : q.question
-      }));
+    const unexpectedQuestions: UnexpectedQuestion[] = 
+      hrInfo.unExpectedQuestions.map(q => 
+        new UnexpectedQuestion(
+          q.answer ? `${q.question} - Answer: ${q.answer}` : q.question
+        )
+      );
 
-    return {
-      situationBasedQuestions: situationBasedQuestions,
-      unExpectedQuestions: unexpectedQuestions
-    };
+    return new HRRound(
+      situationBasedQuestions,
+      unexpectedQuestions
+    );
   }
 
   /**
-   * Map API response to ResourceApiDto array
+   * Map API response to Resource entity array
    */
-   mapToResources(apiResponse: FeedbackOnCompanyResponseDto): any[] {
+  private mapToResources(apiResponse: FeedbackOnCompanyResponseDto): Resource[] {
     if (!apiResponse.resourcesInfo || !apiResponse.resourcesInfo.resourcesList) {
       return [];
     }
 
-    return apiResponse.resourcesInfo.resourcesList.map(r => ({
-      type: r.type,
-      link: r.link,
-      description: r.description
-    }));
+    return apiResponse.resourcesInfo.resourcesList.map(r => 
+      new Resource(
+        r.type || '',
+        r.description || '',
+        r.link || ''
+      )
+    );
   }
 
   /**
-   * Map complete API response to all required DTOs
+   * Map complete API response to Feedback domain entity
    */
-   mapFeedbackOnCompanyResponse(apiResponse: FeedbackOnCompanyResponseDto) {
-    return {
-      feedbackId: apiResponse.companydetails.feedbackid,
-      companyName: apiResponse.companydetails.companyname,
-      alumniId: apiResponse.companydetails.alumniid,
-      companyDetails: this.mapToCompanyDetails(apiResponse),
-      codingRoundInfo: this.mapToCodingRoundInfo(apiResponse),
-      technicalRound: this.mapToTechnicalRound(apiResponse),
-      hrRound: this.mapToHRRound(apiResponse),
-      resources: this.mapToResources(apiResponse)
-    };
+  mapToFeedbackEntity(apiResponse: FeedbackOnCompanyResponseDto): Feedback {
+    const companyDetails = this.mapToCompanyDetails(apiResponse);
+    const codingRound = this.mapToCodingRound(apiResponse);
+    const technicalRound = this.mapToTechnicalRound(apiResponse);
+    const hrRound = this.mapToHRRound(apiResponse);
+    const resources = this.mapToResources(apiResponse);
+
+    return new Feedback(
+      companyDetails,
+      codingRound,
+      technicalRound,
+      hrRound,
+      resources
+    );
   }
 }
 

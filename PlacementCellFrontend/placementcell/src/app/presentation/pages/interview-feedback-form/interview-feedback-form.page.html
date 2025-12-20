@@ -27,7 +27,7 @@
                <form [formGroup]="companyDetailsForm">
           <div class="vertical-stack">
                 <h2>{{ steps[0] }}</h2>
-                <app-drop-down [DropDownOptions]="companies" (CompanySelected)="this.FeedbackFormData.companydetails.companyname= $event"></app-drop-down>
+                <app-drop-down [DropDownOptions]="companies" (CompanySelected)="this.FeedbackFormData.companyDetails.companyName= $event"></app-drop-down>
 
                   <span class="section-title">Job Profiles:</span>
                   <div class="job-profiles">
@@ -57,7 +57,7 @@
                   
                 <div class="container">
                   <span class="section-title">No of Rounds:</span>
-                  <app-counter (countChange)="FeedbackFormData.companydetails.numRounds = $event"></app-counter>
+                  <app-counter (countChange)="FeedbackFormData.companyDetails.numRounds= $event"></app-counter>
                 </div>
                 
                   <span class="section-title">Job Type:</span>
@@ -88,12 +88,12 @@
                   
                   <div class="container">
                   <span class="section-title">CTC:</span>
-                  <app-number-input (valueChange)="FeedbackFormData.companydetails.ctc = $event"></app-number-input>
+                  <app-number-input (valueChange)="FeedbackFormData.companyDetails.ctc= $event"></app-number-input>
                 </div>
 
                 <span class="section-title">Work Mode:</span>
                   <div class="job-profiles">
-                      <app-radio-group name="WorkMode" (valueChange)="FeedbackFormData.companydetails.workMode = $event">
+                      <app-radio-group name="WorkMode" (valueChange)="FeedbackFormData.companyDetails.workMode= $event">
                         <app-radio-button 
                           label="WFH" 
                           name="WorkMode" 
@@ -117,7 +117,7 @@
                   </div>
 
                   <span class="section-title">Location:</span>
-                  <app-drop-down [Label]="'Select Location'" [DropDownOptions]="locations" (CompanySelected)="FeedbackFormData.companydetails.location = $event"></app-drop-down>
+                  <app-drop-down [Label]="'Select Location'" [DropDownOptions]="locations" (CompanySelected)="FeedbackFormData.companyDetails.location= $event"></app-drop-down>
             </div>
             
 
@@ -137,7 +137,7 @@
              <span class="section-title">Coding Platform:</span>
                   
                 <div class="job-profiles">
-                  <app-radio-group name="jobProfile" (valueChange)="FeedbackFormData.codingRoundInfo.codingPlatform = $event">
+                  <app-radio-group name="jobProfile" (valueChange)="FeedbackFormData.codingRound.codingPlatform= $event">
                       <app-radio-button 
                           label="HackerRank" 
                           name="jobProfile" 
@@ -167,11 +167,11 @@
                   </div>
 
             <span class="section-title">Duration:</span>
-                  <app-duration-selector (durationChange)="FeedbackFormData.codingRoundInfo.codingDuration = $event"></app-duration-selector>
+                  <app-duration-selector (durationChange)="FeedbackFormData.codingRound.codingDuration= $event"></app-duration-selector>
             <span class="section-title">Question Asked:</span>
                 <app-greybox section="CodingQuestion"  (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
             <span class="section-title">Dificulty Level:</span>   
-                  <app-radio-group name="Dificulty Level" (valueChange)="FeedbackFormData.codingRoundInfo.codingDifficulty = $event">
+                  <app-radio-group name="Dificulty Level" (valueChange)="FeedbackFormData.codingRound.codingDifficulty= $event">
                     <div class="job-profiles">
                         <app-radio-button 
                           label="Easy" 
@@ -197,7 +197,7 @@
             
                   <span class="section-title">Interview Mode:</span>
                 <div class="job-profiles">
-                  <app-radio-group name="codingDifficulty" (valueChange)="FeedbackFormData.codingRoundInfo.codingDifficulty= $event">
+                  <app-radio-group name="codingDifficulty" (valueChange)="FeedbackFormData.codingRound.codingDifficulty= $event">
                     <app-radio-button 
                     label="Online" 
                     name="interviewMode" 
@@ -228,7 +228,7 @@
                 <h2>{{ steps[2] }}</h2>
                 <span class="section-title">Interview Mode:</span>
                 <div class="job-profiles">
-                  <app-radio-group name="interviewMode" (valueChange)="FeedbackFormData.technicalRoundInfo.interviewMode= $event">
+                  <app-radio-group name="interviewMode" (valueChange)="FeedbackFormData.technicalRound.interviewMode= $event">
                     <app-radio-button 
                     label="Online" 
                     name="interviewMode" 
@@ -246,7 +246,7 @@
                 </div>
 
                 <span class="section-title">Interview Duration:</span>
-                <app-duration-selector (durationChange)="FeedbackFormData.technicalRoundInfo.interviewDuration= $event"></app-duration-selector>
+                <app-duration-selector (durationChange)="FeedbackFormData.technicalRound.duration= $event"></app-duration-selector>
 
                 <span class="section-title">DSA question:</span>
                 <app-greybox section="DSAQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>

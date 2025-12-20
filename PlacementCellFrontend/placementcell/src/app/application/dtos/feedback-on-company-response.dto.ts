@@ -5,12 +5,22 @@
  */
 
 export interface FeedbackOnCompanyResponseDto {
-  companydetails : CompanyDetails
+  feedbackid: string;
+  companyname: string;
+  alumniid: string;
+  numRounds : number;
+  jobProfile: string;
+  jobType: string;
+  jobLocation: string;
+  ctc: number;
+  workMode: string;
+  location:string;
   codingRoundInfo: CodingRoundInfoApiDto;
   technicalRoundInfo: TechnicalRoundInfoApiDto;
   hrRoundInfo: HRRoundInfoApiDto;
   resourcesInfo: ResourcesInfoApiDto;
 }
+
 export interface CompanyDetails
 {
   feedbackid: string;

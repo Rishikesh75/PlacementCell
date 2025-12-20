@@ -6,14 +6,11 @@
       <p>No feedback submissions found.</p>
     </div>
 
-    <!-- Feedback Cards with API data -->
+    <!-- Feedback Cards with domain entities -->
     <app-feedback-card
       *ngFor="let feedback of feedbacksOnCompany"
-      [feedbackId]="feedback.feedbackId"
-      [companyId]="feedback.companyId"
-      [alumniId]="feedback.alumniId"
       [CompanyDetails]="feedback.companyDetails"
-      [CodingRoundInfo]="feedback.codingRoundInfo"
+      [CodingRoundInfo]="feedback.codingRound"
       [TechnicalRound]="feedback.technicalRound"
       [HRRound]="feedback.hrRound"
       [Resources]="feedback.resources">

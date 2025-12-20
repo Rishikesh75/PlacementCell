@@ -70,12 +70,10 @@ export class LoginPage implements OnInit {
 
   onUsernameChange(value: string): void {
     this.username = value;
-    console.log('Username changed:', value);
   }
 
   onPasswordChange(value: string): void {
     this.password = value;
-    console.log('Password changed:', value);
   }
 }
 

@@ -43,4 +43,4 @@ export class Feedback {
  * @deprecated Use FeedbackRequestDto from application/dtos instead
  * This type alias is for backward compatibility only
  */
-export type FeedbackCardData = FeedbackOnCompanyResponseDto;
+export type FeedbackCardData = Feedback;

@@ -1,11 +1,11 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { 
-  CompanyDetails ,
-  CodingRoundInfoApiDto, 
-  TechnicalRoundInfoApiDto, 
-  ResourceApiDto,
-  HRRoundInfoApiDto
-} from '../../../application/dtos';
+  CompanyDetails,
+  CodingRound,
+  TechnicalRound,
+  HRRound,
+  Resource
+} from '../../../domain/entities';
 
 @Component({
   selector: 'app-feedback-card',
@@ -16,15 +16,15 @@ import {
 export class FeedbackCardComponent implements OnChanges {
   isCardOpen = false;
 
-  // Inputs from API
+  // Inputs from domain entities
   @Input() feedbackId: string | undefined;
   @Input() companyId: string | undefined;
   @Input() alumniId: string | undefined;
   @Input() CompanyDetails: CompanyDetails | undefined;
-  @Input() CodingRoundInfo: CodingRoundInfoApiDto | undefined;
-  @Input() TechnicalRound: TechnicalRoundInfoApiDto | undefined;
-  @Input() HRRound: HRRoundInfoApiDto | undefined;
-  @Input() Resources: ResourceApiDto[] | undefined;
+  @Input() CodingRoundInfo: CodingRound | undefined;
+  @Input() TechnicalRound: TechnicalRound | undefined;
+  @Input() HRRound: HRRound | undefined;
+  @Input() Resources: Resource[] | undefined;
 
   ngOnChanges(changes: SimpleChanges): void {
     // The input properties are already bound to the template
