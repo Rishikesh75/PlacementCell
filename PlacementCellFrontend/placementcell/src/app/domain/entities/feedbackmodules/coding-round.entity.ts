@@ -3,7 +3,7 @@
  * Represents coding round information
  */
 
-import { Question } from './question.entity';
+import { Question } from '../questions/question.entity';
 
 export class CodingRound {
   constructor(

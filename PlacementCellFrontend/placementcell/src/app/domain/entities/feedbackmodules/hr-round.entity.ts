@@ -3,8 +3,8 @@
  * Represents HR interview round information
  */
 
-import { SituationBasedQuestion } from './situation-based-question.entity';
-import { UnexpectedQuestion } from './unexpected-question.entity';
+import { SituationBasedQuestion } from '../questions/question.entity';
+import { UnexpectedQuestion } from '../questions/question.entity';
 
 export class HRRound {
   constructor(

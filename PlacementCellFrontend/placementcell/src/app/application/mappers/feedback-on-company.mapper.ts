@@ -5,10 +5,6 @@
 
 import {
   FeedbackOnCompanyResponseDto,
-  JobTypeEnum,
-  WorkModeEnum,
-  InterviewModeEnum,
-  DifficultyLevelEnum,
   CompanyDetailsDto,
   CodingRoundInfoDto,
   TechnicalRoundDto,
@@ -24,66 +20,18 @@ import {
 
 export class FeedbackOnCompanyMapper {
   /**
-   * Map job type enum to string
-   */
-  static mapJobType(jobType: number): string {
-    switch (jobType) {
-      case JobTypeEnum.FullTime:
-        return 'Full-Time';
-      case JobTypeEnum.Internship:
-        return 'Internship';
-      case JobTypeEnum.Contract:
-        return 'Contract';
-      default:
-        return 'Unknown';
-    }
-  }
-
-  /**
-   * Map work mode enum to string
-   */
-  static mapWorkMode(workMode: number): string {
-    switch (workMode) {
-      case WorkModeEnum.Remote:
-        return 'Remote';
-      case WorkModeEnum.Office:
-        return 'Office';
-      case WorkModeEnum.Hybrid:
-        return 'Hybrid';
-      default:
-        return 'Unknown';
-    }
-  }
-
-  /**
-   * Map interview mode enum to string
-   */
-  static mapInterviewMode(interviewMode: number): string {
-    switch (interviewMode) {
-      case InterviewModeEnum.Online:
-        return 'Online';
-      case InterviewModeEnum.Offline:
-        return 'Offline';
-      case InterviewModeEnum.Hybrid:
-        return 'Hybrid';
-      default:
-        return 'Unknown';
-    }
-  }
-
-  /**
-   * Map difficulty level enum to string
+   * Map difficulty level number to string
    */
   static mapDifficultyLevel(difficultyLevel: number): string {
     switch (difficultyLevel) {
-      case DifficultyLevelEnum.Easy:
+      case 0:
         return 'Easy';
-      case DifficultyLevelEnum.Medium:
+      case 1:
         return 'Medium';
-      case DifficultyLevelEnum.Hard:
+      case 2:
         return 'Hard';
       default:
-        return 'Unknown';
+        return 'Medium';
     }
   }
 
@@ -92,13 +40,13 @@ export class FeedbackOnCompanyMapper {
    */
   static mapToCompanyDetails(apiResponse: FeedbackOnCompanyResponseDto): CompanyDetailsDto {
     return {
-      companyName: apiResponse.company || 'Unknown Company',
-      jobProfile: apiResponse.jobProfile,
-      numRounds: this.calculateNumRounds(apiResponse),
-      jobType: this.mapJobType(apiResponse.jobType),
-      ctc: apiResponse.ctc,
-      workMode: this.mapWorkMode(apiResponse.workMode),
-      location: apiResponse.jobLocation
+      companyName: apiResponse.companydetails.companyname || 'Unknown Company',
+      jobProfile: apiResponse.companydetails.jobProfile,
+      numRounds: apiResponse.companydetails.numRounds,
+      jobType: apiResponse.companydetails.jobType,
+      ctc: apiResponse.companydetails.ctc,
+      workMode: apiResponse.companydetails.workMode,
+      location: apiResponse.companydetails.location,
     };
   }
 
@@ -107,7 +55,7 @@ export class FeedbackOnCompanyMapper {
    */
   private static calculateNumRounds(apiResponse: FeedbackOnCompanyResponseDto): number {
     let rounds = 0;
-    if (apiResponse.codingRoundInfo && apiResponse.codingRoundInfo.questions?.length > 0) {
+    if (apiResponse.codingRoundInfo && apiResponse.codingRoundInfo.codingQuestions?.length > 0) {
       rounds++;
     }
     if (apiResponse.technicalRoundInfo) {
@@ -126,10 +74,10 @@ export class FeedbackOnCompanyMapper {
     const codingInfo = apiResponse.codingRoundInfo;
     return {
       codingPlatform: codingInfo.codingPlatform,
-      codingDuration: codingInfo.duration,
-      codingQuestions: codingInfo.questions.map(q => ({ question: q })),
-      codingDifficulty: this.mapDifficultyLevel(codingInfo.difficultyLevel),
-      interviewMode: this.mapInterviewMode(codingInfo.interviewMode)
+      codingDuration: codingInfo.codingDuration,
+      codingQuestions: codingInfo.codingQuestions.map(q => ({ question: q })),
+      codingDifficulty: codingInfo.codingDifficulty,
+      interviewMode: codingInfo.interviewMode
     };
   }
 
@@ -163,7 +111,7 @@ export class FeedbackOnCompanyMapper {
     }));
 
     return {
-      Interviewmode: this.mapInterviewMode(techInfo.interviewMode),
+      Interviewmode: techInfo.interviewMode,
       Duration: techInfo.interviewDuration,
       DSAQuestion: dsaQuestions,
       ComputerCoreQuestion: dbmsQuestions,
@@ -214,9 +162,9 @@ export class FeedbackOnCompanyMapper {
    */
   static mapFeedbackOnCompanyResponse(apiResponse: FeedbackOnCompanyResponseDto) {
     return {
-      feedbackId: apiResponse.feedbackid,
-      companyId: apiResponse.companyid,
-      alumniId: apiResponse.alumniid,
+      feedbackId: apiResponse.companydetails.feedbackid,
+      companyName: apiResponse.companydetails.companyname,
+      alumniId: apiResponse.companydetails.alumniid,
       companyDetails: this.mapToCompanyDetails(apiResponse),
       codingRoundInfo: this.mapToCodingRoundInfo(apiResponse),
       technicalRound: this.mapToTechnicalRound(apiResponse),

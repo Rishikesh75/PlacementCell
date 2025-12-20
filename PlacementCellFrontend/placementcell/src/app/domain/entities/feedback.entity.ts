@@ -3,12 +3,12 @@
  * Represents a complete interview feedback submission
  */
 
-import { CompanyDetails } from './company-details.entity';
-import { CodingRound } from './coding-round.entity';
-import { TechnicalRound } from './technical-round.entity';
-import { HRRound } from './hr-round.entity';
-import { Resource } from './resource.entity';
-import type { FeedbackRequestDto } from '../../application/dtos';
+import { CompanyDetails } from './feedbackmodules/company-details.entity';
+import { CodingRound } from './feedbackmodules/coding-round.entity';
+import { TechnicalRound } from './feedbackmodules/technical-round.entity';
+import { HRRound } from './feedbackmodules/hr-round.entity';
+import { Resource } from './feedbackmodules/resource.entity';
+import type { FeedbackOnCompanyResponseDto } from '../../application/dtos';
 
 export class Feedback {
   constructor(
@@ -43,4 +43,4 @@ export class Feedback {
  * @deprecated Use FeedbackRequestDto from application/dtos instead
  * This type alias is for backward compatibility only
  */
-export type FeedbackCardData = FeedbackRequestDto;
+export type FeedbackCardData = FeedbackOnCompanyResponseDto;

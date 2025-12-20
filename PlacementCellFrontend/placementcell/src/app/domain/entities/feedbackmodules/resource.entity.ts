@@ -5,9 +5,9 @@
 
 export class Resource {
   constructor(
-    public category?: string,
-    public description?: string,
-    public link?: string
+    public category: string,
+    public description: string,
+    public link: string
   ) {}
 
   /**

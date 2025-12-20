@@ -3,10 +3,10 @@
  * Represents technical interview round information
  */
 
-import { DSAQuestion } from './dsa-question.entity';
-import { ComputerCoreQuestion } from './computer-core-question.entity';
-import { SystemDesignQuestion } from './system-design-question.entity';
-import { PuzzleBasedQuestion } from './puzzle-based-question.entity';
+import { DSAQuestion } from '../questions/question.entity';
+import { ComputerCoreQuestion } from '../questions/question.entity';
+import { SystemDesignQuestion } from '../questions/question.entity';
+import { PuzzleBasedQuestion } from '../questions/question.entity';
 
 export class TechnicalRound {
   constructor(

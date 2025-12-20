@@ -6,7 +6,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FeedbackRequestDto, FeedbackResponseDto, FeedbackOnCompanyResponseDto } from '../../application/dtos';
+import {  FeedbackOnCompanyResponseDto } from '../../application/dtos';
 import { APP_CONSTANTS } from '../../core/constants';
 
 @Injectable()
@@ -16,74 +16,20 @@ export class FeedbackApiService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Post feedback to the API
-   * @param data - The feedback request DTO
-   * @returns Observable of feedback response DTO
-   */
-  postFeedback(data: FeedbackRequestDto): Observable<FeedbackResponseDto> {
-    return this.http.post<FeedbackResponseDto>(this.apiUrl, data);
-  }
-
-  /**
-   * Get feedback by ID
-   * @param id - The feedback ID
-   * @returns Observable of feedback response DTO
-   */
-  getFeedbackById(id: string): Observable<FeedbackResponseDto> {
-    return this.http.get<FeedbackResponseDto>(`${this.apiUrl}/${id}`);
-  }
-
-  /**
-   * Get all feedbacks
-   * @returns Observable of feedback response DTOs array
-   */
-  getAllFeedbacks(): Observable<FeedbackResponseDto[]> {
-    return this.http.get<FeedbackResponseDto[]>(this.apiUrl);
-  }
-
-  /**
-   * Get feedbacks by student ID
-   * @param studentId - The student ID
-   * @returns Observable of feedback response DTOs array
-   */
-  getFeedbacksByStudentId(studentId: string): Observable<FeedbackResponseDto[]> {
-    return this.http.get<FeedbackResponseDto[]>(`${this.apiUrl}/student/${studentId}`);
-  }
-
-  /**
-   * Get feedbacks by company name
-   * @param companyName - The company name
-   * @returns Observable of feedback response DTOs array
-   */
-  getFeedbacksByCompany(companyName: string): Observable<FeedbackResponseDto[]> {
-    return this.http.get<FeedbackResponseDto[]>(`${this.apiUrl}/company/${companyName}`);
-  }
-
-  /**
-   * Update feedback
-   * @param id - The feedback ID
-   * @param data - The feedback request DTO
-   * @returns Observable of feedback response DTO
-   */
-  updateFeedback(id: string, data: FeedbackRequestDto): Observable<FeedbackResponseDto> {
-    return this.http.put<FeedbackResponseDto>(`${this.apiUrl}/${id}`, data);
-  }
-
-  /**
-   * Delete feedback
-   * @param id - The feedback ID
-   * @returns Observable of success status
-   */
-  deleteFeedback(id: string): Observable<{ success: boolean }> {
-    return this.http.delete<{ success: boolean }>(`${this.apiUrl}/${id}`);
-  }
-
-  /**
    * Get all feedbacks on company from /api/feedbackoncompany endpoint
    * @returns Observable of feedback on company response DTOs array
    */
   getFeedbacksOnCompany(): Observable<FeedbackOnCompanyResponseDto[]> {
     const url = `${APP_CONSTANTS.API.BASE_URL}${APP_CONSTANTS.API.ENDPOINTS.FEEDBACK_ON_COMPANY}`;
     return this.http.get<FeedbackOnCompanyResponseDto[]>(url);
+  }
+
+  /**
+   * Submit feedback to the API
+   * @param feedbackData The feedback data to submit
+   * @returns Observable of the API response
+   */
+  submitFeedback(feedbackData: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, feedbackData);
   }
 }

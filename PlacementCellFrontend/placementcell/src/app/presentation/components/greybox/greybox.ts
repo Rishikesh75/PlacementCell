@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, output, resource, SimpleChanges } from '@angular/core';
-import { DSAQuestionType, CoreCSquestionType, ResourceCategory } from '../../../domain/value-objects/feedback-sample.value-object';
+import { DSAQuestionType, CoreCSquestionType, ResourceCategory } from '../../../core/constants/question-types.constants';
 @Component({
   selector: 'app-greybox',
   standalone: false,

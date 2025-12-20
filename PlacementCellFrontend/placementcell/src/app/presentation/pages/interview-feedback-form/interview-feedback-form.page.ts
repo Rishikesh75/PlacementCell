@@ -1,8 +1,8 @@
 import { Component, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Companies, Locations } from '../../../domain/value-objects/feedback-sample.value-object';
-import { FeedbackCardData } from '../../../domain/entities/feedback.entity';
-import { FeedbackFacade } from '../../../application/facades/feedback.facade';
+import { Companies ,Locations} from '../../../core/constants/companies.constants';
+import { FeedbackCardData } from '../../../domain/entities';
+import { InterviewFeedbackFacade } from '../../../application/facades/interview-feedback.facade';
 
 @Component({
   selector: 'app-interview-feedback-form-page',
@@ -33,7 +33,7 @@ export class InterviewFeedbackFormPage {
 
   constructor(
     private fb: FormBuilder,
-    private feedbackFacade: FeedbackFacade
+    private feedbackFacade: InterviewFeedbackFacade
   ) {
     this.companyDetailsForm = this.fb.group({});
     this.FeedbackFormData = this.getDefaultFeedbackFormData();
@@ -92,19 +92,19 @@ export class InterviewFeedbackFormPage {
 
   OnCodingQuestions([arr, val]: [any[], any]): void {
     if (val == 'DSAQuestions') {
-      this.FeedbackFormData.TechnicalRound.DSAQuestion = arr;
+      this.FeedbackFormData.technicalRoundInfo.dsaQuestions = arr;
     } else if (val == 'DBMSQuestions') {
-      this.FeedbackFormData.TechnicalRound.ComputerCoreQuestion = arr;
+      this.FeedbackFormData.technicalRoundInfo.dbmsQuestions = arr;
     } else if (val == 'SystemDesign') {
-      this.FeedbackFormData.TechnicalRound.SystemDesignQuestion = arr;
+      this.FeedbackFormData.technicalRoundInfo.systemDesignQuestions = arr;
     } else if (val == 'PuzzleBasedQuestions') {
-      this.FeedbackFormData.TechnicalRound.PuzzleBasedQuestion = arr;
+      this.FeedbackFormData.technicalRoundInfo.puzzleBasedQuestions = arr;
     } else if (val == 'SituationBasedQuestions') {
-      this.FeedbackFormData.HRRound.SituationBasedQuestions = arr;
+      this.FeedbackFormData.hrRoundInfo.situationBasedQuestions = arr;
     } else if (val == 'UnexpectedQuestions') {
-      this.FeedbackFormData.HRRound.UnexpectedQuestions = arr;
+      this.FeedbackFormData.hrRoundInfo.unExpectedQuestions = arr;
     } else if (val == 'Resources') {
-      this.FeedbackFormData.Resources = arr;
+      this.FeedbackFormData.resourcesInfo.resourcesList = arr;
     }
   }
 
@@ -113,40 +113,45 @@ export class InterviewFeedbackFormPage {
   }
 
   handleJobTypeChange(event: string): void {
-    this.FeedbackFormData.companydetails.jobType = event;
+    this.FeedbackFormData.companydetails.jobType = event as any;
   }
 
   private getDefaultFeedbackFormData(): FeedbackCardData {
     return {
-      companydetails: {
-        companyName: '',
+      companydetails:{
+        feedbackid: '',
+        companyname: '',
+        alumniid: '',
         jobProfile: '',
-        numRounds: 0,
         jobType: '',
+        jobLocation: '',
         ctc: 6,
         workMode: '',
+        numRounds: 0,
         location: ''
       },
-      codingroundinfo: {
+      codingRoundInfo: {
         codingPlatform: '',
         codingDuration: '',
         codingQuestions: [],
         codingDifficulty: '',
-        interviewMode: ''
+        interviewMode: '',
       },
-      TechnicalRound: {
-        Interviewmode: '',
-        Duration: '',
-        DSAQuestion: [],
-        ComputerCoreQuestion: [],
-        SystemDesignQuestion: [],
-        PuzzleBasedQuestion: []
+      technicalRoundInfo: {
+        interviewMode: '',
+        interviewDuration: '',
+        dsaQuestions: [],
+        dbmsQuestions: [],
+        systemDesignQuestions: [],
+        puzzleBasedQuestions: []
       },
-      HRRound: {
-        SituationBasedQuestions: [],
-        UnexpectedQuestions: []
+      hrRoundInfo: {
+        situationBasedQuestions: [],
+        unExpectedQuestions: []
       },
-      Resources: []
+      resourcesInfo: {
+        resourcesList: []
+      }
     };
   }
 }

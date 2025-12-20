@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { APP_CONSTANTS } from '../../core/constants/app.constants';
-import {User} from '../../domain/interfaces/User.interface'
+import {User} from '../../domain/entities/user.entity'
 /**
  * User data interface
  */
@@ -26,7 +25,6 @@ export class UserApiService {
    * @returns Observable of users array
    */
   getAllUsers(): Observable<User[]> {
-    
     return this.http.get<User[]>(this.apiUrl);
   }
 
@@ -35,25 +33,9 @@ export class UserApiService {
    * @param username - The username to search for
    * @returns Observable of user or null
    */
-  getUserByUsername(username: string): Observable<User | null> {
-    console.log('🔍 getUserByUsername called with username:', username);
+  getUserByUsername(username: string): Observable<User> {
     const url = `${this.apiUrl}/${username}`;
-    console.log('📡 API URL:', url);
-    
-    return this.http.get<User | null>(url).pipe(
-      tap({
-        next: (response) => {
-          console.log('✅ getUserByUsername SUCCESS Response:', response);
-          console.log('📊 Response Type:', typeof response);
-          console.log('📋 Response Details:', JSON.stringify(response, null, 2));
-        },
-        error: (error) => {
-          console.error('❌ getUserByUsername ERROR:', error);
-          console.error('🔥 Error Status:', error.status);
-          console.error('🔥 Error Message:', error.message);
-        }
-      })
-    );
+    return this.http.get<User>(url);
   }
 }
 

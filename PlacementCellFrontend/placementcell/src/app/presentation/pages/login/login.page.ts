@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../../../core/services/notification.service';
 import { NotificationType } from '../../../core/enums/notification.enum';
 import { UserApiService } from '../../../infrastructure/api/user-api.service';
-import {User} from '../../../domain/interfaces/User.interface'
+import {User} from '../../../domain/entities/user.entity'
 
 @Component({
   selector: 'app-login-page',

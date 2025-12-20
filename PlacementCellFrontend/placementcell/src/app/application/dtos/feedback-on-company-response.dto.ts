@@ -5,32 +5,35 @@
  */
 
 export interface FeedbackOnCompanyResponseDto {
-  feedbackid: string;
-  companyid: string;
-  company: any | null;
-  alumniid: string;
-  alumni: any | null;
-  jobProfile: string;
-  jobType: number;
-  jobLocation: string;
-  ctc: string;
-  workMode: number;
+  companydetails : CompanyDetails
   codingRoundInfo: CodingRoundInfoApiDto;
   technicalRoundInfo: TechnicalRoundInfoApiDto;
   hrRoundInfo: HRRoundInfoApiDto;
   resourcesInfo: ResourcesInfoApiDto;
 }
-
+export interface CompanyDetails
+{
+  feedbackid: string;
+  companyname: string;
+  alumniid: string;
+  numRounds : number;
+  jobProfile: string;
+  jobType: string;
+  jobLocation: string;
+  ctc: number;
+  workMode: string;
+  location:string;
+}
 export interface CodingRoundInfoApiDto {
   codingPlatform: string;
-  duration: string;
-  questions: string[];
-  difficultyLevel: number;
-  interviewMode: number;
+  codingDuration: string;
+  codingQuestions: string[];
+  codingDifficulty: string;
+  interviewMode: string;
 }
 
 export interface TechnicalRoundInfoApiDto {
-  interviewMode: number;
+  interviewMode: string;
   interviewDuration: string;
   dsaQuestions: TechnicalQuestionApiDto[];
   dbmsQuestions: TechnicalQuestionApiDto[];
@@ -44,8 +47,6 @@ export interface TechnicalQuestionApiDto {
 }
 
 export interface HRRoundInfoApiDto {
-  interviewMode: number;
-  interviewDuration: string;
   situationBasedQuestions: HRQuestionApiDto[];
   unExpectedQuestions: HRQuestionApiDto[];
 }

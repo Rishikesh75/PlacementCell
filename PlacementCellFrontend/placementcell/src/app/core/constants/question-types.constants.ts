@@ -1,7 +1,7 @@
 /**
  * Types of DSA questions
  */
-export const DSA_QUESTION_TYPES: string[] = [
+export const DSAQuestionType: string[] = [
   "Array", "String", "LinkedList", "Tree", "Graph",
   "DynamicProgramming", "Backtracking", "Greedy", "Sorting", "Searching"
 ];
@@ -9,7 +9,7 @@ export const DSA_QUESTION_TYPES: string[] = [
 /**
  * Types of Core Computer Science questions
  */
-export const CORE_CS_QUESTION_TYPES: string[] = [
+export const CoreCSquestionType: string[] = [
   "Computer Networks", 
   "Operating Systems", 
   "Database Management Systems", 
@@ -20,7 +20,7 @@ export const CORE_CS_QUESTION_TYPES: string[] = [
 /**
  * Resource categories for interview preparation
  */
-export const RESOURCE_CATEGORIES: string[] = [
+export const ResourceCategory: string[] = [
   "DSA", 
   "Core CS", 
   "DBMS", 

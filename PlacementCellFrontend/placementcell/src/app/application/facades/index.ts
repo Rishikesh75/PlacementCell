@@ -3,5 +3,3 @@
  */
 
 export * from './interview-feedback.facade';
-export * from './feedback.facade';
-
