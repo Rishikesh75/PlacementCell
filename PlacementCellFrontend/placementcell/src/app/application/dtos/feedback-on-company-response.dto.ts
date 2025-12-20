@@ -93,3 +93,109 @@ export enum DifficultyLevelEnum {
   Hard = 2
 }
 
+/**
+ * Question DTOs for different types of interview questions
+ */
+
+// DSA Question DTO (for Technical Round)
+export interface DSAQuestionDto {
+  questionType: string;
+  question: string;
+  difficulty: string;
+}
+
+// Computer Core Question DTO (for DBMS, OS, CN, etc.)
+export interface ComputerCoreQuestionDto {
+  questionType: string;
+  question: string;
+  difficulty: string;
+}
+
+// System Design Question DTO
+export interface SystemDesignQuestionDto {
+  questionType: string;
+  question: string;
+  difficulty: string;
+}
+
+// Puzzle Based Question DTO
+export interface PuzzleBasedQuestionDto {
+  question: string;
+  difficulty: string;
+}
+
+// Situation Based Question DTO (for HR Round)
+export interface SituationBasedQuestionDto {
+  question: string;
+}
+
+// Unexpected Question DTO (for HR Round)
+export interface UnexpectedQuestionDto {
+  question: string;
+}
+
+/**
+ * Request and Response DTOs for Feedback submission
+ */
+
+// Coding Round Info DTO for Request
+export interface CodingRoundInfoDto {
+  codingPlatform: string;
+  codingDuration: string;
+  codingQuestions: { question: string }[];
+  codingDifficulty: string;
+  interviewMode: string;
+}
+
+// Technical Round DTO for Request
+export interface TechnicalRoundDto {
+  Interviewmode: string;
+  Duration: string;
+  DSAQuestion: DSAQuestionDto[];
+  ComputerCoreQuestion: ComputerCoreQuestionDto[];
+  SystemDesignQuestion: SystemDesignQuestionDto[];
+  PuzzleBasedQuestion: PuzzleBasedQuestionDto[];
+}
+
+// HR Round DTO for Request
+export interface HRRoundDto {
+  SituationBasedQuestions: SituationBasedQuestionDto[];
+  UnexpectedQuestions: UnexpectedQuestionDto[];
+}
+
+// Company Details DTO for Request
+export interface CompanyDetailsDto {
+  companyName: string;
+  jobProfile: string;
+  numRounds: number;
+  jobType: string;
+  ctc: number | string;
+  workMode: string;
+  location: string;
+}
+
+// Resource DTO for Request
+export interface ResourceDto {
+  category: string;
+  Description: string;
+  Link: string;
+}
+
+// Feedback Request DTO
+export interface FeedbackRequestDto {
+  companydetails: CompanyDetailsDto;
+  codingroundinfo: CodingRoundInfoDto;
+  TechnicalRound: TechnicalRoundDto;
+  HRRound: HRRoundDto;
+  Resources: ResourceDto[];
+}
+
+// Feedback Response DTO
+export interface FeedbackResponseDto {
+  companydetails: CompanyDetailsDto;
+  codingroundinfo: CodingRoundInfoDto;
+  TechnicalRound: TechnicalRoundDto;
+  HRRound: HRRoundDto;
+  Resources: ResourceDto[];
+}
+

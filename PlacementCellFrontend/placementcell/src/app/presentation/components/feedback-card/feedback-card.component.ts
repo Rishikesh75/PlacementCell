@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { 
-  CompanyDetailsDto, 
-  CodingRoundInfoDto, 
-  TechnicalRoundDto, 
-  HRRoundDto, 
-  ResourceDto 
+  CompanyDetails ,
+  CodingRoundInfoApiDto, 
+  TechnicalRoundInfoApiDto, 
+  ResourceApiDto,
+  HRRoundInfoApiDto
 } from '../../../application/dtos';
 
 @Component({
@@ -20,11 +20,11 @@ export class FeedbackCardComponent implements OnChanges {
   @Input() feedbackId: string | undefined;
   @Input() companyId: string | undefined;
   @Input() alumniId: string | undefined;
-  @Input() CompanyDetails: CompanyDetailsDto | undefined;
-  @Input() CodingRoundInfo: CodingRoundInfoDto | undefined;
-  @Input() TechnicalRound: TechnicalRoundDto | undefined;
-  @Input() HRRound: HRRoundDto | undefined;
-  @Input() Resources: ResourceDto[] | undefined;
+  @Input() CompanyDetails: CompanyDetails | undefined;
+  @Input() CodingRoundInfo: CodingRoundInfoApiDto | undefined;
+  @Input() TechnicalRound: TechnicalRoundInfoApiDto | undefined;
+  @Input() HRRound: HRRoundInfoApiDto | undefined;
+  @Input() Resources: ResourceApiDto[] | undefined;
 
   ngOnChanges(changes: SimpleChanges): void {
     // The input properties are already bound to the template

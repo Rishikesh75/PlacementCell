@@ -1,6 +1,6 @@
 <!-- Compact Card -->
 <div class="job-card" (click)="openCard()">
-  <h2 class="company">{{ CompanyDetails?.companyName }}</h2>
+  <h2 class="company">{{ CompanyDetails?.companyname }}</h2>
   <p class="profile">Profile: {{ CompanyDetails?.jobProfile }}</p>
   <p class="rounds">Rounds: {{ CompanyDetails?.numRounds }}</p>
   <p class="job-type">Job Type: {{ CompanyDetails?.jobType }}</p>
@@ -12,7 +12,7 @@
 <!-- Expanded Overlay -->
 <div class="overlay" *ngIf="isCardOpen" (click)="closeCard()">
   <div class="job-card expanded" (click)="$event.stopPropagation()">
-    <h2 class="company">{{ CompanyDetails?.companyName }}</h2>
+    <h2 class="company">{{ CompanyDetails?.companyname }}</h2>
     <h3>{{ CompanyDetails?.jobProfile }} — {{ CompanyDetails?.ctc }}</h3>
 
     <div class="section">
@@ -23,7 +23,7 @@
           <p><strong>Questions Asked:</strong></p>
             <ul>
               <li *ngFor="let q of CodingRoundInfo?.codingQuestions">
-                {{ q.question }}
+                {{ q }}
               </li>
             </ul>
           <p><strong>Difficulty:</strong> {{ CodingRoundInfo?.codingDifficulty }}</p>
@@ -35,32 +35,32 @@
     <div class="section">
       <h4>Technical Round</h4>
       <div class="sub-container">
-        <p><strong>InterviewMode:</strong> {{ TechnicalRound?.Interviewmode }}</p>
-      <p><strong>Duration:</strong> {{ TechnicalRound?.Duration}}</p>
+        <p><strong>InterviewMode:</strong> {{ TechnicalRound?.interviewMode }}</p>
+      <p><strong>Duration:</strong> {{ TechnicalRound?.interviewDuration}}</p>
       <p><strong>DSA Questions Asked:</strong></p>
       <ul>
-        <li *ngFor="let q of TechnicalRound?.DSAQuestion">
+        <li *ngFor="let q of TechnicalRound?.dsaQuestions">
           {{ q.questionType }}
           {{ q.question }}
         </li>
       </ul>
       <p><strong>System Design Questions Asked:</strong></p>
       <ul>
-        <li *ngFor="let q of TechnicalRound?.SystemDesignQuestion">
+        <li *ngFor="let q of TechnicalRound?.systemDesignQuestions">
           {{ q.questionType }}
           {{ q.question }}
         </li>
       </ul>
       <p><strong>Computer Core Questions Asked:</strong></p>
       <ul>
-        <li *ngFor="let q of TechnicalRound?.ComputerCoreQuestion">
+        <li *ngFor="let q of TechnicalRound?.dbmsQuestions">
           {{ q.questionType }}
           {{ q.question }}
         </li>
       </ul>
       <p><strong>PuzzleBasedQuestion Questions Asked:</strong></p>
       <ul>
-        <li *ngFor="let q of TechnicalRound?.PuzzleBasedQuestion">
+        <li *ngFor="let q of TechnicalRound?.puzzleBasedQuestions">
           {{ q.question }}
         </li>
       </ul>
@@ -74,13 +74,13 @@
       <div class="sub-container">
         <p><strong>SituationBasedQuestions Questions Asked:</strong></p>
       <ul>
-        <li *ngFor="let q of HRRound?.SituationBasedQuestions">
+        <li *ngFor="let q of HRRound?.situationBasedQuestions">
           {{ q.question }}
         </li>
       </ul>
       <p><strong>UnexpectedQuestions Questions Asked:</strong></p>
       <ul>
-        <li *ngFor="let q of HRRound?.UnexpectedQuestions">
+        <li *ngFor="let q of HRRound?.unExpectedQuestions">
           {{ q.question }}
         </li>
       </ul>
@@ -93,11 +93,11 @@
       <div class="sub-container">
         <div class="resource" *ngFor="let q of Resources">
           <div>
-            <strong>Category:</strong> {{ q.category }} <br>
-            <strong>Link:</strong> <a [href]="q.Link" target="_blank">{{ q.Link }}</a>
+            <strong>Category:</strong> {{ q.type }} <br>
+            <strong>Link:</strong> <a [href]="q.link" target="_blank">{{ q.link }}</a>
           </div>
           <div>
-            <strong>Description:</strong> {{ q.Description }} <br>
+            <strong>Description:</strong> {{ q.description }} <br>
           </div>
         </div>
       </div>

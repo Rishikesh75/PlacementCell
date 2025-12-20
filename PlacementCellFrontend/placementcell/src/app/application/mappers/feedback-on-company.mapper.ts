@@ -5,11 +5,11 @@
 
 import {
   FeedbackOnCompanyResponseDto,
-  CompanyDetailsDto,
-  CodingRoundInfoDto,
-  TechnicalRoundDto,
-  HRRoundDto,
-  ResourceDto,
+  CodingRoundInfoApiDto,
+  TechnicalRoundInfoApiDto,
+  HRRoundInfoApiDto,
+  ResourcesInfoApiDto,
+  CompanyDetails,
   DSAQuestionDto,
   ComputerCoreQuestionDto,
   SystemDesignQuestionDto,
@@ -17,6 +17,7 @@ import {
   SituationBasedQuestionDto,
   UnexpectedQuestionDto
 } from '../dtos';
+
 
 export class FeedbackOnCompanyMapper {
   /**
@@ -38,16 +39,19 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map API response to CompanyDetailsDto
    */
-  static mapToCompanyDetails(apiResponse: FeedbackOnCompanyResponseDto): CompanyDetailsDto {
+  static mapToCompanyDetails(apiResponse: FeedbackOnCompanyResponseDto): CompanyDetails {
     return {
-      companyName: apiResponse.companydetails.companyname || 'Unknown Company',
-      jobProfile: apiResponse.companydetails.jobProfile,
-      numRounds: apiResponse.companydetails.numRounds,
-      jobType: apiResponse.companydetails.jobType,
-      ctc: apiResponse.companydetails.ctc,
-      workMode: apiResponse.companydetails.workMode,
-      location: apiResponse.companydetails.location,
-    };
+    companyname: apiResponse.companydetails.companyname || 'Unknown Company',
+    jobProfile: apiResponse.companydetails.jobProfile,
+    numRounds: apiResponse.companydetails.numRounds,
+    jobType: apiResponse.companydetails.jobType,
+    ctc: apiResponse.companydetails.ctc,
+    workMode: apiResponse.companydetails.workMode,
+    location: apiResponse.companydetails.location,
+    feedbackid: '',
+    alumniid: '',
+    jobLocation: '',
+  };
   }
 
   /**
@@ -70,12 +74,12 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map API response to CodingRoundInfoDto
    */
-  static mapToCodingRoundInfo(apiResponse: FeedbackOnCompanyResponseDto): CodingRoundInfoDto {
+  static mapToCodingRoundInfo(apiResponse: FeedbackOnCompanyResponseDto): CodingRoundInfoApiDto {
     const codingInfo = apiResponse.codingRoundInfo;
     return {
       codingPlatform: codingInfo.codingPlatform,
       codingDuration: codingInfo.codingDuration,
-      codingQuestions: codingInfo.codingQuestions.map(q => ({ question: q })),
+      codingQuestions: codingInfo.codingQuestions,
       codingDifficulty: codingInfo.codingDifficulty,
       interviewMode: codingInfo.interviewMode
     };
@@ -84,7 +88,7 @@ export class FeedbackOnCompanyMapper {
   /**
    * Map API response to TechnicalRoundDto
    */
-  static mapToTechnicalRound(apiResponse: FeedbackOnCompanyResponseDto): TechnicalRoundDto {
+  static mapToTechnicalRound(apiResponse: FeedbackOnCompanyResponseDto): TechnicalRoundInfoApiDto {
     const techInfo = apiResponse.technicalRoundInfo;
     
     const dsaQuestions: DSAQuestionDto[] = techInfo.dsaQuestions.map(q => ({
@@ -111,19 +115,19 @@ export class FeedbackOnCompanyMapper {
     }));
 
     return {
-      Interviewmode: techInfo.interviewMode,
-      Duration: techInfo.interviewDuration,
-      DSAQuestion: dsaQuestions,
-      ComputerCoreQuestion: dbmsQuestions,
-      SystemDesignQuestion: systemDesignQuestions,
-      PuzzleBasedQuestion: puzzleBasedQuestions
+      interviewMode: techInfo.interviewMode,
+      interviewDuration: techInfo.interviewDuration,
+      dsaQuestions: dsaQuestions,
+      dbmsQuestions: dbmsQuestions,
+      systemDesignQuestions: systemDesignQuestions,
+      puzzleBasedQuestions: puzzleBasedQuestions
     };
   }
 
   /**
    * Map API response to HRRoundDto
    */
-  static mapToHRRound(apiResponse: FeedbackOnCompanyResponseDto): HRRoundDto {
+  static mapToHRRound(apiResponse: FeedbackOnCompanyResponseDto): HRRoundInfoApiDto {
     const hrInfo = apiResponse.hrRoundInfo;
     
     const situationBasedQuestions: SituationBasedQuestionDto[] = 
@@ -137,23 +141,23 @@ export class FeedbackOnCompanyMapper {
       }));
 
     return {
-      SituationBasedQuestions: situationBasedQuestions,
-      UnexpectedQuestions: unexpectedQuestions
+      situationBasedQuestions: situationBasedQuestions,
+      unExpectedQuestions: unexpectedQuestions
     };
   }
 
   /**
-   * Map API response to ResourceDto array
+   * Map API response to ResourceApiDto array
    */
-  static mapToResources(apiResponse: FeedbackOnCompanyResponseDto): ResourceDto[] {
+  static mapToResources(apiResponse: FeedbackOnCompanyResponseDto): any[] {
     if (!apiResponse.resourcesInfo || !apiResponse.resourcesInfo.resourcesList) {
       return [];
     }
 
     return apiResponse.resourcesInfo.resourcesList.map(r => ({
-      category: r.type,
-      Description: r.description,
-      Link: r.link
+      type: r.type,
+      link: r.link,
+      description: r.description
     }));
   }
 

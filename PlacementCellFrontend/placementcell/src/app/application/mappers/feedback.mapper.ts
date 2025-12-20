@@ -20,20 +20,26 @@ import {
   Resource
 } from '../../domain/entities';
 import { 
-  FeedbackRequestDto, 
-  FeedbackResponseDto,
+  ResourcesInfoApiDto,
+  ResourceApiDto,
+  CompanyDetails as CompanyDetailsApiDto,
   CompanyDetailsDto,
+  CodingRoundInfoApiDto,
   CodingRoundInfoDto,
+  TechnicalRoundInfoApiDto,
   TechnicalRoundDto,
+  HRRoundInfoApiDto,
   HRRoundDto,
-  QuestionDto,
   DSAQuestionDto,
   ComputerCoreQuestionDto,
   SystemDesignQuestionDto,
   PuzzleBasedQuestionDto,
   SituationBasedQuestionDto,
   UnexpectedQuestionDto,
-  ResourceDto
+  ResourceDto,
+  FeedbackRequestDto,
+  FeedbackResponseDto,
+  FeedbackOnCompanyResponseDto
 } from '../dtos';
 
 @Injectable({
