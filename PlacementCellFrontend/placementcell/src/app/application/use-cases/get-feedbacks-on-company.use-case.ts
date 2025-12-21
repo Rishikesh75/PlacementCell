@@ -6,7 +6,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FeedbackApiService } from '../../infrastructure/api/feedback-api.service';
-import { FeedbackOnCompanyResponseDto } from '../dtos';
+import { FeedbackOnCompanyResponseDto, FeedbackRequestDto } from '../dtos';
+import { Feedback } from '../../domain/entities';
+import { FeedbackOnCompanyMapper } from '../mappers';
 
 @Injectable()
 export class GetFeedbacksOnCompanyUseCase {
@@ -23,15 +25,20 @@ export class GetFeedbacksOnCompanyUseCase {
 
 @Injectable()
 export class SubmitFeedbackUseCase {
-  constructor(private feedbackApiService: FeedbackApiService) {}
+  constructor(
+    private feedbackApiService: FeedbackApiService,
+    private mapper: FeedbackOnCompanyMapper
+  ) {}
 
   /**
    * Execute the use case to submit feedback
-   * @param feedbackData The feedback data to submit
+   * @param feedback The Feedback domain entity to submit
    * @returns Observable of the API response
    */
-  execute(feedbackData: any): Observable<any> {
-    return this.feedbackApiService.submitFeedback(feedbackData);
+  execute(feedback: Feedback): Observable<any> {
+    // Map entity to API request DTO
+    const requestDto: FeedbackOnCompanyResponseDto = this.mapper.mapToApiRequest(feedback);
+    return this.feedbackApiService.submitFeedback(requestDto);
   }
 }
 

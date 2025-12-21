@@ -6,15 +6,15 @@
 
 export interface FeedbackOnCompanyResponseDto {
   feedbackid: string;
-  companyname: string;
+  companyid: string;
+  company: string | null;
   alumniid: string;
-  numRounds : number;
+  alumni: string | null;
   jobProfile: string;
-  jobType: string;
+  jobType: number;
   jobLocation: string;
-  ctc: number;
-  workMode: string;
-  location:string;
+  ctc: string;
+  workMode: number;
   codingRoundInfo: CodingRoundInfoApiDto;
   technicalRoundInfo: TechnicalRoundInfoApiDto;
   hrRoundInfo: HRRoundInfoApiDto;
@@ -36,14 +36,14 @@ export interface CompanyDetails
 }
 export interface CodingRoundInfoApiDto {
   codingPlatform: string;
-  codingDuration: string;
-  codingQuestions: string[];
-  codingDifficulty: string;
-  interviewMode: string;
+  duration: string;
+  questions: string[];
+  difficultyLevel: number;
+  interviewMode: number;
 }
 
 export interface TechnicalRoundInfoApiDto {
-  interviewMode: string;
+  interviewMode: number;
   interviewDuration: string;
   dsaQuestions: TechnicalQuestionApiDto[];
   dbmsQuestions: TechnicalQuestionApiDto[];
@@ -57,6 +57,8 @@ export interface TechnicalQuestionApiDto {
 }
 
 export interface HRRoundInfoApiDto {
+  interviewMode: number;
+  interviewDuration: string;
   situationBasedQuestions: HRQuestionApiDto[];
   unExpectedQuestions: HRQuestionApiDto[];
 }

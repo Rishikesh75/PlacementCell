@@ -9,7 +9,6 @@ export const APP_CONSTANTS = {
   API: {
     BASE_URL: 'https://localhost:7070/api',
     ENDPOINTS: {
-      FORMS: '/forms',
       AUTH: '/auth',
       STUDENTS: '/Students',
       FEEDBACK_ON_COMPANY: '/feedbackoncompany'

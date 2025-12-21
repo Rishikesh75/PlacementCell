@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { InterviewFeedbackFacade } from '../../../application/facades';
+import { Feedback } from '../../../domain/entities';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -9,7 +10,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: '../../../styles/pages/feedback-display-page.less'
 })
 export class FeedbackDisplayPageComponent implements OnInit {
-  feedbacksOnCompany: any[] = []; // Mapped data from /api/feedbackoncompany
+  feedbacksOnCompany: Feedback[] = []; // Domain entities from /api/feedbackoncompany
   loading = true; // Start with loading state to prevent empty state flash
   error: string | null = null;
 
@@ -30,7 +31,7 @@ export class FeedbackDisplayPageComponent implements OnInit {
     this.error = null;
 
     try {
-      const feedbacks = await firstValueFrom(this.feedbackFacade.getFeedbacksOnCompany()) as any[];
+      const feedbacks = await firstValueFrom(this.feedbackFacade.getFeedbacksOnCompany());
       this.feedbacksOnCompany = feedbacks;
       this.loading = false;
       console.log('✅ Feedbacks loaded successfully:', feedbacks.length, 'items');

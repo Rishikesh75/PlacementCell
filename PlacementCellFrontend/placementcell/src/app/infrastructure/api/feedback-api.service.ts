@@ -6,12 +6,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import {  FeedbackOnCompanyResponseDto } from '../../application/dtos';
+import { FeedbackOnCompanyResponseDto, FeedbackRequestDto } from '../../application/dtos';
 import { APP_CONSTANTS } from '../../core/constants';
 
 @Injectable()
 export class FeedbackApiService {
-  private readonly apiUrl = `${APP_CONSTANTS.API.BASE_URL}${APP_CONSTANTS.API.ENDPOINTS.FORMS}`;
+  private readonly apiUrl = `${APP_CONSTANTS.API.BASE_URL}${APP_CONSTANTS.API.ENDPOINTS.FEEDBACK_ON_COMPANY}`;
 
   constructor(private http: HttpClient) {}
 
@@ -26,10 +26,11 @@ export class FeedbackApiService {
 
   /**
    * Submit feedback to the API
-   * @param feedbackData The feedback data to submit
+   * @param feedbackData The feedback request DTO to submit
    * @returns Observable of the API response
    */
-  submitFeedback(feedbackData: any): Observable<any> {
+  submitFeedback(feedbackData: FeedbackOnCompanyResponseDto): Observable<any> {
+    console.log(feedbackData);
     return this.http.post<any>(this.apiUrl, feedbackData);
   }
 }

@@ -8,7 +8,6 @@ import { CodingRound } from './feedbackmodules/coding-round.entity';
 import { TechnicalRound } from './feedbackmodules/technical-round.entity';
 import { HRRound } from './feedbackmodules/hr-round.entity';
 import { Resource } from './feedbackmodules/resource.entity';
-import type { FeedbackOnCompanyResponseDto } from '../../application/dtos';
 
 export class Feedback {
   constructor(

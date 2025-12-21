@@ -32,11 +32,11 @@ export class InterviewFeedbackFacade {
 
   /**
    * Submit feedback data to the API
-   * @param feedbackData The feedback data to submit
+   * @param feedback The Feedback domain entity to submit
    * @returns Observable of the API response
    */
-  submitFeedback(feedbackData: any): Observable<any> {
-    return this.submitFeedbackUseCase.execute(feedbackData);
+  submitFeedback(feedback: Feedback): Observable<any> {
+    return this.submitFeedbackUseCase.execute(feedback);
   }
 
 }
