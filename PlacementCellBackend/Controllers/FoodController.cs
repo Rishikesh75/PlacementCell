@@ -1,84 +1,66 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlacementCellBackend.Data;
 using PlacementCellBackend.Models;
+using PlacementCellBackend.Services.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class FoodController : Controller
+    public class FoodController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IFoodService _foodService;
 
-        public FoodController(AppDbContext context)
+        public FoodController(IFoodService foodService)
         {
-            _context = context;
+            _foodService = foodService;
         }
 
         [HttpGet]
-        public IActionResult GetFoodItems()
+        public async Task<ActionResult<IEnumerable<Food>>> GetFoodItems()
         {
-            // Logic to retrieve food items from the database
-            var foodItems = _context.food.ToList(); // Assuming FoodItems is a DbSet in AppDbContext
+            var foodItems = await _foodService.GetAllFoodItemsAsync();
             return Ok(foodItems);
         }
 
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetFoodItem(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Food>> GetFoodItem(int id)
         {
-            // Logic to retrieve a specific food item by ID
-            var foodItem = _context.food.Find(id); // Assuming FoodItems is a DbSet in AppDbContext
+            var foodItem = await _foodService.GetFoodItemByIdAsync(id);
             if (foodItem == null)
-            {
                 return NotFound();
-            }
             return Ok(foodItem);
         }
 
-
         [HttpPost]
-        public IActionResult CreateFoodItem(Food foodItem)
+        public async Task<ActionResult<Food>> CreateFoodItem(Food foodItem)
         {
             if (foodItem == null)
-            {
                 return BadRequest("Food item cannot be null.");
-            }
-            _context.food.Add(foodItem); // Assuming FoodItems is a DbSet in AppDbContext
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetFoodItem), new { id = foodItem.id }, foodItem);
+
+            var created = await _foodService.CreateFoodItemAsync(foodItem);
+            return CreatedAtAction(nameof(GetFoodItem), new { id = created.id }, created);
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateFoodItem(int id, Food foodItem)
+        public async Task<IActionResult> UpdateFoodItem(int id, Food foodItem)
         {
             if (id != foodItem.id)
-            {
                 return BadRequest("Food item ID mismatch.");
-            }
-            var existingFoodItem = _context.food.Find(id); // Assuming FoodItems is a DbSet in AppDbContext
-            if (existingFoodItem == null)
-            {
+
+            var success = await _foodService.UpdateFoodItemAsync(id, foodItem);
+            if (!success)
                 return NotFound();
-            }
-            existingFoodItem.restaurentid = foodItem.restaurentid; // Update propertie as needed
-            existingFoodItem.companyid = foodItem.companyid;
-            existingFoodItem.description = foodItem.description;
-            existingFoodItem.date = foodItem.date;
-            _context.SaveChanges();
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteFoodItem(int id)
+        public async Task<IActionResult> DeleteFoodItem(int id)
         {
-            var foodItem = _context.food.Find(id); // Assuming FoodItems is a DbSet in AppDbContext
-            if (foodItem == null)
-            {
+            var success = await _foodService.DeleteFoodItemAsync(id);
+            if (!success)
                 return NotFound();
-            }
-            _context.food.Remove(foodItem);
-            _context.SaveChanges();
+
             return NoContent();
         }
     }

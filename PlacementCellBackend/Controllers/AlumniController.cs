@@ -1,89 +1,64 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PlacementCellBackend.Data;
 using PlacementCellBackend.Models;
+using PlacementCellBackend.Services.Interfaces;
 
-namespace PlacementCellBackend.Controllers;
-
-
-[ApiController]
-[Route("api/[controller]")]
-public class AlumniController : Controller
+namespace PlacementCellBackend.Controllers
 {
-    private readonly AppDbContext _context;
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AlumniController : ControllerBase
+    {
+        private readonly IAlumniService _alumniService;
 
-    public AlumniController(AppDbContext context)
-    {
-        _context = context;
-    }
-    // GET: api/alumni
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Alumni>>> GetAlumniList()
-    {
-        return await _context.alumni.ToListAsync();
-    }
-
-    [HttpPost]
-    public async Task<ActionResult<Alumni>> PostAlumni(Alumni alumni)
-    {
-        _context.alumni.Add(alumni);
-        await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetAlumni), new { id = alumni.alumniid }, alumni);
-    }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Alumni>> GetAlumni(string id)
-    {
-        var alumni = await _context.alumni.FindAsync(id);
-        if (alumni == null)
+        public AlumniController(IAlumniService alumniService)
         {
-            return NotFound();
+            _alumniService = alumniService;
         }
-        return alumni;
-    }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutAlumni(string id, Alumni updatedAlumni)
-    {
-        if (id != updatedAlumni.alumniid)
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Alumni>>> GetAlumniList()
         {
-            return BadRequest();
+            var alumni = await _alumniService.GetAllAlumniAsync();
+            return Ok(alumni);
         }
-        _context.Entry(updatedAlumni).State = EntityState.Modified;
-        try
+
+        [HttpPost]
+        public async Task<ActionResult<Alumni>> PostAlumni(Alumni alumni)
         {
-            await _context.SaveChangesAsync();
+            var created = await _alumniService.CreateAlumniAsync(alumni);
+            return CreatedAtAction(nameof(GetAlumni), new { id = created.alumniid }, created);
         }
-        catch (DbUpdateConcurrencyException)
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Alumni>> GetAlumni(string id)
         {
-            if (!AlumniExists(id))
-            {
+            var alumni = await _alumniService.GetAlumniByIdAsync(id);
+            if (alumni == null)
                 return NotFound();
-            }
-            else
-            {
-                throw;
-            }
+            return Ok(alumni);
         }
-        return NoContent();
-    }
 
-
-    private bool AlumniExists(string id)
-    {
-        return _context.alumni.Any(e => e.alumniid == id);
-    }
-    // DELETE: api/alumni/{id}
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAlumni(string id)
-    {
-        var alumni = await _context.alumni.FindAsync(id);
-        if (alumni == null)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAlumni(string id, Alumni updatedAlumni)
         {
-            return NotFound();
+            if (id != updatedAlumni.alumniid)
+                return BadRequest();
+
+            var success = await _alumniService.UpdateAlumniAsync(id, updatedAlumni);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
         }
-        _context.alumni.Remove(alumni);
-        await _context.SaveChangesAsync();
-        return NoContent();
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAlumni(string id)
+        {
+            var success = await _alumniService.DeleteAlumniAsync(id);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

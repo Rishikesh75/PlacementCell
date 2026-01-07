@@ -1,66 +1,63 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PlacementCellBackend.Data;
 using PlacementCellBackend.Models;
+using PlacementCellBackend.Services.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RestaurentController : Controller
+    public class RestaurantController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IRestaurantService _restaurantService;
 
-        public RestaurentController(AppDbContext context)
+        public RestaurantController(IRestaurantService restaurantService)
         {
-            _context = context;
+            _restaurantService = restaurantService;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Restaurents>>> GetAllRestaurents()
+        public async Task<ActionResult<IEnumerable<Restaurents>>> GetAllRestaurants()
         {
-            return Ok(await _context.restaurents.ToListAsync());
+            var restaurants = await _restaurantService.GetAllRestaurantsAsync();
+            return Ok(restaurants);
         }
-        [HttpGet]
-        [Route("{id}")]
-        public async Task<ActionResult<Restaurents>> GetRestaurentById(string id)
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Restaurents>> GetRestaurantById(int id)
         {
-            var restaurent = await _context.restaurents.FindAsync(id);
-            if (restaurent == null)
+            var restaurant = await _restaurantService.GetRestaurantByIdAsync(id);
+            if (restaurant == null)
                 return NotFound();
-            return Ok(restaurent);
+            return Ok(restaurant);
         }
+
         [HttpPost]
-        public async Task<ActionResult<Restaurents>> CreateRestaurent(Restaurents restaurent)
+        public async Task<ActionResult<Restaurents>> CreateRestaurant(Restaurents restaurant)
         {
-            _context.restaurents.Add(restaurent);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetRestaurentById), new { id = restaurent.restaurentid }, restaurent);
+            var created = await _restaurantService.CreateRestaurantAsync(restaurant);
+            return CreatedAtAction(nameof(GetRestaurantById), new { id = created.restaurentid }, created);
         }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRestaurent(int id, Restaurents restaurent)
+        public async Task<IActionResult> UpdateRestaurant(int id, Restaurents restaurant)
         {
-            if (id != restaurent.restaurentid)
+            if (id != restaurant.restaurentid)
                 return BadRequest();
-            var existingRestaurent = await _context.restaurents.FindAsync(id);
-            if (existingRestaurent == null)
+
+            var success = await _restaurantService.UpdateRestaurantAsync(id, restaurant);
+            if (!success)
                 return NotFound();
-            // Update fields
-            existingRestaurent.name = restaurent.name;
-            existingRestaurent.contact = restaurent.contact;
-            existingRestaurent.address = restaurent.address;
-            existingRestaurent.rating = restaurent.rating;
-            await _context.SaveChangesAsync();
+
             return NoContent();
         }
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRestaurent(int id)
+        public async Task<IActionResult> DeleteRestaurant(int id)
         {
-            var restaurent = await _context.restaurents.FindAsync(id);
-            if (restaurent == null)
+            var success = await _restaurantService.DeleteRestaurantAsync(id);
+            if (!success)
                 return NotFound();
-            _context.restaurents.Remove(restaurent);
-            await _context.SaveChangesAsync();
+
             return NoContent();
         }
     }

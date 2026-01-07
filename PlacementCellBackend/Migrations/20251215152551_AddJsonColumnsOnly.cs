@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
-using PlacementCellBackend.Models.InterviewRounds;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace PlacementCellBackend.Migrations
+namespace PlacementCellBackend.Migrations;
+
+/// <inheritdoc />
+public partial class AddJsonColumnsOnly : Migration
 {
     /// <inheritdoc />
-    public partial class AddJsonColumnsOnly : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            // Use raw SQL to safely add columns only if they don't exist
-            migrationBuilder.Sql(@"
+        // Use raw SQL to safely add columns only if they don't exist
+        migrationBuilder.Sql(@"
                 DO $$ 
                 BEGIN
                     -- Add CodingRound columns
@@ -54,13 +51,13 @@ namespace PlacementCellBackend.Migrations
                     END IF;
                 END $$;
             ");
-        }
+    }
 
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            // Drop only the JSON columns we added
-            migrationBuilder.Sql(@"
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        // Drop only the JSON columns we added
+        migrationBuilder.Sql(@"
                 ALTER TABLE feedbackoncompany DROP COLUMN IF EXISTS ""CodingRoundInfo_Questions"";
                 ALTER TABLE feedbackoncompany DROP COLUMN IF EXISTS ""HRRoundInfo_SituationBasedQuestions"";
                 ALTER TABLE feedbackoncompany DROP COLUMN IF EXISTS ""HRRoundInfo_UnExpectedQuestions"";
@@ -70,6 +67,5 @@ namespace PlacementCellBackend.Migrations
                 ALTER TABLE feedbackoncompany DROP COLUMN IF EXISTS ""TechnicalRoundInfo_PuzzleBasedQuestions"";
                 ALTER TABLE feedbackoncompany DROP COLUMN IF EXISTS ""ResourcesInfo_ResourcesList"";
             ");
-        }
     }
 }

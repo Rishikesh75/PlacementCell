@@ -1,70 +1,64 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PlacementCellBackend.Data;
 using PlacementCellBackend.Models;
+using PlacementCellBackend.Services.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TeacherPlacementController : Controller
+    public class TeacherPlacementController : ControllerBase
     {
-        private readonly AppDbContext _context;
-        public TeacherPlacementController(AppDbContext context)
+        private readonly ITeacherPlacementService _teacherPlacementService;
+
+        public TeacherPlacementController(ITeacherPlacementService teacherPlacementService)
         {
-            _context = context;
+            _teacherPlacementService = teacherPlacementService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TeacherPlacements>>> GetAllTeacherPlacements()
         {
-            return Ok(await _context.teacherplacements.ToListAsync());
+            var placements = await _teacherPlacementService.GetAllTeacherPlacementsAsync();
+            return Ok(placements);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TeacherPlacements>> GetTeacherPlacementById(string id)
+        public async Task<ActionResult<TeacherPlacements>> GetTeacherPlacementById(int id)
         {
-            var teacherPlacement = await _context.teacherplacements.FindAsync(id);
-            if (teacherPlacement == null)
+            var placement = await _teacherPlacementService.GetTeacherPlacementByIdAsync(id);
+            if (placement == null)
                 return NotFound();
-            return Ok(teacherPlacement);
+            return Ok(placement);
         }
 
         [HttpPost]
         public async Task<ActionResult<TeacherPlacements>> CreateTeacherPlacement(TeacherPlacements teacherPlacement)
         {
-            _context.teacherplacements.Add(teacherPlacement);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetTeacherPlacementById), new { id = teacherPlacement.id }, teacherPlacement);
+            var created = await _teacherPlacementService.CreateTeacherPlacementAsync(teacherPlacement);
+            return CreatedAtAction(nameof(GetTeacherPlacementById), new { id = created.id }, created);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTeacherPlacement(int id, TeacherPlacements updatedTeacherPlacement)
         {
             if (id != updatedTeacherPlacement.id)
                 return BadRequest();
-            var existingTeacherPlacement = await _context.teacherplacements.FindAsync(id);
-            if (existingTeacherPlacement == null)
+
+            var success = await _teacherPlacementService.UpdateTeacherPlacementAsync(id, updatedTeacherPlacement);
+            if (!success)
                 return NotFound();
-            // Update fields
-            existingTeacherPlacement.teacherid = updatedTeacherPlacement.teacherid;
-            existingTeacherPlacement.companyid = updatedTeacherPlacement.companyid;
-            existingTeacherPlacement.employeeemail = updatedTeacherPlacement.employeeemail;
-            _context.Entry(existingTeacherPlacement).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacherPlacement(int id)
         {
-            var teacherPlacement = await _context.teacherplacements.FindAsync(id);
-            if (teacherPlacement == null)
+            var success = await _teacherPlacementService.DeleteTeacherPlacementAsync(id);
+            if (!success)
                 return NotFound();
-            _context.teacherplacements.Remove(teacherPlacement);
-            await _context.SaveChangesAsync();
-            return NoContent();
 
+            return NoContent();
         }
     }
 }

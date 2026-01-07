@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using PlacementCellBackend.Data;
 using Npgsql;
+using PlacementCellBackend.Data;
+using PlacementCellBackend.Services;
+using PlacementCellBackend.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,8 +23,23 @@ dataSourceBuilder.EnableDynamicJson();
 var dataSource = dataSourceBuilder.Build();
 
 // Add services to the container.
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IAlumniService, AlumniService>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+builder.Services.AddScoped<ICompanyEmployeeService, CompanyEmployeeService>();
+builder.Services.AddScoped<IEmployeeOnStudentService, EmployeeOnStudentService>();
+builder.Services.AddScoped<IExperienceOpeningService, ExperienceOpeningService>();
+builder.Services.AddScoped<IFeedbackOnCompanyService, FeedbackOnCompanyService>();
+builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IRestaurantService, RestaurantService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<ITeacherPlacementService, TeacherPlacementService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(dataSource));
+
+
+// Register Analytics Service (Cross-Service Business Logic)
+builder.Services.AddScoped<IPlacementAnalyticsService, PlacementAnalyticsService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

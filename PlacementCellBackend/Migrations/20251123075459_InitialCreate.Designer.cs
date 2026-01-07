@@ -9,422 +9,421 @@ using PlacementCellBackend.Data;
 
 #nullable disable
 
-namespace PlacementCellBackend.Migrations
+namespace PlacementCellBackend.Migrations;
+
+[DbContext(typeof(AppDbContext))]
+[Migration("20251123075459_InitialCreate")]
+partial class InitialCreate
 {
-    [DbContext(typeof(AppDbContext))]
-    [Migration("20251123075459_InitialCreate")]
-    partial class InitialCreate
+    /// <inheritdoc />
+    protected override void BuildTargetModel(ModelBuilder modelBuilder)
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.6")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+        modelBuilder
+            .HasAnnotation("ProductVersion", "9.0.6")
+            .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+        NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Alumni", b =>
-                {
-                    b.Property<string>("alumniid")
-                        .HasColumnType("text");
+        modelBuilder.Entity("PlacementCellBackend.Models.Alumni", b =>
+            {
+                b.Property<string>("alumniid")
+                    .HasColumnType("text");
 
-                    b.Property<string>("companyid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("companyid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("linkdinprofile")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("linkdinprofile")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("position")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("position")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("alumniid");
+                b.HasKey("alumniid");
 
-                    b.HasIndex("companyid");
+                b.HasIndex("companyid");
 
-                    b.ToTable("alumni");
-                });
+                b.ToTable("alumni");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Company", b =>
-                {
-                    b.Property<string>("company_id")
-                        .HasColumnType("text");
+        modelBuilder.Entity("PlacementCellBackend.Models.Company", b =>
+            {
+                b.Property<string>("company_id")
+                    .HasColumnType("text");
 
-                    b.Property<string>("company_name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("company_name")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("industry")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("industry")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("company_id");
+                b.HasKey("company_id");
 
-                    b.ToTable("company");
-                });
+                b.ToTable("company");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Companyemployee", b =>
-                {
-                    b.Property<string>("employeeid")
-                        .HasColumnType("text");
+        modelBuilder.Entity("PlacementCellBackend.Models.Companyemployee", b =>
+            {
+                b.Property<string>("employeeid")
+                    .HasColumnType("text");
 
-                    b.Property<string>("companyid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("companyid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("designation")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("designation")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("email")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("name")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("employeeid");
+                b.HasKey("employeeid");
 
-                    b.HasIndex("companyid");
+                b.HasIndex("companyid");
 
-                    b.ToTable("companyemployee");
-                });
+                b.ToTable("companyemployee");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.EmployeeonStudent", b =>
-                {
-                    b.Property<int>("RecordId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+        modelBuilder.Entity("PlacementCellBackend.Models.EmployeeonStudent", b =>
+            {
+                b.Property<int>("RecordId")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RecordId"));
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RecordId"));
 
-                    b.Property<string>("BatchId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("BatchId")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("CompanyEmpId")
-                        .HasColumnType("text");
+                b.Property<string>("CompanyEmpId")
+                    .HasColumnType("text");
 
-                    b.Property<string>("CompnayEmpId")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("CompnayEmpId")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("Description")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("RecordId");
+                b.HasKey("RecordId");
 
-                    b.HasIndex("CompanyEmpId");
+                b.HasIndex("CompanyEmpId");
 
-                    b.ToTable("employeeonstudent");
-                });
+                b.ToTable("employeeonstudent");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.ExperienceOpening", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+        modelBuilder.Entity("PlacementCellBackend.Models.ExperienceOpening", b =>
+            {
+                b.Property<int>("id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<string>("companyempemail")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("companyempemail")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("companyid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("companyid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("experiencerequired")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("experiencerequired")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("jobid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("jobid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("jobtitle")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("jobtitle")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("id");
+                b.HasKey("id");
 
-                    b.HasIndex("companyid");
+                b.HasIndex("companyid");
 
-                    b.ToTable("experienceopening");
-                });
+                b.ToTable("experienceopening");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.FeedBackOnCompany", b =>
-                {
-                    b.Property<string>("feedbackid")
-                        .HasColumnType("text");
+        modelBuilder.Entity("PlacementCellBackend.Models.FeedBackOnCompany", b =>
+            {
+                b.Property<string>("feedbackid")
+                    .HasColumnType("text");
 
-                    b.Property<string>("alumniid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("alumniid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("companyid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("companyid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("description")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("feedbackid");
+                b.HasKey("feedbackid");
 
-                    b.HasIndex("alumniid");
+                b.HasIndex("alumniid");
 
-                    b.HasIndex("companyid");
+                b.HasIndex("companyid");
 
-                    b.ToTable("feedbackoncompany");
-                });
+                b.ToTable("feedbackoncompany");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Food", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+        modelBuilder.Entity("PlacementCellBackend.Models.Food", b =>
+            {
+                b.Property<int>("id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<string>("companyid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("companyid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<DateOnly>("date")
-                        .HasColumnType("date");
+                b.Property<DateOnly>("date")
+                    .HasColumnType("date");
 
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("description")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<int>("restaurentid")
-                        .HasColumnType("integer");
+                b.Property<int>("restaurentid")
+                    .HasColumnType("integer");
 
-                    b.HasKey("id");
+                b.HasKey("id");
 
-                    b.HasIndex("companyid");
+                b.HasIndex("companyid");
 
-                    b.HasIndex("restaurentid");
+                b.HasIndex("restaurentid");
 
-                    b.ToTable("food");
-                });
+                b.ToTable("food");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Restaurents", b =>
-                {
-                    b.Property<int>("restaurentid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+        modelBuilder.Entity("PlacementCellBackend.Models.Restaurents", b =>
+            {
+                b.Property<int>("restaurentid")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("restaurentid"));
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("restaurentid"));
 
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("address")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("contact")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("contact")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("name")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("rating")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("rating")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("restaurentid");
+                b.HasKey("restaurentid");
 
-                    b.ToTable("restaurents");
-                });
+                b.ToTable("restaurents");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Student", b =>
-                {
-                    b.Property<string>("studentid")
-                        .HasColumnType("text");
+        modelBuilder.Entity("PlacementCellBackend.Models.Student", b =>
+            {
+                b.Property<string>("studentid")
+                    .HasColumnType("text");
 
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("email")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<long>("graduationyear")
-                        .HasColumnType("bigint");
+                b.Property<long>("graduationyear")
+                    .HasColumnType("bigint");
 
-                    b.Property<string>("major")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("major")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("name")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("phoneno")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("phoneno")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("studentid");
+                b.HasKey("studentid");
 
-                    b.ToTable("student");
-                });
+                b.ToTable("student");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Teacher", b =>
-                {
-                    b.Property<string>("teacher_id")
-                        .HasColumnType("text");
+        modelBuilder.Entity("PlacementCellBackend.Models.Teacher", b =>
+            {
+                b.Property<string>("teacher_id")
+                    .HasColumnType("text");
 
-                    b.Property<string>("department")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("department")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("email")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("name")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("teacher_id");
+                b.HasKey("teacher_id");
 
-                    b.ToTable("teacher");
-                });
+                b.ToTable("teacher");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.TeacherPlacements", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+        modelBuilder.Entity("PlacementCellBackend.Models.TeacherPlacements", b =>
+            {
+                b.Property<int>("id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
+                NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<string>("companyid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("companyid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("employeeemail")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("employeeemail")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.Property<string>("teacherid")
-                        .IsRequired()
-                        .HasColumnType("text");
+                b.Property<string>("teacherid")
+                    .IsRequired()
+                    .HasColumnType("text");
 
-                    b.HasKey("id");
+                b.HasKey("id");
 
-                    b.HasIndex("companyid");
+                b.HasIndex("companyid");
 
-                    b.HasIndex("teacherid");
+                b.HasIndex("teacherid");
 
-                    b.ToTable("teacherplacements");
-                });
+                b.ToTable("teacherplacements");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Alumni", b =>
-                {
-                    b.HasOne("PlacementCellBackend.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("companyid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("PlacementCellBackend.Models.Alumni", b =>
+            {
+                b.HasOne("PlacementCellBackend.Models.Company", "Company")
+                    .WithMany()
+                    .HasForeignKey("companyid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Company");
-                });
+                b.Navigation("Company");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Companyemployee", b =>
-                {
-                    b.HasOne("PlacementCellBackend.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("companyid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("PlacementCellBackend.Models.Companyemployee", b =>
+            {
+                b.HasOne("PlacementCellBackend.Models.Company", "Company")
+                    .WithMany()
+                    .HasForeignKey("companyid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Company");
-                });
+                b.Navigation("Company");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.EmployeeonStudent", b =>
-                {
-                    b.HasOne("PlacementCellBackend.Models.Companyemployee", "CompanyEmployee")
-                        .WithMany()
-                        .HasForeignKey("CompanyEmpId");
+        modelBuilder.Entity("PlacementCellBackend.Models.EmployeeonStudent", b =>
+            {
+                b.HasOne("PlacementCellBackend.Models.Companyemployee", "CompanyEmployee")
+                    .WithMany()
+                    .HasForeignKey("CompanyEmpId");
 
-                    b.Navigation("CompanyEmployee");
-                });
+                b.Navigation("CompanyEmployee");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.ExperienceOpening", b =>
-                {
-                    b.HasOne("PlacementCellBackend.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("companyid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("PlacementCellBackend.Models.ExperienceOpening", b =>
+            {
+                b.HasOne("PlacementCellBackend.Models.Company", "Company")
+                    .WithMany()
+                    .HasForeignKey("companyid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Company");
-                });
+                b.Navigation("Company");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.FeedBackOnCompany", b =>
-                {
-                    b.HasOne("PlacementCellBackend.Models.Alumni", "Alumni")
-                        .WithMany()
-                        .HasForeignKey("alumniid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("PlacementCellBackend.Models.FeedBackOnCompany", b =>
+            {
+                b.HasOne("PlacementCellBackend.Models.Alumni", "Alumni")
+                    .WithMany()
+                    .HasForeignKey("alumniid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("PlacementCellBackend.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("companyid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("PlacementCellBackend.Models.Company", "Company")
+                    .WithMany()
+                    .HasForeignKey("companyid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Alumni");
+                b.Navigation("Alumni");
 
-                    b.Navigation("Company");
-                });
+                b.Navigation("Company");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Food", b =>
-                {
-                    b.HasOne("PlacementCellBackend.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("companyid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("PlacementCellBackend.Models.Food", b =>
+            {
+                b.HasOne("PlacementCellBackend.Models.Company", "Company")
+                    .WithMany()
+                    .HasForeignKey("companyid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("PlacementCellBackend.Models.Restaurents", "Restaurent")
-                        .WithMany()
-                        .HasForeignKey("restaurentid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("PlacementCellBackend.Models.Restaurents", "Restaurent")
+                    .WithMany()
+                    .HasForeignKey("restaurentid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Company");
+                b.Navigation("Company");
 
-                    b.Navigation("Restaurent");
-                });
+                b.Navigation("Restaurent");
+            });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.TeacherPlacements", b =>
-                {
-                    b.HasOne("PlacementCellBackend.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("companyid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+        modelBuilder.Entity("PlacementCellBackend.Models.TeacherPlacements", b =>
+            {
+                b.HasOne("PlacementCellBackend.Models.Company", "Company")
+                    .WithMany()
+                    .HasForeignKey("companyid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("PlacementCellBackend.Models.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("teacherid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.HasOne("PlacementCellBackend.Models.Teacher", "Teacher")
+                    .WithMany()
+                    .HasForeignKey("teacherid")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("Company");
+                b.Navigation("Company");
 
-                    b.Navigation("Teacher");
-                });
+                b.Navigation("Teacher");
+            });
 #pragma warning restore 612, 618
-        }
     }
 }

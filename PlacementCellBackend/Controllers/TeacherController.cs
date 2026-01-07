@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PlacementCellBackend.Data;
 using PlacementCellBackend.Models;
+using PlacementCellBackend.Services.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {
@@ -9,93 +8,57 @@ namespace PlacementCellBackend.Controllers
     [Route("api/[controller]")]
     public class TeachersController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ITeacherService _teacherService;
 
-        public TeachersController(AppDbContext context)
+        public TeachersController(ITeacherService teacherService)
         {
-            _context = context;
+            _teacherService = teacherService;
         }
 
-        // GET: api/teachers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Teacher>>> GetTeachers()
         {
-            return await _context.teacher.ToListAsync();
+            var teachers = await _teacherService.GetAllTeachersAsync();
+            return Ok(teachers);
         }
 
-        // GET: api/teachers/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Teacher>> GetTeacher(string id)
         {
-            var teacher = await _context.teacher.FindAsync(id);
-
+            var teacher = await _teacherService.GetTeacherByIdAsync(id);
             if (teacher == null)
-            {
                 return NotFound();
-            }
-
-            return teacher;
+            return Ok(teacher);
         }
 
-        // POST: api/teachers
         [HttpPost]
         public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
-            _context.teacher.Add(teacher);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction(nameof(GetTeacher), new { id = teacher.teacher_id }, teacher);
+            var created = await _teacherService.CreateTeacherAsync(teacher);
+            return CreatedAtAction(nameof(GetTeacher), new { id = created.teacher_id }, created);
         }
 
-        // PUT: api/teachers/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTeacher(string id, Teacher updatedTeacher)
         {
             if (id != updatedTeacher.teacher_id)
-            {
                 return BadRequest();
-            }
 
-            _context.Entry(updatedTeacher).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TeacherExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var success = await _teacherService.UpdateTeacherAsync(id, updatedTeacher);
+            if (!success)
+                return NotFound();
 
             return NoContent();
         }
 
-        // DELETE: api/teachers/{id}
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeacher(string id)
         {
-            var teacher = await _context.teacher.FindAsync(id);
-            if (teacher == null)
-            {
+            var success = await _teacherService.DeleteTeacherAsync(id);
+            if (!success)
                 return NotFound();
-            }
-
-            _context.teacher.Remove(teacher);
-            await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool TeacherExists(string id)
-        {
-            return _context.teacher.Any(e => e.teacher_id == id);
         }
     }
 }

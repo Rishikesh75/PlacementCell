@@ -1,38 +1,67 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlacementCellBackend.Data;
 using PlacementCellBackend.Models;
+using PlacementCellBackend.Services.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class employeeonstudentsController : Controller
+    public class EmployeeOnStudentsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IEmployeeOnStudentService _employeeOnStudentService;
 
-        public employeeonstudentsController(AppDbContext context)
+        public EmployeeOnStudentsController(IEmployeeOnStudentService employeeOnStudentService)
         {
-            _context = context;
+            _employeeOnStudentService = employeeOnStudentService;
         }
 
         [HttpGet]
-        public IActionResult GetEmployeeOnStudents()
+        public async Task<ActionResult<IEnumerable<EmployeeonStudent>>> GetEmployeeOnStudents()
         {
-            var employeeOnStudents = _context.employeeonstudent.ToList();
-            return Ok(employeeOnStudents);
+            var employees = await _employeeOnStudentService.GetAllEmployeeOnStudentsAsync();
+            return Ok(employees);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<EmployeeonStudent>> GetEmployeeOnStudent(int id)
+        {
+            var employee = await _employeeOnStudentService.GetEmployeeOnStudentByIdAsync(id);
+            if (employee == null)
+                return NotFound();
+            return Ok(employee);
         }
 
         [HttpPost]
-        public IActionResult PostEmployeeOnStudent(EmployeeonStudent employeeonStudent)
+        public async Task<ActionResult<EmployeeonStudent>> PostEmployeeOnStudent(EmployeeonStudent employeeOnStudent)
         {
-            if (employeeonStudent == null)
-            {
+            if (employeeOnStudent == null)
                 return BadRequest("Invalid data.");
-            }
-            _context.employeeonstudent.Add(employeeonStudent);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetEmployeeOnStudents), new { RecordId = employeeonStudent.RecordId }, employeeonStudent);
 
+            var created = await _employeeOnStudentService.CreateEmployeeOnStudentAsync(employeeOnStudent);
+            return CreatedAtAction(nameof(GetEmployeeOnStudent), new { id = created.RecordId }, created);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutEmployeeOnStudent(int id, EmployeeonStudent updatedEmployeeOnStudent)
+        {
+            if (id != updatedEmployeeOnStudent.RecordId)
+                return BadRequest();
+
+            var success = await _employeeOnStudentService.UpdateEmployeeOnStudentAsync(id, updatedEmployeeOnStudent);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmployeeOnStudent(int id)
+        {
+            var success = await _employeeOnStudentService.DeleteEmployeeOnStudentAsync(id);
+            if (!success)
+                return NotFound();
+
+            return NoContent();
         }
     }
 }

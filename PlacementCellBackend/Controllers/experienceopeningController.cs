@@ -1,67 +1,66 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlacementCellBackend.Data;
 using PlacementCellBackend.Models;
+using PlacementCellBackend.Services.Interfaces;
+
 namespace PlacementCellBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class experienceopeningController : Controller
+    public class ExperienceOpeningController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IExperienceOpeningService _experienceOpeningService;
 
-        public experienceopeningController(AppDbContext context)
+        public ExperienceOpeningController(IExperienceOpeningService experienceOpeningService)
         {
-            _context = context;
+            _experienceOpeningService = experienceOpeningService;
         }
 
         [HttpGet]
-        public IActionResult GetExperienceOpenings()
+        public async Task<ActionResult<IEnumerable<ExperienceOpening>>> GetExperienceOpenings()
         {
-            var openings = _context.experienceopening.ToList();
+            var openings = await _experienceOpeningService.GetAllExperienceOpeningsAsync();
             return Ok(openings);
         }
-        [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetExperienceOpeningById(int id)
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ExperienceOpening>> GetExperienceOpeningById(int id)
         {
-            var opening = _context.experienceopening.Find(id);
+            var opening = await _experienceOpeningService.GetExperienceOpeningByIdAsync(id);
             if (opening == null)
-            {
                 return NotFound();
-            }
             return Ok(opening);
         }
-        [HttpPost] 
-        public IActionResult CreateExperienceOpening(ExperienceOpening opening)
+
+        [HttpPost]
+        public async Task<ActionResult<ExperienceOpening>> CreateExperienceOpening(ExperienceOpening opening)
         {
             if (opening == null)
-            {
                 return BadRequest("Experience opening cannot be null.");
-            }
-            _context.experienceopening.Add(opening);
-            _context.SaveChanges();
-            return CreatedAtAction(nameof(GetExperienceOpeningById), new { id = opening.id }, opening);
+
+            var created = await _experienceOpeningService.CreateExperienceOpeningAsync(opening);
+            return CreatedAtAction(nameof(GetExperienceOpeningById), new { id = created.id }, created);
         }
 
-        [HttpPut]
-        [Route("{id}")]
-        public IActionResult UpdateExperienceOpening(int id, ExperienceOpening updatedOpening)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateExperienceOpening(int id, ExperienceOpening updatedOpening)
         {
             if (updatedOpening == null || updatedOpening.id != id)
-            {
                 return BadRequest("Invalid experience opening data.");
-            }
-            var existingOpening = _context.experienceopening.Find(id);
-            if (existingOpening == null)
-            {
+
+            var success = await _experienceOpeningService.UpdateExperienceOpeningAsync(id, updatedOpening);
+            if (!success)
                 return NotFound();
-            }
-            existingOpening.companyid = updatedOpening.companyid;
-            existingOpening.jobid = updatedOpening.jobid;
-            existingOpening.jobtitle = updatedOpening.jobtitle;
-            existingOpening.experiencerequired = updatedOpening.experiencerequired;
-            existingOpening.companyempemail = updatedOpening.companyempemail;
-            _context.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteExperienceOpening(int id)
+        {
+            var success = await _experienceOpeningService.DeleteExperienceOpeningAsync(id);
+            if (!success)
+                return NotFound();
+
             return NoContent();
         }
     }

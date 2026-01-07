@@ -1,77 +1,52 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PlacementCellBackend.Data;
 using PlacementCellBackend.Models;
+using PlacementCellBackend.Services.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CompanyController : Controller
+    public class CompanyController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICompanyService _companyService;
 
-        public CompanyController(AppDbContext context)
+        public CompanyController(ICompanyService companyService)
         {
-            _context = context;
+            _companyService = companyService;
         }
 
-
-        // GET: api/company
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Company>>> GetCompany()
         {
-            return await _context.company.ToListAsync();
+            var companies = await _companyService.GetAllCompaniesAsync();
+            return Ok(companies);
         }
 
-        // GET: api/company/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Company>> GetComapany(string id)
+        public async Task<ActionResult<Company>> GetCompany(string id)
         {
-            var company = await _context.company.FindAsync(id);
-
+            var company = await _companyService.GetCompanyByIdAsync(id);
             if (company == null)
-            {
                 return NotFound();
-            }
-
-            return company;
+            return Ok(company);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Teacher>> PostComapny(Company company)
+        public async Task<ActionResult<Company>> PostCompany(Company company)
         {
-            _context.company.Add(company);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetCompany), new { id = company.company_id }, company);
+            var created = await _companyService.CreateCompanyAsync(company);
+            return CreatedAtAction(nameof(GetCompany), new { id = created.company_id }, created);
         }
 
-        // PUT: api/teachers/{id}
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCompany(string id, Company updatedCompany)
         {
             if (id != updatedCompany.company_id)
-            {
                 return BadRequest();
-            }
 
-            _context.Entry(updatedCompany).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CompanyExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            var success = await _companyService.UpdateCompanyAsync(id, updatedCompany);
+            if (!success)
+                return NotFound();
 
             return NoContent();
         }
@@ -79,20 +54,11 @@ namespace PlacementCellBackend.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCompany(string id)
         {
-            var company = await _context.company.FindAsync(id);
-            if (company == null)
-            {
+            var success = await _companyService.DeleteCompanyAsync(id);
+            if (!success)
                 return NotFound();
-            }
 
-            _context.company.Remove(company);
-            await _context.SaveChangesAsync();
             return NoContent();
-        }
-
-        private bool CompanyExists(string id)
-        {
-            return _context.company.Any(e => e.company_id == id);
         }
     }
 }

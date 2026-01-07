@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PlacementCellBackend.Models;
-using PlacementCellBackend.Data;
-using Microsoft.EntityFrameworkCore;
+using PlacementCellBackend.Services.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {
@@ -9,23 +8,24 @@ namespace PlacementCellBackend.Controllers
     [Route("api/[controller]")]
     public class StudentsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IStudentService _studentService;
 
-        public StudentsController(AppDbContext context)
+        public StudentsController(IStudentService studentService)
         {
-            _context = context;
+            _studentService = studentService;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Student>>> GetAllStudents()
         {
-            return Ok(await _context.student.ToListAsync());
+            var students = await _studentService.GetAllStudentsAsync();
+            return Ok(students);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudentById(string id)
         {
-            var student = await _context.student.FindAsync(id);
+            var student = await _studentService.GetStudentByIdAsync(id);
             if (student == null)
                 return NotFound();
             return Ok(student);
@@ -34,9 +34,8 @@ namespace PlacementCellBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<Student>> CreateStudent(Student student)
         {
-            _context.student.Add(student);
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetStudentById), new { id = student.studentid }, student);
+            var created = await _studentService.CreateStudentAsync(student);
+            return CreatedAtAction(nameof(GetStudentById), new { id = created.studentid }, created);
         }
 
         [HttpPut("{id}")]
@@ -45,19 +44,21 @@ namespace PlacementCellBackend.Controllers
             if (id != student.studentid)
                 return BadRequest();
 
-            var existingStudent = await _context.student.FindAsync(id);
-            if (existingStudent == null)
+            var success = await _studentService.UpdateStudentAsync(id, student);
+            if (!success)
                 return NotFound();
 
-            // Update fields
-            existingStudent.name = student.name;
-            existingStudent.major = student.major;
-            existingStudent.email = student.email;
-            existingStudent.graduationyear = student.graduationyear;
-            existingStudent.phoneno = student.phoneno;
-            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteStudent(string id)
+        {
+            var success = await _studentService.DeleteStudentAsync(id);
+            if (!success)
+                return NotFound();
+
             return NoContent();
         }
     }
 }
-
