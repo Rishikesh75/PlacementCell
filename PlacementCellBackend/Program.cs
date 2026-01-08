@@ -30,10 +30,12 @@ builder.Services.AddScoped<ICompanyEmployeeService, CompanyEmployeeService>();
 builder.Services.AddScoped<IEmployeeOnStudentService, EmployeeOnStudentService>();
 builder.Services.AddScoped<IExperienceOpeningService, ExperienceOpeningService>();
 builder.Services.AddScoped<IFeedbackOnCompanyService, FeedbackOnCompanyService>();
-builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IFoodReviewService, FoodReviewService>();
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<ITeacherPlacementService, TeacherPlacementService>();
+builder.Services.AddScoped<IAlumniPlacementService, AlumniPlacementService>();
+builder.Services.AddScoped<IPlacementService, PlacementService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(dataSource));
 

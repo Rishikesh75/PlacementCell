@@ -14,26 +14,26 @@ namespace PlacementCellBackend.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<EmployeeonStudent>> GetAllEmployeeOnStudentsAsync()
+        public async Task<IEnumerable<EmployeeFeedbackonStudent>> GetAllEmployeeOnStudentsAsync()
         {
-            return await _context.employeeonstudent.ToListAsync();
+            return await _context.employeefeedbackonstudent.ToListAsync();
         }
 
-        public async Task<EmployeeonStudent?> GetEmployeeOnStudentByIdAsync(int id)
+        public async Task<EmployeeFeedbackonStudent?> GetEmployeeOnStudentByIdAsync(int id)
         {
-            return await _context.employeeonstudent.FindAsync(id);
+            return await _context.employeefeedbackonstudent.FindAsync(id);
         }
 
-        public async Task<EmployeeonStudent> CreateEmployeeOnStudentAsync(EmployeeonStudent employeeOnStudent)
+        public async Task<EmployeeFeedbackonStudent> CreateEmployeeOnStudentAsync(EmployeeFeedbackonStudent employeeOnStudent)
         {
-            _context.employeeonstudent.Add(employeeOnStudent);
+            _context.employeefeedbackonstudent.Add(employeeOnStudent);
             await _context.SaveChangesAsync();
             return employeeOnStudent;
         }
 
-        public async Task<bool> UpdateEmployeeOnStudentAsync(int id, EmployeeonStudent employeeOnStudent)
+        public async Task<bool> UpdateEmployeeOnStudentAsync(int id, EmployeeFeedbackonStudent employeeOnStudent)
         {
-            var existing = await _context.employeeonstudent.FindAsync(id);
+            var existing = await _context.employeefeedbackonstudent.FindAsync(id);
             if (existing == null)
                 return false;
 
@@ -47,11 +47,11 @@ namespace PlacementCellBackend.Services
 
         public async Task<bool> DeleteEmployeeOnStudentAsync(int id)
         {
-            var employeeOnStudent = await _context.employeeonstudent.FindAsync(id);
+            var employeeOnStudent = await _context.employeefeedbackonstudent.FindAsync(id);
             if (employeeOnStudent == null)
                 return false;
 
-            _context.employeeonstudent.Remove(employeeOnStudent);
+            _context.employeefeedbackonstudent.Remove(employeeOnStudent);
             await _context.SaveChangesAsync();
             return true;
         }

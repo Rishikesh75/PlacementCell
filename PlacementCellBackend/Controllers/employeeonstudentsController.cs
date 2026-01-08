@@ -16,14 +16,14 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeonStudent>>> GetEmployeeOnStudents()
+        public async Task<ActionResult<IEnumerable<EmployeeFeedbackonStudent>>> GetEmployeeOnStudents()
         {
             var employees = await _employeeOnStudentService.GetAllEmployeeOnStudentsAsync();
             return Ok(employees);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<EmployeeonStudent>> GetEmployeeOnStudent(int id)
+        public async Task<ActionResult<EmployeeFeedbackonStudent>> GetEmployeeOnStudent(int id)
         {
             var employee = await _employeeOnStudentService.GetEmployeeOnStudentByIdAsync(id);
             if (employee == null)
@@ -32,7 +32,7 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<EmployeeonStudent>> PostEmployeeOnStudent(EmployeeonStudent employeeOnStudent)
+        public async Task<ActionResult<EmployeeFeedbackonStudent>> PostEmployeeOnStudent(EmployeeFeedbackonStudent employeeOnStudent)
         {
             if (employeeOnStudent == null)
                 return BadRequest("Invalid data.");
@@ -42,7 +42,7 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployeeOnStudent(int id, EmployeeonStudent updatedEmployeeOnStudent)
+        public async Task<IActionResult> PutEmployeeOnStudent(int id, EmployeeFeedbackonStudent updatedEmployeeOnStudent)
         {
             if (id != updatedEmployeeOnStudent.RecordId)
                 return BadRequest();

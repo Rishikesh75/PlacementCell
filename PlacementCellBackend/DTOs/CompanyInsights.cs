@@ -10,7 +10,6 @@ namespace PlacementCellBackend.DTOs
         public List<string> JobProfiles { get; set; } = new();
         public List<string> Locations { get; set; } = new();
         public decimal AverageCTC { get; set; }
-        public Dictionary<string, int> WorkModes { get; set; } = new();
     }
 
     public class CompanyRanking
@@ -18,8 +17,16 @@ namespace PlacementCellBackend.DTOs
         public string CompanyId { get; set; } = string.Empty;
         public string CompanyName { get; set; } = string.Empty;
         public string Industry { get; set; } = string.Empty;
-        public int TotalHires { get; set; }
+        public int TotalPlacements { get; set; }
         public int Rank { get; set; }
+        public string AveragePackage { get; set; } = string.Empty;
+        public List<YearlyPlacementCount> YearlyPlacements { get; set; } = new();
+    }
+
+    public class YearlyPlacementCount
+    {
+        public int Year { get; set; }
+        public int Count { get; set; }
     }
 }
 

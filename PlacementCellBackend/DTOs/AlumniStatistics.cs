@@ -4,8 +4,7 @@ namespace PlacementCellBackend.DTOs
     {
         public int TotalAlumni { get; set; }
         public int UniqueCompanies { get; set; }
-        public List<PositionCount> TopPositions { get; set; } = new();
-        public List<CompanyCount> CompanyWiseCount { get; set; } = new();
+        public List<CompanyAlumniCount> CompanyWiseCount { get; set; } = new();
     }
 
     public class PositionCount
@@ -14,10 +13,12 @@ namespace PlacementCellBackend.DTOs
         public int Count { get; set; }
     }
 
-    public class CompanyCount
+    public class CompanyAlumniCount
     {
+        public string CompanyId { get; set; } = string.Empty;
         public string CompanyName { get; set; } = string.Empty;
-        public int Count { get; set; }
+        public int TotalAlumniCount { get; set; }
+        public List<PositionCount> PositionWiseCount { get; set; } = new();
     }
 }
 

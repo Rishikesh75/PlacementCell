@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using PlacementCellBackend.Models.Enums;
 using PlacementCellBackend.Models.InterviewRounds;
 
 namespace PlacementCellBackend.Models;
 
-public class FeedBackOnCompany
+public class AlumniFeedBackonCompany
 {
     [Key]
     public string feedbackid { get; set; } = string.Empty;
@@ -43,3 +43,4 @@ public class FeedBackOnCompany
 
     public Resources? ResourcesInfo { get; set; }
 }
+

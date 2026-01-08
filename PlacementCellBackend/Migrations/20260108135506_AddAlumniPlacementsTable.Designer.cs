@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PlacementCellBackend.Data;
@@ -13,9 +14,11 @@ using PlacementCellBackend.Models.InterviewRounds;
 namespace PlacementCellBackend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260108135506_AddAlumniPlacementsTable")]
+    partial class AddAlumniPlacementsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -266,42 +269,6 @@ namespace PlacementCellBackend.Migrations
                     b.ToTable("foodReview");
                 });
 
-            modelBuilder.Entity("PlacementCellBackend.Models.Placement", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
-
-                    b.Property<string>("companyid")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("jobtitle")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("package")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateOnly>("placementdate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("studentid")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("companyid");
-
-                    b.HasIndex("studentid");
-
-                    b.ToTable("placement");
-                });
-
             modelBuilder.Entity("PlacementCellBackend.Models.Restaurents", b =>
                 {
                     b.Property<int>("restaurentid")
@@ -506,15 +473,10 @@ namespace PlacementCellBackend.Migrations
                             b1.Property<string>("AlumniFeedBackonCompanyfeedbackid")
                                 .HasColumnType("text");
 
-                            b1.Property<List<BookResource>>("Books")
+                            b1.Property<List<ResourceItem>>("ResourcesList")
                                 .IsRequired()
                                 .HasColumnType("jsonb")
-                                .HasColumnName("ResourcesInfo_Books");
-
-                            b1.Property<List<LinkResource>>("Links")
-                                .IsRequired()
-                                .HasColumnType("jsonb")
-                                .HasColumnName("ResourcesInfo_Links");
+                                .HasColumnName("ResourcesInfo_ResourcesList");
 
                             b1.HasKey("AlumniFeedBackonCompanyfeedbackid");
 
@@ -644,25 +606,6 @@ namespace PlacementCellBackend.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("Restaurent");
-                });
-
-            modelBuilder.Entity("PlacementCellBackend.Models.Placement", b =>
-                {
-                    b.HasOne("PlacementCellBackend.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("companyid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PlacementCellBackend.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("studentid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("PlacementCellBackend.Models.TeacherPlacements", b =>

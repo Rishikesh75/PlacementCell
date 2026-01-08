@@ -4,10 +4,10 @@ namespace PlacementCellBackend.Services.Interfaces
 {
     public interface IFeedbackOnCompanyService
     {
-        Task<IEnumerable<FeedBackOnCompany>> GetAllFeedbacksAsync();
-        Task<FeedBackOnCompany?> GetFeedbackByIdAsync(string id);
-        Task<FeedBackOnCompany> CreateFeedbackAsync(FeedBackOnCompany feedback);
-        Task<bool> UpdateFeedbackAsync(string id, FeedBackOnCompany feedback);
+        Task<IEnumerable<AlumniFeedBackonCompany>> GetAllFeedbacksAsync();
+        Task<AlumniFeedBackonCompany?> GetFeedbackByIdAsync(string id);
+        Task<AlumniFeedBackonCompany> CreateFeedbackAsync(AlumniFeedBackonCompany feedback);
+        Task<bool> UpdateFeedbackAsync(string id, AlumniFeedBackonCompany feedback);
         Task<bool> DeleteFeedbackAsync(string id);
     }
 }

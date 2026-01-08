@@ -15,10 +15,13 @@ namespace PlacementCellBackend.DTOs
 
     public class RecentPlacement
     {
-        public string AlumniId { get; set; } = string.Empty;
-        public string Position { get; set; } = string.Empty;
+        public int PlacementId { get; set; }
+        public string StudentId { get; set; } = string.Empty;
+        public string StudentName { get; set; } = string.Empty;
         public string CompanyName { get; set; } = string.Empty;
-        public string LinkedInProfile { get; set; } = string.Empty;
+        public string JobTitle { get; set; } = string.Empty;
+        public DateOnly PlacementDate { get; set; }
+        public string Package { get; set; } = string.Empty;
     }
 }
 

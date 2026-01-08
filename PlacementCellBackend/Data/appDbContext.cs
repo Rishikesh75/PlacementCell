@@ -17,13 +17,13 @@ public class AppDbContext : DbContext
 
     public DbSet<Restaurents> restaurents { get; set; }
 
-    public DbSet<Food> food { get; set; }
+    public DbSet<FoodReview> foodReview { get; set; }
 
-    public DbSet<FeedBackOnCompany> feedbackoncompany { get; set; }
+    public DbSet<AlumniFeedBackonCompany> alumnifeedbackoncompany { get; set; }
 
     public DbSet<ExperienceOpening> experienceopening { get; set; }
 
-    public DbSet<EmployeeonStudent> employeeonstudent { get; set; }
+    public DbSet<EmployeeFeedbackonStudent> employeefeedbackonstudent { get; set; }
 
     public DbSet<Companyemployee> companyemployee { get; set; }
 
@@ -31,12 +31,16 @@ public class AppDbContext : DbContext
 
     public DbSet<Alumni> alumni { get; set; }
 
+    public DbSet<AlumniPlacements> alumniplacements { get; set; }
+
+    public DbSet<Placement> placement { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         // Configure CodingRound as owned entity
-        modelBuilder.Entity<FeedBackOnCompany>()
+        modelBuilder.Entity<AlumniFeedBackonCompany>()
             .OwnsOne(f => f.CodingRoundInfo, cr =>
             {
                 cr.Property(c => c.Questions)
@@ -45,7 +49,7 @@ public class AppDbContext : DbContext
             });
 
         // Configure TechnicalRound as owned entity
-        modelBuilder.Entity<FeedBackOnCompany>()
+        modelBuilder.Entity<AlumniFeedBackonCompany>()
             .OwnsOne(f => f.TechnicalRoundInfo, tr =>
             {
                 tr.Property(t => t.DSAQuestions)
@@ -66,7 +70,7 @@ public class AppDbContext : DbContext
             });
 
         // Configure HRRound as owned entity
-        modelBuilder.Entity<FeedBackOnCompany>()
+        modelBuilder.Entity<AlumniFeedBackonCompany>()
             .OwnsOne(f => f.HRRoundInfo, hr =>
             {
                 hr.Property(h => h.SituationBasedQuestions)
@@ -79,11 +83,15 @@ public class AppDbContext : DbContext
             });
 
         // Configure Resources as owned entity
-        modelBuilder.Entity<FeedBackOnCompany>()
+        modelBuilder.Entity<AlumniFeedBackonCompany>()
             .OwnsOne(f => f.ResourcesInfo, r =>
             {
-                r.Property(res => res.ResourcesList)
-                    .HasColumnName("ResourcesInfo_ResourcesList")
+                r.Property(res => res.Links)
+                    .HasColumnName("ResourcesInfo_Links")
+                    .HasColumnType("jsonb");
+
+                r.Property(res => res.Books)
+                    .HasColumnName("ResourcesInfo_Books")
                     .HasColumnType("jsonb");
             });
     }

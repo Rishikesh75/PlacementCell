@@ -19,16 +19,20 @@ namespace PlacementCellBackend.Services
         /// </summary>
         public async Task<DashboardStats> GetDashboardStatsAsync()
         {
-            var recentPlacements = await _context.alumni
-                .Include(a => a.Company)
-                .OrderByDescending(a => a.alumniid)
+            var recentPlacements = await _context.placement
+                .Include(p => p.Student)
+                .Include(p => p.Company)
+                .OrderByDescending(p => p.placementdate)
                 .Take(5)
-                .Select(a => new RecentPlacement
+                .Select(p => new RecentPlacement
                 {
-                    AlumniId = a.alumniid,
-                    Position = a.position,
-                    CompanyName = a.Company != null ? a.Company.company_name : "Unknown",
-                    LinkedInProfile = a.linkdinprofile
+                    PlacementId = p.id,
+                    StudentId = p.studentid,
+                    StudentName = p.Student != null ? p.Student.name : "Unknown",
+                    CompanyName = p.Company != null ? p.Company.company_name : "Unknown",
+                    JobTitle = p.jobtitle,
+                    PlacementDate = p.placementdate,
+                    Package = p.package
                 })
                 .ToListAsync();
 
@@ -37,7 +41,7 @@ namespace PlacementCellBackend.Services
                 TotalStudents = await _context.student.CountAsync(),
                 TotalAlumni = await _context.alumni.CountAsync(),
                 TotalCompanies = await _context.company.CountAsync(),
-                TotalFeedbacks = await _context.feedbackoncompany.CountAsync(),
+                TotalFeedbacks = await _context.alumnifeedbackoncompany.CountAsync(),
                 ActiveOpenings = await _context.experienceopening.CountAsync(),
                 TotalTeachers = await _context.teacher.CountAsync(),
                 RecentPlacements = recentPlacements
@@ -45,32 +49,98 @@ namespace PlacementCellBackend.Services
         }
 
         /// <summary>
-        /// Get top hiring companies ranked by number of alumni placed
+        /// Get top hiring companies ranked by number of placements with yearly breakdown
         /// </summary>
         public async Task<IEnumerable<CompanyRanking>> GetTopCompaniesRankingAsync(int topN = 10)
         {
-            var companyHires = await _context.alumni
-                .Include(a => a.Company)
-                .GroupBy(a => new { a.companyid, CompanyName = a.Company!.company_name, Industry = a.Company.industry })
+            var placements = await _context.placement
+                .Include(p => p.Company)
+                .ToListAsync();
+
+            var companyGroups = placements
+                .GroupBy(p => new { p.companyid, CompanyName = p.Company?.company_name ?? "Unknown", Industry = p.Company?.industry ?? "Unknown" })
                 .Select(g => new
                 {
                     g.Key.companyid,
                     g.Key.CompanyName,
                     g.Key.Industry,
-                    TotalHires = g.Count()
+                    TotalPlacements = g.Count(),
+                    AveragePackage = g.Any() ? CalculateAveragePackage(g.Select(p => p.package).ToList()) : "N/A",
+                    YearlyPlacements = g
+                        .GroupBy(p => p.placementdate.Year)
+                        .Select(yg => new YearlyPlacementCount
+                        {
+                            Year = yg.Key,
+                            Count = yg.Count()
+                        })
+                        .OrderByDescending(y => y.Year)
+                        .ToList()
                 })
-                .OrderByDescending(x => x.TotalHires)
+                .OrderByDescending(x => x.TotalPlacements)
                 .Take(topN)
-                .ToListAsync();
+                .ToList();
 
-            return companyHires.Select((c, index) => new CompanyRanking
+            return companyGroups.Select((c, index) => new CompanyRanking
             {
                 CompanyId = c.companyid,
                 CompanyName = c.CompanyName,
                 Industry = c.Industry,
-                TotalHires = c.TotalHires,
-                Rank = index + 1
+                TotalPlacements = c.TotalPlacements,
+                Rank = index + 1,
+                AveragePackage = c.AveragePackage,
+                YearlyPlacements = c.YearlyPlacements
             });
+        }
+
+        /// <summary>
+        /// Helper method to calculate average package from list of package strings
+        /// </summary>
+        private static string CalculateAveragePackage(List<string> packages)
+        {
+            var validPackages = packages
+                .Select(p => ParseSalary(p))
+                .Where(p => p > 0)
+                .ToList();
+
+            if (!validPackages.Any())
+                return "N/A";
+
+            var average = validPackages.Average();
+            return $"{average:F2} LPA";
+        }
+
+        /// <summary>
+        /// Helper method to parse salary/package/CTC string to decimal (in LPA)
+        /// Handles formats like "25 LPA", "25L", "2500K", "25 Lakhs", etc.
+        /// </summary>
+        private static decimal ParseSalary(string salary)
+        {
+            if (string.IsNullOrWhiteSpace(salary))
+                return 0;
+
+            var upper = salary.ToUpper();
+            var cleaned = upper
+                .Replace("LPA", "")
+                .Replace("LAKHS", "")
+                .Replace("LAKH", "")
+                .Replace("L", "")
+                .Replace("K", "")
+                .Replace("₹", "")
+                .Replace(",", "")
+                .Trim();
+
+            if (decimal.TryParse(cleaned, out var value))
+            {
+                // If original had K (thousands), convert to LPA (divide by 100)
+                if (upper.Contains("K") && !upper.Contains("LAKH"))
+                {
+                    return value / 100;
+                }
+                // Value is already in LPA/Lakhs
+                return value;
+            }
+
+            return 0;
         }
 
         /// <summary>
@@ -84,20 +154,17 @@ namespace PlacementCellBackend.Services
                 return new CompanyInsights { CompanyId = companyId };
             }
 
-            var feedbacks = await _context.feedbackoncompany
+            var feedbacks = await _context.alumnifeedbackoncompany
                 .Where(f => f.companyid == companyId)
                 .ToListAsync();
 
             var alumniCount = await _context.alumni
                 .CountAsync(a => a.companyid == companyId);
 
-            var avgCTC = feedbacks.Any() 
-                ? feedbacks.Average(f => ParseCTC(f.CTC)) 
+            var avgCTC = feedbacks.Any()
+                ? feedbacks.Average(f => ParseSalary(f.CTC))
                 : 0;
 
-            var workModeDistribution = feedbacks
-                .GroupBy(f => f.WorkMode.ToString())
-                .ToDictionary(g => g.Key, g => g.Count());
 
             return new CompanyInsights
             {
@@ -109,12 +176,11 @@ namespace PlacementCellBackend.Services
                 JobProfiles = feedbacks.Select(f => f.JobProfile).Distinct().ToList(),
                 Locations = feedbacks.Select(f => f.JobLocation).Distinct().ToList(),
                 AverageCTC = avgCTC,
-                WorkModes = workModeDistribution
             };
         }
 
         /// <summary>
-        /// Get alumni statistics including top positions and company distribution
+        /// Get alumni statistics including total count and company-wise with position breakdown
         /// </summary>
         public async Task<AlumniStatistics> GetAlumniStatisticsAsync()
         {
@@ -122,26 +188,24 @@ namespace PlacementCellBackend.Services
                 .Include(a => a.Company)
                 .ToListAsync();
 
-            var topPositions = alumni
-                .GroupBy(a => a.position)
-                .Where(g => !string.IsNullOrEmpty(g.Key))
-                .OrderByDescending(g => g.Count())
-                .Take(10)
-                .Select(g => new PositionCount
-                {
-                    Position = g.Key,
-                    Count = g.Count()
-                })
-                .ToList();
-
             var companyWise = alumni
-                .GroupBy(a => a.Company?.company_name ?? "Unknown")
+                .GroupBy(a => new { a.companyid, CompanyName = a.Company?.company_name ?? "Unknown" })
                 .OrderByDescending(g => g.Count())
-                .Take(10)
-                .Select(g => new CompanyCount
+                .Select(g => new CompanyAlumniCount
                 {
-                    CompanyName = g.Key,
-                    Count = g.Count()
+                    CompanyId = g.Key.companyid,
+                    CompanyName = g.Key.CompanyName,
+                    TotalAlumniCount = g.Count(),
+                    PositionWiseCount = g
+                        .GroupBy(a => a.position)
+                        .Where(pg => !string.IsNullOrEmpty(pg.Key))
+                        .OrderByDescending(pg => pg.Count())
+                        .Select(pg => new PositionCount
+                        {
+                            Position = pg.Key,
+                            Count = pg.Count()
+                        })
+                        .ToList()
                 })
                 .ToList();
 
@@ -149,7 +213,6 @@ namespace PlacementCellBackend.Services
             {
                 TotalAlumni = alumni.Count,
                 UniqueCompanies = alumni.Select(a => a.companyid).Distinct().Count(),
-                TopPositions = topPositions,
                 CompanyWiseCount = companyWise
             };
         }
@@ -159,163 +222,107 @@ namespace PlacementCellBackend.Services
         /// </summary>
         public async Task<IEnumerable<RecentPlacement>> GetRecentPlacementsAsync(int count = 10)
         {
-            return await _context.alumni
-                .Include(a => a.Company)
-                .OrderByDescending(a => a.alumniid)
+            return await _context.placement
+                .Include(p => p.Student)
+                .Include(p => p.Company)
+                .OrderByDescending(p => p.placementdate)
                 .Take(count)
-                .Select(a => new RecentPlacement
+                .Select(p => new RecentPlacement
                 {
-                    AlumniId = a.alumniid,
-                    Position = a.position,
-                    CompanyName = a.Company != null ? a.Company.company_name : "Unknown",
-                    LinkedInProfile = a.linkdinprofile
+                    PlacementId = p.id,
+                    StudentId = p.studentid,
+                    StudentName = p.Student != null ? p.Student.name : "Unknown",
+                    CompanyName = p.Company != null ? p.Company.company_name : "Unknown",
+                    JobTitle = p.jobtitle,
+                    PlacementDate = p.placementdate,
+                    Package = p.package
                 })
                 .ToListAsync();
         }
 
         /// <summary>
-        /// Get placement trends including industry and position distribution
+        /// Get placement trends with yearly and monthly breakdown by position
         /// </summary>
         public async Task<PlacementTrends> GetPlacementTrendsAsync()
         {
-            var alumni = await _context.alumni
-                .Include(a => a.Company)
+            var placements = await _context.placement
                 .ToListAsync();
 
-            var totalAlumni = alumni.Count;
+            var totalPlacements = placements.Count;
 
-            // Industry distribution
-            var industryBreakdown = alumni
-                .GroupBy(a => a.Company?.industry ?? "Unknown")
-                .Select(g => new IndustryDistribution
+            // Yearly data with position-wise and monthly breakdown
+            var yearlyData = placements
+                .GroupBy(p => p.placementdate.Year)
+                .OrderByDescending(yg => yg.Key)
+                .Select(yg => new YearlyPlacementData
                 {
-                    Industry = g.Key,
-                    Count = g.Count(),
-                    Percentage = totalAlumni > 0 ? Math.Round((double)g.Count() / totalAlumni * 100, 2) : 0
+                    Year = yg.Key,
+                    TotalPlacements = yg.Count(),
+                    UniqueCompanies = yg.Select(p => p.companyid).Distinct().Count(),
+                    PositionWiseCount = yg
+                        .GroupBy(p => p.jobtitle)
+                        .Where(pg => !string.IsNullOrEmpty(pg.Key))
+                        .OrderByDescending(pg => pg.Count())
+                        .Select(pg => new PositionCount
+                        {
+                            Position = pg.Key,
+                            Count = pg.Count()
+                        })
+                        .ToList(),
+                    MonthlyData = yg
+                        .GroupBy(p => p.placementdate.Month)
+                        .OrderBy(mg => mg.Key)
+                        .Select(mg => new MonthlyPlacementData
+                        {
+                            Month = mg.Key,
+                            MonthName = GetMonthName(mg.Key),
+                            PlacementCount = mg.Count(),
+                            PositionWiseCount = mg
+                                .GroupBy(p => p.jobtitle)
+                                .Where(pg => !string.IsNullOrEmpty(pg.Key))
+                                .OrderByDescending(pg => pg.Count())
+                                .Select(pg => new PositionCount
+                                {
+                                    Position = pg.Key,
+                                    Count = pg.Count()
+                                })
+                                .ToList()
+                        })
+                        .ToList()
                 })
-                .OrderByDescending(x => x.Count)
-                .ToList();
-
-            // Position distribution
-            var topPositions = alumni
-                .GroupBy(a => a.position)
-                .Where(g => !string.IsNullOrEmpty(g.Key))
-                .Select(g => new PositionDistribution
-                {
-                    Position = g.Key,
-                    Count = g.Count(),
-                    Percentage = totalAlumni > 0 ? Math.Round((double)g.Count() / totalAlumni * 100, 2) : 0
-                })
-                .OrderByDescending(x => x.Count)
-                .Take(10)
                 .ToList();
 
             return new PlacementTrends
             {
-                YearlyData = new List<YearlyPlacement>(), // Can be populated if you add year field to alumni
-                IndustryBreakdown = industryBreakdown,
-                TopPositions = topPositions
+                TotalPlacements = totalPlacements,
+                YearlyData = yearlyData
             };
         }
 
         /// <summary>
-        /// Get industry-wise distribution of placements
+        /// Helper method to get month name from month number
         /// </summary>
-        public async Task<IEnumerable<IndustryDistribution>> GetIndustryDistributionAsync()
+        private static string GetMonthName(int month)
         {
-            var alumni = await _context.alumni
-                .Include(a => a.Company)
-                .ToListAsync();
-
-            var totalAlumni = alumni.Count;
-
-            return alumni
-                .GroupBy(a => a.Company?.industry ?? "Unknown")
-                .Select(g => new IndustryDistribution
-                {
-                    Industry = g.Key,
-                    Count = g.Count(),
-                    Percentage = totalAlumni > 0 ? Math.Round((double)g.Count() / totalAlumni * 100, 2) : 0
-                })
-                .OrderByDescending(x => x.Count)
-                .ToList();
-        }
-
-        /// <summary>
-        /// Get interview insights for a specific company
-        /// </summary>
-        public async Task<InterviewInsights> GetInterviewInsightsAsync(string companyId)
-        {
-            var company = await _context.company.FindAsync(companyId);
-            var feedbacks = await _context.feedbackoncompany
-                .Where(f => f.companyid == companyId)
-                .ToListAsync();
-
-            var codingRoundCount = feedbacks.Count(f => f.CodingRoundInfo != null);
-            var technicalRoundCount = feedbacks.Count(f => f.TechnicalRoundInfo != null);
-            var hrRoundCount = feedbacks.Count(f => f.HRRoundInfo != null);
-
-            return new InterviewInsights
+            return month switch
             {
-                CompanyId = companyId,
-                CompanyName = company?.company_name ?? "Unknown",
-                TotalFeedbacks = feedbacks.Count,
-                HasCodingRound = codingRoundCount > 0,
-                HasTechnicalRound = technicalRoundCount > 0,
-                HasHRRound = hrRoundCount > 0,
-                CommonJobProfiles = feedbacks
-                    .Select(f => f.JobProfile)
-                    .Distinct()
-                    .ToList(),
-                CommonLocations = feedbacks
-                    .Select(f => f.JobLocation)
-                    .Distinct()
-                    .ToList(),
-                RoundStats = new RoundStatistics
-                {
-                    CodingRoundCount = codingRoundCount,
-                    TechnicalRoundCount = technicalRoundCount,
-                    HRRoundCount = hrRoundCount
-                }
+                1 => "January",
+                2 => "February",
+                3 => "March",
+                4 => "April",
+                5 => "May",
+                6 => "June",
+                7 => "July",
+                8 => "August",
+                9 => "September",
+                10 => "October",
+                11 => "November",
+                12 => "December",
+                _ => "Unknown"
             };
         }
 
-        /// <summary>
-        /// Helper method to parse CTC string to decimal
-        /// </summary>
-        private static decimal ParseCTC(string ctc)
-        {
-            if (string.IsNullOrWhiteSpace(ctc))
-                return 0;
 
-            // Remove common suffixes like "LPA", "K", etc.
-            var cleaned = ctc.ToUpper()
-                .Replace("LPA", "")
-                .Replace("LAKHS", "")
-                .Replace("L", "")
-                .Replace("K", "")
-                .Replace("₹", "")
-                .Replace(",", "")
-                .Trim();
-
-            if (decimal.TryParse(cleaned, out var value))
-            {
-                // If original had LPA/L, multiply by 100000
-                if (ctc.ToUpper().Contains("LPA") || ctc.ToUpper().Contains("LAKH") || 
-                    (ctc.ToUpper().Contains("L") && !ctc.ToUpper().Contains("K")))
-                {
-                    return value * 100000;
-                }
-                // If original had K, multiply by 1000
-                if (ctc.ToUpper().Contains("K"))
-                {
-                    return value * 1000;
-                }
-                return value;
-            }
-
-            return 0;
-        }
     }
 }
 

@@ -1,9 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlacementCellBackend.Models
 {
-    public class EmployeeonStudent
+    public class EmployeeFeedbackonStudent
     {
         [Key]
         public int RecordId { get; set; } // Primary key for this table
@@ -16,3 +16,4 @@ namespace PlacementCellBackend.Models
         public string Description { get; set; } = string.Empty;
     }
 }
+

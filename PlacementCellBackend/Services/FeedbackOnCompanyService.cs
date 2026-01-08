@@ -14,26 +14,26 @@ namespace PlacementCellBackend.Services
             _context = context;
         }
 
-        public async Task<IEnumerable<FeedBackOnCompany>> GetAllFeedbacksAsync()
+        public async Task<IEnumerable<AlumniFeedBackonCompany>> GetAllFeedbacksAsync()
         {
-            return await _context.feedbackoncompany.ToListAsync();
+            return await _context.alumnifeedbackoncompany.ToListAsync();
         }
 
-        public async Task<FeedBackOnCompany?> GetFeedbackByIdAsync(string id)
+        public async Task<AlumniFeedBackonCompany?> GetFeedbackByIdAsync(string id)
         {
-            return await _context.feedbackoncompany.FindAsync(id);
+            return await _context.alumnifeedbackoncompany.FindAsync(id);
         }
 
-        public async Task<FeedBackOnCompany> CreateFeedbackAsync(FeedBackOnCompany feedback)
+        public async Task<AlumniFeedBackonCompany> CreateFeedbackAsync(AlumniFeedBackonCompany feedback)
         {
-            _context.feedbackoncompany.Add(feedback);
+            _context.alumnifeedbackoncompany.Add(feedback);
             await _context.SaveChangesAsync();
             return feedback;
         }
 
-        public async Task<bool> UpdateFeedbackAsync(string id, FeedBackOnCompany feedback)
+        public async Task<bool> UpdateFeedbackAsync(string id, AlumniFeedBackonCompany feedback)
         {
-            var existing = await _context.feedbackoncompany.FindAsync(id);
+            var existing = await _context.alumnifeedbackoncompany.FindAsync(id);
             if (existing == null)
                 return false;
 
@@ -44,11 +44,11 @@ namespace PlacementCellBackend.Services
 
         public async Task<bool> DeleteFeedbackAsync(string id)
         {
-            var feedback = await _context.feedbackoncompany.FindAsync(id);
+            var feedback = await _context.alumnifeedbackoncompany.FindAsync(id);
             if (feedback == null)
                 return false;
 
-            _context.feedbackoncompany.Remove(feedback);
+            _context.alumnifeedbackoncompany.Remove(feedback);
             await _context.SaveChangesAsync();
             return true;
         }

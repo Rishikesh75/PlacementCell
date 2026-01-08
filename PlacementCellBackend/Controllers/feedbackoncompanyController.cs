@@ -16,14 +16,14 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FeedBackOnCompany>>> GetFeedbackOnCompany()
+        public async Task<ActionResult<IEnumerable<AlumniFeedBackonCompany>>> GetFeedbackOnCompany()
         {
             var feedbacks = await _feedbackService.GetAllFeedbacksAsync();
             return Ok(feedbacks);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<FeedBackOnCompany>> GetFeedback(string id)
+        public async Task<ActionResult<AlumniFeedBackonCompany>> GetFeedback(string id)
         {
             var feedback = await _feedbackService.GetFeedbackByIdAsync(id);
             if (feedback == null)
@@ -32,14 +32,14 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<FeedBackOnCompany>> PostFeedbackOnCompany(FeedBackOnCompany feedback)
+        public async Task<ActionResult<AlumniFeedBackonCompany>> PostFeedbackOnCompany(AlumniFeedBackonCompany feedback)
         {
             var created = await _feedbackService.CreateFeedbackAsync(feedback);
             return CreatedAtAction(nameof(GetFeedback), new { id = created.feedbackid }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFeedback(string id, FeedBackOnCompany updatedFeedback)
+        public async Task<IActionResult> PutFeedback(string id, AlumniFeedBackonCompany updatedFeedback)
         {
             if (id != updatedFeedback.feedbackid)
                 return BadRequest();

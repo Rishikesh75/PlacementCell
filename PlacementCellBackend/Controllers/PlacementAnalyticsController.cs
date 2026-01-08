@@ -75,25 +75,6 @@ namespace PlacementCellBackend.Controllers
             return Ok(trends);
         }
 
-        /// <summary>
-        /// Get industry distribution of placements
-        /// </summary>
-        [HttpGet("industries")]
-        public async Task<ActionResult<IEnumerable<IndustryDistribution>>> GetIndustryDistribution()
-        {
-            var distribution = await _analyticsService.GetIndustryDistributionAsync();
-            return Ok(distribution);
-        }
-
-        /// <summary>
-        /// Get interview insights for a company
-        /// </summary>
-        [HttpGet("interviews/{companyId}")]
-        public async Task<ActionResult<InterviewInsights>> GetInterviewInsights(string companyId)
-        {
-            var insights = await _analyticsService.GetInterviewInsightsAsync(companyId);
-            return Ok(insights);
-        }
     }
 }
 

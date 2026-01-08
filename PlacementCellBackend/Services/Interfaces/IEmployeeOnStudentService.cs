@@ -4,10 +4,10 @@ namespace PlacementCellBackend.Services.Interfaces
 {
     public interface IEmployeeOnStudentService
     {
-        Task<IEnumerable<EmployeeonStudent>> GetAllEmployeeOnStudentsAsync();
-        Task<EmployeeonStudent?> GetEmployeeOnStudentByIdAsync(int id);
-        Task<EmployeeonStudent> CreateEmployeeOnStudentAsync(EmployeeonStudent employeeOnStudent);
-        Task<bool> UpdateEmployeeOnStudentAsync(int id, EmployeeonStudent employeeOnStudent);
+        Task<IEnumerable<EmployeeFeedbackonStudent>> GetAllEmployeeOnStudentsAsync();
+        Task<EmployeeFeedbackonStudent?> GetEmployeeOnStudentByIdAsync(int id);
+        Task<EmployeeFeedbackonStudent> CreateEmployeeOnStudentAsync(EmployeeFeedbackonStudent employeeOnStudent);
+        Task<bool> UpdateEmployeeOnStudentAsync(int id, EmployeeFeedbackonStudent employeeOnStudent);
         Task<bool> DeleteEmployeeOnStudentAsync(int id);
     }
 }
