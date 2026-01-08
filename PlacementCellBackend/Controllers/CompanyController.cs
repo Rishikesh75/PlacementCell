@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PlacementCellBackend.Models;
-using PlacementCellBackend.Services.Interfaces;
+using PlacementCellBackend.Services.CRUD.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {

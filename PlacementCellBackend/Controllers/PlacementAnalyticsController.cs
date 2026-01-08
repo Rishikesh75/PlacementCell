@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using PlacementCellBackend.DTOs;
-using PlacementCellBackend.Services.Interfaces;
+using PlacementCellBackend.Services.Analytics.Interfaces;
 
 namespace PlacementCellBackend.Controllers
 {

@@ -22,4 +22,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Analytics\Interfaces\" />
+    <Folder Include="Services\CRUD\Interfaces\" />
+    <Folder Include="Services\Feedback\Interfaces\" />
+    <Folder Include="Services\Placements\Interfaces\" />
+  </ItemGroup>
+
 </Project>

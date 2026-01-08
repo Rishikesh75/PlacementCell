@@ -1,8 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using PlacementCellBackend.Data;
-using PlacementCellBackend.Services;
-using PlacementCellBackend.Services.Interfaces;
+using PlacementCellBackend.Services.CRUD;
+using PlacementCellBackend.Services.CRUD.Interfaces;
+using PlacementCellBackend.Services.Placements;
+using PlacementCellBackend.Services.Placements.Interfaces;
+using PlacementCellBackend.Services.Feedback;
+using PlacementCellBackend.Services.Feedback.Interfaces;
+using PlacementCellBackend.Services.Analytics;
+using PlacementCellBackend.Services.Analytics.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
