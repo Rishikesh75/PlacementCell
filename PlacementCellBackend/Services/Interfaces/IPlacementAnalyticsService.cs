@@ -18,6 +18,8 @@ namespace PlacementCellBackend.Services.Interfaces
         // Placement Trends
         Task<PlacementTrends> GetPlacementTrendsAsync();
 
+        // Resources Analytics
+        Task<RecommendedResources> GetTopRecommendedResourcesAsync(int topN = 10);
     }
 }
 

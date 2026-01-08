@@ -322,6 +322,61 @@ namespace PlacementCellBackend.Services
             };
         }
 
+        /// <summary>
+        /// Get top recommended resources (Books and Links) based on count from alumni feedback
+        /// </summary>
+        public async Task<RecommendedResources> GetTopRecommendedResourcesAsync(int topN = 10)
+        {
+            var feedbacks = await _context.alumnifeedbackoncompany
+                .Where(f => f.ResourcesInfo != null)
+                .ToListAsync();
+
+            var feedbacksWithResources = feedbacks
+                .Where(f => f.ResourcesInfo != null && 
+                           (f.ResourcesInfo.Links.Any() || f.ResourcesInfo.Books.Any()))
+                .ToList();
+
+            // Aggregate all links and count by URL (unique identifier)
+            var allLinks = feedbacksWithResources
+                .Where(f => f.ResourcesInfo?.Links != null)
+                .SelectMany(f => f.ResourcesInfo!.Links)
+                .GroupBy(l => l.Url.ToLower())
+                .Select(g => new TopLinkResource
+                {
+                    Title = g.First().Title,
+                    Url = g.First().Url,
+                    Description = g.First().Description,
+                    Category = g.First().Category,
+                    RecommendationCount = g.Count()
+                })
+                .OrderByDescending(l => l.RecommendationCount)
+                .Take(topN)
+                .ToList();
+
+            // Aggregate all books and count by BookName + Author (unique identifier)
+            var allBooks = feedbacksWithResources
+                .Where(f => f.ResourcesInfo?.Books != null)
+                .SelectMany(f => f.ResourcesInfo!.Books)
+                .GroupBy(b => $"{b.BookName.ToLower()}|{b.Author.ToLower()}")
+                .Select(g => new TopBookResource
+                {
+                    BookName = g.First().BookName,
+                    Author = g.First().Author,
+                    Description = g.First().Description,
+                    Category = g.First().Category,
+                    RecommendationCount = g.Count()
+                })
+                .OrderByDescending(b => b.RecommendationCount)
+                .Take(topN)
+                .ToList();
+
+            return new RecommendedResources
+            {
+                TotalFeedbacksWithResources = feedbacksWithResources.Count,
+                TopLinks = allLinks,
+                TopBooks = allBooks
+            };
+        }
 
     }
 }

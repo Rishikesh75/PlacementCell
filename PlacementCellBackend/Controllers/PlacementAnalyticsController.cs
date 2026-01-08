@@ -75,6 +75,16 @@ namespace PlacementCellBackend.Controllers
             return Ok(trends);
         }
 
+        /// <summary>
+        /// Get top recommended resources (Books and Links) based on alumni feedback
+        /// </summary>
+        [HttpGet("resources/recommended/{count:int?}")]
+        public async Task<ActionResult<RecommendedResources>> GetTopRecommendedResources(int count = 10)
+        {
+            var resources = await _analyticsService.GetTopRecommendedResourcesAsync(count);
+            return Ok(resources);
+        }
+
     }
 }
 
