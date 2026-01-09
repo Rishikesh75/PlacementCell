@@ -16,14 +16,14 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlumniPlacements>>> GetAllAlumniPlacements()
+        public async Task<ActionResult<IEnumerable<AlumniJobPosition>>> GetAllAlumniJobPosition()
         {
-            var placements = await _alumniPlacementService.GetAllAlumniPlacementsAsync();
+            var placements = await _alumniPlacementService.GetAllAlumniJobPositionAsync();
             return Ok(placements);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AlumniPlacements>> GetAlumniPlacementById(int id)
+        public async Task<ActionResult<AlumniJobPosition>> GetAlumniPlacementById(int id)
         {
             var placement = await _alumniPlacementService.GetAlumniPlacementByIdAsync(id);
             if (placement == null)
@@ -32,14 +32,14 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AlumniPlacements>> CreateAlumniPlacement(AlumniPlacements alumniPlacement)
+        public async Task<ActionResult<AlumniJobPosition>> CreateAlumniPlacement(AlumniJobPosition alumniPlacement)
         {
             var created = await _alumniPlacementService.CreateAlumniPlacementAsync(alumniPlacement);
             return CreatedAtAction(nameof(GetAlumniPlacementById), new { id = created.id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAlumniPlacement(int id, AlumniPlacements updatedAlumniPlacement)
+        public async Task<IActionResult> UpdateAlumniPlacement(int id, AlumniJobPosition updatedAlumniPlacement)
         {
             if (id != updatedAlumniPlacement.id)
                 return BadRequest();

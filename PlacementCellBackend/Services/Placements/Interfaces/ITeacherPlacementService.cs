@@ -4,11 +4,10 @@ namespace PlacementCellBackend.Services.Placements.Interfaces
 {
     public interface ITeacherPlacementService
     {
-        Task<IEnumerable<TeacherPlacements>> GetAllTeacherPlacementsAsync();
-        Task<TeacherPlacements?> GetTeacherPlacementByIdAsync(int id);
-        Task<TeacherPlacements> CreateTeacherPlacementAsync(TeacherPlacements teacherPlacement);
-        Task<bool> UpdateTeacherPlacementAsync(int id, TeacherPlacements teacherPlacement);
-        Task<bool> DeleteTeacherPlacementAsync(int id);
+        Task<IEnumerable<TeacherResearchOpening>> GetAllTeacherResearchOpeningsAsync();
+        Task<TeacherResearchOpening?> GetTeacherResearchOpeningByIdAsync(int id);
+        Task<TeacherResearchOpening> CreateTeacherResearchOpeningAsync(TeacherResearchOpening researchOpening);
+        Task<bool> UpdateTeacherResearchOpeningAsync(int id, TeacherResearchOpening researchOpening);
+        Task<bool> DeleteTeacherResearchOpeningAsync(int id);
     }
 }
-

@@ -14,48 +14,54 @@ namespace PlacementCellBackend.Services.Placements
             _context = context;
         }
 
-        public async Task<IEnumerable<TeacherPlacements>> GetAllTeacherPlacementsAsync()
+        public async Task<IEnumerable<TeacherResearchOpening>> GetAllTeacherResearchOpeningsAsync()
         {
-            return await _context.teacherplacements.ToListAsync();
+            return await _context.teacherresearchopening.ToListAsync();
         }
 
-        public async Task<TeacherPlacements?> GetTeacherPlacementByIdAsync(int id)
+        public async Task<TeacherResearchOpening?> GetTeacherResearchOpeningByIdAsync(int id)
         {
-            return await _context.teacherplacements.FindAsync(id);
+            return await _context.teacherresearchopening.FindAsync(id);
         }
 
-        public async Task<TeacherPlacements> CreateTeacherPlacementAsync(TeacherPlacements teacherPlacement)
+        public async Task<TeacherResearchOpening> CreateTeacherResearchOpeningAsync(TeacherResearchOpening researchOpening)
         {
-            _context.teacherplacements.Add(teacherPlacement);
+            _context.teacherresearchopening.Add(researchOpening);
             await _context.SaveChangesAsync();
-            return teacherPlacement;
+            return researchOpening;
         }
 
-        public async Task<bool> UpdateTeacherPlacementAsync(int id, TeacherPlacements teacherPlacement)
+        public async Task<bool> UpdateTeacherResearchOpeningAsync(int id, TeacherResearchOpening researchOpening)
         {
-            var existing = await _context.teacherplacements.FindAsync(id);
+            var existing = await _context.teacherresearchopening.FindAsync(id);
             if (existing == null)
                 return false;
 
-            existing.teacherid = teacherPlacement.teacherid;
-            existing.companyid = teacherPlacement.companyid;
-            existing.employeeemail = teacherPlacement.employeeemail;
+            existing.teacherid = researchOpening.teacherid;
+            existing.title = researchOpening.title;
+            existing.description = researchOpening.description;
+            existing.department = researchOpening.department;
+            existing.researcharea = researchOpening.researcharea;
+            existing.stipend = researchOpening.stipend;
+            existing.duration = researchOpening.duration;
+            existing.posteddate = researchOpening.posteddate;
+            existing.deadline = researchOpening.deadline;
+            existing.isactive = researchOpening.isactive;
 
             _context.Entry(existing).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> DeleteTeacherPlacementAsync(int id)
+        public async Task<bool> DeleteTeacherResearchOpeningAsync(int id)
         {
-            var teacherPlacement = await _context.teacherplacements.FindAsync(id);
-            if (teacherPlacement == null)
+            var researchOpening = await _context.teacherresearchopening.FindAsync(id);
+            if (researchOpening == null)
                 return false;
 
-            _context.teacherplacements.Remove(teacherPlacement);
+            _context.teacherresearchopening.Remove(researchOpening);
             await _context.SaveChangesAsync();
             return true;
         }
     }
 }
-

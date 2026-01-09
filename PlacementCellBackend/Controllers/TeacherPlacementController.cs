@@ -16,35 +16,35 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TeacherPlacements>>> GetAllTeacherPlacements()
+        public async Task<ActionResult<IEnumerable<TeacherResearchOpening>>> GetAllTeacherResearchOpenings()
         {
-            var placements = await _teacherPlacementService.GetAllTeacherPlacementsAsync();
-            return Ok(placements);
+            var openings = await _teacherPlacementService.GetAllTeacherResearchOpeningsAsync();
+            return Ok(openings);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TeacherPlacements>> GetTeacherPlacementById(int id)
+        public async Task<ActionResult<TeacherResearchOpening>> GetTeacherResearchOpeningById(int id)
         {
-            var placement = await _teacherPlacementService.GetTeacherPlacementByIdAsync(id);
-            if (placement == null)
+            var opening = await _teacherPlacementService.GetTeacherResearchOpeningByIdAsync(id);
+            if (opening == null)
                 return NotFound();
-            return Ok(placement);
+            return Ok(opening);
         }
 
         [HttpPost]
-        public async Task<ActionResult<TeacherPlacements>> CreateTeacherPlacement(TeacherPlacements teacherPlacement)
+        public async Task<ActionResult<TeacherResearchOpening>> CreateTeacherResearchOpening(TeacherResearchOpening researchOpening)
         {
-            var created = await _teacherPlacementService.CreateTeacherPlacementAsync(teacherPlacement);
-            return CreatedAtAction(nameof(GetTeacherPlacementById), new { id = created.id }, created);
+            var created = await _teacherPlacementService.CreateTeacherResearchOpeningAsync(researchOpening);
+            return CreatedAtAction(nameof(GetTeacherResearchOpeningById), new { id = created.id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTeacherPlacement(int id, TeacherPlacements updatedTeacherPlacement)
+        public async Task<IActionResult> UpdateTeacherResearchOpening(int id, TeacherResearchOpening updatedResearchOpening)
         {
-            if (id != updatedTeacherPlacement.id)
+            if (id != updatedResearchOpening.id)
                 return BadRequest();
 
-            var success = await _teacherPlacementService.UpdateTeacherPlacementAsync(id, updatedTeacherPlacement);
+            var success = await _teacherPlacementService.UpdateTeacherResearchOpeningAsync(id, updatedResearchOpening);
             if (!success)
                 return NotFound();
 
@@ -52,9 +52,9 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTeacherPlacement(int id)
+        public async Task<IActionResult> DeleteTeacherResearchOpening(int id)
         {
-            var success = await _teacherPlacementService.DeleteTeacherPlacementAsync(id);
+            var success = await _teacherPlacementService.DeleteTeacherResearchOpeningAsync(id);
             if (!success)
                 return NotFound();
 

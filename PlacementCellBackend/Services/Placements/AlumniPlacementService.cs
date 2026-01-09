@@ -14,34 +14,36 @@ namespace PlacementCellBackend.Services.Placements
             _context = context;
         }
 
-        public async Task<IEnumerable<AlumniPlacements>> GetAllAlumniPlacementsAsync()
+        public async Task<IEnumerable<AlumniJobPosition>> GetAllAlumniJobPositionAsync()
         {
-            return await _context.alumniplacements.ToListAsync();
+            return await _context.alumnijobposition.ToListAsync();
         }
 
-        public async Task<AlumniPlacements?> GetAlumniPlacementByIdAsync(int id)
+        public async Task<AlumniJobPosition?> GetAlumniPlacementByIdAsync(int id)
         {
-            return await _context.alumniplacements.FindAsync(id);
+            return await _context.alumnijobposition.FindAsync(id);
         }
 
-        public async Task<AlumniPlacements> CreateAlumniPlacementAsync(AlumniPlacements alumniPlacement)
+        public async Task<AlumniJobPosition> CreateAlumniPlacementAsync(AlumniJobPosition alumniPlacement)
         {
-            _context.alumniplacements.Add(alumniPlacement);
+            _context.alumnijobposition.Add(alumniPlacement);
             await _context.SaveChangesAsync();
             return alumniPlacement;
         }
 
-        public async Task<bool> UpdateAlumniPlacementAsync(int id, AlumniPlacements alumniPlacement)
+        public async Task<bool> UpdateAlumniPlacementAsync(int id, AlumniJobPosition alumniPlacement)
         {
-            var existing = await _context.alumniplacements.FindAsync(id);
+            var existing = await _context.alumnijobposition.FindAsync(id);
             if (existing == null)
                 return false;
 
-            existing.alumniid = alumniPlacement.alumniid;
             existing.companyid = alumniPlacement.companyid;
             existing.jobtitle = alumniPlacement.jobtitle;
-            existing.placementdate = alumniPlacement.placementdate;
+            existing.posteddate = alumniPlacement.posteddate;
             existing.package = alumniPlacement.package;
+            existing.postedbytype = alumniPlacement.postedbytype;
+            existing.postedbyalumniid = alumniPlacement.postedbyalumniid;
+            existing.postedbyemployeeid = alumniPlacement.postedbyemployeeid;
 
             _context.Entry(existing).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -50,11 +52,11 @@ namespace PlacementCellBackend.Services.Placements
 
         public async Task<bool> DeleteAlumniPlacementAsync(int id)
         {
-            var alumniPlacement = await _context.alumniplacements.FindAsync(id);
+            var alumniPlacement = await _context.alumnijobposition.FindAsync(id);
             if (alumniPlacement == null)
                 return false;
 
-            _context.alumniplacements.Remove(alumniPlacement);
+            _context.alumnijobposition.Remove(alumniPlacement);
             await _context.SaveChangesAsync();
             return true;
         }
