@@ -1,10 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using PlacementCellBackend.Data;
 using PlacementCellBackend.DTOs;
+using PlacementCellBackend.Helpers;
 using PlacementCellBackend.Services.Analytics.Interfaces;
+using System.Data;
 
 namespace PlacementCellBackend.Services.Analytics
 {
+    /// <summary>
+    /// Analytics service that executes SQL queries for multi-table analytics.
+    /// SQL queries are loaded from external files in the SQL/Queries folder.
+    /// No stored procedures required - all query logic is in the application.
+    /// </summary>
     public class PlacementAnalyticsService : IPlacementAnalyticsService
     {
         private readonly AppDbContext _context;
@@ -14,38 +22,99 @@ namespace PlacementCellBackend.Services.Analytics
             _context = context;
         }
 
+        #region SQL Query Loaders
+
+        /// <summary>
+        /// Static class containing SQL queries loaded from files.
+        /// Queries are organized by category (folder) and cached for performance.
+        /// </summary>
+        private static class Queries
+        {
+            // Dashboard Queries
+            public static string GetDashboardStats => SqlQueryLoader.LoadQuery("Dashboard", "GetDashboardStats");
+            public static string GetRecentPlacements => SqlQueryLoader.LoadQuery("Dashboard", "GetRecentPlacements");
+
+            // Company Queries
+            public static string GetTopCompaniesRanking => SqlQueryLoader.LoadQuery("Companies", "GetTopCompaniesRanking");
+            public static string GetCompanyYearlyPlacements => SqlQueryLoader.LoadQuery("Companies", "GetCompanyYearlyPlacements");
+            public static string GetCompanyInsights => SqlQueryLoader.LoadQuery("Companies", "GetCompanyInsights");
+
+            // Alumni Queries
+            public static string GetAlumniStatistics => SqlQueryLoader.LoadQuery("Alumni", "GetAlumniStatistics");
+            public static string GetAlumniByCompany => SqlQueryLoader.LoadQuery("Alumni", "GetAlumniByCompany");
+            public static string GetPositionsByCompany => SqlQueryLoader.LoadQuery("Alumni", "GetPositionsByCompany");
+
+            // Placement Queries
+            public static string GetPlacementTrendsSummary => SqlQueryLoader.LoadQuery("Placements", "GetPlacementTrendsSummary");
+            public static string GetYearlyPlacementData => SqlQueryLoader.LoadQuery("Placements", "GetYearlyPlacementData");
+            public static string GetPositionsByYear => SqlQueryLoader.LoadQuery("Placements", "GetPositionsByYear");
+            public static string GetMonthlyPlacementData => SqlQueryLoader.LoadQuery("Placements", "GetMonthlyPlacementData");
+            public static string GetPositionsByYearMonth => SqlQueryLoader.LoadQuery("Placements", "GetPositionsByYearMonth");
+        }
+
+        #endregion
+
         /// <summary>
         /// Get comprehensive dashboard statistics for the placement cell
         /// </summary>
         public async Task<DashboardStats> GetDashboardStatsAsync()
         {
-            var recentPlacements = await _context.placement
-                .Include(p => p.Student)
-                .Include(p => p.Company)
-                .OrderByDescending(p => p.placementdate)
-                .Take(5)
-                .Select(p => new RecentPlacement
-                {
-                    PlacementId = p.id,
-                    StudentId = p.studentid,
-                    StudentName = p.Student != null ? p.Student.name : "Unknown",
-                    CompanyName = p.Company != null ? p.Company.company_name : "Unknown",
-                    JobTitle = p.jobtitle,
-                    PlacementDate = p.placementdate,
-                    Package = p.package
-                })
-                .ToListAsync();
+            var connection = _context.Database.GetDbConnection();
+            await connection.OpenAsync();
 
-            return new DashboardStats
+            try
             {
-                TotalStudents = await _context.student.CountAsync(),
-                TotalAlumni = await _context.alumni.CountAsync(),
-                TotalCompanies = await _context.company.CountAsync(),
-                TotalFeedbacks = await _context.alumnifeedbackoncompany.CountAsync(),
-                ActiveOpenings = await _context.experienceopening.CountAsync(),
-                TotalTeachers = await _context.teacher.CountAsync(),
-                RecentPlacements = recentPlacements
-            };
+                var stats = new DashboardStats();
+
+                // Get counts from SQL query (no parameters needed)
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = Queries.GetDashboardStats;
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    if (await reader.ReadAsync())
+                    {
+                        stats.TotalStudents = reader.GetInt32(reader.GetOrdinal("total_students"));
+                        stats.TotalAlumni = reader.GetInt32(reader.GetOrdinal("total_alumni"));
+                        stats.TotalCompanies = reader.GetInt32(reader.GetOrdinal("total_companies"));
+                        stats.TotalFeedbacks = reader.GetInt32(reader.GetOrdinal("total_feedbacks"));
+                        stats.ActiveOpenings = reader.GetInt32(reader.GetOrdinal("active_openings"));
+                        stats.TotalTeachers = reader.GetInt32(reader.GetOrdinal("total_teachers"));
+                    }
+                }
+
+                // Get recent placements from SQL query
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = Queries.GetRecentPlacements;
+                    command.Parameters.Add(new NpgsqlParameter("p_count", 5));
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    var recentPlacements = new List<RecentPlacement>();
+
+                    while (await reader.ReadAsync())
+                    {
+                        recentPlacements.Add(new RecentPlacement
+                        {
+                            PlacementId = reader.GetInt32(reader.GetOrdinal("placement_id")),
+                            StudentId = reader.GetString(reader.GetOrdinal("student_id")),
+                            StudentName = reader.GetString(reader.GetOrdinal("student_name")),
+                            CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
+                            JobTitle = reader.GetString(reader.GetOrdinal("job_title")),
+                            PlacementDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("placement_date"))),
+                            Package = reader.GetString(reader.GetOrdinal("package"))
+                        });
+                    }
+
+                    stats.RecentPlacements = recentPlacements;
+                }
+
+                return stats;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
         }
 
         /// <summary>
@@ -53,94 +122,68 @@ namespace PlacementCellBackend.Services.Analytics
         /// </summary>
         public async Task<IEnumerable<CompanyRanking>> GetTopCompaniesRankingAsync(int topN = 10)
         {
-            var placements = await _context.placement
-                .Include(p => p.Company)
-                .ToListAsync();
+            var connection = _context.Database.GetDbConnection();
+            await connection.OpenAsync();
 
-            var companyGroups = placements
-                .GroupBy(p => new { p.companyid, CompanyName = p.Company?.company_name ?? "Unknown", Industry = p.Company?.industry ?? "Unknown" })
-                .Select(g => new
+            try
+            {
+                var rankings = new List<CompanyRanking>();
+
+                // Get company rankings from SQL query
+                using (var command = connection.CreateCommand())
                 {
-                    g.Key.companyid,
-                    g.Key.CompanyName,
-                    g.Key.Industry,
-                    TotalPlacements = g.Count(),
-                    AveragePackage = g.Any() ? CalculateAveragePackage(g.Select(p => p.package).ToList()) : "N/A",
-                    YearlyPlacements = g
-                        .GroupBy(p => p.placementdate.Year)
-                        .Select(yg => new YearlyPlacementCount
+                    command.CommandText = Queries.GetTopCompaniesRanking;
+                    command.Parameters.Add(new NpgsqlParameter("p_top_n", topN));
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        var companyId = reader.GetString(reader.GetOrdinal("company_id"));
+                        var avgPackage = reader.IsDBNull(reader.GetOrdinal("average_package"))
+                            ? 0m
+                            : reader.GetDecimal(reader.GetOrdinal("average_package"));
+
+                        rankings.Add(new CompanyRanking
                         {
-                            Year = yg.Key,
-                            Count = yg.Count()
-                        })
-                        .OrderByDescending(y => y.Year)
-                        .ToList()
-                })
-                .OrderByDescending(x => x.TotalPlacements)
-                .Take(topN)
-                .ToList();
-
-            return companyGroups.Select((c, index) => new CompanyRanking
-            {
-                CompanyId = c.companyid,
-                CompanyName = c.CompanyName,
-                Industry = c.Industry,
-                TotalPlacements = c.TotalPlacements,
-                Rank = index + 1,
-                AveragePackage = c.AveragePackage,
-                YearlyPlacements = c.YearlyPlacements
-            });
-        }
-
-        /// <summary>
-        /// Helper method to calculate average package from list of package strings
-        /// </summary>
-        private static string CalculateAveragePackage(List<string> packages)
-        {
-            var validPackages = packages
-                .Select(p => ParseSalary(p))
-                .Where(p => p > 0)
-                .ToList();
-
-            if (!validPackages.Any())
-                return "N/A";
-
-            var average = validPackages.Average();
-            return $"{average:F2} LPA";
-        }
-
-        /// <summary>
-        /// Helper method to parse salary/package/CTC string to decimal (in LPA)
-        /// Handles formats like "25 LPA", "25L", "2500K", "25 Lakhs", etc.
-        /// </summary>
-        private static decimal ParseSalary(string salary)
-        {
-            if (string.IsNullOrWhiteSpace(salary))
-                return 0;
-
-            var upper = salary.ToUpper();
-            var cleaned = upper
-                .Replace("LPA", "")
-                .Replace("LAKHS", "")
-                .Replace("LAKH", "")
-                .Replace("L", "")
-                .Replace("K", "")
-                .Replace("₹", "")
-                .Replace(",", "")
-                .Trim();
-
-            if (decimal.TryParse(cleaned, out var value))
-            {
-                // If original had K (thousands), convert to LPA (divide by 100)
-                if (upper.Contains("K") && !upper.Contains("LAKH"))
-                {
-                    return value / 100;
+                            CompanyId = companyId,
+                            CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
+                            Industry = reader.GetString(reader.GetOrdinal("industry")),
+                            TotalPlacements = reader.GetInt32(reader.GetOrdinal("total_placements")),
+                            Rank = reader.GetInt32(reader.GetOrdinal("rank")),
+                            AveragePackage = avgPackage > 0 ? $"{avgPackage:F2} LPA" : "N/A",
+                            YearlyPlacements = new List<YearlyPlacementCount>()
+                        });
+                    }
                 }
-                // Value is already in LPA/Lakhs
-                return value;
-            }
 
-            return 0;
+                // Get yearly placements for each company
+                foreach (var ranking in rankings)
+                {
+                    using var command = connection.CreateCommand();
+                    command.CommandText = Queries.GetCompanyYearlyPlacements;
+                    command.Parameters.Add(new NpgsqlParameter("p_company_id", ranking.CompanyId));
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    var yearlyPlacements = new List<YearlyPlacementCount>();
+
+                    while (await reader.ReadAsync())
+                    {
+                        yearlyPlacements.Add(new YearlyPlacementCount
+                        {
+                            Year = reader.GetInt32(reader.GetOrdinal("year")),
+                            Count = reader.GetInt32(reader.GetOrdinal("placement_count"))
+                        });
+                    }
+
+                    ranking.YearlyPlacements = yearlyPlacements;
+                }
+
+                return rankings;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
         }
 
         /// <summary>
@@ -148,35 +191,48 @@ namespace PlacementCellBackend.Services.Analytics
         /// </summary>
         public async Task<CompanyInsights> GetCompanyInsightsAsync(string companyId)
         {
-            var company = await _context.company.FindAsync(companyId);
-            if (company == null)
+            var connection = _context.Database.GetDbConnection();
+            await connection.OpenAsync();
+
+            try
             {
+                using var command = connection.CreateCommand();
+                command.CommandText = Queries.GetCompanyInsights;
+                command.Parameters.Add(new NpgsqlParameter("p_company_id", companyId));
+
+                using var reader = await command.ExecuteReaderAsync();
+
+                if (await reader.ReadAsync())
+                {
+                    var jobProfilesArray = reader.IsDBNull(reader.GetOrdinal("job_profiles"))
+                        ? Array.Empty<string>()
+                        : (string[])reader.GetValue(reader.GetOrdinal("job_profiles"));
+
+                    var locationsArray = reader.IsDBNull(reader.GetOrdinal("locations"))
+                        ? Array.Empty<string>()
+                        : (string[])reader.GetValue(reader.GetOrdinal("locations"));
+
+                    return new CompanyInsights
+                    {
+                        CompanyId = reader.GetString(reader.GetOrdinal("company_id")),
+                        CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
+                        Industry = reader.GetString(reader.GetOrdinal("industry")),
+                        TotalAlumniPlaced = reader.GetInt32(reader.GetOrdinal("total_alumni_placed")),
+                        TotalFeedbacks = reader.GetInt32(reader.GetOrdinal("total_feedbacks")),
+                        AverageCTC = reader.IsDBNull(reader.GetOrdinal("average_ctc"))
+                            ? 0m
+                            : reader.GetDecimal(reader.GetOrdinal("average_ctc")),
+                        JobProfiles = jobProfilesArray.ToList(),
+                        Locations = locationsArray.ToList()
+                    };
+                }
+
                 return new CompanyInsights { CompanyId = companyId };
             }
-
-            var feedbacks = await _context.alumnifeedbackoncompany
-                .Where(f => f.companyid == companyId)
-                .ToListAsync();
-
-            var alumniCount = await _context.alumni
-                .CountAsync(a => a.companyid == companyId);
-
-            var avgCTC = feedbacks.Any()
-                ? feedbacks.Average(f => ParseSalary(f.CTC))
-                : 0;
-
-
-            return new CompanyInsights
+            finally
             {
-                CompanyId = companyId,
-                CompanyName = company.company_name,
-                Industry = company.industry,
-                TotalAlumniPlaced = alumniCount,
-                TotalFeedbacks = feedbacks.Count,
-                JobProfiles = feedbacks.Select(f => f.JobProfile).Distinct().ToList(),
-                Locations = feedbacks.Select(f => f.JobLocation).Distinct().ToList(),
-                AverageCTC = avgCTC,
-            };
+                await connection.CloseAsync();
+            }
         }
 
         /// <summary>
@@ -184,37 +240,74 @@ namespace PlacementCellBackend.Services.Analytics
         /// </summary>
         public async Task<AlumniStatistics> GetAlumniStatisticsAsync()
         {
-            var alumni = await _context.alumni
-                .Include(a => a.Company)
-                .ToListAsync();
+            var connection = _context.Database.GetDbConnection();
+            await connection.OpenAsync();
 
-            var companyWise = alumni
-                .GroupBy(a => new { a.companyid, CompanyName = a.Company?.company_name ?? "Unknown" })
-                .OrderByDescending(g => g.Count())
-                .Select(g => new CompanyAlumniCount
-                {
-                    CompanyId = g.Key.companyid,
-                    CompanyName = g.Key.CompanyName,
-                    TotalAlumniCount = g.Count(),
-                    PositionWiseCount = g
-                        .GroupBy(a => a.position)
-                        .Where(pg => !string.IsNullOrEmpty(pg.Key))
-                        .OrderByDescending(pg => pg.Count())
-                        .Select(pg => new PositionCount
-                        {
-                            Position = pg.Key,
-                            Count = pg.Count()
-                        })
-                        .ToList()
-                })
-                .ToList();
-
-            return new AlumniStatistics
+            try
             {
-                TotalAlumni = alumni.Count,
-                UniqueCompanies = alumni.Select(a => a.companyid).Distinct().Count(),
-                CompanyWiseCount = companyWise
-            };
+                var stats = new AlumniStatistics();
+
+                // Get overall statistics (no parameters needed)
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = Queries.GetAlumniStatistics;
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    if (await reader.ReadAsync())
+                    {
+                        stats.TotalAlumni = reader.GetInt32(reader.GetOrdinal("total_alumni"));
+                        stats.UniqueCompanies = reader.GetInt32(reader.GetOrdinal("unique_companies"));
+                    }
+                }
+
+                // Get company-wise alumni count (no parameters needed)
+                var companyWiseList = new List<CompanyAlumniCount>();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = Queries.GetAlumniByCompany;
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        companyWiseList.Add(new CompanyAlumniCount
+                        {
+                            CompanyId = reader.GetString(reader.GetOrdinal("company_id")),
+                            CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
+                            TotalAlumniCount = reader.GetInt32(reader.GetOrdinal("total_alumni_count")),
+                            PositionWiseCount = new List<PositionCount>()
+                        });
+                    }
+                }
+
+                // Get position-wise count for each company
+                foreach (var company in companyWiseList)
+                {
+                    using var command = connection.CreateCommand();
+                    command.CommandText = Queries.GetPositionsByCompany;
+                    command.Parameters.Add(new NpgsqlParameter("p_company_id", company.CompanyId));
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    var positions = new List<PositionCount>();
+
+                    while (await reader.ReadAsync())
+                    {
+                        positions.Add(new PositionCount
+                        {
+                            Position = reader.GetString(reader.GetOrdinal("position_name")),
+                            Count = reader.GetInt32(reader.GetOrdinal("total_count"))
+                        });
+                    }
+
+                    company.PositionWiseCount = positions;
+                }
+
+                stats.CompanyWiseCount = companyWiseList;
+                return stats;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
         }
 
         /// <summary>
@@ -222,22 +315,38 @@ namespace PlacementCellBackend.Services.Analytics
         /// </summary>
         public async Task<IEnumerable<RecentPlacement>> GetRecentPlacementsAsync(int count = 10)
         {
-            return await _context.placement
-                .Include(p => p.Student)
-                .Include(p => p.Company)
-                .OrderByDescending(p => p.placementdate)
-                .Take(count)
-                .Select(p => new RecentPlacement
+            var connection = _context.Database.GetDbConnection();
+            await connection.OpenAsync();
+
+            try
+            {
+                var placements = new List<RecentPlacement>();
+
+                using var command = connection.CreateCommand();
+                command.CommandText = Queries.GetRecentPlacements;
+                command.Parameters.Add(new NpgsqlParameter("p_count", count));
+
+                using var reader = await command.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
                 {
-                    PlacementId = p.id,
-                    StudentId = p.studentid,
-                    StudentName = p.Student != null ? p.Student.name : "Unknown",
-                    CompanyName = p.Company != null ? p.Company.company_name : "Unknown",
-                    JobTitle = p.jobtitle,
-                    PlacementDate = p.placementdate,
-                    Package = p.package
-                })
-                .ToListAsync();
+                    placements.Add(new RecentPlacement
+                    {
+                        PlacementId = reader.GetInt32(reader.GetOrdinal("placement_id")),
+                        StudentId = reader.GetString(reader.GetOrdinal("student_id")),
+                        StudentName = reader.GetString(reader.GetOrdinal("student_name")),
+                        CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
+                        JobTitle = reader.GetString(reader.GetOrdinal("job_title")),
+                        PlacementDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("placement_date"))),
+                        Package = reader.GetString(reader.GetOrdinal("package"))
+                    });
+                }
+
+                return placements;
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
         }
 
         /// <summary>
@@ -245,94 +354,137 @@ namespace PlacementCellBackend.Services.Analytics
         /// </summary>
         public async Task<PlacementTrends> GetPlacementTrendsAsync()
         {
-            var placements = await _context.placement
-                .ToListAsync();
+            var connection = _context.Database.GetDbConnection();
+            await connection.OpenAsync();
 
-            var totalPlacements = placements.Count;
+            try
+            {
+                var trends = new PlacementTrends();
 
-            // Yearly data with position-wise and monthly breakdown
-            var yearlyData = placements
-                .GroupBy(p => p.placementdate.Year)
-                .OrderByDescending(yg => yg.Key)
-                .Select(yg => new YearlyPlacementData
+                // Get total placements (no parameters needed)
+                using (var command = connection.CreateCommand())
                 {
-                    Year = yg.Key,
-                    TotalPlacements = yg.Count(),
-                    UniqueCompanies = yg.Select(p => p.companyid).Distinct().Count(),
-                    PositionWiseCount = yg
-                        .GroupBy(p => p.jobtitle)
-                        .Where(pg => !string.IsNullOrEmpty(pg.Key))
-                        .OrderByDescending(pg => pg.Count())
-                        .Select(pg => new PositionCount
-                        {
-                            Position = pg.Key,
-                            Count = pg.Count()
-                        })
-                        .ToList(),
-                    MonthlyData = yg
-                        .GroupBy(p => p.placementdate.Month)
-                        .OrderBy(mg => mg.Key)
-                        .Select(mg => new MonthlyPlacementData
-                        {
-                            Month = mg.Key,
-                            MonthName = GetMonthName(mg.Key),
-                            PlacementCount = mg.Count(),
-                            PositionWiseCount = mg
-                                .GroupBy(p => p.jobtitle)
-                                .Where(pg => !string.IsNullOrEmpty(pg.Key))
-                                .OrderByDescending(pg => pg.Count())
-                                .Select(pg => new PositionCount
-                                {
-                                    Position = pg.Key,
-                                    Count = pg.Count()
-                                })
-                                .ToList()
-                        })
-                        .ToList()
-                })
-                .ToList();
+                    command.CommandText = Queries.GetPlacementTrendsSummary;
 
-            return new PlacementTrends
-            {
-                TotalPlacements = totalPlacements,
-                YearlyData = yearlyData
-            };
-        }
+                    using var reader = await command.ExecuteReaderAsync();
+                    if (await reader.ReadAsync())
+                    {
+                        trends.TotalPlacements = reader.GetInt32(reader.GetOrdinal("total_placements"));
+                    }
+                }
 
-        /// <summary>
-        /// Helper method to get month name from month number
-        /// </summary>
-        private static string GetMonthName(int month)
-        {
-            return month switch
+                // Get yearly data (no parameters needed)
+                var yearlyData = new List<YearlyPlacementData>();
+                using (var command = connection.CreateCommand())
+                {
+                    command.CommandText = Queries.GetYearlyPlacementData;
+
+                    using var reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        yearlyData.Add(new YearlyPlacementData
+                        {
+                            Year = reader.GetInt32(reader.GetOrdinal("year")),
+                            TotalPlacements = reader.GetInt32(reader.GetOrdinal("total_placements")),
+                            UniqueCompanies = reader.GetInt32(reader.GetOrdinal("unique_companies")),
+                            PositionWiseCount = new List<PositionCount>(),
+                            MonthlyData = new List<MonthlyPlacementData>()
+                        });
+                    }
+                }
+
+                // Get position-wise count and monthly data for each year
+                foreach (var year in yearlyData)
+                {
+                    // Get positions for this year
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = Queries.GetPositionsByYear;
+                        command.Parameters.Add(new NpgsqlParameter("p_year", year.Year));
+
+                        using var reader = await command.ExecuteReaderAsync();
+                        var positions = new List<PositionCount>();
+
+                        while (await reader.ReadAsync())
+                        {
+                            positions.Add(new PositionCount
+                            {
+                                Position = reader.GetString(reader.GetOrdinal("position_name")),
+                                Count = reader.GetInt32(reader.GetOrdinal("total_count"))
+                            });
+                        }
+
+                        year.PositionWiseCount = positions;
+                    }
+
+                    // Get monthly data for this year
+                    var monthlyData = new List<MonthlyPlacementData>();
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandText = Queries.GetMonthlyPlacementData;
+                        command.Parameters.Add(new NpgsqlParameter("p_year", year.Year));
+
+                        using var reader = await command.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
+                        {
+                            monthlyData.Add(new MonthlyPlacementData
+                            {
+                                Month = reader.GetInt32(reader.GetOrdinal("month")),
+                                MonthName = reader.GetString(reader.GetOrdinal("month_name")).Trim(),
+                                PlacementCount = reader.GetInt32(reader.GetOrdinal("placement_count")),
+                                PositionWiseCount = new List<PositionCount>()
+                            });
+                        }
+                    }
+
+                    // Get position-wise count for each month
+                    foreach (var month in monthlyData)
+                    {
+                        using var command = connection.CreateCommand();
+                        command.CommandText = Queries.GetPositionsByYearMonth;
+                        command.Parameters.Add(new NpgsqlParameter("p_year", year.Year));
+                        command.Parameters.Add(new NpgsqlParameter("p_month", month.Month));
+
+                        using var reader = await command.ExecuteReaderAsync();
+                        var positions = new List<PositionCount>();
+
+                        while (await reader.ReadAsync())
+                        {
+                            positions.Add(new PositionCount
+                            {
+                                Position = reader.GetString(reader.GetOrdinal("position_name")),
+                                Count = reader.GetInt32(reader.GetOrdinal("total_count"))
+                            });
+                        }
+
+                        month.PositionWiseCount = positions;
+                    }
+
+                    year.MonthlyData = monthlyData;
+                }
+
+                trends.YearlyData = yearlyData;
+                return trends;
+            }
+            finally
             {
-                1 => "January",
-                2 => "February",
-                3 => "March",
-                4 => "April",
-                5 => "May",
-                6 => "June",
-                7 => "July",
-                8 => "August",
-                9 => "September",
-                10 => "October",
-                11 => "November",
-                12 => "December",
-                _ => "Unknown"
-            };
+                await connection.CloseAsync();
+            }
         }
 
         /// <summary>
         /// Get top recommended resources (Books and Links) based on count from alumni feedback
+        /// Note: This uses Entity Framework as it involves complex JSONB parsing
         /// </summary>
         public async Task<RecommendedResources> GetTopRecommendedResourcesAsync(int topN = 10)
         {
+            // For JSONB operations with complex nested structures, EF Core is more suitable
             var feedbacks = await _context.alumnifeedbackoncompany
                 .Where(f => f.ResourcesInfo != null)
                 .ToListAsync();
 
             var feedbacksWithResources = feedbacks
-                .Where(f => f.ResourcesInfo != null && 
+                .Where(f => f.ResourcesInfo != null &&
                            (f.ResourcesInfo.Links.Any() || f.ResourcesInfo.Books.Any()))
                 .ToList();
 
@@ -377,7 +529,5 @@ namespace PlacementCellBackend.Services.Analytics
                 TopBooks = allBooks
             };
         }
-
     }
 }
-

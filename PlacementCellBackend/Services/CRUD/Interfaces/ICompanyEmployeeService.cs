@@ -1,15 +1,14 @@
-using PlacementCellBackend.Models;
+using PlacementCellBackend.DTOs.CompanyEmployee;
 
-namespace PlacementCellBackend.Services.CRUD.Interfaces
+namespace PlacementCellBackend.Services.CRUD.Interfaces;
+
+public interface ICompanyEmployeeService
 {
-    public interface ICompanyEmployeeService
-    {
-        Task<IEnumerable<Companyemployee>> GetAllCompanyEmployeesAsync();
-        Task<Companyemployee?> GetCompanyEmployeeByIdAsync(string id);
-        Task<Companyemployee> CreateCompanyEmployeeAsync(Companyemployee companyEmployee);
-        Task<bool> UpdateCompanyEmployeeAsync(string id, Companyemployee companyEmployee);
-        Task<bool> DeleteCompanyEmployeeAsync(string id);
-        bool CompanyEmployeeExists(string id);
-    }
+    Task<IEnumerable<CompanyEmployeeDto>> GetAllCompanyEmployeesAsync();
+    Task<CompanyEmployeeDto?> GetCompanyEmployeeByIdAsync(string id);
+    Task<bool> CreateCompanyEmployeeAsync(CompanyEmployeeCreateDto companyEmployee);
+    Task<bool> UpdateCompanyEmployeeAsync(string id, CompanyEmployeeCreateDto companyEmployee);
+    Task<bool> DeleteCompanyEmployeeAsync(string id);
+    bool CompanyEmployeeExists(string id);
 }
 

@@ -21,8 +21,6 @@ public class AppDbContext : DbContext
 
     public DbSet<AlumniFeedBackonCompany> alumnifeedbackoncompany { get; set; }
 
-    public DbSet<ExperienceOpening> experienceopening { get; set; }
-
     public DbSet<EmployeeFeedbackonStudent> employeefeedbackonstudent { get; set; }
 
     public DbSet<Companyemployee> companyemployee { get; set; }
@@ -31,7 +29,7 @@ public class AppDbContext : DbContext
 
     public DbSet<Alumni> alumni { get; set; }
 
-    public DbSet<AlumniJobPosition> alumnijobposition { get; set; }
+    public DbSet<AlumniJobOpenings> alumnijobposition { get; set; }
 
     public DbSet<Placement> placement { get; set; }
 

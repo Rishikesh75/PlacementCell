@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlacementCellBackend.Data;
+using PlacementCellBackend.DTOs.AlumniJobOpenings;
 using PlacementCellBackend.Models;
 using PlacementCellBackend.Services.Placements.Interfaces;
 
@@ -14,36 +15,90 @@ namespace PlacementCellBackend.Services.Placements
             _context = context;
         }
 
-        public async Task<IEnumerable<AlumniJobPosition>> GetAllAlumniJobPositionAsync()
+        public async Task<IEnumerable<AlumniJobOpeningDto>> GetAllAlumniJobPostionAsync()
         {
-            return await _context.alumnijobposition.ToListAsync();
+
+            // Step 1: Query AlumniJobPostion table
+            var jobs = await _context.alumnijobposition.ToListAsync();
+
+            // Step 2: Get distinct company IDs
+            var companyIds = jobs.Select(j => j.companyid).Distinct().ToList();
+
+            // Step 3: Query Company table to get company names
+            var companies = await _context.company
+                .Where(c => companyIds.Contains(c.company_id))
+                .ToDictionaryAsync(c => c.company_id, c => c.company_name);
+
+            // Step 4: Map to DTO
+            return jobs.Select(j => new AlumniJobOpeningDto
+            {
+                CompanyName = companies.TryGetValue(j.companyid, out var name) ? name : "Unknown",
+                JobTitle = j.jobtitle,
+                posteddate = j.posteddate.ToString("yyyy-MM-dd"),
+                package = j.package,
+                JobUrl = j.JobUrl,
+                PostedByProfileUrl = j.postedByProfileUrl
+            });
+
+
         }
 
-        public async Task<AlumniJobPosition?> GetAlumniPlacementByIdAsync(int id)
+        public async Task<AlumniJobOpeningDto?> GetAlumniPlacementByIdAsync(int id)
         {
-            return await _context.alumnijobposition.FindAsync(id);
+            // Step 1: Find the job by ID
+            var job = await _context.alumnijobposition.FindAsync(id);
+
+            // Step 2: Return null if not found
+            if (job == null)
+                return null;
+
+            // Step 3: Query Company table to get the single company name
+            var company = await _context.company
+                .FirstOrDefaultAsync(c => c.company_id == job.companyid);
+
+            // Step 4: Map to DTO and return
+            return new AlumniJobOpeningDto
+            {
+                CompanyName = company?.company_name ?? "Unknown",
+                JobTitle = job.jobtitle,
+                posteddate = job.posteddate.ToString("yyyy-MM-dd"),
+                package = job.package,
+                JobUrl = job.JobUrl,
+                PostedByProfileUrl = job.postedByProfileUrl
+            };
+
         }
 
-        public async Task<AlumniJobPosition> CreateAlumniPlacementAsync(AlumniJobPosition alumniPlacement)
+        public async Task<bool> CreateAlumniPlacementAsync(AlumniJobOpeningCreateDto alumniPlacement)
         {
-            _context.alumnijobposition.Add(alumniPlacement);
+            var alumniPlacementEntity = new AlumniJobOpenings
+            {
+                companyid = alumniPlacement.Companyid,
+                jobtitle = alumniPlacement.Jobtitle,
+                posteddate = DateOnly.Parse(alumniPlacement.Posteddate),
+                package = alumniPlacement.Package,
+                JobUrl = alumniPlacement.JobUrl,
+                postedByProfileUrl = alumniPlacement.PostedByProfileUrl,
+                postedbyid = alumniPlacement.Postedbyid,
+                postedby = alumniPlacement.Postedby ?? PostedByType.Alumni
+            };
+
+            _context.alumnijobposition.Add(alumniPlacementEntity);
             await _context.SaveChangesAsync();
-            return alumniPlacement;
+            return true;
         }
 
-        public async Task<bool> UpdateAlumniPlacementAsync(int id, AlumniJobPosition alumniPlacement)
+        public async Task<bool> UpdateAlumniPlacementAsync(int id, AlumniJobOpeningCreateDto alumniPlacement)
         {
             var existing = await _context.alumnijobposition.FindAsync(id);
             if (existing == null)
                 return false;
 
-            existing.companyid = alumniPlacement.companyid;
-            existing.jobtitle = alumniPlacement.jobtitle;
-            existing.posteddate = alumniPlacement.posteddate;
-            existing.package = alumniPlacement.package;
-            existing.postedbytype = alumniPlacement.postedbytype;
-            existing.postedbyalumniid = alumniPlacement.postedbyalumniid;
-            existing.postedbyemployeeid = alumniPlacement.postedbyemployeeid;
+            existing.companyid = alumniPlacement.Companyid;
+            existing.jobtitle = alumniPlacement.Jobtitle;
+            existing.posteddate = DateOnly.Parse(alumniPlacement.Posteddate);
+            existing.package = alumniPlacement.Package;
+            existing.postedby = alumniPlacement.Postedby ?? PostedByType.Alumni;
 
             _context.Entry(existing).State = EntityState.Modified;
             await _context.SaveChangesAsync();

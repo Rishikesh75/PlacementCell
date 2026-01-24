@@ -29,4 +29,11 @@
     <Folder Include="Services\Placements\Interfaces\" />
   </ItemGroup>
 
+  <!-- Copy SQL query files to output directory -->
+  <ItemGroup>
+    <None Update="SQL\Queries\**\*.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

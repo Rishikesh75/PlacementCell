@@ -1,14 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using PlacementCellBackend.Data;
-using PlacementCellBackend.Services.CRUD;
-using PlacementCellBackend.Services.CRUD.Interfaces;
-using PlacementCellBackend.Services.Placements;
-using PlacementCellBackend.Services.Placements.Interfaces;
-using PlacementCellBackend.Services.Feedback;
-using PlacementCellBackend.Services.Feedback.Interfaces;
+using PlacementCellBackend.Helpers;
 using PlacementCellBackend.Services.Analytics;
 using PlacementCellBackend.Services.Analytics.Interfaces;
+using PlacementCellBackend.Services.CRUD;
+using PlacementCellBackend.Services.CRUD.Interfaces;
+using PlacementCellBackend.Services.Feedback;
+using PlacementCellBackend.Services.Feedback.Interfaces;
+using PlacementCellBackend.Services.Placements;
+using PlacementCellBackend.Services.Placements.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +35,6 @@ builder.Services.AddScoped<IAlumniService, AlumniService>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<ICompanyEmployeeService, CompanyEmployeeService>();
 builder.Services.AddScoped<IEmployeeOnStudentService, EmployeeOnStudentService>();
-builder.Services.AddScoped<IExperienceOpeningService, ExperienceOpeningService>();
 builder.Services.AddScoped<IFeedbackOnCompanyService, FeedbackOnCompanyService>();
 builder.Services.AddScoped<IFoodReviewService, FoodReviewService>();
 builder.Services.AddScoped<IRestaurantService, RestaurantService>();
@@ -70,5 +70,8 @@ app.UseCors("AllowAll");
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Preload SQL queries from files at startup for better performance
+SqlQueryLoader.PreloadAllQueries();
 
 app.Run();

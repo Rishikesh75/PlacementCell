@@ -1,13 +1,13 @@
-using PlacementCellBackend.Models;
+using PlacementCellBackend.DTOs.EmployeeFeedbackonStudent;
 
 namespace PlacementCellBackend.Services.Feedback.Interfaces
 {
     public interface IEmployeeOnStudentService
     {
-        Task<IEnumerable<EmployeeFeedbackonStudent>> GetAllEmployeeOnStudentsAsync();
-        Task<EmployeeFeedbackonStudent?> GetEmployeeOnStudentByIdAsync(int id);
-        Task<EmployeeFeedbackonStudent> CreateEmployeeOnStudentAsync(EmployeeFeedbackonStudent employeeOnStudent);
-        Task<bool> UpdateEmployeeOnStudentAsync(int id, EmployeeFeedbackonStudent employeeOnStudent);
+        Task<IEnumerable<EmployeeFeedbackonStudentDtos>> GetAllEmployeeOnStudentsAsync();
+        Task<EmployeeFeedbackonStudentDtos?> GetEmployeeOnStudentByIdAsync(int id);
+        Task<bool> CreateEmployeeOnStudentAsync(EmployeeFeedbackonStudentCreateDtos employeeOnStudent);
+        Task<bool> UpdateEmployeeOnStudentAsync(int id, EmployeeFeedbackonStudentCreateDtos employeeOnStudent);
         Task<bool> DeleteEmployeeOnStudentAsync(int id);
     }
 }
