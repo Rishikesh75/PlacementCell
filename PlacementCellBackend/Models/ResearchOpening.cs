@@ -3,9 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PlacementCellBackend.Models
 {
-    public class TeacherResearchOpening
+    public class ResearchOpening
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
         // Teacher who posted the research opening
@@ -32,6 +33,7 @@ namespace PlacementCellBackend.Models
 
         public DateOnly? deadline { get; set; }
 
+        public string Link { get; set; } = string.Empty;
         public bool isactive { get; set; } = true;
     }
 }

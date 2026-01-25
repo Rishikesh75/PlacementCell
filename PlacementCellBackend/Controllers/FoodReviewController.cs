@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlacementCellBackend.Models;
+using PlacementCellBackend.DTOs.FoodReview;
 using PlacementCellBackend.Services.Feedback.Interfaces;
 
 namespace PlacementCellBackend.Controllers;
@@ -16,14 +16,14 @@ public class FoodReviewController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<FoodReview>>> GetFoodItems()
+    public async Task<ActionResult<IEnumerable<FoodReviewDtos>>> GetFoodItems()
     {
         var foodItems = await _foodService.GetAllFoodItemsAsync();
         return Ok(foodItems);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<FoodReview>> GetFoodItem(int id)
+    public async Task<ActionResult<FoodReviewDtos>> GetFoodItem(int id)
     {
         var foodItem = await _foodService.GetFoodItemByIdAsync(id);
         if (foodItem == null)
@@ -32,20 +32,18 @@ public class FoodReviewController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<FoodReview>> CreateFoodItem(FoodReview foodItem)
+    public async Task<ActionResult<FoodReviewCreateDtos>> CreateFoodItem(FoodReviewCreateDtos foodItem)
     {
         if (foodItem == null)
             return BadRequest("Food item cannot be null.");
 
         var created = await _foodService.CreateFoodItemAsync(foodItem);
-        return CreatedAtAction(nameof(GetFoodItem), new { id = created.id }, created);
+        return CreatedAtAction(nameof(GetFoodItem), new { }, created);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateFoodItem(int id, FoodReview foodItem)
+    public async Task<IActionResult> UpdateFoodItem(int id, FoodReviewCreateDtos foodItem)
     {
-        if (id != foodItem.id)
-            return BadRequest("Food item ID mismatch.");
 
         var success = await _foodService.UpdateFoodItemAsync(id, foodItem);
         if (!success)

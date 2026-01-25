@@ -6,6 +6,7 @@ namespace PlacementCellBackend.Models
     public class Placement
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; } // Primary key for this table
 
         [Required]

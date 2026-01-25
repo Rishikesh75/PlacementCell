@@ -1,13 +1,13 @@
-using PlacementCellBackend.Models;
+using PlacementCellBackend.DTOs.ReasearchOpeningsDtos;
 
 namespace PlacementCellBackend.Services.Placements.Interfaces
 {
     public interface ITeacherPlacementService
     {
-        Task<IEnumerable<TeacherResearchOpening>> GetAllTeacherResearchOpeningsAsync();
-        Task<TeacherResearchOpening?> GetTeacherResearchOpeningByIdAsync(int id);
-        Task<TeacherResearchOpening> CreateTeacherResearchOpeningAsync(TeacherResearchOpening researchOpening);
-        Task<bool> UpdateTeacherResearchOpeningAsync(int id, TeacherResearchOpening researchOpening);
+        Task<IEnumerable<ResearchOpeningDto>> GetAllTeacherResearchOpeningsAsync();
+        Task<ResearchOpeningDto?> GetTeacherResearchOpeningByIdAsync(int id);
+        Task<ResearchOpeningDto> CreateTeacherResearchOpeningAsync(ResearchOpeningCreateDto researchOpening);
+        Task<bool> UpdateTeacherResearchOpeningAsync(int id, ResearchOpeningCreateDto researchOpening);
         Task<bool> DeleteTeacherResearchOpeningAsync(int id);
     }
 }

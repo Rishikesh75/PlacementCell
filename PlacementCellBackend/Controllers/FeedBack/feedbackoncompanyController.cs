@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PlacementCellBackend.Models;
+using PlacementCellBackend.DTOs;
 using PlacementCellBackend.Services.Feedback.Interfaces;
 
 namespace PlacementCellBackend.Controllers.FeedBack
@@ -16,14 +16,14 @@ namespace PlacementCellBackend.Controllers.FeedBack
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlumniFeedBackonCompany>>> GetFeedbackOnCompany()
+        public async Task<ActionResult<IEnumerable<AlumniFeedBackOnCompanyDTO>>> GetFeedbackOnCompany()
         {
             var feedbacks = await _feedbackService.GetAllFeedbacksAsync();
             return Ok(feedbacks);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AlumniFeedBackonCompany>> GetFeedback(string id)
+        public async Task<ActionResult<AlumniFeedBackOnCompanyDTO>> GetFeedback(string id)
         {
             var feedback = await _feedbackService.GetFeedbackByIdAsync(id);
             if (feedback == null)
@@ -32,17 +32,16 @@ namespace PlacementCellBackend.Controllers.FeedBack
         }
 
         [HttpPost]
-        public async Task<ActionResult<AlumniFeedBackonCompany>> PostFeedbackOnCompany(AlumniFeedBackonCompany feedback)
+        public async Task<ActionResult<AlumniFeedBackOnCompanyCreateDTO>> PostFeedbackOnCompany(AlumniFeedBackOnCompanyCreateDTO feedback)
         {
             var created = await _feedbackService.CreateFeedbackAsync(feedback);
-            return CreatedAtAction(nameof(GetFeedback), new { id = created.feedbackid }, created);
+            return CreatedAtAction(nameof(GetFeedback), new { }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFeedback(string id, AlumniFeedBackonCompany updatedFeedback)
+        public async Task<IActionResult> PutFeedback(int id, AlumniFeedBackOnCompanyCreateDTO updatedFeedback)
         {
-            if (id != updatedFeedback.feedbackid)
-                return BadRequest();
+
 
             var success = await _feedbackService.UpdateFeedbackAsync(id, updatedFeedback);
             if (!success)
@@ -52,7 +51,7 @@ namespace PlacementCellBackend.Controllers.FeedBack
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFeedback(string id)
+        public async Task<IActionResult> DeleteFeedback(int id)
         {
             var success = await _feedbackService.DeleteFeedbackAsync(id);
             if (!success)

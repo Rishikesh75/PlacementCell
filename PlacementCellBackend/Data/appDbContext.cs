@@ -13,7 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<Student> student { get; set; }
     public DbSet<Teacher> teacher { get; set; }
 
-    public DbSet<TeacherResearchOpening> teacherresearchopening { get; set; }
+    public DbSet<ResearchOpening> teacherresearchopening { get; set; }
 
     public DbSet<Restaurents> restaurents { get; set; }
 

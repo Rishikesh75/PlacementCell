@@ -1,14 +1,14 @@
-using PlacementCellBackend.Models;
+using PlacementCellBackend.DTOs;
 
 namespace PlacementCellBackend.Services.Feedback.Interfaces
 {
     public interface IFeedbackOnCompanyService
     {
-        Task<IEnumerable<AlumniFeedBackonCompany>> GetAllFeedbacksAsync();
-        Task<AlumniFeedBackonCompany?> GetFeedbackByIdAsync(string id);
-        Task<AlumniFeedBackonCompany> CreateFeedbackAsync(AlumniFeedBackonCompany feedback);
-        Task<bool> UpdateFeedbackAsync(string id, AlumniFeedBackonCompany feedback);
-        Task<bool> DeleteFeedbackAsync(string id);
+        Task<IEnumerable<AlumniFeedBackOnCompanyDTO>> GetAllFeedbacksAsync();
+        Task<AlumniFeedBackOnCompanyDTO?> GetFeedbackByIdAsync(string id);
+        Task<AlumniFeedBackOnCompanyDTO> CreateFeedbackAsync(AlumniFeedBackOnCompanyCreateDTO feedback);
+        Task<bool> UpdateFeedbackAsync(int id, AlumniFeedBackOnCompanyCreateDTO feedback);
+        Task<bool> DeleteFeedbackAsync(int id);
     }
 }
 

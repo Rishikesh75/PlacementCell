@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PlacementCellBackend.DTOs.PlacementDTOs;
 using PlacementCellBackend.Models;
 using PlacementCellBackend.Services.Placements.Interfaces;
 
@@ -16,14 +17,14 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Placement>>> GetAllPlacements()
+        public async Task<ActionResult<IEnumerable<PlacementDTO>>> GetAllPlacements()
         {
             var placements = await _placementService.GetAllPlacementsAsync();
             return Ok(placements);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Placement>> GetPlacementById(int id)
+        public async Task<ActionResult<PlacementDTO>> GetPlacementById(int id)
         {
             var placement = await _placementService.GetPlacementByIdAsync(id);
             if (placement == null)
@@ -32,17 +33,16 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Placement>> CreatePlacement(Placement placement)
+        public async Task<ActionResult<Placement>> CreatePlacement(CreatePlacementDTO placement)
         {
             var created = await _placementService.CreatePlacementAsync(placement);
-            return CreatedAtAction(nameof(GetPlacementById), new { id = created.id }, created);
+            return CreatedAtAction(nameof(GetPlacementById), new { }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePlacement(int id, Placement updatedPlacement)
+        public async Task<IActionResult> UpdatePlacement(int id, CreatePlacementDTO updatedPlacement)
         {
-            if (id != updatedPlacement.id)
-                return BadRequest();
+
 
             var success = await _placementService.UpdatePlacementAsync(id, updatedPlacement);
             if (!success)
