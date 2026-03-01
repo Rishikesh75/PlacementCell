@@ -26,10 +26,10 @@ public class FoodReviewService : IFoodReviewService
         }
 
         // Step 2: Get unique restaurant IDs and fetch restaurant names
-        var restaurantIds = reviews.Select(r => r.RestaurentId).Distinct().ToList();
+        var restaurantIds = reviews.Select(r => r.Id).Distinct().ToList();
         var restaurants = await _context.restaurents
-            .Where(r => restaurantIds.Contains(r.RestaurentId))
-            .ToDictionaryAsync(r => r.RestaurentId, r => r.name);
+            .Where(r => restaurantIds.Contains(r.Id))
+            .ToDictionaryAsync(r => r.Id, r => r.Name);
 
         // Step 3: Get unique company IDs and fetch company names
         var CompanyIds = reviews.Select(r => r.CompanyId).Distinct().ToList();
@@ -41,7 +41,7 @@ public class FoodReviewService : IFoodReviewService
         var result = reviews.Select(review => new FoodReviewDtos
         {
             Id = review.Id,
-            RestaurentName = restaurants.TryGetValue(review.RestaurentId, out var restName) 
+            RestaurentName = restaurants.TryGetValue(review.Id, out var restName) 
                 ? restName : "Unknown",
             RestaurentId = review.RestaurentId,
             CompanyName = companies.TryGetValue(review.CompanyId, out var compName) 
@@ -66,8 +66,8 @@ public class FoodReviewService : IFoodReviewService
 
         // Get restaurant name
         var restaurantName = await _context.restaurents
-            .Where(r => r.RestaurentId == review.RestaurentId)
-            .Select(r => r.name)
+            .Where(r => r.Id == review.Id)
+            .Select(r => r.Name)
             .FirstOrDefaultAsync() ?? "Unknown";
 
         // Get company name
@@ -94,7 +94,7 @@ public class FoodReviewService : IFoodReviewService
         // Map DTO to Model
         var foodModel = new FoodReview
         {
-            RestaurentId = food.RestaurentId,
+            Id = food.Id,
             CompanyId = food.CompanyId,
             Description = food.Description,
             Rating = food.Rating,
@@ -106,8 +106,8 @@ public class FoodReviewService : IFoodReviewService
 
         // Get restaurant name for response
         var restaurantName = await _context.restaurents
-            .Where(r => r.RestaurentId == food.RestaurentId)
-            .Select(r => r.name)
+            .Where(r => r.Id == food.Id)
+            .Select(r => r.Name)
             .FirstOrDefaultAsync() ?? "Unknown";
 
         // Get company name for response
@@ -121,7 +121,7 @@ public class FoodReviewService : IFoodReviewService
         {
             Id = foodModel.Id,
             RestaurentName = restaurantName,
-            RestaurentId = foodModel.RestaurentId,
+            RestaurentId = foodModel.Id,
             CompanyName = companyName,
             CompanyId = foodModel.CompanyId,
             Description = foodModel.Description,
@@ -137,7 +137,7 @@ public class FoodReviewService : IFoodReviewService
             return false;
 
         // UpDate properties from DTO
-        existing.RestaurentId = food.RestaurentId;
+        existing.Id = food.Id;
         existing.CompanyId = food.CompanyId;
         existing.Description = food.Description;
         existing.Rating = food.Rating;

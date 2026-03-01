@@ -6,25 +6,25 @@ public class ResearchOpeningDto
 
     public string teachername { get; set; } = string.Empty;
 
-    public string title { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
 
-    public string department { get; set; } = string.Empty;
+    public string Department { get; set; } = string.Empty;
 
-    public string researcharea { get; set; } = string.Empty;
+    public string Researcharea { get; set; } = string.Empty;
 
-    public string stipend { get; set; } = string.Empty;
+    public string Stipend { get; set; } = string.Empty;
 
-    public string duration { get; set; } = string.Empty;
+    public string Duration { get; set; } = string.Empty;
 
-    public DateOnly postedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateOnly PostedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
-    public DateOnly? deadline { get; set; } = null;
+    public DateOnly? DeadLine { get; set; } = null;
 
     public string link { get; set; } = string.Empty;
 
-    public string isactive { get; set; } = "true";
+    public string IsActive { get; set; } = "true";
 
 
 }
@@ -32,14 +32,14 @@ public class ResearchOpeningDto
 public class ResearchOpeningCreateDto
 {
     public string Id { get; set; } = string.Empty;
-    public string title { get; set; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string department { get; set; } = string.Empty;
-    public string researcharea { get; set; } = string.Empty;
-    public string stipend { get; set; } = string.Empty;
-    public string duration { get; set; } = string.Empty;
-    public DateOnly postedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    public DateOnly? deadline { get; set; } = null;
+    public string Department { get; set; } = string.Empty;
+    public string Researcharea { get; set; } = string.Empty;
+    public string Stipend { get; set; } = string.Empty;
+    public string Duration { get; set; } = string.Empty;
+    public DateOnly PostedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateOnly? DeadLine { get; set; } = null;
     public string link { get; set; } = string.Empty;
-    public bool isactive { get; set; } = true;
+    public bool IsActive { get; set; } = true;
 }

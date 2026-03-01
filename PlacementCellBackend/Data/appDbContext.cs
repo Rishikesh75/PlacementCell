@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PlacementCellBackend.Models;
-
+using PlacementCellBackend.Models.FeedBacks;
 namespace PlacementCellBackend.Data;
 
 public class AppDbContext : DbContext
@@ -104,8 +104,8 @@ public class AppDbContext : DbContext
                     .HasColumnName("TechnicalRoundInfo_DSAQuestions")
                     .HasColumnType("jsonb");
 
-                tr.Property(t => t.DBMSQuestions)
-                    .HasColumnName("TechnicalRoundInfo_DBMSQuestions")
+                tr.Property(t => t.CoreCSQuestions)
+                    .HasColumnName("TechnicalRoundInfo_CoreCSQuestions")
                     .HasColumnType("jsonb");
 
                 tr.Property(t => t.SystemDesignQuestions)

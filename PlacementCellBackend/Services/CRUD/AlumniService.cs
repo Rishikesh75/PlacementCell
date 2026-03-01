@@ -34,7 +34,7 @@ public class AlumniService : IAlumniService
             Id = a.Id,
             Name = a.Name,
             Position = a.Position,
-            LinkedInProfile = a.linkdinprofile,
+            LinkedInProfile = a.Linkdinprofile,
             CompanyId = a.CompanyId,
             CompanyName = companies.TryGetValue(a.CompanyId, out var name) ? name : "Unknown"
         });
@@ -56,7 +56,7 @@ public class AlumniService : IAlumniService
         {
             Id = alumni.Id,
             Position = alumni.Position,
-            LinkedInProfile = alumni.linkdinprofile,
+            LinkedInProfile = alumni.Linkdinprofile,
             CompanyId = alumni.CompanyId,
             CompanyName = company?.CompanyName ?? "Unknown"
         };
@@ -83,7 +83,7 @@ public class AlumniService : IAlumniService
 
 
         existingAlumni.Position = alumni.Position;
-        existingAlumni.linkdinprofile = alumni.LinkedInProfile;
+        existingAlumni.Linkdinprofile = alumni.LinkedInProfile;
         existingAlumni.CompanyId = alumni.CompanyId;
         existingAlumni.Name = alumni.Name;
 

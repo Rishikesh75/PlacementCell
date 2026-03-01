@@ -36,7 +36,7 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("linkdinprofile")
+                    b.Property<string>("Linkdinprofile")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -53,7 +53,7 @@ namespace PlacementCellBackend.Migrations
 
             modelBuilder.Entity("PlacementCellBackend.Models.AlumniFeedBackonCompany", b =>
                 {
-                    b.Property<string>("feedbackid")
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
                     b.Property<string>("CTC")
@@ -82,7 +82,7 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("feedbackid");
+                    b.HasKey("Id");
 
                     b.HasIndex("Id");
 
@@ -103,33 +103,33 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("jobtitle")
+                    b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("package")
+                    b.Property<string>("Package")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("postedbyId")
+                    b.Property<string>("PostedId")
                         .HasColumnType("text");
 
-                    b.Property<string>("postedbyEmployeeId")
+                    b.Property<string>("PostedByEmployeeId")
                         .HasColumnType("text");
 
-                    b.Property<int>("postedbytype")
+                    b.Property<int>("PostedBytype")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("postedDate")
+                    b.Property<DateOnly>("PostedDate")
                         .HasColumnType("Date");
 
                     b.HasKey("id");
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("postedbyId");
+                    b.HasIndex("PostedId");
 
-                    b.HasIndex("postedbyEmployeeId");
+                    b.HasIndex("PostedByEmployeeId");
 
                     b.ToTable("alumnijobposition");
                 });
@@ -234,7 +234,7 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("jobtitle")
+                    b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -264,14 +264,14 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("RestaurentId")
+                    b.Property<int>("Id")
                         .HasColumnType("integer");
 
                     b.HasKey("id");
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("RestaurentId");
+                    b.HasIndex("Id");
 
                     b.ToTable("foodReview");
                 });
@@ -288,15 +288,15 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("jobtitle")
+                    b.Property<string>("JobTitle")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("package")
+                    b.Property<string>("Package")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateOnly>("placementDate")
+                    b.Property<DateOnly>("PlacementDate")
                         .HasColumnType("Date");
 
                     b.Property<string>("Id")
@@ -314,17 +314,17 @@ namespace PlacementCellBackend.Migrations
 
             modelBuilder.Entity("PlacementCellBackend.Models.Restaurents", b =>
                 {
-                    b.Property<int>("RestaurentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RestaurentId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("address")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("contact")
+                    b.Property<string>("Contact")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -336,7 +336,7 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("RestaurentId");
+                    b.HasKey("Id");
 
                     b.ToTable("restaurents");
                 });
@@ -379,7 +379,7 @@ namespace PlacementCellBackend.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("department")
+                    b.Property<string>("Department")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -404,10 +404,10 @@ namespace PlacementCellBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<DateOnly?>("deadline")
+                    b.Property<DateOnly?>("DeadLine")
                         .HasColumnType("Date");
 
-                    b.Property<string>("department")
+                    b.Property<string>("Department")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -415,21 +415,21 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("duration")
+                    b.Property<string>("Duration")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("isactive")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<DateOnly>("postedDate")
+                    b.Property<DateOnly>("PostedDate")
                         .HasColumnType("Date");
 
-                    b.Property<string>("researcharea")
+                    b.Property<string>("Researcharea")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("stipend")
+                    b.Property<string>("Stipend")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -437,7 +437,7 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -475,7 +475,7 @@ namespace PlacementCellBackend.Migrations
 
                     b.OwnsOne("PlacementCellBackend.Models.InterviewRounds.CodingRound", "CodingRoundInfo", b1 =>
                         {
-                            b1.Property<string>("AlumniFeedBackonCompanyfeedbackid")
+                            b1.Property<string>("AlumniFeedBackonCompanyId")
                                 .HasColumnType("text");
 
                             b1.Property<string>("CodingPlatform")
@@ -496,17 +496,17 @@ namespace PlacementCellBackend.Migrations
                                 .HasColumnType("jsonb")
                                 .HasColumnName("CodingRoundInfo_Questions");
 
-                            b1.HasKey("AlumniFeedBackonCompanyfeedbackid");
+                            b1.HasKey("AlumniFeedBackonCompanyId");
 
                             b1.ToTable("alumnifeedbackoncompany");
 
                             b1.WithOwner()
-                                .HasForeignKey("AlumniFeedBackonCompanyfeedbackid");
+                                .HasForeignKey("AlumniFeedBackonCompanyId");
                         });
 
                     b.OwnsOne("PlacementCellBackend.Models.InterviewRounds.HRRound", "HRRoundInfo", b1 =>
                         {
-                            b1.Property<string>("AlumniFeedBackonCompanyfeedbackid")
+                            b1.Property<string>("AlumniFeedBackonCompanyId")
                                 .HasColumnType("text");
 
                             b1.Property<string>("InterviewDuration")
@@ -526,17 +526,17 @@ namespace PlacementCellBackend.Migrations
                                 .HasColumnType("jsonb")
                                 .HasColumnName("HRRoundInfo_UnExpectedQuestions");
 
-                            b1.HasKey("AlumniFeedBackonCompanyfeedbackid");
+                            b1.HasKey("AlumniFeedBackonCompanyId");
 
                             b1.ToTable("alumnifeedbackoncompany");
 
                             b1.WithOwner()
-                                .HasForeignKey("AlumniFeedBackonCompanyfeedbackid");
+                                .HasForeignKey("AlumniFeedBackonCompanyId");
                         });
 
                     b.OwnsOne("PlacementCellBackend.Models.InterviewRounds.Resources", "ResourcesInfo", b1 =>
                         {
-                            b1.Property<string>("AlumniFeedBackonCompanyfeedbackid")
+                            b1.Property<string>("AlumniFeedBackonCompanyId")
                                 .HasColumnType("text");
 
                             b1.Property<List<BookResource>>("Books")
@@ -549,23 +549,23 @@ namespace PlacementCellBackend.Migrations
                                 .HasColumnType("jsonb")
                                 .HasColumnName("ResourcesInfo_Links");
 
-                            b1.HasKey("AlumniFeedBackonCompanyfeedbackid");
+                            b1.HasKey("AlumniFeedBackonCompanyId");
 
                             b1.ToTable("alumnifeedbackoncompany");
 
                             b1.WithOwner()
-                                .HasForeignKey("AlumniFeedBackonCompanyfeedbackid");
+                                .HasForeignKey("AlumniFeedBackonCompanyId");
                         });
 
                     b.OwnsOne("PlacementCellBackend.Models.InterviewRounds.TechnicalRound", "TechnicalRoundInfo", b1 =>
                         {
-                            b1.Property<string>("AlumniFeedBackonCompanyfeedbackid")
+                            b1.Property<string>("AlumniFeedBackonCompanyId")
                                 .HasColumnType("text");
 
-                            b1.Property<List<DBMSQuestion>>("DBMSQuestions")
+                            b1.Property<List<CoreCSQuestion>>("CoreCSQuestions")
                                 .IsRequired()
                                 .HasColumnType("jsonb")
-                                .HasColumnName("TechnicalRoundInfo_DBMSQuestions");
+                                .HasColumnName("TechnicalRoundInfo_CoreCSQuestions");
 
                             b1.Property<List<DSAQuestion>>("DSAQuestions")
                                 .IsRequired()
@@ -589,12 +589,12 @@ namespace PlacementCellBackend.Migrations
                                 .HasColumnType("jsonb")
                                 .HasColumnName("TechnicalRoundInfo_SystemDesignQuestions");
 
-                            b1.HasKey("AlumniFeedBackonCompanyfeedbackid");
+                            b1.HasKey("AlumniFeedBackonCompanyId");
 
                             b1.ToTable("alumnifeedbackoncompany");
 
                             b1.WithOwner()
-                                .HasForeignKey("AlumniFeedBackonCompanyfeedbackid");
+                                .HasForeignKey("AlumniFeedBackonCompanyId");
                         });
 
                     b.Navigation("Alumni");
@@ -620,11 +620,11 @@ namespace PlacementCellBackend.Migrations
 
                     b.HasOne("PlacementCellBackend.Models.Alumni", "PostedByAlumni")
                         .WithMany()
-                        .HasForeignKey("postedbyId");
+                        .HasForeignKey("PostedId");
 
                     b.HasOne("PlacementCellBackend.Models.Companyemployee", "PostedByEmployee")
                         .WithMany()
-                        .HasForeignKey("postedbyEmployeeId");
+                        .HasForeignKey("PostedByEmployeeId");
 
                     b.Navigation("Company");
 
@@ -674,7 +674,7 @@ namespace PlacementCellBackend.Migrations
 
                     b.HasOne("PlacementCellBackend.Models.Restaurents", "Restaurent")
                         .WithMany()
-                        .HasForeignKey("RestaurentId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

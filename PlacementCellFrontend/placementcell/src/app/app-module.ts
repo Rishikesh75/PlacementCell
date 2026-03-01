@@ -17,7 +17,7 @@ import { DropDown } from './presentation/components/drop-down/drop-down';
 import { Radiobutton } from './presentation/components/radiobutton/radiobutton';
 import { Counter } from './presentation/components/counter/counter';
 import { NumberInput } from './presentation/components/number-input/number-input';
-import { DurationSelector } from './presentation/components/duration-selector/duration-selector';
+import { DurationSelector } from './presentation/components/Duration-selector/Duration-selector';
 import { Greybox } from './presentation/components/greybox/greybox';
 import { Inputquestionbox } from './presentation/components/inputquestionbox/inputquestionbox';
 import { RadioGroupComponent } from './presentation/components/radio-group/radio-group';

@@ -4,7 +4,7 @@ namespace PlacementCellBackend.Models.InterviewRounds;
 
 public class CodingRound
 {
-    public string CodingPlatform { get; set; } = string.Empty;
+    public CodingPlatform CodingPlatform { get; set; } = CodingPlatform.Other;
 
     public TimeOnly Duration { get; set; }
 

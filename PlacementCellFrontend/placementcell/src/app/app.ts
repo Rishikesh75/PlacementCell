@@ -8,5 +8,5 @@ import {AppModule} from './app-module'
   styleUrl: './styles/app.less'
 })
 export class App {
-  protected readonly title = signal('placementcell');
+  protected readonly Title = signal('placementcell');
 }

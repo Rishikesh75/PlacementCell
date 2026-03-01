@@ -7,7 +7,7 @@
 
 // export * from './counter/counter';
 // export * from './drop-down/drop-down';
-// export * from './duration-selector/duration-selector';
+// export * from './Duration-selector/Duration-selector';
 // export * from './greybox/greybox';
 // export * from './input-question-box/input-question-box';
 // export * from './notification/notification';

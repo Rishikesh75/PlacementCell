@@ -2,12 +2,12 @@
 -- Returns position distribution for a specific year and month
 -- Parameters: p_year (year), p_month (month)
 SELECT 
-    p.jobtitle::VARCHAR AS position_name,
+    p.JobTitle::VARCHAR AS position_name,
     COUNT(*)::INT AS total_count
 FROM placement p
-WHERE EXTRACT(YEAR FROM p.placementDate) = :p_year
-  AND EXTRACT(MONTH FROM p.placementDate) = :p_month
-  AND p.jobtitle IS NOT NULL 
-  AND p.jobtitle != ''
-GROUP BY p.jobtitle
+WHERE EXTRACT(YEAR FROM p.PlacementDate) = :p_year
+  AND EXTRACT(MONTH FROM p.PlacementDate) = :p_month
+  AND p.JobTitle IS NOT NULL 
+  AND p.JobTitle != ''
+GROUP BY p.JobTitle
 ORDER BY total_count DESC

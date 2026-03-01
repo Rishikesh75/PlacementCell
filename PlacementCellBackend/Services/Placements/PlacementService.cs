@@ -26,7 +26,7 @@ namespace PlacementCellBackend.Services.Placements
             }
 
             // Step 2: Get unique student IDs and fetch student names
-            var Ids = placements.Select(p => p.Id).Distinct().ToList();
+            var Ids = placements.Select(p => p.StudentId).Distinct().ToList();
             var students = await _context.student
                 .Where(s => Ids.Contains(s.Id))
                 .ToDictionaryAsync(s => s.Id, s => s.Name);
@@ -40,15 +40,15 @@ namespace PlacementCellBackend.Services.Placements
             // Step 4: Map to DTOs
             var result = placements.Select(p => new PlacementDTO
             {
-                Id = p.Id,
-                StudentName = students.TryGetValue(p.Id, out var studentName)
+                Id = p.StudentId,
+                StudentName = students.TryGetValue(p.StudentId, out var studentName)
                     ? studentName : "Unknown",
                 CompanyId = p.CompanyId,
                 CompanyName = companies.TryGetValue(p.CompanyId, out var companyName)
                     ? companyName : "Unknown",
-                JobTitle = p.jobtitle,
-                PlacementDate = p.placementDate,
-                Package = p.package
+                JobTitle = p.JobTitle,
+                PlacementDate = p.PlacementDate,
+                Package = p.Package
             }).ToList();
 
             return result;
@@ -65,7 +65,7 @@ namespace PlacementCellBackend.Services.Placements
 
             // Get student name
             var studentName = await _context.student
-                .Where(s => s.Id == placement.Id)
+                .Where(s => s.Id == placement.StudentId)
                 .Select(s => s.Name)
                 .FirstOrDefaultAsync() ?? "Unknown";
 
@@ -77,13 +77,13 @@ namespace PlacementCellBackend.Services.Placements
 
             return new PlacementDTO
             {
-                Id = placement.Id,
+                Id = placement.StudentId,
                 StudentName = studentName,
                 CompanyId = placement.CompanyId,
                 CompanyName = companyName,
-                JobTitle = placement.jobtitle,
-                PlacementDate = placement.placementDate,
-                Package = placement.package
+                JobTitle = placement.JobTitle,
+                PlacementDate = placement.PlacementDate,
+                Package = placement.Package
             };
         }
 
@@ -92,11 +92,11 @@ namespace PlacementCellBackend.Services.Placements
             // Map DTO to Model
             var placementModel = new Placement
             {
-                Id = placement.Id,
+                StudentId = placement.Id,
                 CompanyId = placement.CompanyId,
-                jobtitle = placement.JobTitle,
-                placementDate = placement.PlacementDate,
-                package = placement.Package
+                JobTitle = placement.JobTitle,
+                PlacementDate = placement.PlacementDate,
+                Package = placement.Package
             };
 
             _context.placement.Add(placementModel);
@@ -117,13 +117,13 @@ namespace PlacementCellBackend.Services.Placements
             // Return DTO with all info
             return new PlacementDTO
             {
-                Id = placementModel.Id,
+                Id = placementModel.StudentId,
                 StudentName = studentName,
                 CompanyId = placementModel.CompanyId,
                 CompanyName = companyName,
-                JobTitle = placementModel.jobtitle,
-                PlacementDate = placementModel.placementDate,
-                Package = placementModel.package
+                JobTitle = placementModel.JobTitle,
+                PlacementDate = placementModel.PlacementDate,
+                Package = placementModel.Package
             };
         }
 
@@ -134,11 +134,11 @@ namespace PlacementCellBackend.Services.Placements
                 return false;
 
             // UpDate properties from DTO
-            existing.Id = placement.Id;
+            existing.StudentId = placement.Id;
             existing.CompanyId = placement.CompanyId;
-            existing.jobtitle = placement.JobTitle;
-            existing.placementDate = placement.PlacementDate;
-            existing.package = placement.Package;
+            existing.JobTitle = placement.JobTitle;
+            existing.PlacementDate = placement.PlacementDate;
+            existing.Package = placement.Package;
 
             await _context.SaveChangesAsync();
             return true;

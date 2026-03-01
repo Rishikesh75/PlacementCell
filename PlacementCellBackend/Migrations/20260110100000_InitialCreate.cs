@@ -33,16 +33,16 @@ namespace PlacementCellBackend.Migrations
                 name: "restaurents",
                 columns: table => new
                 {
-                    RestaurentId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     name = table.Column<string>(type: "text", nullable: false),
-                    contact = table.Column<string>(type: "text", nullable: false),
-                    address = table.Column<string>(type: "text", nullable: false),
+                    Contact = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
                     Rating = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_restaurents", x => x.RestaurentId);
+                    table.PrimaryKey("PK_restaurents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,7 +68,7 @@ namespace PlacementCellBackend.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
-                    department = table.Column<string>(type: "text", nullable: false),
+                    Department = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -84,7 +84,7 @@ namespace PlacementCellBackend.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     position = table.Column<string>(type: "text", nullable: false),
-                    linkdinprofile = table.Column<string>(type: "text", nullable: false),
+                    Linkdinprofile = table.Column<string>(type: "text", nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -127,7 +127,7 @@ namespace PlacementCellBackend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
                     jobid = table.Column<string>(type: "text", nullable: false),
-                    jobtitle = table.Column<string>(type: "text", nullable: false),
+                    JobTitle = table.Column<string>(type: "text", nullable: false),
                     experiencerequired = table.Column<string>(type: "text", nullable: false),
                     companyempEmail = table.Column<string>(type: "text", nullable: false)
                 },
@@ -150,7 +150,7 @@ namespace PlacementCellBackend.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RestaurentId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<DateOnly>(type: "Date", nullable: false)
@@ -165,10 +165,10 @@ namespace PlacementCellBackend.Migrations
                         principalColumn: "CompanyId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_foodReview_restaurents_RestaurentId",
-                        column: x => x.RestaurentId,
+                        name: "FK_foodReview_restaurents_Id",
+                        column: x => x.Id,
                         principalTable: "restaurents",
-                        principalColumn: "RestaurentId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -179,15 +179,15 @@ namespace PlacementCellBackend.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Id = table.Column<string>(type: "text", nullable: false),
-                    title = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
-                    department = table.Column<string>(type: "text", nullable: false),
-                    researcharea = table.Column<string>(type: "text", nullable: false),
-                    stipend = table.Column<string>(type: "text", nullable: false),
-                    duration = table.Column<string>(type: "text", nullable: false),
-                    postedDate = table.Column<DateOnly>(type: "Date", nullable: false),
-                    deadline = table.Column<DateOnly>(type: "Date", nullable: true),
-                    isactive = table.Column<bool>(type: "boolean", nullable: false)
+                    Department = table.Column<string>(type: "text", nullable: false),
+                    Researcharea = table.Column<string>(type: "text", nullable: false),
+                    Stipend = table.Column<string>(type: "text", nullable: false),
+                    Duration = table.Column<string>(type: "text", nullable: false),
+                    PostedDate = table.Column<DateOnly>(type: "Date", nullable: false),
+                    DeadLine = table.Column<DateOnly>(type: "Date", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,9 +208,9 @@ namespace PlacementCellBackend.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Id = table.Column<string>(type: "text", nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
-                    jobtitle = table.Column<string>(type: "text", nullable: false),
-                    placementDate = table.Column<DateOnly>(type: "Date", nullable: false),
-                    package = table.Column<string>(type: "text", nullable: false)
+                    JobTitle = table.Column<string>(type: "text", nullable: false),
+                    PlacementDate = table.Column<DateOnly>(type: "Date", nullable: false),
+                    Package = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -235,9 +235,9 @@ namespace PlacementCellBackend.Migrations
                 name: "alumnifeedbackoncompany",
                 columns: table => new
                 {
-                    feedbackid = table.Column<string>(type: "text", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
                     Id = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    AlumniId = table.Column<string>(type: "text", nullable: false),
                     CTC = table.Column<string>(type: "text", nullable: false),
                     JobLocation = table.Column<string>(type: "text", nullable: false),
                     JobProfile = table.Column<string>(type: "text", nullable: false),
@@ -258,7 +258,7 @@ namespace PlacementCellBackend.Migrations
                     TechnicalRoundInfo_InterviewDuration = table.Column<string>(type: "text", nullable: true),
                     TechnicalRoundInfo_InterviewMode = table.Column<int>(type: "integer", nullable: true),
                     TechnicalRoundInfo_DSAQuestions = table.Column<List<DSAQuestion>>(type: "jsonb", nullable: true),
-                    TechnicalRoundInfo_DBMSQuestions = table.Column<List<DBMSQuestion>>(type: "jsonb", nullable: true),
+                    TechnicalRoundInfo_CoreCSQuestions = table.Column<List<CoreCSQuestion>>(type: "jsonb", nullable: true),
                     TechnicalRoundInfo_SystemDesignQuestions = table.Column<List<ValueTuple<string, ValueTuple<string, string>>>>(type: "jsonb", nullable: true),
                     TechnicalRoundInfo_PuzzleBasedQuestions = table.Column<List<ValueTuple<string, ValueTuple<string, string>>>>(type: "jsonb", nullable: true),
                     // Resources Info
@@ -267,7 +267,7 @@ namespace PlacementCellBackend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_alumnifeedbackoncompany", x => x.feedbackid);
+                    table.PrimaryKey("PK_alumnifeedbackoncompany", x => x.Id);
                     table.ForeignKey(
                         name: "FK_alumnifeedbackoncompany_alumni_Id",
                         column: x => x.Id,
@@ -289,19 +289,19 @@ namespace PlacementCellBackend.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
-                    jobtitle = table.Column<string>(type: "text", nullable: false),
-                    postedDate = table.Column<DateOnly>(type: "Date", nullable: false),
-                    package = table.Column<string>(type: "text", nullable: false),
-                    postedbytype = table.Column<int>(type: "integer", nullable: false),
-                    postedbyId = table.Column<string>(type: "text", nullable: true),
-                    postedbyEmployeeId = table.Column<string>(type: "text", nullable: true)
+                    JobTitle = table.Column<string>(type: "text", nullable: false),
+                    PostedDate = table.Column<DateOnly>(type: "Date", nullable: false),
+                    Package = table.Column<string>(type: "text", nullable: false),
+                    PostedBytype = table.Column<int>(type: "integer", nullable: false),
+                    PostedId = table.Column<string>(type: "text", nullable: true),
+                    PostedByEmployeeId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_alumnijobposition", x => x.id);
                     table.ForeignKey(
-                        name: "FK_alumnijobposition_alumni_postedbyId",
-                        column: x => x.postedbyId,
+                        name: "FK_alumnijobposition_alumni_PostedId",
+                        column: x => x.PostedId,
                         principalTable: "alumni",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -311,8 +311,8 @@ namespace PlacementCellBackend.Migrations
                         principalColumn: "CompanyId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_alumnijobposition_companyemployee_postedbyEmployeeId",
-                        column: x => x.postedbyEmployeeId,
+                        name: "FK_alumnijobposition_companyemployee_PostedByEmployeeId",
+                        column: x => x.PostedByEmployeeId,
                         principalTable: "companyemployee",
                         principalColumn: "EmployeeId");
                 });
@@ -363,14 +363,14 @@ namespace PlacementCellBackend.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_alumnijobposition_postedbyId",
+                name: "IX_alumnijobposition_PostedId",
                 table: "alumnijobposition",
-                column: "postedbyId");
+                column: "PostedId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_alumnijobposition_postedbyEmployeeId",
+                name: "IX_alumnijobposition_PostedByEmployeeId",
                 table: "alumnijobposition",
-                column: "postedbyEmployeeId");
+                column: "PostedByEmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_companyemployee_CompanyId",
@@ -393,9 +393,9 @@ namespace PlacementCellBackend.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_foodReview_RestaurentId",
+                name: "IX_foodReview_Id",
                 table: "foodReview",
-                column: "RestaurentId");
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_placement_CompanyId",

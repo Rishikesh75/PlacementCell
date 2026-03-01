@@ -38,7 +38,7 @@ export class Greybox implements OnInit, OnChanges {
         isDone: false
       }));
     } 
-    else if (this.section === 'DSAQuestions' || this.section === 'DBMSQuestions') {
+    else if (this.section === 'DSAQuestions' || this.section === 'CoreCSQuestions') {
        this.inputBoxes = Array(this.inputBoxCount).fill(null).map((_, idx) => ({
         id: idx,
         QuestionType: '',
@@ -94,7 +94,7 @@ export class Greybox implements OnInit, OnChanges {
         value: '',
         isDone: false
       });
-    } else if (this.section === 'DSAQuestions' || this.section === 'DBMSQuestions') {
+    } else if (this.section === 'DSAQuestions' || this.section === 'CoreCSQuestions') {
       this.inputBoxes.push({
         id: this.inputBoxCount,
         QuestionType: '',
@@ -159,7 +159,7 @@ export class Greybox implements OnInit, OnChanges {
         this.inputBoxes[this.inputBoxes.length - 1].Question = value;
       }
     }
-    else if(this.section === "DSAQuestions" || this.section === "DBMSQuestions")
+    else if(this.section === "DSAQuestions" || this.section === "CoreCSQuestions")
     {
       if (typeof idx === 'number') {
         console.log(`DSA/DBMS Question:GreyBox`);

@@ -37,9 +37,9 @@ namespace PlacementCellBackend.Services.CRUD
             if (existing == null)
                 return false;
 
-            existing.name = restaurant.name;
-            existing.contact = restaurant.contact;
-            existing.address = restaurant.address;
+            existing.Name = restaurant.Name;
+            existing.Contact = restaurant.Contact;
+            existing.Address = restaurant.Address;
             existing.Rating = restaurant.Rating;
 
             await _context.SaveChangesAsync();

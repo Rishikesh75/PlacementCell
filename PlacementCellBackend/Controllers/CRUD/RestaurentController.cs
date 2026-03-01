@@ -35,13 +35,13 @@ namespace PlacementCellBackend.Controllers.CRUD
         public async Task<ActionResult<Restaurents>> CreateRestaurant(Restaurents restaurant)
         {
             var created = await _restaurantService.CreateRestaurantAsync(restaurant);
-            return CreatedAtAction(nameof(GetRestaurantById), new { id = created.RestaurentId }, created);
+            return CreatedAtAction(nameof(GetRestaurantById), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpDateRestaurant(int id, Restaurents restaurant)
         {
-            if (id != restaurant.RestaurentId)
+            if (id != restaurant.Id)
                 return BadRequest();
 
             var success = await _restaurantService.UpDateRestaurantAsync(id, restaurant);

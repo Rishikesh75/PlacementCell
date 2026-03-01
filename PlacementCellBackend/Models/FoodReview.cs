@@ -10,7 +10,7 @@ public class FoodReview
     public int Id { get; set; } = 0;
     [Required]
     public int RestaurentId { get; set; } = 0;
-    [ForeignKey("RestaurentId")]
+    [ForeignKey("Id")]
     public Restaurents? Restaurent { get; set; }
     [Required]
     public string CompanyId { get; set; } = string.Empty;

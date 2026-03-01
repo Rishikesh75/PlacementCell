@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PlacementCellBackend.Data;
 using PlacementCellBackend.DTOs;
-using PlacementCellBackend.Models;
+using PlacementCellBackend.Models.FeedBacks;
 using PlacementCellBackend.Services.Feedback.Interfaces;
 
 namespace PlacementCellBackend.Services.Feedback
@@ -32,17 +32,17 @@ namespace PlacementCellBackend.Services.Feedback
                 .ToDictionaryAsync(c => c.CompanyId, c => c.CompanyName);
 
             // Step 3: Get unique alumni IDs and fetch alumni profiles
-            var Ids = feedbacks.Select(fb => fb.Id).Distinct().ToList();
+            var Ids = feedbacks.Select(fb => fb.AlumniId).Distinct().ToList();
             var alumniProfiles = await _context.alumni
                 .Where(a => Ids.Contains(a.Id))
-                .ToDictionaryAsync(a => a.Id, a => a.linkdinprofile ?? "");
+                .ToDictionaryAsync(a => a.Id, a => a.Linkdinprofile ?? "");
 
             // Step 4: Map to DTOs
             var result = feedbacks.Select(fb => new AlumniFeedBackOnCompanyDTO
             {
                 companyName = companies.TryGetValue(fb.CompanyId, out var companyName) 
                     ? companyName : "Unknown",
-                AlumniProfile = alumniProfiles.TryGetValue(fb.Id, out var profile) 
+                AlumniProfile = alumniProfiles.TryGetValue(fb.AlumniId, out var profile) 
                     ? profile : "",
                 jobProfile = fb.JobProfile,
                 CTC = fb.CTC,
@@ -60,13 +60,13 @@ namespace PlacementCellBackend.Services.Feedback
 
         public async Task<AlumniFeedBackOnCompanyDTO?> GetFeedbackByIdAsync(string id)
         {
-            // Parse the string id to int (since feedbackid is int)
-            if (!int.TryParse(id, out var feedbackId))
+            // Parse the string id to int (since Id is int)
+            if (!int.TryParse(id, out var Id))
             {
                 return null;
             }
 
-            var feedback = await _context.alumnifeedbackoncompany.FindAsync(feedbackId);
+            var feedback = await _context.alumnifeedbackoncompany.FindAsync(Id);
 
             if (feedback == null)
             {
@@ -81,8 +81,8 @@ namespace PlacementCellBackend.Services.Feedback
 
             // Get alumni profile
             var alumniProfile = await _context.alumni
-                .Where(a => a.Id == feedback.Id)
-                .Select(a => a.linkdinprofile)
+                .Where(a => a.Id == feedback.AlumniId)
+                .Select(a => a.Linkdinprofile)
                 .FirstOrDefaultAsync() ?? "";
 
             return new AlumniFeedBackOnCompanyDTO
@@ -131,7 +131,7 @@ namespace PlacementCellBackend.Services.Feedback
             // Get alumni profile for response
             var alumniProfile = await _context.alumni
                 .Where(a => a.Id == feedback.Id)
-                .Select(a => a.linkdinprofile)
+                .Select(a => a.Linkdinprofile)
                 .FirstOrDefaultAsync() ?? "";
 
             // Return DTO with all info

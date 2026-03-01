@@ -2,14 +2,15 @@ using PlacementCellBackend.Models.Enums;
 using PlacementCellBackend.Models.InterviewRounds;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PlacementCellBackend.Models;
 
-namespace PlacementCellBackend.Models;
+namespace  PlacementCellBackend.Models.FeedBacks;
 
 public class AlumniFeedBackonCompany
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int feedbackid { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     // College reference - feedback is college-specific
     [Required]
@@ -25,7 +26,7 @@ public class AlumniFeedBackonCompany
     public Company? Company { get; set; }
 
     [Required]
-    public string Id { get; set; } = string.Empty;
+    public string AlumniId { get; set; } = string.Empty;
 
     [ForeignKey("Id")]
     public Alumni? Alumni { get; set; }

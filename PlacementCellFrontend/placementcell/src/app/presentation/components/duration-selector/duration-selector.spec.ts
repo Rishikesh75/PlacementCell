@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DurationSelector } from './duration-selector';
+import { DurationSelector } from './Duration-selector';
 
 describe('DurationSelector', () => {
   let component: DurationSelector;

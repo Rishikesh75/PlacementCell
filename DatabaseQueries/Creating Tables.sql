@@ -28,7 +28,7 @@
 -- CREATE TABLE Alumni (
 --     Id TEXT PRIMARY KEY,
 --     Position TEXT,
---     LinkdinProfile TEXT,
+--     Linkdinprofile TEXT,
 --     CompanyId TEXT NOT NULL,
 
 --     CONSTRAINT fk_company
@@ -81,24 +81,24 @@
 
 -- -- 6. Restaurents (Independent)
 -- CREATE TABLE Restaurents (
---     RestaurentId SERIAL PRIMARY KEY,
+--     Id SERIAL PRIMARY KEY,
 --     Name TEXT NOT NULL,
---     contact TEXT,
---     address TEXT,
+--     Contact TEXT,
+--     Address TEXT,
 --     Rating TEXT
 -- );
 
 -- -- 7. Food (Depends on Restaurents & Company)
 -- CREATE TABLE Food (
 --     Id SERIAL PRIMARY KEY,
---     RestaurentId INT NOT NULL,
+--     Id INT NOT NULL,
 --     CompanyId TEXT NOT NULL,
 --     Description TEXT,
 --     Date Date DEFAULT CURRENT_Date,
 
 --     CONSTRAINT fk_restaurent
---         FOREIGN KEY (RestaurentId)
---         REFERENCES Restaurents(RestaurentId)
+--         FOREIGN KEY (Id)
+--         REFERENCES Restaurents(Id)
 --         ON DELETE CASCADE,
 
 --     CONSTRAINT fk_company
@@ -109,7 +109,7 @@
 
 -- -- 8. FeedBackOnCompany (Depends on Company, Alumni)
 -- CREATE TABLE FeedBackOnCompany (
---     FeedbackId TEXT PRIMARY KEY,
+--     Id TEXT PRIMARY KEY,
 --     CompanyId TEXT NOT NULL,
 --     Id TEXT NOT NULL,
 --     Description TEXT,
@@ -176,7 +176,7 @@
 -- ('C002', 'GreenFoods', 'AgriTech'),
 -- ('C003', 'FinMate', 'Fintech');
 
--- INSERT INTO Alumni (Id, Position, LinkdinProfile, CompanyId) VALUES
+-- INSERT INTO Alumni (Id, Position, Linkdinprofile, CompanyId) VALUES
 -- ('A001', 'Software Engineer', 'https://linkedin.com/in/a001', 'C001'),
 -- ('A002', 'Data Scientist', 'https://linkedin.com/in/a002', 'C003')
 
@@ -192,15 +192,15 @@
 -- ('C001', 'J001', 'Backend Developer', '2+ years', 'alice@technova.com'),
 -- ('C003', 'J002', 'ML Engineer', '1+ year', 'bob@finmate.com');
 
--- INSERT INTO Restaurents (Name, contact, address, Rating) VALUES
+-- INSERT INTO Restaurents (Name, Contact, Address, Rating) VALUES
 -- ('Spice Delight', '9876543210', '123 Food Lane', '4.5'),
 -- ('Green Bites', '9123456780', '456 Vegan St', '4.2');
 
--- INSERT INTO Food (RestaurentId, CompanyId, Description) VALUES
+-- INSERT INTO Food (Id, CompanyId, Description) VALUES
 -- (1, 'C001', 'Lunch for company event'),
 -- (2, 'C002', 'Healthy snacks partnership');
 
--- INSERT INTO FeedBackOnCompany (FeedbackId, CompanyId, Id, Description) VALUES
+-- INSERT INTO FeedBackOnCompany (Id, CompanyId, Id, Description) VALUES
 -- ('F001', 'C001', 'A001', 'Great company culture'),
 -- ('F002', 'C003', 'A002', 'Good opportunities for growth');
 

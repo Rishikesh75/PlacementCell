@@ -5,11 +5,11 @@ namespace PlacementCellBackend.Models
     public class Restaurents
     {
         [Key]
-        public int RestaurentId { get; set; } = 0;
-        public string name { get; set; } = string.Empty;
-        public string contact { get; set; } = string.Empty; 
+        public int Id { get; set; } = 0;
+        public string Name { get; set; } = string.Empty;
+        public string Contact { get; set; } = string.Empty; 
 
-        public string address { get; set; } = string.Empty;
+        public string Address { get; set; } = string.Empty;
 
         public string Rating { get; set; } = string.Empty;
 

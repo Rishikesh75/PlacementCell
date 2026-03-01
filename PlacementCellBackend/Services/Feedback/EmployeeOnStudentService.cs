@@ -46,8 +46,8 @@ namespace PlacementCellBackend.Services.Feedback
 
                 return new EmployeeFeedbackonStudentDtos
                 {
-                    feedbackId = f.RecordId,
-                    employeeName = employee?.name ?? "Unknown",
+                    Id = f.Id,
+                    employeeName = employee?.Name ?? "Unknown",
                     compnayName = companyName,
                     batchId = f.BatchId,
                     Description = f.Description
@@ -78,7 +78,7 @@ namespace PlacementCellBackend.Services.Feedback
             // Step 4: Map to DTO
             return new EmployeeFeedbackonStudentDtos
             {
-                feedbackId = feedback.RecordId,
+                Id = feedback.Id,
                 employeeName = employee?.Name ?? "Unknown",
                 compnayName = companyName,
                 batchId = feedback.BatchId,

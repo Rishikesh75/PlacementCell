@@ -1,4 +1,5 @@
-﻿namespace PlacementCellBackend.Models.InterviewRounds;
+﻿using PlacementCellBackend.Models.Enums;
+namespace PlacementCellBackend.Models.InterviewRounds;
 
 public class Resources
 {
@@ -11,7 +12,7 @@ public class LinkResource
     public string Title { get; set; } = string.Empty;
     public string Url { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public string Category { get; set; } = string.Empty;  // e.g., "DSA", "System Design", "Interview Prep"
+    public ResourceCategory Category { get; set; } = ResourceCategory.DSA;  
 }
 
 public class BookResource
@@ -21,14 +22,6 @@ public class BookResource
     public string Description { get; set; } = string.Empty;
     public string? ISBN { get; set; }
     public string? Publisher { get; set; }
-    public string Category { get; set; } = string.Empty;  // e.g., "DSA", "System Design"
+    public ResourceCategory Category { get; set; } = ResourceCategory.DSA;  
 }
 
-// Legacy class - kept for backward compatibility with existing migrations
-[Obsolete("Use LinkResource or BookResource instead")]
-public class ResourceItem
-{
-    public string Type { get; set; } = string.Empty;
-    public string Link { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-}

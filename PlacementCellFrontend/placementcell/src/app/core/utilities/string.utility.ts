@@ -14,9 +14,9 @@ export function capitalize(str: string): string {
 }
 
 /**
- * Convert string to title case (capitalize each word)
+ * Convert string to Title case (capitalize each word)
  * @param str - Input string
- * @returns String in title case
+ * @returns String in Title case
  */
 export function toTitleCase(str: string): string {
   if (!str) return '';

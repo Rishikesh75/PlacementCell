@@ -1,3 +1,5 @@
+using PlacementCellBackend.Models.Enums;
+
 namespace PlacementCellBackend.DTOs
 {
     public class RecommendedResources
@@ -12,7 +14,7 @@ namespace PlacementCellBackend.DTOs
         public string Title { get; set; } = string.Empty;
         public string Url { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
+        public ResourceCategory Category { get; set; } = ResourceCategory.DSA;
         public int RecommendationCount { get; set; }
     }
 
@@ -21,7 +23,7 @@ namespace PlacementCellBackend.DTOs
         public string BookName { get; set; } = string.Empty;
         public string Author { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public string Category { get; set; } = string.Empty;
+        public ResourceCategory Category { get; set; } = ResourceCategory.DSA;
         public int RecommendationCount { get; set; }
     }
 }

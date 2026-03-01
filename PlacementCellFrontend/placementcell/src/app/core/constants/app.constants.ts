@@ -45,7 +45,7 @@ export const APP_CONSTANTS = {
    * Notification Configuration
    */
   NOTIFICATION: {
-    DURATION: 3000, // milliseconds
+    Duration: 3000, // milliseconds
     POSITION: {
       HORIZONTAL: 'center',
       VERTICAL: 'top'

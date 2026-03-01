@@ -5,7 +5,7 @@
 
 /**
  * ValiDate Email format
- * @param Email - Email address to valiDate
+ * @param Email - Email Address to valiDate
  * @returns True if Email is valid
  */
 export function isValidEmail(Email: string): boolean {

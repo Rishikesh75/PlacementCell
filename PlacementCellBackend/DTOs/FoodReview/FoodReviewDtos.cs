@@ -14,7 +14,7 @@ public class FoodReviewDtos
 
 public class FoodReviewCreateDtos
 {
-    public int RestaurentId { get; set; } = 0;
+    public int Id { get; set; } = 0;
     public string CompanyId { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public int Rating { get; set; }

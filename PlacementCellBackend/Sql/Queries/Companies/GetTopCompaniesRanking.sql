@@ -9,11 +9,11 @@ SELECT
     ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC)::INT AS rank,
     AVG(
         CASE 
-            WHEN p.package ~ '^\d+\.?\d*' THEN 
-                CAST(REGEXP_REPLACE(UPPER(p.package), '[^0-9.]', '', 'g') AS DECIMAL)
+            WHEN p.Package ~ '^\d+\.?\d*' THEN 
+                CAST(REGEXP_REPLACE(UPPER(p.Package), '[^0-9.]', '', 'g') AS DECIMAL)
             ELSE 0 
         END
-    )::DECIMAL AS average_package
+    )::DECIMAL AS average_Package
 FROM placement p
 LEFT JOIN company c ON p.CompanyId = c.CompanyId
 GROUP BY p.CompanyId, c.CompanyName, c.Industry

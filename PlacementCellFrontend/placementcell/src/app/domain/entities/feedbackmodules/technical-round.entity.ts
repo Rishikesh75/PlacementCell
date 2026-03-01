@@ -11,7 +11,7 @@ import { PuzzleBasedQuestion } from '../questions/question.entity';
 export class TechnicalRound {
   constructor(
     public interviewMode: string = '',
-    public duration: string = '',
+    public Duration: string = '',
     public dsaQuestions: DSAQuestion[] = [],
     public computerCoreQuestions: ComputerCoreQuestion[] = [],
     public systemDesignQuestions: SystemDesignQuestion[] = [],
@@ -24,7 +24,7 @@ export class TechnicalRound {
   isValid(): boolean {
     return (
       this.interviewMode.trim() !== '' &&
-      this.duration.trim() !== '' &&
+      this.Duration.trim() !== '' &&
       this.getTotalQuestions() > 0
     );
   }

@@ -1,19 +1,14 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PlacementCellBackend.Models.Enums;
 
 namespace PlacementCellBackend.Models;
-
-public enum PostedByType
-{
-    Alumni,
-    CompanyEmployee
-}
 
 public class AlumniJobOpenings
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     // College reference (jobs posted for specific college)
     [Required]
@@ -28,16 +23,16 @@ public class AlumniJobOpenings
     [ForeignKey("CompanyId")]
     public Company? Company { get; set; }
 
-    public string jobtitle { get; set; } = string.Empty;
-    public DateOnly postedDate { get; set; }
-    public string package { get; set; } = string.Empty;
+    public string JobTitle { get; set; } = string.Empty;
+    public DateOnly PostedDate { get; set; }
+    public string Package { get; set; } = string.Empty;
 
     [Required]
-    public PostedByType postedby { get; set; }
+    public PostedByType PostedBy { get; set; }
 
     [Required]
-    public string postedbyid { get; set; } = string.Empty;
+    public string PostedId { get; set; } = string.Empty;
 
     public string JobUrl { get; set; } = string.Empty;
-    public string postedByProfileUrl { get; set; } = string.Empty;
+    public string PostedByProfileUrl { get; set; } = string.Empty;
 }

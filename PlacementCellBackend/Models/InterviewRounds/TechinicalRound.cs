@@ -10,37 +10,37 @@ public class TechnicalRound
 
     public List<DSAQuestion> DSAQuestions { get; set; } = new List<DSAQuestion>();
 
-    public List<DBMSQuestion> DBMSQuestions { get; set; } = new List<DBMSQuestion>();
+    public List<CoreCSQuestion> CoreCSQuestions { get; set; } = new List<CoreCSQuestion>();
 
-    public List<(string, (string, string))> SystemDesignQuestions { get; set; } = new List<(string, (string, string))>();
+    public List<SystemDesignQuestion> SystemDesignQuestions { get; set; } = new List<SystemDesignQuestion>();
 
-    public List<(string, (string, string))> PuzzleBasedQuestions { get; set; } = new List<(string, (string, string))>();
+    public List<PuzzleBasedQuestion> PuzzleBasedQuestions { get; set; } = new List<PuzzleBasedQuestion>();
 }
 
 public class DSAQuestion
 {
-    public string QuestionType { get; set; } = string.Empty;
+    public DSAQuestionType QuestionType { get; set; } = DSAQuestionType.Others;
     public DifficultyLevel DifficultyLevel;
     public string Question { get; set; } = string.Empty;
 }
 
-public class DBMSQuestion
+public class CoreCSQuestion
 {
-    public string QuestionType { get; set; } = string.Empty;
+    public CoreCSQuestionType QuestionType { get; set; } = CoreCSQuestionType.Other;
     public DifficultyLevel DifficultyLevel;
     public string Question { get; set; } = string.Empty;
 }
 
 public class SystemDesignQuestion
 {
-    public string QuestionType { get; set; } = string.Empty;
-    public string Question { get; set; }
+    public SystemDesingQuestionType QuestionType { get; set; } = SystemDesingQuestionType.LLD;
+    public string Question { get; set; } = string.Empty;
 }
 
 public class PuzzleBasedQuestion
 {
     public DifficultyLevel DifficultyLevel;
-    public string Question { get; set; }
+    public string Question { get; set; } = string.Empty;
 }
 
 

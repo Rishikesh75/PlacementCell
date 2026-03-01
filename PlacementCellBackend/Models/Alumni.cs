@@ -17,7 +17,7 @@ public class Alumni
 
     public string Name { get; set; } = string.Empty;
     public string Position { get; set; } = string.Empty;
-    public string linkdinprofile { get; set; } = string.Empty;
+    public string Linkdinprofile { get; set; } = string.Empty;
 
     [Required]
     public string CompanyId { get; set; } = string.Empty;

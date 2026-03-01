@@ -29,7 +29,7 @@
                 <h2>{{ steps[0] }}</h2>
                 <app-drop-down [DropDownOptions]="companies" (CompanySelected)="this.FeedbackFormData.companyDetails.companyName= $event"></app-drop-down>
 
-                  <span class="section-title">Job Profiles:</span>
+                  <span class="section-Title">Job Profiles:</span>
                   <div class="job-profiles">
                     <app-radio-group name="jobProfile" (valueChange)="handleJobProfileChange($event)"> 
                       <app-radio-button 
@@ -56,11 +56,11 @@
                   </div>
                   
                 <div class="container">
-                  <span class="section-title">No of Rounds:</span>
+                  <span class="section-Title">No of Rounds:</span>
                   <app-counter (countChange)="FeedbackFormData.companyDetails.numRounds= $event"></app-counter>
                 </div>
                 
-                  <span class="section-title">Job Type:</span>
+                  <span class="section-Title">Job Type:</span>
                   <div class="job-profiles">
                     <app-radio-group name="jobType" (valueChange)="handleJobTypeChange($event)"> 
                       <app-radio-button 
@@ -87,11 +87,11 @@
                   </div>
                   
                   <div class="container">
-                  <span class="section-title">CTC:</span>
+                  <span class="section-Title">CTC:</span>
                   <app-number-input (valueChange)="FeedbackFormData.companyDetails.ctc= $event"></app-number-input>
                 </div>
 
-                <span class="section-title">Work Mode:</span>
+                <span class="section-Title">Work Mode:</span>
                   <div class="job-profiles">
                       <app-radio-group name="WorkMode" (valueChange)="FeedbackFormData.companyDetails.workMode= $event">
                         <app-radio-button 
@@ -116,7 +116,7 @@
                       
                   </div>
 
-                  <span class="section-title">Location:</span>
+                  <span class="section-Title">Location:</span>
                   <app-drop-down [Label]="'Select Location'" [DropDownOptions]="locations" (CompanySelected)="FeedbackFormData.companyDetails.location= $event"></app-drop-down>
             </div>
             
@@ -134,7 +134,7 @@
               <form [formGroup]="companyDetailsForm">
            <div class="vertical-stack">
             <h2>{{ steps[1] }}</h2>
-             <span class="section-title">Coding Platform:</span>
+             <span class="section-Title">Coding Platform:</span>
                   
                 <div class="job-profiles">
                   <app-radio-group name="jobProfile" (valueChange)="FeedbackFormData.codingRound.codingPlatform= $event">
@@ -166,11 +166,11 @@
                   
                   </div>
 
-            <span class="section-title">Duration:</span>
-                  <app-duration-selector (durationChange)="FeedbackFormData.codingRound.codingDuration= $event"></app-duration-selector>
-            <span class="section-title">Question Asked:</span>
+            <span class="section-Title">Duration:</span>
+                  <app-Duration-selector (DurationChange)="FeedbackFormData.codingRound.codingDuration= $event"></app-Duration-selector>
+            <span class="section-Title">Question Asked:</span>
                 <app-greybox section="CodingQuestion"  (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
-            <span class="section-title">Dificulty Level:</span>   
+            <span class="section-Title">Dificulty Level:</span>   
                   <app-radio-group name="Dificulty Level" (valueChange)="FeedbackFormData.codingRound.codingDifficulty= $event">
                     <div class="job-profiles">
                         <app-radio-button 
@@ -195,7 +195,7 @@
                   
                   </app-radio-group>
             
-                  <span class="section-title">Interview Mode:</span>
+                  <span class="section-Title">Interview Mode:</span>
                 <div class="job-profiles">
                   <app-radio-group name="codingDifficulty" (valueChange)="FeedbackFormData.codingRound.codingDifficulty= $event">
                     <app-radio-button 
@@ -226,7 +226,7 @@
             <form [formGroup]="companyDetailsForm">
               <div class="vertical-stack">
                 <h2>{{ steps[2] }}</h2>
-                <span class="section-title">Interview Mode:</span>
+                <span class="section-Title">Interview Mode:</span>
                 <div class="job-profiles">
                   <app-radio-group name="interviewMode" (valueChange)="FeedbackFormData.technicalRound.interviewMode= $event">
                     <app-radio-button 
@@ -245,20 +245,20 @@
                   
                 </div>
 
-                <span class="section-title">Interview Duration:</span>
-                <app-duration-selector (durationChange)="FeedbackFormData.technicalRound.duration= $event"></app-duration-selector>
+                <span class="section-Title">Interview Duration:</span>
+                <app-Duration-selector (DurationChange)="FeedbackFormData.technicalRound.Duration= $event"></app-Duration-selector>
 
-                <span class="section-title">DSA question:</span>
+                <span class="section-Title">DSA question:</span>
                 <app-greybox section="DSAQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
 
 
-                <span class="section-title">DBMS/OS/OPPS/CN Questions</span>
-                <app-greybox section="DBMSQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
+                <span class="section-Title">DBMS/OS/OPPS/CN Questions</span>
+                <app-greybox section="CoreCSQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
 
-                <span class="section-title">System Design Questions</span>
+                <span class="section-Title">System Design Questions</span>
                 <app-greybox section="SystemDesign" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
 
-                <span class="section-title">PuzzleBased Questions:</span>
+                <span class="section-Title">PuzzleBased Questions:</span>
                 <app-greybox section="PuzzleBasedQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
               </div>
             </form>
@@ -271,10 +271,10 @@
 
             <div class="vertical-stack">
                 <h2>{{ steps[3] }}</h2>
-              <span class="section-title">SituationBased Questions:</span>
+              <span class="section-Title">SituationBased Questions:</span>
                 <app-greybox section="SituationBasedQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
 
-                <span class="section-title">Unexpected Questions:</span>
+                <span class="section-Title">Unexpected Questions:</span>
                 <app-greybox section="UnexpectedQuestions" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
               </div>
            </ng-container>
@@ -284,7 +284,7 @@
           <div class="vertical-stack">
                 <h2>{{ steps[4] }}</h2>
           <ng-container>
-            <span class="section-title">Resources:</span>
+            <span class="section-Title">Resources:</span>
                 <app-greybox section="Resources" (CodingQuestion) = "OnCodingQuestions($event)"></app-greybox>
 
          </ng-container>

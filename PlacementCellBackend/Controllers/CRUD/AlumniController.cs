@@ -38,7 +38,7 @@ public class AlumniController : ControllerBase
         {
             Id = alumni.Id,
             Position = alumni.Position,
-            linkdinprofile = alumni.LinkedInProfile,
+            Linkdinprofile = alumni.LinkedInProfile,
             CompanyId = alumni.CompanyId,
             Name = alumni.Name
         };

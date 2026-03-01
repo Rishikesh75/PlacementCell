@@ -17,7 +17,7 @@ export class FeedbackCardComponent implements OnChanges {
   isCardOpen = false;
 
   // Inputs from domain entities
-  @Input() feedbackId: string | undefined;
+  @Input() Id: string | undefined;
   @Input() CompanyId: string | undefined;
   @Input() Id: string | undefined;
   @Input() CompanyDetails: CompanyDetails | undefined;

@@ -100,9 +100,9 @@ namespace PlacementCellBackend.Services.Analytics
                             Id = reader.GetString(reader.GetOrdinal("student_id")),
                             StudentName = reader.GetString(reader.GetOrdinal("student_name")),
                             CompanyName = reader.GetString(reader.GetOrdinal("CompanyName")),
-                            JobTitle = reader.GetString(reader.GetOrdinal("job_title")),
+                            JobTitle = reader.GetString(reader.GetOrdinal("job_Title")),
                             PlacementDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("placement_Date"))),
-                            Package = reader.GetString(reader.GetOrdinal("package"))
+                            Package = reader.GetString(reader.GetOrdinal("Package"))
                         });
                     }
 
@@ -139,9 +139,9 @@ namespace PlacementCellBackend.Services.Analytics
                     while (await reader.ReadAsync())
                     {
                         var CompanyId = reader.GetString(reader.GetOrdinal("CompanyId"));
-                        var avgPackage = reader.IsDBNull(reader.GetOrdinal("average_package"))
+                        var avgPackage = reader.IsDBNull(reader.GetOrdinal("average_Package"))
                             ? 0m
-                            : reader.GetDecimal(reader.GetOrdinal("average_package"));
+                            : reader.GetDecimal(reader.GetOrdinal("average_Package"));
 
                         rankings.Add(new CompanyRanking
                         {
@@ -335,9 +335,9 @@ namespace PlacementCellBackend.Services.Analytics
                         Id = reader.GetString(reader.GetOrdinal("student_id")),
                         StudentName = reader.GetString(reader.GetOrdinal("student_name")),
                         CompanyName = reader.GetString(reader.GetOrdinal("CompanyName")),
-                        JobTitle = reader.GetString(reader.GetOrdinal("job_title")),
+                        JobTitle = reader.GetString(reader.GetOrdinal("job_Title")),
                         PlacementDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("placement_Date"))),
-                        Package = reader.GetString(reader.GetOrdinal("package"))
+                        Package = reader.GetString(reader.GetOrdinal("Package"))
                     });
                 }
 

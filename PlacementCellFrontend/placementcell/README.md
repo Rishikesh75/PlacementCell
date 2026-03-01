@@ -32,7 +32,7 @@ src/app/
 │   ├── components/         # Reusable UI components
 │   │   ├── counter/
 │   │   ├── drop-down/
-│   │   ├── duration-selector/
+│   │   ├── Duration-selector/
 │   │   ├── greybox/
 │   │   ├── input-question-box/
 │   │   ├── notification/
@@ -377,7 +377,7 @@ When adding new features:
 
 ## Contact
 
-For questions or suggestions about the architecture, please contact the development team.
+For questions or suggestions about the architecture, please Contact the development team.
 
 ---
 

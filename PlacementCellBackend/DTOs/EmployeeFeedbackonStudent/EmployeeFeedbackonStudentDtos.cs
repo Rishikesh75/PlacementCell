@@ -2,7 +2,7 @@
 
 public class EmployeeFeedbackonStudentDtos
 {
-    public int? feedbackId { get; set; }
+    public string? Id { get; set; }
 
     public string employeeName { get; set; } = string.Empty;
 

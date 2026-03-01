@@ -5,7 +5,7 @@
  */
 
 export interface FeedbackOnCompanyResponseDto {
-  feedbackid: string;
+  Id: string;
   CompanyId: string;
   company: string | null;
   Id: string;
@@ -23,7 +23,7 @@ export interface FeedbackOnCompanyResponseDto {
 
 export interface CompanyDetails
 {
-  feedbackid: string;
+  Id: string;
   companyname: string;
   Id: string;
   numRounds : number;
@@ -36,7 +36,7 @@ export interface CompanyDetails
 }
 export interface CodingRoundInfoApiDto {
   codingPlatform: string;
-  duration: string;
+  Duration: string;
   questions: string[];
   difficultyLevel: number;
   interviewMode: number;
@@ -46,7 +46,7 @@ export interface TechnicalRoundInfoApiDto {
   interviewMode: number;
   interviewDuration: string;
   dsaQuestions: TechnicalQuestionApiDto[];
-  dbmsQuestions: TechnicalQuestionApiDto[];
+  CoreCSQuestions: TechnicalQuestionApiDto[];
   systemDesignQuestions: TechnicalQuestionApiDto[];
   puzzleBasedQuestions: TechnicalQuestionApiDto[];
 }

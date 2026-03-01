@@ -7,7 +7,7 @@ public class EmployeeFeedbackonStudent
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int RecordId { get; set; }
+    public string Id { get; set; }
 
     // College reference - feedback is college-specific
     [Required]

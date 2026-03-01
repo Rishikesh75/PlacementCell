@@ -3,7 +3,7 @@ using PlacementCellBackend.Data;
 using PlacementCellBackend.DTOs.AlumniJobOpenings;
 using PlacementCellBackend.Models;
 using PlacementCellBackend.Services.Placements.Interfaces;
-
+using PlacementCellBackend.Models.Enums;
 namespace PlacementCellBackend.Services.Placements
 {
     public class AlumniPlacementService : IAlumniPlacementService
@@ -33,11 +33,11 @@ namespace PlacementCellBackend.Services.Placements
             return jobs.Select(j => new AlumniJobOpeningDto
             {
                 CompanyName = companies.TryGetValue(j.CompanyId, out var name) ? name : "Unknown",
-                JobTitle = j.jobtitle,
-                postedDate = j.postedDate.ToString("yyyy-MM-dd"),
-                package = j.package,
+                JobTitle = j.JobTitle,
+                PostedDate = j.PostedDate.ToString("yyyy-MM-dd"),
+                Package = j.Package,
                 JobUrl = j.JobUrl,
-                PostedByProfileUrl = j.postedByProfileUrl
+                PostedByProfileUrl = j.PostedByProfileUrl
             });
 
 
@@ -60,11 +60,11 @@ namespace PlacementCellBackend.Services.Placements
             return new AlumniJobOpeningDto
             {
                 CompanyName = company?.CompanyName ?? "Unknown",
-                JobTitle = job.jobtitle,
-                postedDate = job.postedDate.ToString("yyyy-MM-dd"),
-                package = job.package,
+                JobTitle = job.JobTitle,
+                PostedDate = job.PostedDate.ToString("yyyy-MM-dd"),
+                Package = job.Package,
                 JobUrl = job.JobUrl,
-                PostedByProfileUrl = job.postedByProfileUrl
+                PostedByProfileUrl = job.PostedByProfileUrl
             };
 
         }
@@ -74,13 +74,13 @@ namespace PlacementCellBackend.Services.Placements
             var alumniPlacementEntity = new AlumniJobOpenings
             {
                 CompanyId = alumniPlacement.CompanyId,
-                jobtitle = alumniPlacement.Jobtitle,
-                postedDate = DateOnly.Parse(alumniPlacement.PostedDate),
-                package = alumniPlacement.Package,
+                JobTitle = alumniPlacement.JobTitle,
+                PostedDate = DateOnly.Parse(alumniPlacement.PostedDate),
+                Package = alumniPlacement.Package,
                 JobUrl = alumniPlacement.JobUrl,
-                postedByProfileUrl = alumniPlacement.PostedByProfileUrl,
-                postedbyid = alumniPlacement.Postedbyid,
-                postedby = alumniPlacement.Postedby ?? PostedByType.Alumni
+                PostedByProfileUrl = alumniPlacement.PostedByProfileUrl,
+                PostedId = alumniPlacement.PostedId,
+                PostedBy = alumniPlacement.PostedBy ?? PostedByType.Alumni
             };
 
             _context.alumnijobposition.Add(alumniPlacementEntity);
@@ -95,10 +95,10 @@ namespace PlacementCellBackend.Services.Placements
                 return false;
 
             existing.CompanyId = alumniPlacement.CompanyId;
-            existing.jobtitle = alumniPlacement.Jobtitle;
-            existing.postedDate = DateOnly.Parse(alumniPlacement.PostedDate);
-            existing.package = alumniPlacement.Package;
-            existing.postedby = alumniPlacement.Postedby ?? PostedByType.Alumni;
+            existing.JobTitle = alumniPlacement.JobTitle;
+            existing.PostedDate = DateOnly.Parse(alumniPlacement.PostedDate);
+            existing.Package = alumniPlacement.Package;
+            existing.PostedBy = alumniPlacement.PostedBy ?? PostedByType.Alumni;
 
             _context.Entry(existing).State = EntityState.Modified;
             await _context.SaveChangesAsync();

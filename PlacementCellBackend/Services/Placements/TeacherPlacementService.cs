@@ -26,7 +26,7 @@ namespace PlacementCellBackend.Services.Placements
             }
 
             // Step 2: Get unique teacher IDs and fetch teacher names
-            var Ids = researchOpenings.Select(ro => ro.Id).Distinct().ToList();
+            var Ids = researchOpenings.Select(ro => ro.TeacherId).Distinct().ToList();
             var teachers = await _context.teacher
                 .Where(t => Ids.Contains(t.Id))
                 .ToDictionaryAsync(t => t.Id, t => t.Name);
@@ -34,19 +34,19 @@ namespace PlacementCellBackend.Services.Placements
             // Step 3: Map to DTOs
             var result = researchOpenings.Select(ro => new ResearchOpeningDto
             {
-                Id = ro.Id,
-                teachername = teachers.TryGetValue(ro.Id, out var teacherName)
+                Id = ro.TeacherId,
+                teachername = teachers.TryGetValue(ro.TeacherId, out var teacherName)
                     ? teacherName : "Unknown",
-                title = ro.title,
+                Title = ro.Title,
                 Description = ro.Description,
-                department = ro.department,
-                researcharea = ro.researcharea,
-                stipend = ro.stipend,
-                duration = ro.duration,
-                postedDate = ro.postedDate,
-                deadline = ro.deadline,
+                Department = ro.Department,
+                Researcharea = ro.Researcharea,
+                Stipend = ro.Stipend,
+                Duration = ro.Duration,
+                PostedDate = ro.PostedDate,
+                DeadLine = ro.DeadLine,
                 link = ro.Link,
-                isactive = ro.isactive.ToString().ToLower()
+                IsActive = ro.IsActive.ToString().ToLower()
             }).ToList();
 
             return result;
@@ -63,24 +63,24 @@ namespace PlacementCellBackend.Services.Placements
 
             // Get teacher name
             var teacherName = await _context.teacher
-                .Where(t => t.Id == researchOpening.Id)
+                .Where(t => t.Id == researchOpening.TeacherId)
                 .Select(t => t.Name)
                 .FirstOrDefaultAsync() ?? "Unknown";
 
             return new ResearchOpeningDto
             {
-                Id = researchOpening.Id,
+                Id = researchOpening.TeacherId,
                 teachername = teacherName,
-                title = researchOpening.title,
+                Title = researchOpening.Title,
                 Description = researchOpening.Description,
-                department = researchOpening.department,
-                researcharea = researchOpening.researcharea,
-                stipend = researchOpening.stipend,
-                duration = researchOpening.duration,
-                postedDate = researchOpening.postedDate,
-                deadline = researchOpening.deadline,
+                Department = researchOpening.Department,
+                Researcharea = researchOpening.Researcharea,
+                Stipend = researchOpening.Stipend,
+                Duration = researchOpening.Duration,
+                PostedDate = researchOpening.PostedDate,
+                DeadLine = researchOpening.DeadLine,
                 link = researchOpening.Link,
-                isactive = researchOpening.isactive.ToString().ToLower()
+                IsActive = researchOpening.IsActive.ToString().ToLower()
             };
         }
 
@@ -90,16 +90,16 @@ namespace PlacementCellBackend.Services.Placements
             var model = new ResearchOpening
             {
                 Id = researchOpening.Id,
-                title = researchOpening.title,
+                Title = researchOpening.Title,
                 Description = researchOpening.Description,
-                department = researchOpening.department,
-                researcharea = researchOpening.researcharea,
-                stipend = researchOpening.stipend,
-                duration = researchOpening.duration,
-                postedDate = researchOpening.postedDate,
-                deadline = researchOpening.deadline,
+                Department = researchOpening.Department,
+                Researcharea = researchOpening.Researcharea,
+                Stipend = researchOpening.Stipend,
+                Duration = researchOpening.Duration,
+                PostedDate = researchOpening.PostedDate,
+                DeadLine = researchOpening.DeadLine,
                 Link = researchOpening.link,
-                isactive = researchOpening.isactive
+                IsActive = researchOpening.IsActive
             };
 
             _context.teacherresearchopening.Add(model);
@@ -114,18 +114,18 @@ namespace PlacementCellBackend.Services.Placements
             // Return DTO with all info
             return new ResearchOpeningDto
             {
-                Id = model.Id,
+                Id = model.TeacherId,
                 teachername = teacherName,
-                title = model.title,
+                Title = model.Title,
                 Description = model.Description,
-                department = model.department,
-                researcharea = model.researcharea,
-                stipend = model.stipend,
-                duration = model.duration,
-                postedDate = model.postedDate,
-                deadline = model.deadline,
+                Department = model.Department,
+                Researcharea = model.Researcharea,
+                Stipend = model.Stipend,
+                Duration = model.Duration,
+                PostedDate = model.PostedDate,
+                DeadLine = model.DeadLine,
                 link = model.Link,
-                isactive = model.isactive.ToString().ToLower()
+                IsActive = model.IsActive.ToString().ToLower()
             };
         }
 
@@ -137,16 +137,16 @@ namespace PlacementCellBackend.Services.Placements
 
             // UpDate properties from DTO
             existing.Id = researchOpening.Id;
-            existing.title = researchOpening.title;
+            existing.Title = researchOpening.Title;
             existing.Description = researchOpening.Description;
-            existing.department = researchOpening.department;
-            existing.researcharea = researchOpening.researcharea;
-            existing.stipend = researchOpening.stipend;
-            existing.duration = researchOpening.duration;
-            existing.postedDate = researchOpening.postedDate;
-            existing.deadline = researchOpening.deadline;
+            existing.Department = researchOpening.Department;
+            existing.Researcharea = researchOpening.Researcharea;
+            existing.Stipend = researchOpening.Stipend;
+            existing.Duration = researchOpening.Duration;
+            existing.PostedDate = researchOpening.PostedDate;
+            existing.DeadLine = researchOpening.DeadLine;
             existing.Link = researchOpening.link;
-            existing.isactive = researchOpening.isactive;
+            existing.IsActive = researchOpening.IsActive;
 
             await _context.SaveChangesAsync();
             return true;

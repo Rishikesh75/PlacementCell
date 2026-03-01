@@ -99,7 +99,7 @@ export class InterviewFeedbackFormPage {
   OnCodingQuestions([arr, val]: [any[], any]): void {
     if (val == 'DSAQuestions') {
       this.FeedbackFormData.technicalRound.dsaQuestions = arr;
-    } else if (val == 'DBMSQuestions') {
+    } else if (val == 'CoreCSQuestions') {
       this.FeedbackFormData.technicalRound.computerCoreQuestions = arr;
     } else if (val == 'SystemDesign') {
       this.FeedbackFormData.technicalRound.systemDesignQuestions = arr;

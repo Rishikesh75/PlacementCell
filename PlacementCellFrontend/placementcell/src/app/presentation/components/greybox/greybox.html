@@ -33,7 +33,7 @@
         </div>
        
          <div>
-            <span class="section-title">Dificulty Level:</span>   
+            <span class="section-Title">Dificulty Level:</span>   
              <div class="job-profiles">
                         <app-radio-group name="DificultyLevel" (valueChange)="handleJobProfileChange($event,idx)" >
                           <app-radio-button 
@@ -75,7 +75,7 @@
   
 
   <!--DBMS Questions -->
-  <ng-container *ngIf="section === 'DBMSQuestions'">
+  <ng-container *ngIf="section === 'CoreCSQuestions'">
     <ng-container *ngFor="let box of inputBoxes; let idx = index">
       <div class="DSAContainer">
         <div>
@@ -85,25 +85,25 @@
           <app-inputquestionbox (submitted)="onTextSubmitted($event)"></app-inputquestionbox>
         </div>
         <div>
-            <span class="section-title">Dificulty Level:</span>   
+            <span class="section-Title">Dificulty Level:</span>   
              <div class="job-profiles">
                       <app-radio-group name="jobProfile" (valueChange)="handleJobProfileChange($event,idx)"><!---->
                         <app-radio-button 
                           label="Easy" 
-                          name="DBMSQuestionsDifficulty" 
+                          name="CoreCSQuestionsDifficulty" 
                           value="Easy" 
                           >
                         </app-radio-button>
 
                         <app-radio-button 
                           label="Medium" 
-                          name="DBMSQuestionsDifficulty" 
+                          name="CoreCSQuestionsDifficulty" 
                           value="Medium">
                         </app-radio-button>
 
                         <app-radio-button 
                           label="Difficult" 
-                          name="DBMSQuestionsDifficulty" 
+                          name="CoreCSQuestionsDifficulty" 
                           value="Difficult">
                         </app-radio-button>
 
@@ -130,7 +130,7 @@
     <ng-container *ngFor="let box of inputBoxes; let idx = index">
       <div class="SystemDesignContainer">
         <div>
-            <span class="section-title">Dificulty Level:</span>   
+            <span class="section-Title">Dificulty Level:</span>   
              <div class="job-profiles">
                         <app-radio-group name="SystemDesignQuestionsDifficulty" (valueChange)="SystemDesignQuestionsType($event,idx)">
                           <app-radio-button 
@@ -172,7 +172,7 @@
      
      <div class="SystemDesignContainer">
       <div>
-        <span class="section-title">Dificulty Level:</span>   
+        <span class="section-Title">Dificulty Level:</span>   
                         
                         <div class="job-profiles">
                         <app-radio-group name="PuzzleBasedQuestionsDifficulty" (valueChange)="handleJobProfileChange($event,idx)">
