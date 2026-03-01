@@ -11,13 +11,22 @@ public class AlumniFeedBackonCompany
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int feedbackid { get; set; }
 
+    // College reference - feedback is college-specific
+    [Required]
+    public int CollegeId { get; set; }
+
+    [ForeignKey("CollegeId")]
+    public College? College { get; set; }
+
     [Required]
     public string companyid { get; set; } = string.Empty;
+
     [ForeignKey("companyid")]
     public Company? Company { get; set; }
 
     [Required]
     public string alumniid { get; set; } = string.Empty;
+
     [ForeignKey("alumniid")]
     public Alumni? Alumni { get; set; }
 
@@ -37,11 +46,7 @@ public class AlumniFeedBackonCompany
     public WorkMode WorkMode { get; set; }
 
     public CodingRound? CodingRoundInfo { get; set; }
-
     public TechnicalRound? TechnicalRoundInfo { get; set; }
-
     public HRRound? HRRoundInfo { get; set; }
-
     public Resources? ResourcesInfo { get; set; }
 }
-

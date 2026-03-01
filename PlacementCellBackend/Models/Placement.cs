@@ -7,7 +7,14 @@ namespace PlacementCellBackend.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; } // Primary key for this table
+        public int id { get; set; }
+
+        // College reference for direct filtering
+        [Required]
+        public int CollegeId { get; set; }
+
+        [ForeignKey("CollegeId")]
+        public College? College { get; set; }
 
         [Required]
         public string studentid { get; set; } = string.Empty;
@@ -22,10 +29,7 @@ namespace PlacementCellBackend.Models
         public Company? Company { get; set; }
 
         public string jobtitle { get; set; } = string.Empty;
-
         public DateOnly placementdate { get; set; }
-
         public string package { get; set; } = string.Empty;
     }
 }
-
