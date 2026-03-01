@@ -35,16 +35,16 @@ namespace PlacementCellBackend.Controllers.CRUD
         public async Task<ActionResult<Company>> PostCompany(Company company)
         {
             var created = await _companyService.CreateCompanyAsync(company);
-            return CreatedAtAction(nameof(GetCompany), new { id = created.company_id }, created);
+            return CreatedAtAction(nameof(GetCompany), new { id = created.CompanyId }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompany(string id, Company updatedCompany)
+        public async Task<IActionResult> PutCompany(string id, Company upDatedCompany)
         {
-            if (id != updatedCompany.company_id)
+            if (id != upDatedCompany.CompanyId)
                 return BadRequest();
 
-            var success = await _companyService.UpdateCompanyAsync(id, updatedCompany);
+            var success = await _companyService.UpDateCompanyAsync(id, upDatedCompany);
             if (!success)
                 return NotFound();
 

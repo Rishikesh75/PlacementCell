@@ -46,21 +46,21 @@ export class InterviewFeedbackFormPage {
   }
 
   ngAfterViewInit(): void {
-    this.updateSlideHeight();
-    window.addEventListener('resize', this.updateSlideHeight.bind(this));
+    this.upDateSlideHeight();
+    window.addEventListener('resize', this.upDateSlideHeight.bind(this));
   }
 
   nextStep(): void {
     if (this.currentStep < this.steps.length - 1) {
       this.currentStep++;
-      setTimeout(() => this.updateSlideHeight(), 0);
+      setTimeout(() => this.upDateSlideHeight(), 0);
     }
   }
 
   prevStep(): void {
     if (this.currentStep > 0) {
       this.currentStep--;
-      setTimeout(() => this.updateSlideHeight(), 0);
+      setTimeout(() => this.upDateSlideHeight(), 0);
     }
   }
 
@@ -88,7 +88,7 @@ export class InterviewFeedbackFormPage {
     this.isBottomReached = scrollPosition >= bottomPosition - 5;
   }
 
-  updateSlideHeight(): void {
+  upDateSlideHeight(): void {
     if (!this.formPages) return;
     const currentPage = this.formPages.toArray()[this.currentStep];
     if (currentPage) {

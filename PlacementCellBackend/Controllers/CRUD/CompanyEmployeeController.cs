@@ -40,11 +40,11 @@ namespace PlacementCellBackend.Controllers.CRUD
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompanyEmployee(string id, CompanyEmployeeCreateDto updatedCompanyEmployee)
+        public async Task<IActionResult> PutCompanyEmployee(string id, CompanyEmployeeCreateDto upDatedCompanyEmployee)
         {
 
 
-            var success = await _companyEmployeeService.UpdateCompanyEmployeeAsync(id, updatedCompanyEmployee);
+            var success = await _companyEmployeeService.UpDateCompanyEmployeeAsync(id, upDatedCompanyEmployee);
             if (!success)
                 return NotFound("Company employee not found.");
 

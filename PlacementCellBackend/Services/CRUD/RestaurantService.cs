@@ -31,7 +31,7 @@ namespace PlacementCellBackend.Services.CRUD
             return restaurant;
         }
 
-        public async Task<bool> UpdateRestaurantAsync(int id, Restaurents restaurant)
+        public async Task<bool> UpDateRestaurantAsync(int id, Restaurents restaurant)
         {
             var existing = await _context.restaurents.FindAsync(id);
             if (existing == null)
@@ -40,7 +40,7 @@ namespace PlacementCellBackend.Services.CRUD
             existing.name = restaurant.name;
             existing.contact = restaurant.contact;
             existing.address = restaurant.address;
-            existing.rating = restaurant.rating;
+            existing.Rating = restaurant.Rating;
 
             await _context.SaveChangesAsync();
             return true;

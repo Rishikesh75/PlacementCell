@@ -30,8 +30,8 @@ public class AlumniFeedBackOnCompanyDTO
 
 public class AlumniFeedBackOnCompanyCreateDTO
 {
-    public string companyid { get; set; } = string.Empty;
-    public string alumniid { get; set; } = string.Empty;
+    public string CompanyId { get; set; } = string.Empty;
+    public string Id { get; set; } = string.Empty;
     public string jobProfile { get; set; } = string.Empty;
     public string CTC { get; set; } = string.Empty;
     public string JobLocation { get; set; } = string.Empty;

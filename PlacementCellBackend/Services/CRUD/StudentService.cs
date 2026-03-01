@@ -31,17 +31,17 @@ namespace PlacementCellBackend.Services.CRUD
             return student;
         }
 
-        public async Task<bool> UpdateStudentAsync(string id, Student student)
+        public async Task<bool> UpDateStudentAsync(string id, Student student)
         {
             var existingStudent = await _context.student.FindAsync(id);
             if (existingStudent == null)
                 return false;
 
-            existingStudent.name = student.name;
-            existingStudent.major = student.major;
-            existingStudent.email = student.email;
-            existingStudent.graduationyear = student.graduationyear;
-            existingStudent.phoneno = student.phoneno;
+            existingStudent.Name = student.Name;
+            existingStudent.Major = student.Major;
+            existingStudent.Email = student.Email;
+            existingStudent.GraduationYear = student.GraduationYear;
+            existingStudent.PhoneNo = student.PhoneNo;
 
             await _context.SaveChangesAsync();
             return true;

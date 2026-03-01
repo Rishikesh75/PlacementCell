@@ -7,7 +7,7 @@ namespace PlacementCellBackend.Services.Placements.Interfaces
         Task<IEnumerable<ResearchOpeningDto>> GetAllTeacherResearchOpeningsAsync();
         Task<ResearchOpeningDto?> GetTeacherResearchOpeningByIdAsync(int id);
         Task<ResearchOpeningDto> CreateTeacherResearchOpeningAsync(ResearchOpeningCreateDto researchOpening);
-        Task<bool> UpdateTeacherResearchOpeningAsync(int id, ResearchOpeningCreateDto researchOpening);
+        Task<bool> UpDateTeacherResearchOpeningAsync(int id, ResearchOpeningCreateDto researchOpening);
         Task<bool> DeleteTeacherResearchOpeningAsync(int id);
     }
 }

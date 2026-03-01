@@ -21,22 +21,22 @@ public class AlumniService : IAlumniService
         var alumni = await _context.alumni.ToListAsync();
 
         // Step 2: Get distinct company IDs
-        var companyIds = alumni.Select(a => a.companyid).Distinct().ToList();
+        var CompanyIds = alumni.Select(a => a.CompanyId).Distinct().ToList();
 
         // Step 3: Query Company table to get company names
         var companies = await _context.company
-            .Where(c => companyIds.Contains(c.company_id))
-            .ToDictionaryAsync(c => c.company_id, c => c.company_name);
+            .Where(c => CompanyIds.Contains(c.CompanyId))
+            .ToDictionaryAsync(c => c.CompanyId, c => c.CompanyName);
 
         // Step 4: Map to DTO with company name
         return alumni.Select(a => new AlumniDto
         {
-            AlumniId = a.alumniid,
-            Name = a.name,
-            Position = a.position,
+            Id = a.Id,
+            Name = a.Name,
+            Position = a.Position,
             LinkedInProfile = a.linkdinprofile,
-            CompanyId = a.companyid,
-            CompanyName = companies.TryGetValue(a.companyid, out var name) ? name : "Unknown"
+            CompanyId = a.CompanyId,
+            CompanyName = companies.TryGetValue(a.CompanyId, out var name) ? name : "Unknown"
         });
     }
 
@@ -49,16 +49,16 @@ public class AlumniService : IAlumniService
 
         // Step 2: Query Company table to get company name
         var company = await _context.company
-            .FirstOrDefaultAsync(c => c.company_id == alumni.companyid);
+            .FirstOrDefaultAsync(c => c.CompanyId == alumni.CompanyId);
 
         // Step 3: Map to DTO
         return new AlumniDto
         {
-            AlumniId = alumni.alumniid,
-            Position = alumni.position,
+            Id = alumni.Id,
+            Position = alumni.Position,
             LinkedInProfile = alumni.linkdinprofile,
-            CompanyId = alumni.companyid,
-            CompanyName = company?.company_name ?? "Unknown"
+            CompanyId = alumni.CompanyId,
+            CompanyName = company?.CompanyName ?? "Unknown"
         };
     }
 
@@ -74,7 +74,7 @@ public class AlumniService : IAlumniService
         return alumni;
     }
 
-    public async Task<bool> UpdateAlumniAsync(string id, AlumniDtoUpdate alumni)
+    public async Task<bool> UpDateAlumniAsync(string id, AlumniDtoUpDate alumni)
     {
 
         var existingAlumni = await _context.alumni.FindAsync(id);
@@ -82,10 +82,10 @@ public class AlumniService : IAlumniService
             return false;
 
 
-        existingAlumni.position = alumni.Position;
+        existingAlumni.Position = alumni.Position;
         existingAlumni.linkdinprofile = alumni.LinkedInProfile;
-        existingAlumni.companyid = alumni.CompanyId;
-        existingAlumni.name = alumni.Name;
+        existingAlumni.CompanyId = alumni.CompanyId;
+        existingAlumni.Name = alumni.Name;
 
         await _context.SaveChangesAsync();
         return true;
@@ -104,6 +104,6 @@ public class AlumniService : IAlumniService
 
     public bool AlumniExists(string id)
     {
-        return _context.alumni.Any(e => e.alumniid == id);
+        return _context.alumni.Any(e => e.Id == id);
     }
 }

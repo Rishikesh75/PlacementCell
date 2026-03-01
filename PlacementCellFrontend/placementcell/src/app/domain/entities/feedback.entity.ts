@@ -19,7 +19,7 @@ export class Feedback {
   ) {}
 
   /**
-   * Validate if the feedback is complete
+   * ValiDate if the feedback is complete
    */
   isValid(): boolean {
     return (

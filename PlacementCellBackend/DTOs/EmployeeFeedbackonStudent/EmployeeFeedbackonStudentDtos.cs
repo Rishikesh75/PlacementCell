@@ -10,7 +10,7 @@ public class EmployeeFeedbackonStudentDtos
 
     public string batchId { get; set; } = string.Empty;
 
-    public string description { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }
 
 
@@ -18,5 +18,5 @@ public class EmployeeFeedbackonStudentCreateDtos
 {
     public string CompanyEmpId { get; set; } = string.Empty;
     public string batchId { get; set; } = string.Empty;
-    public string description { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }

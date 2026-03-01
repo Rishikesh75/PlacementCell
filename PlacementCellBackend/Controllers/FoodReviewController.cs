@@ -42,10 +42,10 @@ public class FoodReviewController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateFoodItem(int id, FoodReviewCreateDtos foodItem)
+    public async Task<IActionResult> UpDateFoodItem(int id, FoodReviewCreateDtos foodItem)
     {
 
-        var success = await _foodService.UpdateFoodItemAsync(id, foodItem);
+        var success = await _foodService.UpDateFoodItemAsync(id, foodItem);
         if (!success)
             return NotFound();
 

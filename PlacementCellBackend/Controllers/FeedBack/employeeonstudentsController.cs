@@ -42,11 +42,11 @@ namespace PlacementCellBackend.Controllers.FeedBack
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployeeOnStudent(int id, EmployeeFeedbackonStudentCreateDtos updatedEmployeeOnStudent)
+        public async Task<IActionResult> PutEmployeeOnStudent(int id, EmployeeFeedbackonStudentCreateDtos upDatedEmployeeOnStudent)
         {
 
 
-            var success = await _employeeOnStudentService.UpdateEmployeeOnStudentAsync(id, updatedEmployeeOnStudent);
+            var success = await _employeeOnStudentService.UpDateEmployeeOnStudentAsync(id, upDatedEmployeeOnStudent);
             if (!success)
                 return NotFound();
 

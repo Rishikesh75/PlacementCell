@@ -13,7 +13,7 @@ export class HRRound {
   ) {}
 
   /**
-   * Validate if HR round details are provided
+   * ValiDate if HR round details are provided
    */
   isValid(): boolean {
     // HR round questions are optional, so always valid

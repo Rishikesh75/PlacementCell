@@ -15,7 +15,7 @@ export class CompanyDetails {
   ) {}
 
   /**
-   * Validate if company details are complete
+   * ValiDate if company details are complete
    */
   isValid(): boolean {
     return (

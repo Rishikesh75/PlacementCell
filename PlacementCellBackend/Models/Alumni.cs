@@ -6,7 +6,7 @@ namespace PlacementCellBackend.Models;
 public class Alumni
 {
     [Key]
-    public string alumniid { get; set; } = string.Empty;
+    public string Id { get; set; } = string.Empty;
 
     // College reference (which college they graduated from)
     [Required]
@@ -15,13 +15,13 @@ public class Alumni
     [ForeignKey("CollegeId")]
     public College? College { get; set; }
 
-    public string name { get; set; } = string.Empty;
-    public string position { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Position { get; set; } = string.Empty;
     public string linkdinprofile { get; set; } = string.Empty;
 
     [Required]
-    public string companyid { get; set; } = string.Empty;
+    public string CompanyId { get; set; } = string.Empty;
 
-    [ForeignKey("companyid")]
+    [ForeignKey("CompanyId")]
     public Company? Company { get; set; }
 }

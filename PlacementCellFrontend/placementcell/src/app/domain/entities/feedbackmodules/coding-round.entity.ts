@@ -15,7 +15,7 @@ export class CodingRound {
   ) {}
 
   /**
-   * Validate if coding round details are complete
+   * ValiDate if coding round details are complete
    */
   isValid(): boolean {
     return (

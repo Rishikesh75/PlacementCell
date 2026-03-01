@@ -31,7 +31,7 @@ namespace PlacementCellBackend.Services.CRUD
             return teacher;
         }
 
-        public async Task<bool> UpdateTeacherAsync(string id, Teacher teacher)
+        public async Task<bool> UpDateTeacherAsync(string id, Teacher teacher)
         {
             if (!TeacherExists(id))
                 return false;
@@ -54,7 +54,7 @@ namespace PlacementCellBackend.Services.CRUD
 
         public bool TeacherExists(string id)
         {
-            return _context.teacher.Any(e => e.teacher_id == id);
+            return _context.teacher.Any(e => e.Id == id);
         }
     }
 }

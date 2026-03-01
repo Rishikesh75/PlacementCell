@@ -26,23 +26,23 @@ namespace PlacementCellBackend.Services.Feedback
             }
 
             // Step 2: Get unique company IDs and fetch company names
-            var companyIds = feedbacks.Select(fb => fb.companyid).Distinct().ToList();
+            var CompanyIds = feedbacks.Select(fb => fb.CompanyId).Distinct().ToList();
             var companies = await _context.company
-                .Where(c => companyIds.Contains(c.company_id))
-                .ToDictionaryAsync(c => c.company_id, c => c.company_name);
+                .Where(c => CompanyIds.Contains(c.CompanyId))
+                .ToDictionaryAsync(c => c.CompanyId, c => c.CompanyName);
 
             // Step 3: Get unique alumni IDs and fetch alumni profiles
-            var alumniIds = feedbacks.Select(fb => fb.alumniid).Distinct().ToList();
+            var Ids = feedbacks.Select(fb => fb.Id).Distinct().ToList();
             var alumniProfiles = await _context.alumni
-                .Where(a => alumniIds.Contains(a.alumniid))
-                .ToDictionaryAsync(a => a.alumniid, a => a.linkdinprofile ?? "");
+                .Where(a => Ids.Contains(a.Id))
+                .ToDictionaryAsync(a => a.Id, a => a.linkdinprofile ?? "");
 
             // Step 4: Map to DTOs
             var result = feedbacks.Select(fb => new AlumniFeedBackOnCompanyDTO
             {
-                companyName = companies.TryGetValue(fb.companyid, out var companyName) 
+                companyName = companies.TryGetValue(fb.CompanyId, out var companyName) 
                     ? companyName : "Unknown",
-                AlumniProfile = alumniProfiles.TryGetValue(fb.alumniid, out var profile) 
+                AlumniProfile = alumniProfiles.TryGetValue(fb.Id, out var profile) 
                     ? profile : "",
                 jobProfile = fb.JobProfile,
                 CTC = fb.CTC,
@@ -75,13 +75,13 @@ namespace PlacementCellBackend.Services.Feedback
 
             // Get company name
             var companyName = await _context.company
-                .Where(c => c.company_id == feedback.companyid)
-                .Select(c => c.company_name)
+                .Where(c => c.CompanyId == feedback.CompanyId)
+                .Select(c => c.CompanyName)
                 .FirstOrDefaultAsync() ?? "Unknown";
 
             // Get alumni profile
             var alumniProfile = await _context.alumni
-                .Where(a => a.alumniid == feedback.alumniid)
+                .Where(a => a.Id == feedback.Id)
                 .Select(a => a.linkdinprofile)
                 .FirstOrDefaultAsync() ?? "";
 
@@ -106,8 +106,8 @@ namespace PlacementCellBackend.Services.Feedback
             // Map DTO to Model
             var feedbackModel = new AlumniFeedBackonCompany
             {
-                companyid = feedback.companyid,
-                alumniid = feedback.alumniid,
+                CompanyId = feedback.CompanyId,
+                Id = feedback.Id,
                 JobProfile = feedback.jobProfile,
                 CTC = feedback.CTC,
                 JobLocation = feedback.JobLocation,
@@ -124,13 +124,13 @@ namespace PlacementCellBackend.Services.Feedback
 
             // Get company name for response
             var companyName = await _context.company
-                .Where(c => c.company_id == feedback.companyid)
-                .Select(c => c.company_name)
+                .Where(c => c.CompanyId == feedback.CompanyId)
+                .Select(c => c.CompanyName)
                 .FirstOrDefaultAsync() ?? "Unknown";
 
             // Get alumni profile for response
             var alumniProfile = await _context.alumni
-                .Where(a => a.alumniid == feedback.alumniid)
+                .Where(a => a.Id == feedback.Id)
                 .Select(a => a.linkdinprofile)
                 .FirstOrDefaultAsync() ?? "";
 
@@ -151,15 +151,15 @@ namespace PlacementCellBackend.Services.Feedback
             };
         }
 
-        public async Task<bool> UpdateFeedbackAsync(int id, AlumniFeedBackOnCompanyCreateDTO feedback)
+        public async Task<bool> UpDateFeedbackAsync(int id, AlumniFeedBackOnCompanyCreateDTO feedback)
         {
             var existing = await _context.alumnifeedbackoncompany.FindAsync(id);
             if (existing == null)
                 return false;
 
-            // Update properties from DTO
-            existing.companyid = feedback.companyid;
-            existing.alumniid = feedback.alumniid;
+            // UpDate properties from DTO
+            existing.CompanyId = feedback.CompanyId;
+            existing.Id = feedback.Id;
             existing.JobProfile = feedback.jobProfile;
             existing.CTC = feedback.CTC;
             existing.JobLocation = feedback.JobLocation;

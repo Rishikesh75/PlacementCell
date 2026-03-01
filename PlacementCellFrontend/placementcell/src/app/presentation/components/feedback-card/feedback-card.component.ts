@@ -18,8 +18,8 @@ export class FeedbackCardComponent implements OnChanges {
 
   // Inputs from domain entities
   @Input() feedbackId: string | undefined;
-  @Input() companyId: string | undefined;
-  @Input() alumniId: string | undefined;
+  @Input() CompanyId: string | undefined;
+  @Input() Id: string | undefined;
   @Input() CompanyDetails: CompanyDetails | undefined;
   @Input() CodingRoundInfo: CodingRound | undefined;
   @Input() TechnicalRound: TechnicalRound | undefined;

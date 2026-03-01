@@ -7,15 +7,11 @@ namespace PlacementCellBackend.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CollegeId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(200)]
         public string CollegeName { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(50)]
-        public string CollegeCode { get; set; } = string.Empty;
 
         [MaxLength(500)]
         public string Address { get; set; } = string.Empty;
@@ -26,15 +22,10 @@ namespace PlacementCellBackend.Models
         [MaxLength(100)]
         public string State { get; set; } = string.Empty;
 
-        [MaxLength(100)]
-        public string Email { get; set; } = string.Empty;
-
-        [MaxLength(20)]
-        public string PhoneNo { get; set; } = string.Empty;
-
-        public string? LogoUrl { get; set; }
-
-        public bool IsActive { get; set; } = true;
+        [Required]
+        public string AdminID { get; set; } = string.Empty;
+        [ForeignKey("Id")]
+        public PlacementOfficer? PlacementOfficer { get; set; }
 
         public DateTime RegisteredOn { get; set; } = DateTime.UtcNow;
 

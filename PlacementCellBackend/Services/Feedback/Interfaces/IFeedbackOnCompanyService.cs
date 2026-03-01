@@ -7,7 +7,7 @@ namespace PlacementCellBackend.Services.Feedback.Interfaces
         Task<IEnumerable<AlumniFeedBackOnCompanyDTO>> GetAllFeedbacksAsync();
         Task<AlumniFeedBackOnCompanyDTO?> GetFeedbackByIdAsync(string id);
         Task<AlumniFeedBackOnCompanyDTO> CreateFeedbackAsync(AlumniFeedBackOnCompanyCreateDTO feedback);
-        Task<bool> UpdateFeedbackAsync(int id, AlumniFeedBackOnCompanyCreateDTO feedback);
+        Task<bool> UpDateFeedbackAsync(int id, AlumniFeedBackOnCompanyCreateDTO feedback);
         Task<bool> DeleteFeedbackAsync(int id);
     }
 }

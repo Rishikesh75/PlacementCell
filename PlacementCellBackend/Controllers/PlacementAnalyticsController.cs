@@ -38,10 +38,10 @@ namespace PlacementCellBackend.Controllers
         /// <summary>
         /// Get detailed insights for a specific company
         /// </summary>
-        [HttpGet("companies/{companyId}/insights")]
-        public async Task<ActionResult<CompanyInsights>> GetCompanyInsights(string companyId)
+        [HttpGet("companies/{CompanyId}/insights")]
+        public async Task<ActionResult<CompanyInsights>> GetCompanyInsights(string CompanyId)
         {
-            var insights = await _analyticsService.GetCompanyInsightsAsync(companyId);
+            var insights = await _analyticsService.GetCompanyInsightsAsync(CompanyId);
             return Ok(insights);
         }
 

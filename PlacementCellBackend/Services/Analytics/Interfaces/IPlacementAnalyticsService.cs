@@ -9,7 +9,7 @@ namespace PlacementCellBackend.Services.Analytics.Interfaces
 
         // Company Analytics
         Task<IEnumerable<CompanyRanking>> GetTopCompaniesRankingAsync(int topN = 10);
-        Task<CompanyInsights> GetCompanyInsightsAsync(string companyId);
+        Task<CompanyInsights> GetCompanyInsightsAsync(string CompanyId);
 
         // Alumni Analytics
         Task<AlumniStatistics> GetAlumniStatisticsAsync();

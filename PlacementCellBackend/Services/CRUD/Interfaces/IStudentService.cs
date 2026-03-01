@@ -7,7 +7,7 @@ namespace PlacementCellBackend.Services.CRUD.Interfaces
         Task<IEnumerable<Student>> GetAllStudentsAsync();
         Task<Student?> GetStudentByIdAsync(string id);
         Task<Student> CreateStudentAsync(Student student);
-        Task<bool> UpdateStudentAsync(string id, Student student);
+        Task<bool> UpDateStudentAsync(string id, Student student);
         Task<bool> DeleteStudentAsync(string id);
     }
 }

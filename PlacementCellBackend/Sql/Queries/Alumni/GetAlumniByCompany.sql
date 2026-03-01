@@ -1,10 +1,10 @@
 -- Alumni By Company Query
 -- Returns alumni count grouped by company
 SELECT 
-    a.companyid::VARCHAR AS company_id,
-    COALESCE(c.company_name, 'Unknown')::VARCHAR AS company_name,
+    a.CompanyId::VARCHAR AS CompanyId,
+    COALESCE(c.CompanyName, 'Unknown')::VARCHAR AS CompanyName,
     COUNT(*)::INT AS total_alumni_count
 FROM alumni a
-LEFT JOIN company c ON a.companyid = c.company_id
-GROUP BY a.companyid, c.company_name
+LEFT JOIN company c ON a.CompanyId = c.CompanyId
+GROUP BY a.CompanyId, c.CompanyName
 ORDER BY total_alumni_count DESC

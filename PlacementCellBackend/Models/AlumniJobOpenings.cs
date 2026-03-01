@@ -23,13 +23,13 @@ public class AlumniJobOpenings
     public College? College { get; set; }
 
     [Required]
-    public string companyid { get; set; } = string.Empty;
+    public string CompanyId { get; set; } = string.Empty;
 
-    [ForeignKey("companyid")]
+    [ForeignKey("CompanyId")]
     public Company? Company { get; set; }
 
     public string jobtitle { get; set; } = string.Empty;
-    public DateOnly posteddate { get; set; }
+    public DateOnly postedDate { get; set; }
     public string package { get; set; } = string.Empty;
 
     [Required]

@@ -31,7 +31,7 @@ namespace PlacementCellBackend.Services.CRUD
             return company;
         }
 
-        public async Task<bool> UpdateCompanyAsync(string id, Company company)
+        public async Task<bool> UpDateCompanyAsync(string id, Company company)
         {
             if (!CompanyExists(id))
                 return false;
@@ -54,7 +54,7 @@ namespace PlacementCellBackend.Services.CRUD
 
         public bool CompanyExists(string id)
         {
-            return _context.company.Any(e => e.company_id == id);
+            return _context.company.Any(e => e.CompanyId == id);
         }
     }
 }

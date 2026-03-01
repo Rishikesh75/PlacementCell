@@ -41,9 +41,7 @@ public class AppDbContext : DbContext
         base.OnModelCreating(modelBuilder);
 
         // College unique constraint on CollegeCode
-        modelBuilder.Entity<College>()
-            .HasIndex(c => c.CollegeCode)
-            .IsUnique();
+        modelBuilder.Entity<College>();
 
         // College relationships for college-specific entities
         modelBuilder.Entity<Student>()

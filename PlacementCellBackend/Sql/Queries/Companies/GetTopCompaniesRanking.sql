@@ -2,9 +2,9 @@
 -- Returns top N companies ranked by number of placements
 -- Parameter: p_top_n (number of companies to return)
 SELECT 
-    p.companyid::VARCHAR AS company_id,
-    COALESCE(c.company_name, 'Unknown')::VARCHAR AS company_name,
-    COALESCE(c.industry, 'Unknown')::VARCHAR AS industry,
+    p.CompanyId::VARCHAR AS CompanyId,
+    COALESCE(c.CompanyName, 'Unknown')::VARCHAR AS CompanyName,
+    COALESCE(c.Industry, 'Unknown')::VARCHAR AS Industry,
     COUNT(*)::INT AS total_placements,
     ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC)::INT AS rank,
     AVG(
@@ -15,7 +15,7 @@ SELECT
         END
     )::DECIMAL AS average_package
 FROM placement p
-LEFT JOIN company c ON p.companyid = c.company_id
-GROUP BY p.companyid, c.company_name, c.industry
+LEFT JOIN company c ON p.CompanyId = c.CompanyId
+GROUP BY p.CompanyId, c.CompanyName, c.Industry
 ORDER BY total_placements DESC
 LIMIT :p_top_n

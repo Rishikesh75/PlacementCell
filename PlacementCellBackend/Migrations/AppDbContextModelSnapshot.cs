@@ -26,10 +26,10 @@ namespace PlacementCellBackend.Migrations
 
             modelBuilder.Entity("PlacementCellBackend.Models.Alumni", b =>
                 {
-                    b.Property<string>("alumniid")
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("companyid")
+                    b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -41,9 +41,9 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("alumniid");
+                    b.HasKey("Id");
 
-                    b.HasIndex("companyid");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("alumni");
                 });
@@ -71,19 +71,19 @@ namespace PlacementCellBackend.Migrations
                     b.Property<int>("WorkMode")
                         .HasColumnType("integer");
 
-                    b.Property<string>("alumniid")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("companyid")
+                    b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("feedbackid");
 
-                    b.HasIndex("alumniid");
+                    b.HasIndex("Id");
 
-                    b.HasIndex("companyid");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("alumnifeedbackoncompany");
                 });
@@ -96,7 +96,7 @@ namespace PlacementCellBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<string>("companyid")
+                    b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -108,61 +108,61 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("postedbyalumniid")
+                    b.Property<string>("postedbyId")
                         .HasColumnType("text");
 
-                    b.Property<string>("postedbyemployeeid")
+                    b.Property<string>("postedbyEmployeeId")
                         .HasColumnType("text");
 
                     b.Property<int>("postedbytype")
                         .HasColumnType("integer");
 
-                    b.Property<DateOnly>("posteddate")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("postedDate")
+                        .HasColumnType("Date");
 
                     b.HasKey("id");
 
-                    b.HasIndex("companyid");
+                    b.HasIndex("CompanyId");
 
-                    b.HasIndex("postedbyalumniid");
+                    b.HasIndex("postedbyId");
 
-                    b.HasIndex("postedbyemployeeid");
+                    b.HasIndex("postedbyEmployeeId");
 
                     b.ToTable("alumnijobposition");
                 });
 
             modelBuilder.Entity("PlacementCellBackend.Models.Company", b =>
                 {
-                    b.Property<string>("company_id")
+                    b.Property<string>("CompanyId")
                         .HasColumnType("text");
 
-                    b.Property<string>("company_name")
+                    b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("industry")
+                    b.Property<string>("Industry")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("company_id");
+                    b.HasKey("CompanyId");
 
                     b.ToTable("company");
                 });
 
             modelBuilder.Entity("PlacementCellBackend.Models.Companyemployee", b =>
                 {
-                    b.Property<string>("employeeid")
+                    b.Property<string>("EmployeeId")
                         .HasColumnType("text");
 
-                    b.Property<string>("companyid")
+                    b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("designation")
+                    b.Property<string>("Designation")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -170,9 +170,9 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("employeeid");
+                    b.HasKey("EmployeeId");
 
-                    b.HasIndex("companyid");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("companyemployee");
                 });
@@ -215,11 +215,11 @@ namespace PlacementCellBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<string>("companyempemail")
+                    b.Property<string>("companyempEmail")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("companyid")
+                    b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -237,7 +237,7 @@ namespace PlacementCellBackend.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("companyid");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("experienceopening");
                 });
@@ -250,25 +250,25 @@ namespace PlacementCellBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<string>("companyid")
+                    b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateOnly>("date")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("Date");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("restaurentid")
+                    b.Property<int>("RestaurentId")
                         .HasColumnType("integer");
 
                     b.HasKey("id");
 
-                    b.HasIndex("companyid");
+                    b.HasIndex("CompanyId");
 
-                    b.HasIndex("restaurentid");
+                    b.HasIndex("RestaurentId");
 
                     b.ToTable("foodReview");
                 });
@@ -281,7 +281,7 @@ namespace PlacementCellBackend.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
-                    b.Property<string>("companyid")
+                    b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -293,29 +293,29 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateOnly>("placementdate")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("placementDate")
+                        .HasColumnType("Date");
 
-                    b.Property<string>("studentid")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("id");
 
-                    b.HasIndex("companyid");
+                    b.HasIndex("CompanyId");
 
-                    b.HasIndex("studentid");
+                    b.HasIndex("Id");
 
                     b.ToTable("placement");
                 });
 
             modelBuilder.Entity("PlacementCellBackend.Models.Restaurents", b =>
                 {
-                    b.Property<int>("restaurentid")
+                    b.Property<int>("RestaurentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("restaurentid"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RestaurentId"));
 
                     b.Property<string>("address")
                         .IsRequired()
@@ -329,25 +329,25 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("rating")
+                    b.Property<string>("Rating")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("restaurentid");
+                    b.HasKey("RestaurentId");
 
                     b.ToTable("restaurents");
                 });
 
             modelBuilder.Entity("PlacementCellBackend.Models.Student", b =>
                 {
-                    b.Property<string>("studentid")
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("graduationyear")
+                    b.Property<long>("GraduationYear")
                         .HasColumnType("bigint");
 
                     b.Property<string>("major")
@@ -362,25 +362,25 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("phoneno")
+                    b.Property<string>("PhoneNo")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("studentid");
+                    b.HasKey("Id");
 
                     b.ToTable("student");
                 });
 
             modelBuilder.Entity("PlacementCellBackend.Models.Teacher", b =>
                 {
-                    b.Property<string>("teacher_id")
+                    b.Property<string>("Id")
                         .HasColumnType("text");
 
                     b.Property<string>("department")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("email")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -388,7 +388,7 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("teacher_id");
+                    b.HasKey("Id");
 
                     b.ToTable("teacher");
                 });
@@ -402,13 +402,13 @@ namespace PlacementCellBackend.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("id"));
 
                     b.Property<DateOnly?>("deadline")
-                        .HasColumnType("date");
+                        .HasColumnType("Date");
 
                     b.Property<string>("department")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -419,8 +419,8 @@ namespace PlacementCellBackend.Migrations
                     b.Property<bool>("isactive")
                         .HasColumnType("boolean");
 
-                    b.Property<DateOnly>("posteddate")
-                        .HasColumnType("date");
+                    b.Property<DateOnly>("postedDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("researcharea")
                         .IsRequired()
@@ -430,7 +430,7 @@ namespace PlacementCellBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("teacherid")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -440,7 +440,7 @@ namespace PlacementCellBackend.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("teacherid");
+                    b.HasIndex("Id");
 
                     b.ToTable("teacherresearchopening");
                 });
@@ -449,7 +449,7 @@ namespace PlacementCellBackend.Migrations
                 {
                     b.HasOne("PlacementCellBackend.Models.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("companyid")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -460,13 +460,13 @@ namespace PlacementCellBackend.Migrations
                 {
                     b.HasOne("PlacementCellBackend.Models.Alumni", "Alumni")
                         .WithMany()
-                        .HasForeignKey("alumniid")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PlacementCellBackend.Models.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("companyid")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -611,17 +611,17 @@ namespace PlacementCellBackend.Migrations
                 {
                     b.HasOne("PlacementCellBackend.Models.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("companyid")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PlacementCellBackend.Models.Alumni", "PostedByAlumni")
                         .WithMany()
-                        .HasForeignKey("postedbyalumniid");
+                        .HasForeignKey("postedbyId");
 
                     b.HasOne("PlacementCellBackend.Models.Companyemployee", "PostedByEmployee")
                         .WithMany()
-                        .HasForeignKey("postedbyemployeeid");
+                        .HasForeignKey("postedbyEmployeeId");
 
                     b.Navigation("Company");
 
@@ -634,7 +634,7 @@ namespace PlacementCellBackend.Migrations
                 {
                     b.HasOne("PlacementCellBackend.Models.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("companyid")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -654,7 +654,7 @@ namespace PlacementCellBackend.Migrations
                 {
                     b.HasOne("PlacementCellBackend.Models.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("companyid")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -665,13 +665,13 @@ namespace PlacementCellBackend.Migrations
                 {
                     b.HasOne("PlacementCellBackend.Models.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("companyid")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PlacementCellBackend.Models.Restaurents", "Restaurent")
                         .WithMany()
-                        .HasForeignKey("restaurentid")
+                        .HasForeignKey("RestaurentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -684,13 +684,13 @@ namespace PlacementCellBackend.Migrations
                 {
                     b.HasOne("PlacementCellBackend.Models.Company", "Company")
                         .WithMany()
-                        .HasForeignKey("companyid")
+                        .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PlacementCellBackend.Models.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("studentid")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -703,7 +703,7 @@ namespace PlacementCellBackend.Migrations
                 {
                     b.HasOne("PlacementCellBackend.Models.Teacher", "Teacher")
                         .WithMany()
-                        .HasForeignKey("teacherid")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

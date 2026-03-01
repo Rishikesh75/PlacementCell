@@ -39,10 +39,10 @@ namespace PlacementCellBackend.Controllers.Alumni
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAlumniPlacement(int id, AlumniJobOpeningCreateDto updatedAlumniPlacement)
+        public async Task<IActionResult> UpDateAlumniPlacement(int id, AlumniJobOpeningCreateDto upDatedAlumniPlacement)
         {
 
-            var success = await _alumniPlacementService.UpdateAlumniPlacementAsync(id, updatedAlumniPlacement);
+            var success = await _alumniPlacementService.UpDateAlumniPlacementAsync(id, upDatedAlumniPlacement);
             if (!success)
                 return NotFound();
 

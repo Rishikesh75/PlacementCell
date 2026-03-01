@@ -19,7 +19,7 @@ export class TechnicalRound {
   ) {}
 
   /**
-   * Validate if technical round details are complete
+   * ValiDate if technical round details are complete
    */
   isValid(): boolean {
     return (

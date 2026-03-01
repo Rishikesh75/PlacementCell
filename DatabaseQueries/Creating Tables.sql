@@ -19,21 +19,21 @@
 
 -- -- 1. Company (Parent)
 -- CREATE TABLE Company (
---     company_id TEXT PRIMARY KEY,
---     company_name TEXT NOT NULL,
---     industry TEXT NOT NULL
+--     CompanyId TEXT PRIMARY KEY,
+--     CompanyName TEXT NOT NULL,
+--     Industry TEXT NOT NULL
 -- );
 
 -- -- 2. Alumni (Depends on Company)
 -- CREATE TABLE Alumni (
---     AlumniId TEXT PRIMARY KEY,
+--     Id TEXT PRIMARY KEY,
 --     Position TEXT,
 --     LinkdinProfile TEXT,
 --     CompanyId TEXT NOT NULL,
 
 --     CONSTRAINT fk_company
 --         FOREIGN KEY (CompanyId)
---         REFERENCES Company(company_id)
+--         REFERENCES Company(CompanyId)
 --         ON DELETE SET NULL
 -- );
 
@@ -47,7 +47,7 @@
 
 --     CONSTRAINT fk_company
 --         FOREIGN KEY (CompanyId)
---         REFERENCES Company(company_id)
+--         REFERENCES Company(CompanyId)
 --         ON DELETE CASCADE
 -- );
 
@@ -75,7 +75,7 @@
 
 --     CONSTRAINT fk_company
 --         FOREIGN KEY (CompanyId)
---         REFERENCES Company(company_id)
+--         REFERENCES Company(CompanyId)
 --         ON DELETE CASCADE
 -- );
 
@@ -91,19 +91,19 @@
 -- -- 7. Food (Depends on Restaurents & Company)
 -- CREATE TABLE Food (
 --     Id SERIAL PRIMARY KEY,
---     restaurentId INT NOT NULL,
---     companyID TEXT NOT NULL,
+--     RestaurentId INT NOT NULL,
+--     CompanyId TEXT NOT NULL,
 --     Description TEXT,
---     Date DATE DEFAULT CURRENT_DATE,
+--     Date Date DEFAULT CURRENT_Date,
 
 --     CONSTRAINT fk_restaurent
---         FOREIGN KEY (restaurentId)
+--         FOREIGN KEY (RestaurentId)
 --         REFERENCES Restaurents(RestaurentId)
 --         ON DELETE CASCADE,
 
 --     CONSTRAINT fk_company
---         FOREIGN KEY (companyID)
---         REFERENCES Company(company_id)
+--         FOREIGN KEY (CompanyId)
+--         REFERENCES Company(CompanyId)
 --         ON DELETE CASCADE
 -- );
 
@@ -111,33 +111,33 @@
 -- CREATE TABLE FeedBackOnCompany (
 --     FeedbackId TEXT PRIMARY KEY,
 --     CompanyId TEXT NOT NULL,
---     AlumniID TEXT NOT NULL,
+--     Id TEXT NOT NULL,
 --     Description TEXT,
 
 --     CONSTRAINT fk_company
 --         FOREIGN KEY (CompanyId)
---         REFERENCES Company(company_id)
+--         REFERENCES Company(CompanyId)
 --         ON DELETE CASCADE,
 
 --     CONSTRAINT fk_alumni
---         FOREIGN KEY (AlumniID)
---         REFERENCES Alumni(AlumniId)
+--         FOREIGN KEY (Id)
+--         REFERENCES Alumni(Id)
 --         ON DELETE CASCADE
 -- );
 
 -- -- 9. Student (Independent)
 -- CREATE TABLE Student (
---     StudentId VARCHAR PRIMARY KEY,
+--     Id VARCHAR PRIMARY KEY,
 --     name VARCHAR,
 --     Major VARCHAR,
 --     Email VARCHAR,
 --     GraduationYear BIGINT,
---     PhoneNO VARCHAR
+--     PhoneNo VARCHAR
 -- );
 
 -- -- 10. Teacher (Independent)
 -- CREATE TABLE Teacher (
---     Teacher_Id Text PRIMARY KEY,
+--     Id Text PRIMARY KEY,
 --     Name VARCHAR,
 --     Email VARCHAR,
 --     Department BIGINT
@@ -146,18 +146,18 @@
 -- -- 11. TeacherPlacements (Depends on Teacher & Company)
 -- CREATE TABLE TeacherPlacements (
 --     Id SERIAL PRIMARY KEY,
---     TeacherId TEXT NOT NULL,
+--     Id TEXT NOT NULL,
 --     CompanyId TEXT NOT NULL,
 --     EmployeeEmail TEXT,
 
 --     CONSTRAINT fk_teacher
---         FOREIGN KEY (TeacherId)
---         REFERENCES Teacher(Teacher_Id)
+--         FOREIGN KEY (Id)
+--         REFERENCES Teacher(Id)
 --         ON DELETE SET NULL,
 
 --     CONSTRAINT fk_company
 --         FOREIGN KEY (CompanyId)
---         REFERENCES Company(company_id)
+--         REFERENCES Company(CompanyId)
 --         ON DELETE CASCADE
 -- );
 
@@ -171,12 +171,12 @@
 -- -- INSERT SAMPLE DATA
 -- -- =======================
 
--- INSERT INTO Company (company_id, company_name, industry) VALUES
+-- INSERT INTO Company (CompanyId, CompanyName, Industry) VALUES
 -- ('C001', 'TechNova', 'Software'),
 -- ('C002', 'GreenFoods', 'AgriTech'),
 -- ('C003', 'FinMate', 'Fintech');
 
--- INSERT INTO Alumni (AlumniId, Position, LinkdinProfile, CompanyId) VALUES
+-- INSERT INTO Alumni (Id, Position, LinkdinProfile, CompanyId) VALUES
 -- ('A001', 'Software Engineer', 'https://linkedin.com/in/a001', 'C001'),
 -- ('A002', 'Data Scientist', 'https://linkedin.com/in/a002', 'C003')
 
@@ -196,23 +196,23 @@
 -- ('Spice Delight', '9876543210', '123 Food Lane', '4.5'),
 -- ('Green Bites', '9123456780', '456 Vegan St', '4.2');
 
--- INSERT INTO Food (restaurentId, companyID, Description) VALUES
+-- INSERT INTO Food (RestaurentId, CompanyId, Description) VALUES
 -- (1, 'C001', 'Lunch for company event'),
 -- (2, 'C002', 'Healthy snacks partnership');
 
--- INSERT INTO FeedBackOnCompany (FeedbackId, CompanyId, AlumniID, Description) VALUES
+-- INSERT INTO FeedBackOnCompany (FeedbackId, CompanyId, Id, Description) VALUES
 -- ('F001', 'C001', 'A001', 'Great company culture'),
 -- ('F002', 'C003', 'A002', 'Good opportunities for growth');
 
--- INSERT INTO Student (StudentId, name, Major, Email, GraduationYear, PhoneNO) VALUES
+-- INSERT INTO Student (Id, name, Major, Email, GraduationYear, PhoneNo) VALUES
 -- ('Cs21b1075', 'Rahul Mehta', 'Computer Science', 'rahul@example.com', 2022, '9876543210'),
 -- ('CS21B1043', 'Priya Singh', 'Information Technology', 'priya@example.com', 2023, '8765432109');
 
--- INSERT INTO Teacher (Teacher_Id, Name, Email, Department) VALUES
+-- INSERT INTO Teacher (Id, Name, Email, Department) VALUES
 -- ('CS21001', 'Dr. Neha Sharma', 'neha.sharma@univ.edu', 101),
 -- ('CS21002', 'Prof. Arjun Rao', 'arjun.rao@univ.edu', 102);
 
--- INSERT INTO TeacherPlacements (TeacherId, CompanyId, EmployeeEmail) VALUES
+-- INSERT INTO TeacherPlacements (Id, CompanyId, EmployeeEmail) VALUES
 -- ('CS21001', 'C001', 'alice@technova.com'),
 -- ('CS21002', 'C003', 'bob@finmate.com');
 select * from Alumni;

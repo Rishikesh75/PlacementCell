@@ -6,17 +6,17 @@
 export class Resource {
   constructor(
     public category: string,
-    public description: string,
+    public Description: string,
     public link: string
   ) {}
 
   /**
-   * Validate if resource has required information
+   * ValiDate if resource has required information
    */
   isValid(): boolean {
     return (
       (this.category?.trim() !== '' || false) &&
-      (this.description?.trim() !== '' || false)
+      (this.Description?.trim() !== '' || false)
     );
   }
 

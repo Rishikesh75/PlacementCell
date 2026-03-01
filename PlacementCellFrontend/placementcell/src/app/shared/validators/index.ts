@@ -5,7 +5,7 @@
  */
 
 // Example:
-// export * from './email.validator';
+// export * from './Email.validator';
 // export * from './password-match.validator';
 
 // This export is required to make this a valid module

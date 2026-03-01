@@ -39,11 +39,11 @@ namespace PlacementCellBackend.Controllers.FeedBack
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFeedback(int id, AlumniFeedBackOnCompanyCreateDTO updatedFeedback)
+        public async Task<IActionResult> PutFeedback(int id, AlumniFeedBackOnCompanyCreateDTO upDatedFeedback)
         {
 
 
-            var success = await _feedbackService.UpdateFeedbackAsync(id, updatedFeedback);
+            var success = await _feedbackService.UpDateFeedbackAsync(id, upDatedFeedback);
             if (!success)
                 return NotFound();
 

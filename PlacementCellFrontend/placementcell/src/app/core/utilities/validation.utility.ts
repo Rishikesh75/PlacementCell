@@ -4,19 +4,19 @@
  */
 
 /**
- * Validate email format
- * @param email - Email address to validate
- * @returns True if email is valid
+ * ValiDate Email format
+ * @param Email - Email address to valiDate
+ * @returns True if Email is valid
  */
-export function isValidEmail(email: string): boolean {
-  if (!email) return false;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
+export function isValidEmail(Email: string): boolean {
+  if (!Email) return false;
+  const EmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return EmailRegex.test(Email);
 }
 
 /**
- * Validate phone number (Indian format)
- * @param phone - Phone number to validate
+ * ValiDate phone number (Indian format)
+ * @param phone - Phone number to valiDate
  * @returns True if phone is valid
  */
 export function isValidPhone(phone: string): boolean {
@@ -26,8 +26,8 @@ export function isValidPhone(phone: string): boolean {
 }
 
 /**
- * Validate URL format
- * @param url - URL to validate
+ * ValiDate URL format
+ * @param url - URL to valiDate
  * @returns True if URL is valid
  */
 export function isValidUrl(url: string): boolean {
@@ -41,11 +41,11 @@ export function isValidUrl(url: string): boolean {
 }
 
 /**
- * Validate password strength
- * @param password - Password to validate
+ * ValiDate password strength
+ * @param password - Password to valiDate
  * @returns Object with validity and strength level
  */
-export function validatePassword(password: string): { isValid: boolean; strength: 'weak' | 'medium' | 'strong' } {
+export function valiDatePassword(password: string): { isValid: boolean; strength: 'weak' | 'medium' | 'strong' } {
   if (!password) {
     return { isValid: false, strength: 'weak' };
   }
@@ -70,7 +70,7 @@ export function validatePassword(password: string): { isValid: boolean; strength
 }
 
 /**
- * Validate Indian PAN card number
+ * ValiDate Indian PAN card number
  * @param pan - PAN card number
  * @returns True if PAN is valid
  */
@@ -81,7 +81,7 @@ export function isValidPAN(pan: string): boolean {
 }
 
 /**
- * Validate Aadhaar number
+ * ValiDate Aadhaar number
  * @param aadhaar - Aadhaar number
  * @returns True if Aadhaar is valid
  */
@@ -92,7 +92,7 @@ export function isValidAadhaar(aadhaar: string): boolean {
 }
 
 /**
- * Validate CGPA (0-10 scale)
+ * ValiDate CGPA (0-10 scale)
  * @param cgpa - CGPA value
  * @returns True if CGPA is valid
  */
@@ -101,7 +101,7 @@ export function isValidCGPA(cgpa: number): boolean {
 }
 
 /**
- * Validate percentage (0-100)
+ * ValiDate percentage (0-100)
  * @param percentage - Percentage value
  * @returns True if percentage is valid
  */
@@ -140,7 +140,7 @@ export function isAlphanumeric(str: string): boolean {
 }
 
 /**
- * Validate file size
+ * ValiDate file size
  * @param fileSize - File size in bytes
  * @param maxSizeMB - Maximum allowed size in MB
  * @returns True if file size is within limit
@@ -151,7 +151,7 @@ export function isValidFileSize(fileSize: number, maxSizeMB: number): boolean {
 }
 
 /**
- * Validate file extension
+ * ValiDate file extension
  * @param fileName - Name of the file
  * @param allowedExtensions - Array of allowed extensions (e.g., ['.pdf', '.doc'])
  * @returns True if file extension is allowed

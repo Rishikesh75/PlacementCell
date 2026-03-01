@@ -97,11 +97,11 @@ namespace PlacementCellBackend.Services.Analytics
                         recentPlacements.Add(new RecentPlacement
                         {
                             PlacementId = reader.GetInt32(reader.GetOrdinal("placement_id")),
-                            StudentId = reader.GetString(reader.GetOrdinal("student_id")),
+                            Id = reader.GetString(reader.GetOrdinal("student_id")),
                             StudentName = reader.GetString(reader.GetOrdinal("student_name")),
-                            CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
+                            CompanyName = reader.GetString(reader.GetOrdinal("CompanyName")),
                             JobTitle = reader.GetString(reader.GetOrdinal("job_title")),
-                            PlacementDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("placement_date"))),
+                            PlacementDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("placement_Date"))),
                             Package = reader.GetString(reader.GetOrdinal("package"))
                         });
                     }
@@ -138,16 +138,16 @@ namespace PlacementCellBackend.Services.Analytics
                     using var reader = await command.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {
-                        var companyId = reader.GetString(reader.GetOrdinal("company_id"));
+                        var CompanyId = reader.GetString(reader.GetOrdinal("CompanyId"));
                         var avgPackage = reader.IsDBNull(reader.GetOrdinal("average_package"))
                             ? 0m
                             : reader.GetDecimal(reader.GetOrdinal("average_package"));
 
                         rankings.Add(new CompanyRanking
                         {
-                            CompanyId = companyId,
-                            CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
-                            Industry = reader.GetString(reader.GetOrdinal("industry")),
+                            CompanyId = CompanyId,
+                            CompanyName = reader.GetString(reader.GetOrdinal("CompanyName")),
+                            Industry = reader.GetString(reader.GetOrdinal("Industry")),
                             TotalPlacements = reader.GetInt32(reader.GetOrdinal("total_placements")),
                             Rank = reader.GetInt32(reader.GetOrdinal("rank")),
                             AveragePackage = avgPackage > 0 ? $"{avgPackage:F2} LPA" : "N/A",
@@ -161,7 +161,7 @@ namespace PlacementCellBackend.Services.Analytics
                 {
                     using var command = connection.CreateCommand();
                     command.CommandText = Queries.GetCompanyYearlyPlacements;
-                    command.Parameters.Add(new NpgsqlParameter("p_company_id", ranking.CompanyId));
+                    command.Parameters.Add(new NpgsqlParameter("p_CompanyId", ranking.CompanyId));
 
                     using var reader = await command.ExecuteReaderAsync();
                     var yearlyPlacements = new List<YearlyPlacementCount>();
@@ -189,7 +189,7 @@ namespace PlacementCellBackend.Services.Analytics
         /// <summary>
         /// Get detailed insights for a specific company
         /// </summary>
-        public async Task<CompanyInsights> GetCompanyInsightsAsync(string companyId)
+        public async Task<CompanyInsights> GetCompanyInsightsAsync(string CompanyId)
         {
             var connection = _context.Database.GetDbConnection();
             await connection.OpenAsync();
@@ -198,7 +198,7 @@ namespace PlacementCellBackend.Services.Analytics
             {
                 using var command = connection.CreateCommand();
                 command.CommandText = Queries.GetCompanyInsights;
-                command.Parameters.Add(new NpgsqlParameter("p_company_id", companyId));
+                command.Parameters.Add(new NpgsqlParameter("p_CompanyId", CompanyId));
 
                 using var reader = await command.ExecuteReaderAsync();
 
@@ -214,9 +214,9 @@ namespace PlacementCellBackend.Services.Analytics
 
                     return new CompanyInsights
                     {
-                        CompanyId = reader.GetString(reader.GetOrdinal("company_id")),
-                        CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
-                        Industry = reader.GetString(reader.GetOrdinal("industry")),
+                        CompanyId = reader.GetString(reader.GetOrdinal("CompanyId")),
+                        CompanyName = reader.GetString(reader.GetOrdinal("CompanyName")),
+                        Industry = reader.GetString(reader.GetOrdinal("Industry")),
                         TotalAlumniPlaced = reader.GetInt32(reader.GetOrdinal("total_alumni_placed")),
                         TotalFeedbacks = reader.GetInt32(reader.GetOrdinal("total_feedbacks")),
                         AverageCTC = reader.IsDBNull(reader.GetOrdinal("average_ctc"))
@@ -227,7 +227,7 @@ namespace PlacementCellBackend.Services.Analytics
                     };
                 }
 
-                return new CompanyInsights { CompanyId = companyId };
+                return new CompanyInsights { CompanyId = CompanyId };
             }
             finally
             {
@@ -271,8 +271,8 @@ namespace PlacementCellBackend.Services.Analytics
                     {
                         companyWiseList.Add(new CompanyAlumniCount
                         {
-                            CompanyId = reader.GetString(reader.GetOrdinal("company_id")),
-                            CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
+                            CompanyId = reader.GetString(reader.GetOrdinal("CompanyId")),
+                            CompanyName = reader.GetString(reader.GetOrdinal("CompanyName")),
                             TotalAlumniCount = reader.GetInt32(reader.GetOrdinal("total_alumni_count")),
                             PositionWiseCount = new List<PositionCount>()
                         });
@@ -284,7 +284,7 @@ namespace PlacementCellBackend.Services.Analytics
                 {
                     using var command = connection.CreateCommand();
                     command.CommandText = Queries.GetPositionsByCompany;
-                    command.Parameters.Add(new NpgsqlParameter("p_company_id", company.CompanyId));
+                    command.Parameters.Add(new NpgsqlParameter("p_CompanyId", company.CompanyId));
 
                     using var reader = await command.ExecuteReaderAsync();
                     var positions = new List<PositionCount>();
@@ -332,11 +332,11 @@ namespace PlacementCellBackend.Services.Analytics
                     placements.Add(new RecentPlacement
                     {
                         PlacementId = reader.GetInt32(reader.GetOrdinal("placement_id")),
-                        StudentId = reader.GetString(reader.GetOrdinal("student_id")),
+                        Id = reader.GetString(reader.GetOrdinal("student_id")),
                         StudentName = reader.GetString(reader.GetOrdinal("student_name")),
-                        CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
+                        CompanyName = reader.GetString(reader.GetOrdinal("CompanyName")),
                         JobTitle = reader.GetString(reader.GetOrdinal("job_title")),
-                        PlacementDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("placement_date"))),
+                        PlacementDate = DateOnly.FromDateTime(reader.GetDateTime(reader.GetOrdinal("placement_Date"))),
                         Package = reader.GetString(reader.GetOrdinal("package"))
                     });
                 }

@@ -211,8 +211,8 @@ export class Greybox implements OnInit, OnChanges {
     this.inputBoxes[idx].Url = link;
   }
 
-  onResourceDescription(description: string, idx: number): void {
-    this.inputBoxes[idx].Description = description;
+  onResourceDescription(Description: string, idx: number): void {
+    this.inputBoxes[idx].Description = Description;
   }
 
 

@@ -6,7 +6,7 @@
 -- -- ============================================
 -- -- 1. COMPANY TABLE (No dependencies)
 -- -- ============================================
--- INSERT INTO company (company_id, company_name, industry) VALUES
+-- INSERT INTO company (CompanyId, CompanyName, Industry) VALUES
 -- ('COMP001', 'Google', 'Technology'),
 -- ('COMP002', 'Microsoft', 'Technology'),
 -- ('COMP003', 'Amazon', 'E-Commerce'),
@@ -21,7 +21,7 @@
 -- -- ============================================
 -- -- 2. STUDENT TABLE (No dependencies)
 -- -- ============================================
--- INSERT INTO student (studentid, password, name, major, email, graduationyear, phoneno) VALUES
+-- INSERT INTO student (Id, password, name, major, Email, GraduationYear, PhoneNo) VALUES
 -- ('STU001', 'password123', 'Rahul Sharma', 'Computer Science', 'rahul.sharma@university.edu', 2025, '9876543210'),
 -- ('STU002', 'password123', 'Priya Patel', 'Information Technology', 'priya.patel@university.edu', 2025, '9876543211'),
 -- ('STU003', 'password123', 'Amit Kumar', 'Electronics', 'amit.kumar@university.edu', 2024, '9876543212'),
@@ -36,7 +36,7 @@
 -- -- ============================================
 -- -- 3. TEACHER TABLE (No dependencies)
 -- -- ============================================
--- INSERT INTO teacher (teacher_id, name, department, email) VALUES
+-- INSERT INTO teacher (Id, name, department, Email) VALUES
 -- ('TCH001', 'Dr. Ramesh Iyer', 'Computer Science', 'ramesh.iyer@university.edu'),
 -- ('TCH002', 'Dr. Sunita Verma', 'Information Technology', 'sunita.verma@university.edu'),
 -- ('TCH003', 'Dr. Arun Pillai', 'Electronics', 'arun.pillai@university.edu'),
@@ -46,7 +46,7 @@
 -- -- ============================================
 -- -- 4. RESTAURENTS TABLE (No dependencies)
 -- -- ============================================
--- INSERT INTO restaurents (restaurentid, name, contact, address, rating) VALUES
+-- INSERT INTO restaurents (RestaurentId, name, contact, address, Rating) VALUES
 -- (1, 'Campus Canteen', '9800000001', 'Main Campus Building', '4.2'),
 -- (2, 'Food Court Express', '9800000002', 'Student Center', '4.5'),
 -- (3, 'The Grill House', '9800000003', 'Near East Gate', '4.0'),
@@ -56,7 +56,7 @@
 -- -- ============================================
 -- -- 5. ALUMNI TABLE (Depends on: company)
 -- -- ============================================
--- INSERT INTO alumni (alumniid, position, linkdinprofile, companyid) VALUES
+-- INSERT INTO alumni (Id, position, linkdinprofile, CompanyId) VALUES
 -- ('ALM001', 'Senior Software Engineer', 'https://linkedin.com/in/alumni001', 'COMP001'),
 -- ('ALM002', 'Product Manager', 'https://linkedin.com/in/alumni002', 'COMP002'),
 -- ('ALM003', 'Data Scientist', 'https://linkedin.com/in/alumni003', 'COMP003'),
@@ -69,7 +69,7 @@
 -- -- ============================================
 -- -- 6. COMPANYEMPLOYEE TABLE (Depends on: company)
 -- -- ============================================
--- INSERT INTO companyemployee (employeeid, name, designation, email, companyid) VALUES
+-- INSERT INTO companyemployee (EmployeeId, name, Designation, Email, CompanyId) VALUES
 -- ('EMP001', 'John Smith', 'HR Manager', 'john.smith@google.com', 'COMP001'),
 -- ('EMP002', 'Sarah Johnson', 'Technical Recruiter', 'sarah.johnson@microsoft.com', 'COMP002'),
 -- ('EMP003', 'Michael Brown', 'Campus Relations Lead', 'michael.brown@amazon.com', 'COMP003'),
@@ -82,7 +82,7 @@
 -- -- ============================================
 -- -- 7. PLACEMENT TABLE (Depends on: student, company)
 -- -- ============================================
--- INSERT INTO placement (studentid, companyid, jobtitle, placementdate, package) VALUES
+-- INSERT INTO placement (Id, CompanyId, jobtitle, placementDate, package) VALUES
 -- ('STU001', 'COMP001', 'Software Engineer', '2024-12-15', '25 LPA'),
 -- ('STU002', 'COMP002', 'Associate SDE', '2024-12-18', '22 LPA'),
 -- ('STU003', 'COMP003', 'SDE-1', '2024-11-20', '28 LPA'),
@@ -95,7 +95,7 @@
 -- -- ============================================
 -- -- 8. TEACHERRESEARCHOPENING TABLE (Depends on: teacher)
 -- -- ============================================
--- INSERT INTO teacherresearchopening (teacherid, title, description, department, researcharea, stipend, duration, posteddate, deadline, isactive) VALUES
+-- INSERT INTO teacherresearchopening (Id, title, Description, department, researcharea, stipend, duration, postedDate, deadline, isactive) VALUES
 -- ('TCH001', 'Machine Learning for Healthcare', 'Research on ML applications in medical diagnosis', 'Computer Science', 'Machine Learning', '25000/month', '6 months', '2025-01-01', '2025-02-15', true),
 -- ('TCH002', 'Cloud Computing Security', 'Study of security vulnerabilities in cloud infrastructure', 'Information Technology', 'Cybersecurity', '20000/month', '4 months', '2025-01-05', '2025-02-28', true),
 -- ('TCH004', 'Natural Language Processing', 'Research on NLP for regional languages', 'Data Science', 'NLP', '30000/month', '8 months', '2024-12-20', '2025-01-31', true),
@@ -106,7 +106,7 @@
 -- -- 9. ALUMNIJOBPOSITION TABLE (Depends on: company, alumni, companyemployee)
 -- -- PostedByType: Alumni=0, CompanyEmployee=1
 -- -- ============================================
--- INSERT INTO alumnijobposition (companyid, jobtitle, posteddate, package, postedbytype, postedbyalumniid, postedbyemployeeid) VALUES
+-- INSERT INTO alumnijobposition (CompanyId, jobtitle, postedDate, package, postedbytype, postedbyId, postedbyEmployeeId) VALUES
 -- ('COMP001', 'Software Engineer L3', '2025-01-02', '30 LPA', 0, 'ALM001', NULL),
 -- ('COMP002', 'Product Manager', '2025-01-05', '35 LPA', 0, 'ALM002', NULL),
 -- ('COMP003', 'SDE Intern', '2024-12-28', '80K/month stipend', 1, NULL, 'EMP003'),
@@ -119,7 +119,7 @@
 -- -- ============================================
 -- -- 10. EXPERIENCEOPENING TABLE (Depends on: company)
 -- -- ============================================
--- INSERT INTO experienceopening (companyid, jobid, jobtitle, experiencerequired, companyempemail) VALUES
+-- INSERT INTO experienceopening (CompanyId, jobid, jobtitle, experiencerequired, companyempEmail) VALUES
 -- ('COMP001', 'JOB001', 'Senior Software Engineer', '3-5 years', 'john.smith@google.com'),
 -- ('COMP002', 'JOB002', 'Technical Lead', '5-8 years', 'sarah.johnson@microsoft.com'),
 -- ('COMP003', 'JOB003', 'Principal Engineer', '8+ years', 'michael.brown@amazon.com'),
@@ -131,7 +131,7 @@
 -- -- ============================================
 -- -- 11. FOODREVIEW TABLE (Depends on: restaurents, company)
 -- -- ============================================
--- INSERT INTO "foodReview" (restaurentid, companyid, description, date) VALUES
+-- INSERT INTO "foodReview" (RestaurentId, CompanyId, Description, Date) VALUES
 -- (1, 'COMP001', 'Google team visited - excellent lunch arrangements with variety', '2024-12-10'),
 -- (2, 'COMP002', 'Microsoft recruitment drive - good quality food served', '2024-12-15'),
 -- (3, 'COMP003', 'Amazon campus placement - BBQ options were appreciated', '2024-11-20'),
@@ -152,7 +152,7 @@
 -- (6, 'EMP005', 'BATCH2025', 'Creative thinkers with good case study approach. Recommended for consulting roles.'),
 -- (7, 'EMP006', 'BATCH2025', 'Decent technical skills. Need to work on soft skills and presentation.'),
 -- (8, 'EMP007', 'BATCH2024', 'Average batch overall. Few standout performers in aptitude.'),
--- (9, 'EMP008', 'BATCH2025', 'Enthusiastic candidates with good startup mindset.');
+-- (9, 'EMP008', 'BATCH2025', 'Enthusiastic candiDates with good startup mindset.');
 
 -- -- ============================================
 -- -- 13. ALUMNIFEEDBACKONCOMPANY TABLE (Depends on: company, alumni)
@@ -162,7 +162,7 @@
 -- -- InterviewMode: Online=0, Offline=1
 -- -- ============================================
 -- INSERT INTO alumnifeedbackoncompany (
---     feedbackid, companyid, alumniid, "JobProfile", "JobType", "JobLocation", "CTC", "WorkMode",
+--     feedbackid, CompanyId, Id, "JobProfile", "JobType", "JobLocation", "CTC", "WorkMode",
 --     "CodingRoundInfo_CodingPlatform", "CodingRoundInfo_Duration", "CodingRoundInfo_Questions", 
 --     "CodingRoundInfo_DifficultyLevel", "CodingRoundInfo_InterviewMode",
 --     "TechnicalRoundInfo_InterviewMode", "TechnicalRoundInfo_InterviewDuration",
@@ -209,7 +209,7 @@
 --     '[{"QuestionType": "SQL", "DifficultyLevel": 2, "Question": "Complex join with window functions"}]',
 --     '[]', '[]',
 --     1, '40 minutes',
---     '[{"Question": "How do you handle ambiguity in data requirements?", "Answer": "Ask clarifying questions and validate assumptions with stakeholders"}]',
+--     '[{"Question": "How do you handle ambiguity in data requirements?", "Answer": "Ask clarifying questions and valiDate assumptions with stakeholders"}]',
 --     '[{"Question": "What would you do if your model is biased?", "Answer": "Investigate data sources, check for underrepresented groups, and apply fairness techniques"}]',
 --     '[{"Title": "Kaggle", "Url": "https://kaggle.com", "Description": "Hands-on ML practice", "Category": "Data Science"}]',
 --     '[{"BookName": "Hands-On Machine Learning", "Author": "Aurélien Géron", "Description": "Practical ML guide", "ISBN": "978-1492032649", "Publisher": "OReilly", "Category": "Machine Learning"}]'

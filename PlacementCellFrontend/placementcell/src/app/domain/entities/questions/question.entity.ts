@@ -7,7 +7,7 @@ export class Question {
   constructor(public question: string = '') {}
 
   /**
-   * Validate if question is not empty
+   * ValiDate if question is not empty
    */
   isValid(): boolean {
     return this.question.trim() !== '';
@@ -34,7 +34,7 @@ export class BaseQuestion extends Question {
   }
 
   /**
-   * Validate if question and difficulty are provided
+   * ValiDate if question and difficulty are provided
    */
   override isValid(): boolean {
     return super.isValid() && this.difficulty.trim() !== '';
@@ -51,7 +51,7 @@ export class ComputerCoreQuestion extends BaseQuestion {
   }
 
   /**
-   * Validate if question, difficulty, and type are provided
+   * ValiDate if question, difficulty, and type are provided
    */
   override isValid(): boolean {
     return super.isValid() && this.questionType.trim() !== '';
@@ -68,7 +68,7 @@ export class DSAQuestion extends BaseQuestion {
   }
 
   /**
-   * Validate if question, difficulty, and type are provided
+   * ValiDate if question, difficulty, and type are provided
    */
   override isValid(): boolean {
     return super.isValid() && this.questionType.trim() !== '';
@@ -95,7 +95,7 @@ export class SystemDesignQuestion extends BaseQuestion {
   }
 
   /**
-   * Validate if question, difficulty, and type are provided
+   * ValiDate if question, difficulty, and type are provided
    */
   override isValid(): boolean {
     return super.isValid() && this.questionType.trim() !== '';

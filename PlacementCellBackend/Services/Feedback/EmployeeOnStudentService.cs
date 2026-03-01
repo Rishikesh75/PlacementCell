@@ -21,26 +21,26 @@ namespace PlacementCellBackend.Services.Feedback
             var feedbacks = await _context.employeefeedbackonstudent.ToListAsync();
 
             // Step 2: Get distinct employee IDs
-            var employeeIds = feedbacks.Select(f => f.CompanyEmpId).Distinct().ToList();
+            var EmployeeIds = feedbacks.Select(f => f.CompanyEmpId).Distinct().ToList();
 
             // Step 3: Query CompanyEmployee table to get employee names and their company IDs
             var employees = await _context.companyemployee
-                .Where(e => employeeIds.Contains(e.employeeid))
-                .ToDictionaryAsync(e => e.employeeid, e => new { e.name, e.companyid });
+                .Where(e => EmployeeIds.Contains(e.EmployeeId))
+                .ToDictionaryAsync(e => e.EmployeeId, e => new { e.Name, e.CompanyId });
 
             // Step 4: Get distinct company IDs from employees
-            var companyIds = employees.Values.Select(e => e.companyid).Distinct().ToList();
+            var CompanyIds = employees.Values.Select(e => e.CompanyId).Distinct().ToList();
 
             // Step 5: Query Company table to get company names
             var companies = await _context.company
-                .Where(c => companyIds.Contains(c.company_id))
-                .ToDictionaryAsync(c => c.company_id, c => c.company_name);
+                .Where(c => CompanyIds.Contains(c.CompanyId))
+                .ToDictionaryAsync(c => c.CompanyId, c => c.CompanyName);
 
             // Step 6: Map to DTO
             return feedbacks.Select(f =>
             {
                 var employee = employees.TryGetValue(f.CompanyEmpId, out var emp) ? emp : null;
-                var companyName = employee != null && companies.TryGetValue(employee.companyid, out var name)
+                var companyName = employee != null && companies.TryGetValue(employee.CompanyId, out var name)
                     ? name
                     : "Unknown";
 
@@ -50,7 +50,7 @@ namespace PlacementCellBackend.Services.Feedback
                     employeeName = employee?.name ?? "Unknown",
                     compnayName = companyName,
                     batchId = f.BatchId,
-                    description = f.Description
+                    Description = f.Description
                 };
             });
         }
@@ -64,25 +64,25 @@ namespace PlacementCellBackend.Services.Feedback
 
             // Step 2: Get the employee
             var employee = await _context.companyemployee
-                .FirstOrDefaultAsync(e => e.employeeid == feedback.CompanyEmpId);
+                .FirstOrDefaultAsync(e => e.EmployeeId == feedback.CompanyEmpId);
 
             // Step 3: Get the company name
             string companyName = "Unknown";
             if (employee != null)
             {
                 var company = await _context.company
-                    .FirstOrDefaultAsync(c => c.company_id == employee.companyid);
-                companyName = company?.company_name ?? "Unknown";
+                    .FirstOrDefaultAsync(c => c.CompanyId == employee.CompanyId);
+                companyName = company?.CompanyName ?? "Unknown";
             }
 
             // Step 4: Map to DTO
             return new EmployeeFeedbackonStudentDtos
             {
                 feedbackId = feedback.RecordId,
-                employeeName = employee?.name ?? "Unknown",
+                employeeName = employee?.Name ?? "Unknown",
                 compnayName = companyName,
                 batchId = feedback.BatchId,
-                description = feedback.Description
+                Description = feedback.Description
             };
         }
 
@@ -92,7 +92,7 @@ namespace PlacementCellBackend.Services.Feedback
             {
                 CompanyEmpId = employeeOnStudent.CompanyEmpId,
                 BatchId = employeeOnStudent.batchId,
-                Description = employeeOnStudent.description
+                Description = employeeOnStudent.Description
             };
 
             _context.employeefeedbackonstudent.Add(employeeOnStudentModel);
@@ -100,7 +100,7 @@ namespace PlacementCellBackend.Services.Feedback
             return true;
         }
 
-        public async Task<bool> UpdateEmployeeOnStudentAsync(int id, EmployeeFeedbackonStudentCreateDtos employeeOnStudent)
+        public async Task<bool> UpDateEmployeeOnStudentAsync(int id, EmployeeFeedbackonStudentCreateDtos employeeOnStudent)
         {
             var existing = await _context.employeefeedbackonstudent.FindAsync(id);
             if (existing == null)
@@ -108,7 +108,7 @@ namespace PlacementCellBackend.Services.Feedback
 
             existing.CompanyEmpId = employeeOnStudent.CompanyEmpId;
             existing.BatchId = employeeOnStudent.batchId;
-            existing.Description = employeeOnStudent.description;
+            existing.Description = employeeOnStudent.Description;
 
             await _context.SaveChangesAsync();
             return true;

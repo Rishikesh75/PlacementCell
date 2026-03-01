@@ -11,7 +11,7 @@ export const DSAQuestionType: string[] = [
  */
 export const CoreCSquestionType: string[] = [
   "Computer Networks", 
-  "Operating Systems", 
+  "OpeRating Systems", 
   "Database Management Systems", 
   "Software Engineering", 
   "Web Development"

@@ -1,22 +1,29 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PlacementCellBackend.Models
+namespace PlacementCellBackend.Models;
+
+public abstract class CollegeStaff
 {
-    public class Teacher
-    {
-        [Key]
-        public string teacher_id { get; set; } = string.Empty;
+    [Key]
+    public string Id { get; set; } = string.Empty;
 
-        // College reference
-        [Required]
-        public int CollegeId { get; set; }
+    [Required]
+    public int CollegeId { get; set; }
 
-        [ForeignKey("CollegeId")]
-        public College? College { get; set; }
+    [ForeignKey("CollegeId")]
+    public College? College { get; set; }
 
-        public string name { get; set; } = string.Empty;
-        public string department { get; set; } = string.Empty;
-        public string email { get; set; } = string.Empty;
-    }
+    public string Name { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+}
+
+public class Teacher : CollegeStaff
+{
+    public string Department { get; set; } = string.Empty;
+}
+
+public class PlacementOfficer : CollegeStaff
+{
+    public string PhoneNo { get; set; } = string.Empty;
 }

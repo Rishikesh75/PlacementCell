@@ -36,22 +36,22 @@ public class AlumniController : ControllerBase
     {
         var alumniModel = new Models.Alumni
         {
-            alumniid = alumni.AlumniId,
-            position = alumni.Position,
+            Id = alumni.Id,
+            Position = alumni.Position,
             linkdinprofile = alumni.LinkedInProfile,
-            companyid = alumni.CompanyId,
-            name = alumni.Name
+            CompanyId = alumni.CompanyId,
+            Name = alumni.Name
         };
 
         var created = await _alumniService.CreateAlumniAsync(alumniModel);
-        return CreatedAtAction(nameof(GetAlumni), new { id = created.alumniid }, created);
+        return CreatedAtAction(nameof(GetAlumni), new { id = created.Id }, created);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutAlumni(string id, AlumniDtoUpdate updatedAlumni)
+    public async Task<IActionResult> PutAlumni(string id, AlumniDtoUpDate upDatedAlumni)
     {
 
-        var success = await _alumniService.UpdateAlumniAsync(id, updatedAlumni);
+        var success = await _alumniService.UpDateAlumniAsync(id, upDatedAlumni);
         if (!success)
             return NotFound();
 

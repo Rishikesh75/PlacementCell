@@ -1,15 +1,15 @@
 /**
  * Date Utility Functions
- * Helper functions for date manipulation and formatting
+ * Helper functions for Date manipulation and formatting
  */
 
 /**
- * Format date to 'DD/MM/YYYY' format
- * @param date - Date object or date string
- * @returns Formatted date string
+ * Format Date to 'DD/MM/YYYY' format
+ * @param Date - Date object or Date string
+ * @returns Formatted Date string
  */
-export function formatDate(date: Date | string): string {
-  const d = new Date(date);
+export function formatDate(Date: Date | string): string {
+  const d = new Date(Date);
   const day = String(d.getDate()).padStart(2, '0');
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const year = d.getFullYear();
@@ -17,12 +17,12 @@ export function formatDate(date: Date | string): string {
 }
 
 /**
- * Format date to 'DD MMM YYYY' format (e.g., 09 Nov 2025)
- * @param date - Date object or date string
- * @returns Formatted date string
+ * Format Date to 'DD MMM YYYY' format (e.g., 09 Nov 2025)
+ * @param Date - Date object or Date string
+ * @returns Formatted Date string
  */
-export function formatDateLong(date: Date | string): string {
-  const d = new Date(date);
+export function formatDateLong(Date: Date | string): string {
+  const d = new Date(Date);
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const day = String(d.getDate()).padStart(2, '0');
   const month = months[d.getMonth()];
@@ -31,12 +31,12 @@ export function formatDateLong(date: Date | string): string {
 }
 
 /**
- * Format date and time to 'DD/MM/YYYY HH:MM' format
- * @param date - Date object or date string
- * @returns Formatted date-time string
+ * Format Date and time to 'DD/MM/YYYY HH:MM' format
+ * @param Date - Date object or Date string
+ * @returns Formatted Date-time string
  */
-export function formatDateTime(date: Date | string): string {
-  const d = new Date(date);
+export function formatDateTime(Date: Date | string): string {
+  const d = new Date(Date);
   const day = String(d.getDate()).padStart(2, '0');
   const month = String(d.getMonth() + 1).padStart(2, '0');
   const year = d.getFullYear();
@@ -47,12 +47,12 @@ export function formatDateTime(date: Date | string): string {
 
 /**
  * Get relative time (e.g., '2 hours ago', 'yesterday')
- * @param date - Date object or date string
+ * @param Date - Date object or Date string
  * @returns Relative time string
  */
-export function getRelativeTime(date: Date | string): string {
+export function getRelativeTime(Date: Date | string): string {
   const now = new Date();
-  const past = new Date(date);
+  const past = new Date(Date);
   const diffMs = now.getTime() - past.getTime();
   const diffSecs = Math.floor(diffMs / 1000);
   const diffMins = Math.floor(diffSecs / 60);
@@ -70,12 +70,12 @@ export function getRelativeTime(date: Date | string): string {
 }
 
 /**
- * Check if a date is today
- * @param date - Date object or date string
- * @returns True if date is today
+ * Check if a Date is today
+ * @param Date - Date object or Date string
+ * @returns True if Date is today
  */
-export function isToday(date: Date | string): boolean {
-  const d = new Date(date);
+export function isToday(Date: Date | string): boolean {
+  const d = new Date(Date);
   const today = new Date();
   return d.getDate() === today.getDate() &&
          d.getMonth() === today.getMonth() &&
@@ -83,33 +83,33 @@ export function isToday(date: Date | string): boolean {
 }
 
 /**
- * Check if a date is in the past
- * @param date - Date object or date string
- * @returns True if date is in the past
+ * Check if a Date is in the past
+ * @param Date - Date object or Date string
+ * @returns True if Date is in the past
  */
-export function isPast(date: Date | string): boolean {
-  const d = new Date(date);
+export function isPast(Date: Date | string): boolean {
+  const d = new Date(Date);
   const now = new Date();
   return d < now;
 }
 
 /**
- * Add days to a date
- * @param date - Date object or date string
+ * Add days to a Date
+ * @param Date - Date object or Date string
  * @param days - Number of days to add
- * @returns New date with days added
+ * @returns New Date with days added
  */
-export function addDays(date: Date | string, days: number): Date {
-  const d = new Date(date);
+export function addDays(Date: Date | string, days: number): Date {
+  const d = new Date(Date);
   d.setDate(d.getDate() + days);
   return d;
 }
 
 /**
- * Get date range string (e.g., '1 Jan - 31 Jan 2025')
- * @param startDate - Start date
- * @param endDate - End date
- * @returns Formatted date range string
+ * Get Date range string (e.g., '1 Jan - 31 Jan 2025')
+ * @param startDate - Start Date
+ * @param endDate - End Date
+ * @returns Formatted Date range string
  */
 export function getDateRange(startDate: Date | string, endDate: Date | string): string {
   const start = new Date(startDate);

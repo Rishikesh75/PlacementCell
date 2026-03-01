@@ -26,28 +26,28 @@ namespace PlacementCellBackend.Services.Placements
             }
 
             // Step 2: Get unique student IDs and fetch student names
-            var studentIds = placements.Select(p => p.studentid).Distinct().ToList();
+            var Ids = placements.Select(p => p.Id).Distinct().ToList();
             var students = await _context.student
-                .Where(s => studentIds.Contains(s.studentid))
-                .ToDictionaryAsync(s => s.studentid, s => s.name);
+                .Where(s => Ids.Contains(s.Id))
+                .ToDictionaryAsync(s => s.Id, s => s.Name);
 
             // Step 3: Get unique company IDs and fetch company names
-            var companyIds = placements.Select(p => p.companyid).Distinct().ToList();
+            var CompanyIds = placements.Select(p => p.CompanyId).Distinct().ToList();
             var companies = await _context.company
-                .Where(c => companyIds.Contains(c.company_id))
-                .ToDictionaryAsync(c => c.company_id, c => c.company_name);
+                .Where(c => CompanyIds.Contains(c.CompanyId))
+                .ToDictionaryAsync(c => c.CompanyId, c => c.CompanyName);
 
             // Step 4: Map to DTOs
             var result = placements.Select(p => new PlacementDTO
             {
-                StudentId = p.studentid,
-                StudentName = students.TryGetValue(p.studentid, out var studentName)
+                Id = p.Id,
+                StudentName = students.TryGetValue(p.Id, out var studentName)
                     ? studentName : "Unknown",
-                CompanyId = p.companyid,
-                CompanyName = companies.TryGetValue(p.companyid, out var companyName)
+                CompanyId = p.CompanyId,
+                CompanyName = companies.TryGetValue(p.CompanyId, out var companyName)
                     ? companyName : "Unknown",
                 JobTitle = p.jobtitle,
-                PlacementDate = p.placementdate,
+                PlacementDate = p.placementDate,
                 Package = p.package
             }).ToList();
 
@@ -65,24 +65,24 @@ namespace PlacementCellBackend.Services.Placements
 
             // Get student name
             var studentName = await _context.student
-                .Where(s => s.studentid == placement.studentid)
-                .Select(s => s.name)
+                .Where(s => s.Id == placement.Id)
+                .Select(s => s.Name)
                 .FirstOrDefaultAsync() ?? "Unknown";
 
             // Get company name
             var companyName = await _context.company
-                .Where(c => c.company_id == placement.companyid)
-                .Select(c => c.company_name)
+                .Where(c => c.CompanyId == placement.CompanyId)
+                .Select(c => c.CompanyName)
                 .FirstOrDefaultAsync() ?? "Unknown";
 
             return new PlacementDTO
             {
-                StudentId = placement.studentid,
+                Id = placement.Id,
                 StudentName = studentName,
-                CompanyId = placement.companyid,
+                CompanyId = placement.CompanyId,
                 CompanyName = companyName,
                 JobTitle = placement.jobtitle,
-                PlacementDate = placement.placementdate,
+                PlacementDate = placement.placementDate,
                 Package = placement.package
             };
         }
@@ -92,10 +92,10 @@ namespace PlacementCellBackend.Services.Placements
             // Map DTO to Model
             var placementModel = new Placement
             {
-                studentid = placement.StudentId,
-                companyid = placement.CompanyId,
+                Id = placement.Id,
+                CompanyId = placement.CompanyId,
                 jobtitle = placement.JobTitle,
-                placementdate = placement.PlacementDate,
+                placementDate = placement.PlacementDate,
                 package = placement.Package
             };
 
@@ -104,40 +104,40 @@ namespace PlacementCellBackend.Services.Placements
 
             // Get student name for response
             var studentName = await _context.student
-                .Where(s => s.studentid == placement.StudentId)
-                .Select(s => s.name)
+                .Where(s => s.Id == placement.Id)
+                .Select(s => s.Name)
                 .FirstOrDefaultAsync() ?? "Unknown";
 
             // Get company name for response
             var companyName = await _context.company
-                .Where(c => c.company_id == placement.CompanyId)
-                .Select(c => c.company_name)
+                .Where(c => c.CompanyId == placement.CompanyId)
+                .Select(c => c.CompanyName)
                 .FirstOrDefaultAsync() ?? "Unknown";
 
             // Return DTO with all info
             return new PlacementDTO
             {
-                StudentId = placementModel.studentid,
+                Id = placementModel.Id,
                 StudentName = studentName,
-                CompanyId = placementModel.companyid,
+                CompanyId = placementModel.CompanyId,
                 CompanyName = companyName,
                 JobTitle = placementModel.jobtitle,
-                PlacementDate = placementModel.placementdate,
+                PlacementDate = placementModel.placementDate,
                 Package = placementModel.package
             };
         }
 
-        public async Task<bool> UpdatePlacementAsync(int id, CreatePlacementDTO placement)
+        public async Task<bool> UpDatePlacementAsync(int id, CreatePlacementDTO placement)
         {
             var existing = await _context.placement.FindAsync(id);
             if (existing == null)
                 return false;
 
-            // Update properties from DTO
-            existing.studentid = placement.StudentId;
-            existing.companyid = placement.CompanyId;
+            // UpDate properties from DTO
+            existing.Id = placement.Id;
+            existing.CompanyId = placement.CompanyId;
             existing.jobtitle = placement.JobTitle;
-            existing.placementdate = placement.PlacementDate;
+            existing.placementDate = placement.PlacementDate;
             existing.package = placement.Package;
 
             await _context.SaveChangesAsync();

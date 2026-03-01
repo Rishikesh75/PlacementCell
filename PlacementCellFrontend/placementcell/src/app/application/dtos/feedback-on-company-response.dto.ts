@@ -6,9 +6,9 @@
 
 export interface FeedbackOnCompanyResponseDto {
   feedbackid: string;
-  companyid: string;
+  CompanyId: string;
   company: string | null;
-  alumniid: string;
+  Id: string;
   alumni: string | null;
   jobProfile: string;
   jobType: number;
@@ -25,7 +25,7 @@ export interface CompanyDetails
 {
   feedbackid: string;
   companyname: string;
-  alumniid: string;
+  Id: string;
   numRounds : number;
   jobProfile: string;
   jobType: string;
@@ -75,7 +75,7 @@ export interface ResourcesInfoApiDto {
 export interface ResourceApiDto {
   type: string;
   link: string;
-  description: string;
+  Description: string;
 }
 
 /**

@@ -19,15 +19,15 @@ public class AlumniFeedBackonCompany
     public College? College { get; set; }
 
     [Required]
-    public string companyid { get; set; } = string.Empty;
+    public string CompanyId { get; set; } = string.Empty;
 
-    [ForeignKey("companyid")]
+    [ForeignKey("CompanyId")]
     public Company? Company { get; set; }
 
     [Required]
-    public string alumniid { get; set; } = string.Empty;
+    public string Id { get; set; } = string.Empty;
 
-    [ForeignKey("alumniid")]
+    [ForeignKey("Id")]
     public Alumni? Alumni { get; set; }
 
     [Required]

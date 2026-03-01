@@ -7,7 +7,7 @@ namespace PlacementCellBackend.Services.Placements.Interfaces
         Task<IEnumerable<AlumniJobOpeningDto>> GetAllAlumniJobPostionAsync();
         Task<AlumniJobOpeningDto?> GetAlumniPlacementByIdAsync(int id);
         Task<bool> CreateAlumniPlacementAsync(AlumniJobOpeningCreateDto alumniPlacement);
-        Task<bool> UpdateAlumniPlacementAsync(int id, AlumniJobOpeningCreateDto alumniPlacement);
+        Task<bool> UpDateAlumniPlacementAsync(int id, AlumniJobOpeningCreateDto alumniPlacement);
         Task<bool> DeleteAlumniPlacementAsync(int id);
     }
 }

@@ -41,7 +41,7 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    // Fetch user by username and validate credentials
+    // Fetch user by username and valiDate credentials
     this.isLoading = true;
     this.userApiService.getUserByUsername(this.username).subscribe({
       next: (user) => {

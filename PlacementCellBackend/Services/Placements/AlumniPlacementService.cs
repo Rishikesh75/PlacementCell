@@ -22,19 +22,19 @@ namespace PlacementCellBackend.Services.Placements
             var jobs = await _context.alumnijobposition.ToListAsync();
 
             // Step 2: Get distinct company IDs
-            var companyIds = jobs.Select(j => j.companyid).Distinct().ToList();
+            var CompanyIds = jobs.Select(j => j.CompanyId).Distinct().ToList();
 
             // Step 3: Query Company table to get company names
             var companies = await _context.company
-                .Where(c => companyIds.Contains(c.company_id))
-                .ToDictionaryAsync(c => c.company_id, c => c.company_name);
+                .Where(c => CompanyIds.Contains(c.CompanyId))
+                .ToDictionaryAsync(c => c.CompanyId, c => c.CompanyName);
 
             // Step 4: Map to DTO
             return jobs.Select(j => new AlumniJobOpeningDto
             {
-                CompanyName = companies.TryGetValue(j.companyid, out var name) ? name : "Unknown",
+                CompanyName = companies.TryGetValue(j.CompanyId, out var name) ? name : "Unknown",
                 JobTitle = j.jobtitle,
-                posteddate = j.posteddate.ToString("yyyy-MM-dd"),
+                postedDate = j.postedDate.ToString("yyyy-MM-dd"),
                 package = j.package,
                 JobUrl = j.JobUrl,
                 PostedByProfileUrl = j.postedByProfileUrl
@@ -54,14 +54,14 @@ namespace PlacementCellBackend.Services.Placements
 
             // Step 3: Query Company table to get the single company name
             var company = await _context.company
-                .FirstOrDefaultAsync(c => c.company_id == job.companyid);
+                .FirstOrDefaultAsync(c => c.CompanyId == job.CompanyId);
 
             // Step 4: Map to DTO and return
             return new AlumniJobOpeningDto
             {
-                CompanyName = company?.company_name ?? "Unknown",
+                CompanyName = company?.CompanyName ?? "Unknown",
                 JobTitle = job.jobtitle,
-                posteddate = job.posteddate.ToString("yyyy-MM-dd"),
+                postedDate = job.postedDate.ToString("yyyy-MM-dd"),
                 package = job.package,
                 JobUrl = job.JobUrl,
                 PostedByProfileUrl = job.postedByProfileUrl
@@ -73,9 +73,9 @@ namespace PlacementCellBackend.Services.Placements
         {
             var alumniPlacementEntity = new AlumniJobOpenings
             {
-                companyid = alumniPlacement.Companyid,
+                CompanyId = alumniPlacement.CompanyId,
                 jobtitle = alumniPlacement.Jobtitle,
-                posteddate = DateOnly.Parse(alumniPlacement.Posteddate),
+                postedDate = DateOnly.Parse(alumniPlacement.PostedDate),
                 package = alumniPlacement.Package,
                 JobUrl = alumniPlacement.JobUrl,
                 postedByProfileUrl = alumniPlacement.PostedByProfileUrl,
@@ -88,15 +88,15 @@ namespace PlacementCellBackend.Services.Placements
             return true;
         }
 
-        public async Task<bool> UpdateAlumniPlacementAsync(int id, AlumniJobOpeningCreateDto alumniPlacement)
+        public async Task<bool> UpDateAlumniPlacementAsync(int id, AlumniJobOpeningCreateDto alumniPlacement)
         {
             var existing = await _context.alumnijobposition.FindAsync(id);
             if (existing == null)
                 return false;
 
-            existing.companyid = alumniPlacement.Companyid;
+            existing.CompanyId = alumniPlacement.CompanyId;
             existing.jobtitle = alumniPlacement.Jobtitle;
-            existing.posteddate = DateOnly.Parse(alumniPlacement.Posteddate);
+            existing.postedDate = DateOnly.Parse(alumniPlacement.PostedDate);
             existing.package = alumniPlacement.Package;
             existing.postedby = alumniPlacement.Postedby ?? PostedByType.Alumni;
 

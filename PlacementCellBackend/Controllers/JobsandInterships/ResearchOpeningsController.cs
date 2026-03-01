@@ -39,10 +39,10 @@ public class ResearchOpeningsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateTeacherResearchOpening(int id, ResearchOpeningCreateDto updatedResearchOpening)
+    public async Task<IActionResult> UpDateTeacherResearchOpening(int id, ResearchOpeningCreateDto upDatedResearchOpening)
     {
 
-        var success = await _teacherPlacementService.UpdateTeacherResearchOpeningAsync(id, updatedResearchOpening);
+        var success = await _teacherPlacementService.UpDateTeacherResearchOpeningAsync(id, upDatedResearchOpening);
         if (!success)
             return NotFound();
 

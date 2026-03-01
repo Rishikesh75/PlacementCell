@@ -40,11 +40,11 @@ namespace PlacementCellBackend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePlacement(int id, CreatePlacementDTO updatedPlacement)
+        public async Task<IActionResult> UpDatePlacement(int id, CreatePlacementDTO upDatedPlacement)
         {
 
 
-            var success = await _placementService.UpdatePlacementAsync(id, updatedPlacement);
+            var success = await _placementService.UpDatePlacementAsync(id, upDatedPlacement);
             if (!success)
                 return NotFound();
 

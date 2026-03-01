@@ -11,15 +11,15 @@ namespace PlacementCellBackend.Models
 
         // Teacher who posted the research opening
         [Required]
-        public string teacherid { get; set; } = string.Empty;
+        public string Id { get; set; } = string.Empty;
 
-        [ForeignKey("teacherid")]
+        [ForeignKey("Id")]
         public Teacher? Teacher { get; set; }
 
         // Research opening details
         public string title { get; set; } = string.Empty;
 
-        public string description { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         public string department { get; set; } = string.Empty;
 
@@ -29,7 +29,7 @@ namespace PlacementCellBackend.Models
 
         public string duration { get; set; } = string.Empty;
 
-        public DateOnly posteddate { get; set; }
+        public DateOnly postedDate { get; set; }
 
         public DateOnly? deadline { get; set; }
 

@@ -35,16 +35,16 @@ namespace PlacementCellBackend.Controllers.CRUD
         public async Task<ActionResult<Teacher>> PostTeacher(Teacher teacher)
         {
             var created = await _teacherService.CreateTeacherAsync(teacher);
-            return CreatedAtAction(nameof(GetTeacher), new { id = created.teacher_id }, created);
+            return CreatedAtAction(nameof(GetTeacher), new { id = created.Id }, created);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTeacher(string id, Teacher updatedTeacher)
+        public async Task<IActionResult> PutTeacher(string id, Teacher upDatedTeacher)
         {
-            if (id != updatedTeacher.teacher_id)
+            if (id != upDatedTeacher.Id)
                 return BadRequest();
 
-            var success = await _teacherService.UpdateTeacherAsync(id, updatedTeacher);
+            var success = await _teacherService.UpDateTeacherAsync(id, upDatedTeacher);
             if (!success)
                 return NotFound();
 

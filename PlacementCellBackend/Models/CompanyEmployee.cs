@@ -6,18 +6,18 @@ namespace PlacementCellBackend.Models;
 public class Companyemployee
 {
     [Key]
-    public string employeeid { get; set; } = string.Empty;
-    public string name { get; set; } = string.Empty;
+    public string EmployeeId { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
-    public string designation { get; set; } = string.Empty;
+    public string Designation { get; set; } = string.Empty;
 
-    public string email { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
 
     [Required]
-    public string companyid { get; set; } = string.Empty;
+    public string CompanyId { get; set; } = string.Empty;
 
-    [ForeignKey("companyid")]
+    [ForeignKey("CompanyId")]
     public Company? Company { get; set; }
 
-    public string profileurl { get; set; } = string.Empty;
+    public string ProfileUrl { get; set; } = string.Empty;
 }
