@@ -36,6 +36,8 @@ public class AppDbContext : DbContext
 
     public DbSet<Placement> placement { get; set; }
 
+    public DbSet<PlacementDrive> placementdrive { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -66,6 +68,18 @@ public class AppDbContext : DbContext
             .HasOne(p => p.College)
             .WithMany(c => c.Placements)
             .HasForeignKey(p => p.CollegeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PlacementDrive>()
+            .HasOne(pd => pd.College)
+            .WithMany()
+            .HasForeignKey(pd => pd.CollegeId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PlacementDrive>()
+            .HasOne(pd => pd.Company)
+            .WithMany()
+            .HasForeignKey(pd => pd.CompanyId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<AlumniJobOpenings>()

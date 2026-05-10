@@ -1,7 +1,10 @@
+using PlacementCellBackend.DTOs.MentorMeetingDTOs;
+
 namespace PlacementCellBackend.Services.MentorMenteeService.Interface;
-public  interface IMentorMenteeService
+
+public interface IMentorMenteeService
 {
-    Task<bool> CreateMentorMenteeMeeting();
-    Task<bool> DeleteMentorMenteeMeeting();
-    Task<bool> UpdateMentorMenteeMeeting();
+    Task<MeetingResponse?> CreateMentorMenteeMeeting(CreateMeetingRequest request);
+    Task<bool> DeleteMentorMenteeMeeting(string eventId);
+    Task<bool> UpdateMentorMenteeMeeting(UpdateMeetingRequest request);
 }

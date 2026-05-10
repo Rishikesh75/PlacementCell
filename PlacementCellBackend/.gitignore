@@ -1,2 +1,6 @@
 bin/
 obj/
+
+# Google Service Account Key - DO NOT COMMIT
+service-account.json
+*.json.key

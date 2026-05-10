@@ -10,6 +10,8 @@ using PlacementCellBackend.Services.Feedback;
 using PlacementCellBackend.Services.Feedback.Interfaces;
 using PlacementCellBackend.Services.Placements;
 using PlacementCellBackend.Services.Placements.Interfaces;
+using PlacementCellBackend.Services.MentorMenteeService;
+using PlacementCellBackend.Services.MentorMenteeService.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,12 +44,18 @@ builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<ITeacherPlacementService, TeacherPlacementService>();
 builder.Services.AddScoped<IAlumniPlacementService, AlumniPlacementService>();
 builder.Services.AddScoped<IPlacementService, PlacementService>();
+builder.Services.AddScoped<IPlacementDriveService, PlacementDriveService>();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(dataSource));
 
 
 // Register Analytics Service (Cross-Service Business Logic)
 builder.Services.AddScoped<IPlacementAnalyticsService, PlacementAnalyticsService>();
+
+// Register MentorMentee Services (Google Calendar Integration)
+builder.Services.AddSingleton<GoogleCalendarHelper>();
+builder.Services.AddScoped<IMentorMenteeService, MentorMenteeService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -75,3 +83,6 @@ app.MapControllers();
 SqlQueryLoader.PreloadAllQueries();
 
 app.Run();
+
+// Make Program class accessible for integration tests
+public partial class Program { }
