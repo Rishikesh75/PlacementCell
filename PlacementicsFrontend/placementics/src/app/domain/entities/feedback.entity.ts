@@ -1,0 +1,45 @@
+/**
+ * Main Feedback Entity
+ * Represents a complete interview feedback submission
+ */
+
+import { CompanyDetails } from './feedbackmodules/company-details.entity';
+import { CodingRound } from './feedbackmodules/coding-round.entity';
+import { TechnicalRound } from './feedbackmodules/technical-round.entity';
+import { HRRound } from './feedbackmodules/hr-round.entity';
+import { Resource } from './feedbackmodules/resource.entity';
+
+export class Feedback {
+  constructor(
+    public companyDetails: CompanyDetails,
+    public codingRound: CodingRound,
+    public technicalRound: TechnicalRound,
+    public hrRound: HRRound,
+    public resources: Resource[]
+  ) {}
+
+  /**
+   * ValiDate if the feedback is complete
+   */
+  isValid(): boolean {
+    return (
+      this.companyDetails.isValid() &&
+      this.codingRound.isValid() &&
+      this.technicalRound.isValid() &&
+      this.hrRound.isValid()
+    );
+  }
+
+  /**
+   * Get the total number of interview rounds
+   */
+  getTotalRounds(): number {
+    return this.companyDetails.numRounds;
+  }
+}
+
+/**
+ * @deprecated Use FeedbackRequestDto from application/dtos instead
+ * This type alias is for backward compatibility only
+ */
+export type FeedbackCardData = Feedback;
