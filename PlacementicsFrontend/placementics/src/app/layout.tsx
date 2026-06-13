@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'LiverSeg Pro',
-  description: 'Liver tumor 3D volume upload and segmentation',
+  // title: 'LiverSeg Pro',
+  // description: 'Liver tumor 3D volume upload and segmentation',
 }
 
 export default function RootLayout({

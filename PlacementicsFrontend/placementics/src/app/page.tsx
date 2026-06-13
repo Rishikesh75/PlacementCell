@@ -1,5 +1,5 @@
 
-export default function LoginPage() {
+export default function Home() {
   return (
     <p>HelloWorld</p>
   )
