@@ -1,6 +1,5 @@
+import LoginPage from "./login/page";
 
 export default function Home() {
-  return (
-    <p>HelloWorld</p>
-  )
+  return <LoginPage />;
 }
