@@ -27,7 +27,3 @@ cp .env.example .env.local
 npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000)
-
-## Migration
-
-The student-facing UI was migrated from Angular (`PlacementCellFrontend`) to Next.js (`PlacementicsFrontend`). See [PlacementicsFrontend/placementics/README.md](PlacementicsFrontend/placementics/README.md) for architecture details.
