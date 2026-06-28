@@ -26,11 +26,8 @@ public class EmployeeFeedbackonStudent {
     @Column(name = "RecordId")
     private Integer recordId;
 
-    @Column(name = "CompnayEmpId", nullable = false)
+    @Column(name = "CompanyEmpId", nullable = false)
     private String companyEmpId = "";
-
-    @Column(name = "CompanyEmpId")
-    private String companyEmployeeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CompanyEmpId", insertable = false, updatable = false)

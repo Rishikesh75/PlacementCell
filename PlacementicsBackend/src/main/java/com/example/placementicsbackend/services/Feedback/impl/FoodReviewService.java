@@ -75,7 +75,7 @@ public class FoodReviewService implements IFoodReviewService {
 
     @Override
     public FoodReviewDto createFoodItem(FoodReviewCreateDto food) {
-        Restaurents restaurant = restaurentsRepository.findById(food.getId())
+        Restaurents restaurant = restaurentsRepository.findById(food.getRestaurentId())
                 .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
         Company company = companyRepository.findById(food.getCompanyId())
                 .orElseThrow(() -> new IllegalArgumentException("Company not found"));
@@ -98,7 +98,7 @@ public class FoodReviewService implements IFoodReviewService {
             return false;
         }
 
-        Restaurents restaurant = restaurentsRepository.findById(food.getId()).orElse(null);
+        Restaurents restaurant = restaurentsRepository.findById(food.getRestaurentId()).orElse(null);
         Company company = companyRepository.findById(food.getCompanyId()).orElse(null);
         if (restaurant == null || company == null) {
             return false;
