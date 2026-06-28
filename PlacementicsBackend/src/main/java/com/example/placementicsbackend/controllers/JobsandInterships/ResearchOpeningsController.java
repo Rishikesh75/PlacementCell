@@ -1,8 +1,8 @@
-﻿package com.example.placementicsbackend.controllers.JobsandInterships;
+package com.example.placementicsbackend.controllers.JobsandInterships;
 
-import com.placementcellbackend.dto.researchopenings.ResearchOpeningCreateDto;
-import com.placementcellbackend.dto.researchopenings.ResearchOpeningDto;
-import com.placementcellbackend.services.placements.interfaces.ITeacherPlacementService;
+import com.example.placementicsbackend.dtos.ReasearchOpeningsDtos.ResearchOpeningCreateDto;
+import com.example.placementicsbackend.dtos.ReasearchOpeningsDtos.ResearchOpeningDto;
+import com.example.placementicsbackend.services.placements.interfaces.ITeacherPlacementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,45 +1,31 @@
-﻿namespace PlacementCellBackend.DTOs.ReasearchOpeningsDtos;
+package com.example.placementicsbackend.dtos.ReasearchOpeningsDtos;
 
-public class ResearchOpeningDto
-{
-    public string Id { get; set; } = string.Empty;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public string teachername { get; set; } = string.Empty;
+import java.time.LocalDate;
 
-    public string Title { get; set; } = string.Empty;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResearchOpeningDto {
 
-    public string Description { get; set; } = string.Empty;
-
-    public string Department { get; set; } = string.Empty;
-
-    public string Researcharea { get; set; } = string.Empty;
-
-    public string Stipend { get; set; } = string.Empty;
-
-    public string Duration { get; set; } = string.Empty;
-
-    public DateOnly PostedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-
-    public DateOnly? DeadLine { get; set; } = null;
-
-    public string link { get; set; } = string.Empty;
-
-    public string IsActive { get; set; } = "true";
-
-
-}
-
-public class ResearchOpeningCreateDto
-{
-    public string Id { get; set; } = string.Empty;
-    public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public string Department { get; set; } = string.Empty;
-    public string Researcharea { get; set; } = string.Empty;
-    public string Stipend { get; set; } = string.Empty;
-    public string Duration { get; set; } = string.Empty;
-    public DateOnly PostedDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-    public DateOnly? DeadLine { get; set; } = null;
-    public string link { get; set; } = string.Empty;
-    public bool IsActive { get; set; } = true;
+    private String id = "";
+    @JsonProperty("teachername")
+    private String teachername = "";
+    private String title = "";
+    private String description = "";
+    private String department = "";
+    @JsonProperty("researcharea")
+    private String researcharea = "";
+    private String stipend = "";
+    private String duration = "";
+    private LocalDate postedDate;
+    private LocalDate deadLine;
+    @JsonProperty("link")
+    private String link = "";
+    @JsonProperty("isActive")
+    private String active = "true";
 }

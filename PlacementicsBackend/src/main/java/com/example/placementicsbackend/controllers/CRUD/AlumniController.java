@@ -1,10 +1,10 @@
-﻿package com.example.placementicsbackend.controllers.CRUD;
+package com.example.placementicsbackend.controllers.CRUD;
 
-import com.placementcellbackend.dto.alumni.AlumniDto;
-import com.placementcellbackend.dto.alumni.AlumniDtoCreate;
-import com.placementcellbackend.dto.alumni.AlumniDtoUpdate;
-import com.placementcellbackend.models.Alumni;
-import com.placementcellbackend.services.crud.interfaces.IAlumniService;
+import com.example.placementicsbackend.dtos.AlumniDtos.AlumniDto;
+import com.example.placementicsbackend.dtos.AlumniDtos.AlumniDtoCreate;
+import com.example.placementicsbackend.dtos.AlumniDtos.AlumniDtoUpdate;
+import com.example.placementicsbackend.models.Alumni;
+import com.example.placementicsbackend.services.crud.interfaces.IAlumniService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

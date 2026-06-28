@@ -1,7 +1,7 @@
-﻿package com.example.placementicsbackend.controllers.CRUD;
+package com.example.placementicsbackend.controllers.CRUD;
 
-import com.placementcellbackend.models.Company;
-import com.placementcellbackend.services.crud.interfaces.ICompanyService;
+import com.example.placementicsbackend.models.Company;
+import com.example.placementicsbackend.services.crud.interfaces.ICompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

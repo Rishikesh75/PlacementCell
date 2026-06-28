@@ -7,13 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlumniDto {
+public class AlumniDtoUpdate {
 
-    private String id = "";
     private String name = "";
     private String position = "";
     private String linkedInProfile = "";
     private String companyId = "";
-    private String companyName = "";
-
 }

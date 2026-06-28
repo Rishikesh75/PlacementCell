@@ -1,13 +1,14 @@
 package com.example.placementicsbackend.controllers;
-import com.example.dto.AlumniStatistics;
-import com.example.dto.CompanyInsights;
-import com.example.dto.CompanyRanking;
-import com.example.dto.DashboardStats;
-import com.example.dto.PlacementTrends;
-import com.example.dto.RecentPlacement;
-import com.example.dto.RecommendedResources;
-import com.example.service.PlacementAnalyticsService;
 
+import com.example.placementicsbackend.dtos.AlumniStatistics;
+import com.example.placementicsbackend.dtos.CompanyInsights;
+import com.example.placementicsbackend.dtos.CompanyRanking;
+import com.example.placementicsbackend.dtos.DashboardStats;
+import com.example.placementicsbackend.dtos.PlacementTrends;
+import com.example.placementicsbackend.dtos.RecentPlacement;
+import com.example.placementicsbackend.dtos.RecommendedResources;
+import com.example.placementicsbackend.services.analytics.interfaces.IPlacementAnalyticsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,136 +16,58 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/placement-analytics")
+@RequiredArgsConstructor
 public class PlacementAnalyticsController {
 
-    private final PlacementAnalyticsService analyticsService;
+    private final IPlacementAnalyticsService analyticsService;
 
-    public PlacementAnalyticsController(
-            PlacementAnalyticsService analyticsService) {
-        this.analyticsService = analyticsService;
-    }
-
-    /**
-     * Get comprehensive dashboard statistics
-     */
     @GetMapping("/dashboard")
     public ResponseEntity<DashboardStats> getDashboardStats() {
-
-        DashboardStats stats =
-                analyticsService.getDashboardStats();
-
-        return ResponseEntity.ok(stats);
+        return ResponseEntity.ok(analyticsService.getDashboardStats());
     }
 
-    /**
-     * Get top hiring companies
-     */
     @GetMapping("/companies/top/{count}")
-    public ResponseEntity<List<CompanyRanking>> getTopCompanies(
-            @PathVariable int count) {
-
-        List<CompanyRanking> rankings =
-                analyticsService.getTopCompaniesRanking(count);
-
-        return ResponseEntity.ok(rankings);
+    public ResponseEntity<List<CompanyRanking>> getTopCompanies(@PathVariable int count) {
+        return ResponseEntity.ok(analyticsService.getTopCompaniesRanking(count));
     }
 
-    /**
-     * Default Top 10 Companies
-     */
     @GetMapping("/companies/top")
     public ResponseEntity<List<CompanyRanking>> getTopCompanies() {
-
-        List<CompanyRanking> rankings =
-                analyticsService.getTopCompaniesRanking(10);
-
-        return ResponseEntity.ok(rankings);
+        return ResponseEntity.ok(analyticsService.getTopCompaniesRanking(10));
     }
 
-    /**
-     * Company Insights
-     */
     @GetMapping("/companies/{companyId}/insights")
-    public ResponseEntity<CompanyInsights> getCompanyInsights(
-            @PathVariable String companyId) {
-
-        CompanyInsights insights =
-                analyticsService.getCompanyInsights(companyId);
-
-        return ResponseEntity.ok(insights);
+    public ResponseEntity<CompanyInsights> getCompanyInsights(@PathVariable String companyId) {
+        return ResponseEntity.ok(analyticsService.getCompanyInsights(companyId));
     }
 
-    /**
-     * Alumni Statistics
-     */
     @GetMapping("/alumni/statistics")
     public ResponseEntity<AlumniStatistics> getAlumniStatistics() {
-
-        AlumniStatistics statistics =
-                analyticsService.getAlumniStatistics();
-
-        return ResponseEntity.ok(statistics);
+        return ResponseEntity.ok(analyticsService.getAlumniStatistics());
     }
 
-    /**
-     * Recent Placements
-     */
     @GetMapping("/placements/recent/{count}")
-    public ResponseEntity<List<RecentPlacement>> getRecentPlacements(
-            @PathVariable int count) {
-
-        List<RecentPlacement> placements =
-                analyticsService.getRecentPlacements(count);
-
-        return ResponseEntity.ok(placements);
+    public ResponseEntity<List<RecentPlacement>> getRecentPlacements(@PathVariable int count) {
+        return ResponseEntity.ok(analyticsService.getRecentPlacements(count));
     }
 
-    /**
-     * Default Recent Placements (10)
-     */
     @GetMapping("/placements/recent")
     public ResponseEntity<List<RecentPlacement>> getRecentPlacements() {
-
-        List<RecentPlacement> placements =
-                analyticsService.getRecentPlacements(10);
-
-        return ResponseEntity.ok(placements);
+        return ResponseEntity.ok(analyticsService.getRecentPlacements(10));
     }
 
-    /**
-     * Placement Trends
-     */
     @GetMapping("/trends")
     public ResponseEntity<PlacementTrends> getPlacementTrends() {
-
-        PlacementTrends trends =
-                analyticsService.getPlacementTrends();
-
-        return ResponseEntity.ok(trends);
+        return ResponseEntity.ok(analyticsService.getPlacementTrends());
     }
 
-    /**
-     * Top Recommended Resources
-     */
     @GetMapping("/resources/recommended/{count}")
-    public ResponseEntity<RecommendedResources> getTopRecommendedResources(
-            @PathVariable int count) {
-
-        RecommendedResources resources =
-                analyticsService.getTopRecommendedResources(count);
-
-        return ResponseEntity.ok(resources);
+    public ResponseEntity<RecommendedResources> getTopRecommendedResources(@PathVariable int count) {
+        return ResponseEntity.ok(analyticsService.getTopRecommendedResources(count));
     }
 
-    /**
-     * Default Top Recommended Resources (10)
-     */
     @GetMapping("/resources/recommended")
     public ResponseEntity<RecommendedResources> getTopRecommendedResources() {
-
-        RecommendedResources resources =
-                analyticsService.getTopRecommendedResources(10);
-
-        return ResponseEntity.ok(resources);
+        return ResponseEntity.ok(analyticsService.getTopRecommendedResources(10));
     }
 }

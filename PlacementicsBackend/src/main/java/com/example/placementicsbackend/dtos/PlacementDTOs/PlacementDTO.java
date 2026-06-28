@@ -1,21 +1,23 @@
-﻿namespace PlacementCellBackend.DTOs.PlacementDTOs;
+package com.example.placementicsbackend.dtos.PlacementDTOs;
 
-public class PlacementDTO
-{
-    public string Id { get; set; } = string.Empty;
-    public string StudentName { get; set; } = string.Empty;
-    public string CompanyId { get; set; } = string.Empty;
-    public string CompanyName { get; set; } = string.Empty;
-    public string JobTitle { get; set; } = string.Empty;
-    public DateOnly PlacementDate { get; set; }
-    public string Package { get; set; } = string.Empty;
-}
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class CreatePlacementDTO
-{
-    public string Id { get; set; } = string.Empty;
-    public string CompanyId { get; set; } = string.Empty;
-    public string JobTitle { get; set; } = string.Empty;
-    public DateOnly PlacementDate { get; set; }
-    public string Package { get; set; } = string.Empty;
+import java.time.LocalDate;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PlacementDto {
+
+    private String id = "";
+    private String studentName = "";
+    private String companyId = "";
+    private String companyName = "";
+    private String jobTitle = "";
+    private LocalDate placementDate;
+    @JsonProperty("package")
+    private String pkg = "";
 }

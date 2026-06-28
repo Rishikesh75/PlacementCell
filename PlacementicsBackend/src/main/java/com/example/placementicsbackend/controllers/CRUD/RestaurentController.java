@@ -1,7 +1,7 @@
-﻿package com.example.placementicsbackend.controllers.CRUD;
+package com.example.placementicsbackend.controllers.CRUD;
 
-import com.placementcellbackend.models.Restaurents;
-import com.placementcellbackend.services.crud.interfaces.IRestaurantService;
+import com.example.placementicsbackend.models.Restaurents;
+import com.example.placementicsbackend.services.crud.interfaces.IRestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,75 +12,46 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/restaurant")
 @RequiredArgsConstructor
-public class RestaurantController {
+public class RestaurentController {
 
     private final IRestaurantService restaurantService;
 
     @GetMapping
     public ResponseEntity<List<Restaurents>> getAllRestaurants() {
-
-        List<Restaurents> restaurants =
-                restaurantService.getAllRestaurants();
-
-        return ResponseEntity.ok(restaurants);
+        return ResponseEntity.ok(restaurantService.getAllRestaurants());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurents> getRestaurantById(
-            @PathVariable Integer id) {
-
-        Restaurents restaurant =
-                restaurantService.getRestaurantById(id);
-
+    public ResponseEntity<Restaurents> getRestaurantById(@PathVariable Integer id) {
+        Restaurents restaurant = restaurantService.getRestaurantById(id);
         if (restaurant == null) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok(restaurant);
     }
 
     @PostMapping
-    public ResponseEntity<Restaurents> createRestaurant(
-            @RequestBody Restaurents restaurant) {
-
-        Restaurents created =
-                restaurantService.createRestaurant(restaurant);
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(created);
+    public ResponseEntity<Restaurents> createRestaurant(@RequestBody Restaurents restaurant) {
+        Restaurents created = restaurantService.createRestaurant(restaurant);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateRestaurant(
-            @PathVariable Integer id,
-            @RequestBody Restaurents restaurant) {
-
+    public ResponseEntity<Void> updateRestaurant(@PathVariable Integer id, @RequestBody Restaurents restaurant) {
         if (!id.equals(restaurant.getId())) {
             return ResponseEntity.badRequest().build();
         }
-
-        boolean success =
-                restaurantService.updateRestaurant(id, restaurant);
-
-        if (!success) {
+        if (!restaurantService.updateRestaurant(id, restaurant)) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRestaurant(
-            @PathVariable Integer id) {
-
-        boolean success =
-                restaurantService.deleteRestaurant(id);
-
-        if (!success) {
+    public ResponseEntity<Void> deleteRestaurant(@PathVariable Integer id) {
+        if (!restaurantService.deleteRestaurant(id)) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.noContent().build();
     }
 }

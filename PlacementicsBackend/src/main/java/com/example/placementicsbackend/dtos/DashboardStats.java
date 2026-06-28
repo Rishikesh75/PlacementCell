@@ -1,27 +1,22 @@
-using PlacementCellBackend.Models;
+package com.example.placementicsbackend.dtos;
 
-namespace PlacementCellBackend.DTOs
-{
-    public class DashboardStats
-    {
-        public int TotalStudents { get; set; }
-        public int TotalAlumni { get; set; }
-        public int TotalCompanies { get; set; }
-        public int TotalFeedbacks { get; set; }
-        public int ActiveOpenings { get; set; }
-        public int TotalTeachers { get; set; }
-        public List<RecentPlacement> RecentPlacements { get; set; } = new();
-    }
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public class RecentPlacement
-    {
-        public int PlacementId { get; set; }
-        public string Id { get; set; } = string.Empty;
-        public string StudentName { get; set; } = string.Empty;
-        public string CompanyName { get; set; } = string.Empty;
-        public string JobTitle { get; set; } = string.Empty;
-        public DateOnly PlacementDate { get; set; }
-        public string Package { get; set; } = string.Empty;
-    }
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class DashboardStats {
+
+    private int totalStudents;
+    private int totalAlumni;
+    private int totalCompanies;
+    private int totalFeedbacks;
+    private int activeOpenings;
+    private int totalTeachers;
+    private List<RecentPlacement> recentPlacements = new ArrayList<>();
 }
-

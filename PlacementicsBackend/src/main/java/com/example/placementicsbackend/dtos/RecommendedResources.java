@@ -1,30 +1,18 @@
-using PlacementCellBackend.Models.Enums;
+package com.example.placementicsbackend.dtos;
 
-namespace PlacementCellBackend.DTOs
-{
-    public class RecommendedResources
-    {
-        public int TotalFeedbacksWithResources { get; set; }
-        public List<TopLinkResource> TopLinks { get; set; } = new();
-        public List<TopBookResource> TopBooks { get; set; } = new();
-    }
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public class TopLinkResource
-    {
-        public string Title { get; set; } = string.Empty;
-        public string Url { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public ResourceCategory Category { get; set; } = ResourceCategory.DSA;
-        public int RecommendationCount { get; set; }
-    }
+import java.util.ArrayList;
+import java.util.List;
 
-    public class TopBookResource
-    {
-        public string BookName { get; set; } = string.Empty;
-        public string Author { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public ResourceCategory Category { get; set; } = ResourceCategory.DSA;
-        public int RecommendationCount { get; set; }
-    }
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RecommendedResources {
+
+    private int totalFeedbacksWithResources;
+    private List<TopLinkResource> topLinks = new ArrayList<>();
+    private List<TopBookResource> topBooks = new ArrayList<>();
 }
-

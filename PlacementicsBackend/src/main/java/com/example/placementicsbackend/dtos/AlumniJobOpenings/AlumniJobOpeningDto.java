@@ -1,33 +1,20 @@
-﻿using PlacementCellBackend.Models.Enums;
+package com.example.placementicsbackend.dtos.AlumniJobOpenings;
 
-namespace PlacementCellBackend.DTOs.AlumniJobOpenings;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class AlumniJobOpeningDto
-{
-    public string CompanyName { get; set; } = string.Empty;
-    public string JobTitle { get; set; } = string.Empty;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AlumniJobOpeningDto {
 
-    public string PostedDate { get; set; } = string.Empty;
-
-    public string Package { get; set; } = string.Empty;
-
-    public string JobUrl { get; set; } = string.Empty;
-
-    public string PostedByProfileUrl { get; set; } = string.Empty;
+    private String companyName = "";
+    private String jobTitle = "";
+    private String postedDate = "";
+    @JsonProperty("package")
+    private String pkg = "";
+    private String jobUrl = "";
+    private String postedByProfileUrl = "";
 }
-
-public class AlumniJobOpeningCreateDto
-{
-    public string CompanyId { get; set; } = string.Empty;
-    public string JobTitle { get; set; } = string.Empty;
-    public string PostedDate { get; set; } = string.Empty;
-    public string Package { get; set; } = string.Empty;
-    public string JobUrl { get; set; } = string.Empty;
-    public string PostedByProfileUrl { get; set; } = string.Empty;
-
-    public PostedByType? PostedBy { get; set; } = null;
-    public string PostedId { get; set; } = string.Empty;
-}
-
-
-

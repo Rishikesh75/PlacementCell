@@ -1,7 +1,7 @@
 package com.example.placementicsbackend.controllers.CRUD;
 
-import com.placementcellbackend.models.Student;
-import com.placementcellbackend.services.crud.interfaces.IStudentService;
+import com.example.placementicsbackend.models.Student;
+import com.example.placementicsbackend.services.crud.interfaces.IStudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/students")
 @RequiredArgsConstructor
-public class StudentsController {
+public class StudentController {
 
     private final IStudentService studentService;
 

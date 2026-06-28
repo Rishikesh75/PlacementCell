@@ -1,10 +1,10 @@
-﻿package com.example.placementicsbackend.controllers;
+package com.example.placementicsbackend.controllers;
 
-import com.example.dto.FoodReviewCreateDto;
-import com.example.dto.FoodReviewDto;
-import com.example.service.FoodReviewService;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.placementicsbackend.dtos.FoodReview.FoodReviewCreateDto;
+import com.example.placementicsbackend.dtos.FoodReview.FoodReviewDto;
+import com.example.placementicsbackend.services.feedback.interfaces.IFoodReviewService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,78 +12,46 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/foodreview")
+@RequiredArgsConstructor
 public class FoodReviewController {
 
-    private final FoodReviewService foodReviewService;
-
-    @Autowired
-    public FoodReviewController(FoodReviewService foodReviewService) {
-        this.foodReviewService = foodReviewService;
-    }
+    private final IFoodReviewService foodReviewService;
 
     @GetMapping
     public ResponseEntity<List<FoodReviewDto>> getFoodItems() {
-        List<FoodReviewDto> foodItems =
-                foodReviewService.getAllFoodItems();
-        return ResponseEntity.ok(foodItems);
+        return ResponseEntity.ok(foodReviewService.getAllFoodItems());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FoodReviewDto> getFoodItem(
-            @PathVariable Integer id) {
-
-        FoodReviewDto foodItem =
-                foodReviewService.getFoodItemById(id);
-
+    public ResponseEntity<FoodReviewDto> getFoodItem(@PathVariable Integer id) {
+        FoodReviewDto foodItem = foodReviewService.getFoodItemById(id);
         if (foodItem == null) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok(foodItem);
     }
 
     @PostMapping
-    public ResponseEntity<FoodReviewDto> createFoodItem(
-            @RequestBody FoodReviewCreateDto foodItem) {
-
+    public ResponseEntity<FoodReviewDto> createFoodItem(@RequestBody FoodReviewCreateDto foodItem) {
         if (foodItem == null) {
             return ResponseEntity.badRequest().build();
         }
-
-        FoodReviewDto created =
-                foodReviewService.createFoodItem(foodItem);
-
-        return ResponseEntity
-                .status(201)
-                .body(created);
+        return ResponseEntity.status(HttpStatus.CREATED).body(foodReviewService.createFoodItem(foodItem));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateFoodItem(
-            @PathVariable Integer id,
-            @RequestBody FoodReviewCreateDto foodItem) {
-
-        boolean success =
-                foodReviewService.updateFoodItem(id, foodItem);
-
-        if (!success) {
+    public ResponseEntity<Void> updateFoodItem(@PathVariable Integer id, @RequestBody FoodReviewCreateDto foodItem) {
+        if (!foodReviewService.updateFoodItem(id, foodItem)) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFoodItem(
-            @PathVariable Integer id) {
-
-        boolean success =
-                foodReviewService.deleteFoodItem(id);
-
-        if (!success) {
+    public ResponseEntity<Void> deleteFoodItem(@PathVariable Integer id) {
+        if (!foodReviewService.deleteFoodItem(id)) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.noContent().build();
     }
 }

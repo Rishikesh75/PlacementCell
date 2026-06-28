@@ -1,24 +1,18 @@
-namespace PlacementCellBackend.DTOs
-{
-    public class AlumniStatistics
-    {
-        public int TotalAlumni { get; set; }
-        public int UniqueCompanies { get; set; }
-        public List<CompanyAlumniCount> CompanyWiseCount { get; set; } = new();
-    }
+package com.example.placementicsbackend.dtos;
 
-    public class PositionCount
-    {
-        public string Position { get; set; } = string.Empty;
-        public int Count { get; set; }
-    }
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public class CompanyAlumniCount
-    {
-        public string CompanyId { get; set; } = string.Empty;
-        public string CompanyName { get; set; } = string.Empty;
-        public int TotalAlumniCount { get; set; }
-        public List<PositionCount> PositionWiseCount { get; set; } = new();
-    }
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AlumniStatistics {
+
+    private int totalAlumni;
+    private int uniqueCompanies;
+    private List<CompanyAlumniCount> companyWiseCount = new ArrayList<>();
 }
-

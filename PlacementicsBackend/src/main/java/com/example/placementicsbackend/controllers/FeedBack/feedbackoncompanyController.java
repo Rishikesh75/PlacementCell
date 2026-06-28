@@ -1,8 +1,8 @@
-﻿package com.example.placementicsbackend.controllers.FeedBack;
+package com.example.placementicsbackend.controllers.FeedBack;
 
-import com.placementcellbackend.dto.feedbackcompany.AlumniFeedbackOnCompanyCreateDto;
-import com.placementcellbackend.dto.feedbackcompany.AlumniFeedbackOnCompanyDto;
-import com.placementcellbackend.services.feedback.interfaces.IFeedbackOnCompanyService;
+import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyCreateDto;
+import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyDto;
+import com.example.placementicsbackend.services.feedback.interfaces.IFeedbackOnCompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,71 +13,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/feedback-on-company")
 @RequiredArgsConstructor
-public class FeedbackOnCompanyController {
+public class feedbackoncompanyController {
 
     private final IFeedbackOnCompanyService feedbackService;
 
     @GetMapping
     public ResponseEntity<List<AlumniFeedbackOnCompanyDto>> getFeedbackOnCompany() {
-
-        List<AlumniFeedbackOnCompanyDto> feedbacks =
-                feedbackService.getAllFeedbacks();
-
-        return ResponseEntity.ok(feedbacks);
+        return ResponseEntity.ok(feedbackService.getAllFeedbacks());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlumniFeedbackOnCompanyDto> getFeedback(
-            @PathVariable String id) {
-
-        AlumniFeedbackOnCompanyDto feedback =
-                feedbackService.getFeedbackById(id);
-
+    public ResponseEntity<AlumniFeedbackOnCompanyDto> getFeedback(@PathVariable String id) {
+        AlumniFeedbackOnCompanyDto feedback = feedbackService.getFeedbackById(id);
         if (feedback == null) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok(feedback);
     }
 
     @PostMapping
     public ResponseEntity<AlumniFeedbackOnCompanyDto> postFeedbackOnCompany(
             @RequestBody AlumniFeedbackOnCompanyCreateDto feedback) {
-
-        AlumniFeedbackOnCompanyDto created =
-                feedbackService.createFeedback(feedback);
-
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(created);
+        return ResponseEntity.status(HttpStatus.CREATED).body(feedbackService.createFeedback(feedback));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> putFeedback(
             @PathVariable Integer id,
             @RequestBody AlumniFeedbackOnCompanyCreateDto updatedFeedback) {
-
-        boolean success =
-                feedbackService.updateFeedback(id, updatedFeedback);
-
-        if (!success) {
+        if (!feedbackService.updateFeedback(id, updatedFeedback)) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFeedback(
-            @PathVariable Integer id) {
-
-        boolean success =
-                feedbackService.deleteFeedback(id);
-
-        if (!success) {
+    public ResponseEntity<Void> deleteFeedback(@PathVariable Integer id) {
+        if (!feedbackService.deleteFeedback(id)) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.noContent().build();
     }
 }

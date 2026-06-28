@@ -1,124 +1,76 @@
-namespace PlacementCellBackend.Helpers
-{
-    /// <summary>
-    /// Loads SQL queries from files in the SQL/Queries folder.
-    /// Queries are cached in memory for performance.
-    /// </summary>
-    public static class SqlQueryLoader
-    {
-        private static readonly Dictionary<string, string> _queryCache = new();
-        private static readonly object _lock = new();
-        private static string? _basePath;
+package com.example.placementicsbackend.helpers;
 
-        /// <summary>
-        /// Gets the base path for SQL query files
-        /// </summary>
-        private static string BasePath
-        {
-            get
-            {
-                if (_basePath == null)
-                {
-                    _basePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "SQL", "Queries");
+import jakarta.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StreamUtils;
+
+@Component
+public class SqlQueryLoader {
+
+    private static final String QUERY_BASE = "classpath:sql/queries/";
+
+    private final ConcurrentHashMap<String, String> queryCache = new ConcurrentHashMap<>();
+
+    public String loadQuery(String category, String queryName) {
+        String cacheKey = category + "/" + queryName;
+        return queryCache.computeIfAbsent(cacheKey, key -> readQuery(category, queryName));
+    }
+
+    @PostConstruct
+    public void preloadAllQueries() {
+        try {
+            PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+            Resource[] resources = resolver.getResources(QUERY_BASE + "**/*.sql");
+            int loadedCount = 0;
+            for (Resource resource : resources) {
+                String filename = resource.getFilename();
+                if (filename == null) {
+                    continue;
                 }
-                return _basePath;
-            }
-        }
-
-        /// <summary>
-        /// Load a SQL query from file. Queries are cached for performance.
-        /// </summary>
-        /// <param name="category">Folder name (e.g., "Dashboard", "Companies", "Alumni", "Placements")</param>
-        /// <param name="queryName">File name without extension (e.g., "GetDashboardStats")</param>
-        /// <returns>The SQL query string</returns>
-        /// <exception cref="FileNotFoundException">Thrown when the SQL file is not found</exception>
-        public static string LoadQuery(string category, string queryName)
-        {
-            var cacheKey = $"{category}/{queryName}";
-
-            // Check cache first (thread-safe read)
-            if (_queryCache.TryGetValue(cacheKey, out var cachedQuery))
-            {
-                return cachedQuery;
-            }
-
-            // Load from file (thread-safe write)
-            lock (_lock)
-            {
-                // Double-check after acquiring lock
-                if (_queryCache.TryGetValue(cacheKey, out cachedQuery))
-                {
-                    return cachedQuery;
+                String queryName = filename.replace(".sql", "");
+                String uri = resource.getURI().toString();
+                int queriesIndex = uri.indexOf("/queries/");
+                if (queriesIndex < 0) {
+                    continue;
                 }
-
-                var filePath = Path.Combine(BasePath, category, $"{queryName}.sql");
-
-                if (!File.Exists(filePath))
-                {
-                    throw new FileNotFoundException(
-                        $"SQL query file not found: {filePath}. " +
-                        $"Ensure the file exists and is set to 'Copy to Output Directory'.",
-                        filePath);
+                String relative = uri.substring(queriesIndex + "/queries/".length());
+                int slashIndex = relative.lastIndexOf('/');
+                if (slashIndex < 0) {
+                    continue;
                 }
-
-                var query = File.ReadAllText(filePath).Trim();
-                _queryCache[cacheKey] = query;
-
-                return query;
+                String category = relative.substring(0, slashIndex);
+                loadQuery(category, queryName);
+                loadedCount++;
             }
+            System.out.println("[SqlQueryLoader] Preloaded " + loadedCount + " SQL queries");
+        } catch (IOException ex) {
+            System.out.println("[SqlQueryLoader] Warning: Failed to preload queries: " + ex.getMessage());
         }
+    }
 
-        /// <summary>
-        /// Preload all queries at startup for better performance.
-        /// Call this in Program.cs during application startup.
-        /// </summary>
-        public static void PreloadAllQueries()
-        {
-            if (!Directory.Exists(BasePath))
-            {
-                Console.WriteLine($"[SqlQueryLoader] Warning: SQL Queries folder not found at {BasePath}");
-                return;
+    public int getCachedQueryCount() {
+        return queryCache.size();
+    }
+
+    private String readQuery(String category, String queryName) {
+        String path = QUERY_BASE + category + "/" + queryName + ".sql";
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        try {
+            Resource resource = resolver.getResource(path);
+            if (!resource.exists()) {
+                throw new IllegalStateException("SQL query file not found: " + path);
             }
-
-            var loadedCount = 0;
-
-            foreach (var categoryDir in Directory.GetDirectories(BasePath))
-            {
-                var category = Path.GetFileName(categoryDir);
-
-                foreach (var sqlFile in Directory.GetFiles(categoryDir, "*.sql"))
-                {
-                    var queryName = Path.GetFileNameWithoutExtension(sqlFile);
-
-                    try
-                    {
-                        LoadQuery(category, queryName);
-                        loadedCount++;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine($"[SqlQueryLoader] Warning: Failed to load {category}/{queryName}: {ex.Message}");
-                    }
-                }
+            try (InputStream inputStream = resource.getInputStream()) {
+                return StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8).trim();
             }
-
-            Console.WriteLine($"[SqlQueryLoader] Preloaded {loadedCount} SQL queries from {BasePath}");
+        } catch (IOException ex) {
+            throw new IllegalStateException("Failed to load SQL query: " + path, ex);
         }
-
-        /// <summary>
-        /// Clear the query cache (useful for hot-reload scenarios during development)
-        /// </summary>
-        public static void ClearCache()
-        {
-            lock (_lock)
-            {
-                _queryCache.Clear();
-            }
-        }
-
-        /// <summary>
-        /// Get the count of cached queries
-        /// </summary>
-        public static int CachedQueryCount => _queryCache.Count;
     }
 }

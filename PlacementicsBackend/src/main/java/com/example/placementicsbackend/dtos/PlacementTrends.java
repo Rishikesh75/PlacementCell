@@ -1,40 +1,17 @@
-namespace PlacementCellBackend.DTOs
-{
-    public class PlacementTrends
-    {
-        public int TotalPlacements { get; set; }
-        public List<YearlyPlacementData> YearlyData { get; set; } = new();
-    }
+package com.example.placementicsbackend.dtos;
 
-    public class YearlyPlacementData
-    {
-        public int Year { get; set; }
-        public int TotalPlacements { get; set; }
-        public int UniqueCompanies { get; set; }
-        public List<PositionCount> PositionWiseCount { get; set; } = new();
-        public List<MonthlyPlacementData> MonthlyData { get; set; } = new();
-    }
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    public class MonthlyPlacementData
-    {
-        public int Month { get; set; }
-        public string MonthName { get; set; } = string.Empty;
-        public int PlacementCount { get; set; }
-        public List<PositionCount> PositionWiseCount { get; set; } = new();
-    }
+import java.util.ArrayList;
+import java.util.List;
 
-    public class PositionDistribution
-    {
-        public string Position { get; set; } = string.Empty;
-        public int Count { get; set; }
-        public double Percentage { get; set; }
-    }
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class PlacementTrends {
 
-    public class IndustryDistribution
-    {
-        public string Industry { get; set; } = string.Empty;
-        public int Count { get; set; }
-        public double Percentage { get; set; }
-    }
+    private int totalPlacements;
+    private List<YearlyPlacementData> yearlyData = new ArrayList<>();
 }
-

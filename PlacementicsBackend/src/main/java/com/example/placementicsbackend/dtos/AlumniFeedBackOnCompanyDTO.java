@@ -1,44 +1,29 @@
-﻿using PlacementCellBackend.Models.Enums;
-using PlacementCellBackend.Models.InterviewRounds;
+package com.example.placementicsbackend.dtos;
 
-namespace PlacementCellBackend.DTOs;
+import com.example.placementicsbackend.models.enums.JobType;
+import com.example.placementicsbackend.models.enums.WorkMode;
+import com.example.placementicsbackend.models.interviewrounds.CodingRound;
+import com.example.placementicsbackend.models.interviewrounds.HRRound;
+import com.example.placementicsbackend.models.interviewrounds.Resources;
+import com.example.placementicsbackend.models.interviewrounds.TechnicalRound;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public class AlumniFeedBackOnCompanyDTO
-{
-    public string companyName { get; set; } = string.Empty;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class AlumniFeedbackOnCompanyDto {
 
-    public string AlumniProfile { get; set; } = string.Empty;
-
-    public string jobProfile { get; set; } = string.Empty;
-
-    public string CTC { get; set; } = string.Empty;
-
-    public string JobLocation { get; set; } = string.Empty;
-
-    public JobType JobType { get; set; } = JobType.Internship;
-
-    public WorkMode WorkMode { get; set; } = WorkMode.Remote;
-
-    public CodingRound? CodingRoundInfo { get; set; }
-
-    public TechnicalRound? TechnicalRoundInfo { get; set; }
-
-    public HRRound? HRRoundInfo { get; set; }
-
-    public Resources? ResourcesInfo { get; set; }
-}
-
-public class AlumniFeedBackOnCompanyCreateDTO
-{
-    public string CompanyId { get; set; } = string.Empty;
-    public string Id { get; set; } = string.Empty;
-    public string jobProfile { get; set; } = string.Empty;
-    public string CTC { get; set; } = string.Empty;
-    public string JobLocation { get; set; } = string.Empty;
-    public JobType JobType { get; set; } = JobType.Internship;
-    public WorkMode WorkMode { get; set; } = WorkMode.Remote;
-    public CodingRound? CodingRoundInfo { get; set; }
-    public TechnicalRound? TechnicalRoundInfo { get; set; }
-    public HRRound? HRRoundInfo { get; set; }
-    public Resources? ResourcesInfo { get; set; }
+    private String companyName = "";
+    private String alumniProfile = "";
+    private String jobProfile = "";
+    private String ctc = "";
+    private String jobLocation = "";
+    private JobType jobType = JobType.Internship;
+    private WorkMode workMode = WorkMode.Remote;
+    private CodingRound codingRoundInfo;
+    private TechnicalRound technicalRoundInfo;
+    private HRRound hrRoundInfo;
+    private Resources resourcesInfo;
 }

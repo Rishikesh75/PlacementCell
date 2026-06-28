@@ -1,7 +1,7 @@
 package com.example.placementicsbackend.controllers.CRUD;
 
-import com.placementcellbackend.models.College;
-import com.placementcellbackend.services.crud.interfaces.ICollageService;
+import com.example.placementicsbackend.models.College;
+import com.example.placementicsbackend.services.crud.interfaces.ICollageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/college")
 @RequiredArgsConstructor
-public class CollegeController {
+public class CollageController {
 
     private final ICollageService collageService;
 
