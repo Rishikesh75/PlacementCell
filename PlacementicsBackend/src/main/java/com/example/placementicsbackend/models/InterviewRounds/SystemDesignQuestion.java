@@ -1,6 +1,6 @@
-package com.example.placementicsbackend.models.interviewrounds;
+package com.example.placementicsbackend.models.InterviewRounds;
 
-import com.example.placementicsbackend.models.enums.SystemDesignQuestionType;
+import com.example.placementicsbackend.models.Enums.SystemDesignQuestionType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

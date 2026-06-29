@@ -1,13 +1,13 @@
-package com.example.placementicsbackend.services.placements.impl;
+package com.example.placementicsbackend.services.Placements.impl;
 
 import com.example.placementicsbackend.dtos.AlumniJobOpenings.AlumniJobOpeningCreateDto;
 import com.example.placementicsbackend.dtos.AlumniJobOpenings.AlumniJobOpeningDto;
 import com.example.placementicsbackend.models.Company;
-import com.example.placementicsbackend.models.enums.PostedByType;
-import com.example.placementicsbackend.models.jobopening.AlumniJobOpenings;
+import com.example.placementicsbackend.models.Enums.PostedByType;
+import com.example.placementicsbackend.models.JobOpening.AlumniJobOpenings;
 import com.example.placementicsbackend.repositories.AlumniJobOpeningsRepository;
 import com.example.placementicsbackend.repositories.CompanyRepository;
-import com.example.placementicsbackend.services.placements.interfaces.IAlumniPlacementService;
+import com.example.placementicsbackend.services.Placements.Interfaces.IAlumniPlacementService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;

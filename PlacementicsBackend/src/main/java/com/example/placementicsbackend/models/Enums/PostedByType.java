@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.models.enums;
+package com.example.placementicsbackend.models.Enums;
 
 public enum PostedByType {
     Alumni,

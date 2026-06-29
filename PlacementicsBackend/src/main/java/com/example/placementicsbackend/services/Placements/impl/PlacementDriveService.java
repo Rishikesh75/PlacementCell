@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.placements.impl;
+package com.example.placementicsbackend.services.Placements.impl;
 
 import com.example.placementicsbackend.dtos.PlacementDriveDTOs.CreatePlacementDriveDto;
 import com.example.placementicsbackend.dtos.PlacementDriveDTOs.PlacementDriveDto;
@@ -7,7 +7,7 @@ import com.example.placementicsbackend.models.Company;
 import com.example.placementicsbackend.models.PlacementDrive;
 import com.example.placementicsbackend.repositories.CompanyRepository;
 import com.example.placementicsbackend.repositories.PlacementDriveRepository;
-import com.example.placementicsbackend.services.placements.interfaces.IPlacementDriveService;
+import com.example.placementicsbackend.services.Placements.Interfaces.IPlacementDriveService;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

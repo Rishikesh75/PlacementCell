@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.models.interviewrounds;
+package com.example.placementicsbackend.models.InterviewRounds;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,10 +1,10 @@
-package com.example.placementicsbackend.services.feedback.impl;
+package com.example.placementicsbackend.services.Feedback.impl;
 
 import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyCreateDto;
 import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyDto;
 import com.example.placementicsbackend.models.Alumni;
 import com.example.placementicsbackend.models.Company;
-import com.example.placementicsbackend.models.feedbacks.AlumniFeedBackonCompany;
+import com.example.placementicsbackend.models.FeedBacks.AlumniFeedBackonCompany;
 import com.example.placementicsbackend.repositories.AlumniFeedBackonCompanyRepository;
 import com.example.placementicsbackend.repositories.AlumniRepository;
 import com.example.placementicsbackend.repositories.CompanyRepository;

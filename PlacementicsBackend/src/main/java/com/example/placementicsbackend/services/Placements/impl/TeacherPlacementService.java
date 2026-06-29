@@ -1,12 +1,12 @@
-package com.example.placementicsbackend.services.placements.impl;
+package com.example.placementicsbackend.services.Placements.impl;
 
 import com.example.placementicsbackend.dtos.ReasearchOpeningsDtos.ResearchOpeningCreateDto;
 import com.example.placementicsbackend.dtos.ReasearchOpeningsDtos.ResearchOpeningDto;
 import com.example.placementicsbackend.models.Teacher;
-import com.example.placementicsbackend.models.jobopening.ResearchOpening;
+import com.example.placementicsbackend.models.JobOpening.ResearchOpening;
 import com.example.placementicsbackend.repositories.ResearchOpeningRepository;
 import com.example.placementicsbackend.repositories.TeacherRepository;
-import com.example.placementicsbackend.services.placements.interfaces.ITeacherPlacementService;
+import com.example.placementicsbackend.services.Placements.Interfaces.ITeacherPlacementService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

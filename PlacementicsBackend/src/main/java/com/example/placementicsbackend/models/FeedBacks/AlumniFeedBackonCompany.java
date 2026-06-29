@@ -1,13 +1,13 @@
-package com.example.placementicsbackend.models.feedbacks;
+package com.example.placementicsbackend.models.FeedBacks;
 
 import com.example.placementicsbackend.models.Alumni;
 import com.example.placementicsbackend.models.Company;
-import com.example.placementicsbackend.models.enums.JobType;
-import com.example.placementicsbackend.models.enums.WorkMode;
-import com.example.placementicsbackend.models.interviewrounds.CodingRound;
-import com.example.placementicsbackend.models.interviewrounds.HRRound;
-import com.example.placementicsbackend.models.interviewrounds.Resources;
-import com.example.placementicsbackend.models.interviewrounds.TechnicalRound;
+import com.example.placementicsbackend.models.Enums.JobType;
+import com.example.placementicsbackend.models.Enums.WorkMode;
+import com.example.placementicsbackend.models.InterviewRounds.CodingRound;
+import com.example.placementicsbackend.models.InterviewRounds.HRRound;
+import com.example.placementicsbackend.models.InterviewRounds.Resources;
+import com.example.placementicsbackend.models.InterviewRounds.TechnicalRound;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;

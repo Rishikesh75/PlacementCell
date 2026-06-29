@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.analytics.interfaces;
+package com.example.placementicsbackend.services.Analytics.Interfaces;
 
 import com.example.placementicsbackend.dtos.AlumniStatistics;
 import com.example.placementicsbackend.dtos.CompanyInsights;

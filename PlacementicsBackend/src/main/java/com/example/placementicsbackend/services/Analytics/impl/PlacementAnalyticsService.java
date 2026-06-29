@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.analytics.impl;
+package com.example.placementicsbackend.services.Analytics.impl;
 
 import com.example.placementicsbackend.dtos.AlumniStatistics;
 import com.example.placementicsbackend.dtos.CompanyAlumniCount;
@@ -14,13 +14,13 @@ import com.example.placementicsbackend.dtos.TopBookResource;
 import com.example.placementicsbackend.dtos.TopLinkResource;
 import com.example.placementicsbackend.dtos.YearlyPlacementCount;
 import com.example.placementicsbackend.dtos.YearlyPlacementData;
-import com.example.placementicsbackend.helpers.SqlQueryLoader;
-import com.example.placementicsbackend.models.feedbacks.AlumniFeedBackonCompany;
-import com.example.placementicsbackend.models.interviewrounds.BookResource;
-import com.example.placementicsbackend.models.interviewrounds.LinkResource;
-import com.example.placementicsbackend.models.interviewrounds.Resources;
+import com.example.placementicsbackend.Helpers.SqlQueryLoader;
+import com.example.placementicsbackend.models.FeedBacks.AlumniFeedBackonCompany;
+import com.example.placementicsbackend.models.InterviewRounds.BookResource;
+import com.example.placementicsbackend.models.InterviewRounds.LinkResource;
+import com.example.placementicsbackend.models.InterviewRounds.Resources;
 import com.example.placementicsbackend.repositories.AlumniFeedBackonCompanyRepository;
-import com.example.placementicsbackend.services.analytics.interfaces.IPlacementAnalyticsService;
+import com.example.placementicsbackend.services.Analytics.Interfaces.IPlacementAnalyticsService;
 import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.ResultSet;

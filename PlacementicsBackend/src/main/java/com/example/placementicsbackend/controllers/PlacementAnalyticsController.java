@@ -7,7 +7,7 @@ import com.example.placementicsbackend.dtos.DashboardStats;
 import com.example.placementicsbackend.dtos.PlacementTrends;
 import com.example.placementicsbackend.dtos.RecentPlacement;
 import com.example.placementicsbackend.dtos.RecommendedResources;
-import com.example.placementicsbackend.services.analytics.interfaces.IPlacementAnalyticsService;
+import com.example.placementicsbackend.services.Analytics.Interfaces.IPlacementAnalyticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

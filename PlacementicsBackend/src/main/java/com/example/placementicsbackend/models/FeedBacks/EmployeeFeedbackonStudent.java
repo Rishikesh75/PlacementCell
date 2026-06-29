@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.models.feedbacks;
+package com.example.placementicsbackend.models.FeedBacks;
 
 import com.example.placementicsbackend.models.CompanyEmployee;
 import jakarta.persistence.Column;

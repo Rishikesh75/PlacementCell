@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.placements.interfaces;
+package com.example.placementicsbackend.services.Placements.Interfaces;
 
 import com.example.placementicsbackend.dtos.AlumniJobOpenings.AlumniJobOpeningCreateDto;
 import com.example.placementicsbackend.dtos.AlumniJobOpenings.AlumniJobOpeningDto;

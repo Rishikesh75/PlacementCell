@@ -1,6 +1,6 @@
 package com.example.placementicsbackend.dtos;
 
-import com.example.placementicsbackend.models.enums.ResourceCategory;
+import com.example.placementicsbackend.models.Enums.ResourceCategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

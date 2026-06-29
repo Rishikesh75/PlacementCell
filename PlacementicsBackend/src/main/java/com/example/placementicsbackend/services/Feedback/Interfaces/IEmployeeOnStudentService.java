@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.feedback.interfaces;
+package com.example.placementicsbackend.services.Feedback.Interfaces;
 
 import com.example.placementicsbackend.dtos.EmployeeFeedbackonStudent.EmployeeFeedbackOnStudentCreateDto;
 import com.example.placementicsbackend.dtos.EmployeeFeedbackonStudent.EmployeeFeedbackOnStudentDto;

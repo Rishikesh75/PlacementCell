@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.helpers;
+package com.example.placementicsbackend.Helpers;
 
 import jakarta.annotation.PostConstruct;
 import java.io.IOException;

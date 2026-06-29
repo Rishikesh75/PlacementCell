@@ -1,6 +1,6 @@
-package com.example.placementicsbackend.models.interviewrounds;
+package com.example.placementicsbackend.models.InterviewRounds;
 
-import com.example.placementicsbackend.models.enums.InterviewMode;
+import com.example.placementicsbackend.models.Enums.InterviewMode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;

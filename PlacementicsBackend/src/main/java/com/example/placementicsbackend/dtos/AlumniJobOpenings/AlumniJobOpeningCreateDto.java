@@ -1,6 +1,6 @@
 package com.example.placementicsbackend.dtos.AlumniJobOpenings;
 
-import com.example.placementicsbackend.models.enums.PostedByType;
+import com.example.placementicsbackend.models.Enums.PostedByType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;

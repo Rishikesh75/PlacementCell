@@ -2,7 +2,7 @@ package com.example.placementicsbackend.controllers.JobsandInterships;
 
 import com.example.placementicsbackend.dtos.AlumniJobOpenings.AlumniJobOpeningCreateDto;
 import com.example.placementicsbackend.dtos.AlumniJobOpenings.AlumniJobOpeningDto;
-import com.example.placementicsbackend.services.placements.interfaces.IAlumniPlacementService;
+import com.example.placementicsbackend.services.Placements.Interfaces.IAlumniPlacementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

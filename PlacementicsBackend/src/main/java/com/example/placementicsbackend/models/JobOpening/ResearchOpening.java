@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.models.jobopening;
+package com.example.placementicsbackend.models.JobOpening;
 
 import com.example.placementicsbackend.models.Teacher;
 import jakarta.persistence.Column;

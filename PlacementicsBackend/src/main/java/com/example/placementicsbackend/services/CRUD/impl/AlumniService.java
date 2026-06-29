@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.crud.impl;
+package com.example.placementicsbackend.services.CRUD.impl;
 
 import com.example.placementicsbackend.dtos.AlumniDtos.AlumniDto;
 import com.example.placementicsbackend.dtos.AlumniDtos.AlumniDtoUpdate;
@@ -6,7 +6,7 @@ import com.example.placementicsbackend.models.Alumni;
 import com.example.placementicsbackend.models.Company;
 import com.example.placementicsbackend.repositories.AlumniRepository;
 import com.example.placementicsbackend.repositories.CompanyRepository;
-import com.example.placementicsbackend.services.crud.interfaces.IAlumniService;
+import com.example.placementicsbackend.services.CRUD.Interfaces.IAlumniService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

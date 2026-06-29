@@ -1,7 +1,7 @@
-package com.example.placementicsbackend.models.interviewrounds;
+package com.example.placementicsbackend.models.InterviewRounds;
 
-import com.example.placementicsbackend.models.enums.CoreCSQuestionType;
-import com.example.placementicsbackend.models.enums.DifficultyLevel;
+import com.example.placementicsbackend.models.Enums.CoreCSQuestionType;
+import com.example.placementicsbackend.models.Enums.DifficultyLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

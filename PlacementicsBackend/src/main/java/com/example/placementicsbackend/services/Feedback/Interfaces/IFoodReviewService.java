@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.feedback.interfaces;
+package com.example.placementicsbackend.services.Feedback.Interfaces;
 
 import com.example.placementicsbackend.dtos.FoodReview.FoodReviewCreateDto;
 import com.example.placementicsbackend.dtos.FoodReview.FoodReviewDto;

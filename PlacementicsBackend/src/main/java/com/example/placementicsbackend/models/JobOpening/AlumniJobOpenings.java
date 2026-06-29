@@ -1,9 +1,9 @@
-package com.example.placementicsbackend.models.jobopening;
+package com.example.placementicsbackend.models.JobOpening;
 
 import com.example.placementicsbackend.models.Alumni;
 import com.example.placementicsbackend.models.Company;
 import com.example.placementicsbackend.models.CompanyEmployee;
-import com.example.placementicsbackend.models.enums.PostedByType;
+import com.example.placementicsbackend.models.Enums.PostedByType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

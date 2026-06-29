@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.placements.impl;
+package com.example.placementicsbackend.services.Placements.impl;
 
 import com.example.placementicsbackend.dtos.PlacementDTOs.CreatePlacementDto;
 import com.example.placementicsbackend.dtos.PlacementDTOs.PlacementDto;
@@ -8,7 +8,7 @@ import com.example.placementicsbackend.models.Student;
 import com.example.placementicsbackend.repositories.CompanyRepository;
 import com.example.placementicsbackend.repositories.PlacementRepository;
 import com.example.placementicsbackend.repositories.StudentRepository;
-import com.example.placementicsbackend.services.placements.interfaces.IPlacementService;
+import com.example.placementicsbackend.services.Placements.Interfaces.IPlacementService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

@@ -1,6 +1,6 @@
-package com.example.placementicsbackend.models.interviewrounds;
+package com.example.placementicsbackend.models.InterviewRounds;
 
-import com.example.placementicsbackend.models.enums.ResourceCategory;
+import com.example.placementicsbackend.models.Enums.ResourceCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import java.util.ArrayList;

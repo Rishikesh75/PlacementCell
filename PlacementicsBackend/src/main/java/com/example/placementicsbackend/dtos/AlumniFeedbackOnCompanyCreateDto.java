@@ -1,11 +1,11 @@
 package com.example.placementicsbackend.dtos;
 
-import com.example.placementicsbackend.models.enums.JobType;
-import com.example.placementicsbackend.models.enums.WorkMode;
-import com.example.placementicsbackend.models.interviewrounds.CodingRound;
-import com.example.placementicsbackend.models.interviewrounds.HRRound;
-import com.example.placementicsbackend.models.interviewrounds.Resources;
-import com.example.placementicsbackend.models.interviewrounds.TechnicalRound;
+import com.example.placementicsbackend.models.Enums.JobType;
+import com.example.placementicsbackend.models.Enums.WorkMode;
+import com.example.placementicsbackend.models.InterviewRounds.CodingRound;
+import com.example.placementicsbackend.models.InterviewRounds.HRRound;
+import com.example.placementicsbackend.models.InterviewRounds.Resources;
+import com.example.placementicsbackend.models.InterviewRounds.TechnicalRound;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
