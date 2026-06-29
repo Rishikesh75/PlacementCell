@@ -2,7 +2,7 @@ package com.example.placementicsbackend.services.CRUD.impl;
 
 import com.example.placementicsbackend.models.Teacher;
 import com.example.placementicsbackend.repositories.TeacherRepository;
-import com.example.placementicsbackend.services.crud.interfaces.ITeacherService;
+import com.example.placementicsbackend.services.CRUD.Interfaces.ITeacherService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

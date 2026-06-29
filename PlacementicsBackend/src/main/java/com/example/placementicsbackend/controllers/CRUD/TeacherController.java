@@ -1,7 +1,7 @@
 package com.example.placementicsbackend.controllers.CRUD;
 
 import com.example.placementicsbackend.models.Teacher;
-import com.example.placementicsbackend.services.crud.interfaces.ITeacherService;
+import com.example.placementicsbackend.services.CRUD.Interfaces.ITeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -2,7 +2,7 @@ package com.example.placementicsbackend.controllers.CRUD;
 
 import com.example.placementicsbackend.dtos.CompanyEmployee.CompanyEmployeeCreateDto;
 import com.example.placementicsbackend.dtos.CompanyEmployee.CompanyEmployeeDto;
-import com.example.placementicsbackend.services.crud.interfaces.ICompanyEmployeeService;
+import com.example.placementicsbackend.services.CRUD.Interfaces.ICompanyEmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

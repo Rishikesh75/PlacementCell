@@ -2,7 +2,7 @@ package com.example.placementicsbackend.controllers;
 
 import com.example.placementicsbackend.dtos.FoodReview.FoodReviewCreateDto;
 import com.example.placementicsbackend.dtos.FoodReview.FoodReviewDto;
-import com.example.placementicsbackend.services.feedback.interfaces.IFoodReviewService;
+import com.example.placementicsbackend.services.Feedback.Interfaces.IFoodReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

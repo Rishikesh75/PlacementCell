@@ -3,7 +3,7 @@ package com.example.placementicsbackend.controllers;
 import com.example.placementicsbackend.dtos.PlacementDTOs.CreatePlacementDto;
 import com.example.placementicsbackend.dtos.PlacementDTOs.PlacementDto;
 import com.example.placementicsbackend.models.Placement;
-import com.example.placementicsbackend.services.placements.interfaces.IPlacementService;
+import com.example.placementicsbackend.services.Placements.Interfaces.IPlacementService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

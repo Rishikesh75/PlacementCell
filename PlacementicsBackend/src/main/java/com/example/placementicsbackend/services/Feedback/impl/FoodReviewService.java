@@ -8,7 +8,7 @@ import com.example.placementicsbackend.models.Restaurents;
 import com.example.placementicsbackend.repositories.CompanyRepository;
 import com.example.placementicsbackend.repositories.FoodReviewRepository;
 import com.example.placementicsbackend.repositories.RestaurentsRepository;
-import com.example.placementicsbackend.services.feedback.interfaces.IFoodReviewService;
+import com.example.placementicsbackend.services.Feedback.Interfaces.IFoodReviewService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

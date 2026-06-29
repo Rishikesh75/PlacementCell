@@ -8,7 +8,7 @@ import com.example.placementicsbackend.models.FeedBacks.EmployeeFeedbackonStuden
 import com.example.placementicsbackend.repositories.CompanyEmployeeRepository;
 import com.example.placementicsbackend.repositories.CompanyRepository;
 import com.example.placementicsbackend.repositories.EmployeeFeedbackonStudentRepository;
-import com.example.placementicsbackend.services.feedback.interfaces.IEmployeeOnStudentService;
+import com.example.placementicsbackend.services.Feedback.Interfaces.IEmployeeOnStudentService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

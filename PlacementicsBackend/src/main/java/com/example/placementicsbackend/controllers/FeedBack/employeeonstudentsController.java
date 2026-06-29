@@ -2,7 +2,7 @@ package com.example.placementicsbackend.controllers.FeedBack;
 
 import com.example.placementicsbackend.dtos.EmployeeFeedbackonStudent.EmployeeFeedbackOnStudentCreateDto;
 import com.example.placementicsbackend.dtos.EmployeeFeedbackonStudent.EmployeeFeedbackOnStudentDto;
-import com.example.placementicsbackend.services.feedback.interfaces.IEmployeeOnStudentService;
+import com.example.placementicsbackend.services.Feedback.Interfaces.IEmployeeOnStudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
