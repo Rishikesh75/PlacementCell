@@ -1,7 +1,7 @@
 package com.example.placementicsbackend.controllers.FeedBack;
 
 import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyCreateDto;
-import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyDto;
+import com.example.placementicsbackend.dtos.AlumniFeedBackOnCompanyDTO;
 import com.example.placementicsbackend.services.Feedback.Interfaces.IFeedbackOnCompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,13 +18,13 @@ public class feedbackoncompanyController {
     private final IFeedbackOnCompanyService feedbackService;
 
     @GetMapping
-    public ResponseEntity<List<AlumniFeedbackOnCompanyDto>> getFeedbackOnCompany() {
+    public ResponseEntity<List<AlumniFeedBackOnCompanyDTO>> getFeedbackOnCompany() {
         return ResponseEntity.ok(feedbackService.getAllFeedbacks());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlumniFeedbackOnCompanyDto> getFeedback(@PathVariable String id) {
-        AlumniFeedbackOnCompanyDto feedback = feedbackService.getFeedbackById(id);
+    public ResponseEntity<AlumniFeedBackOnCompanyDTO> getFeedback(@PathVariable String id) {
+        AlumniFeedBackOnCompanyDTO feedback = feedbackService.getFeedbackById(id);
         if (feedback == null) {
             return ResponseEntity.notFound().build();
         }
@@ -32,7 +32,7 @@ public class feedbackoncompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<AlumniFeedbackOnCompanyDto> postFeedbackOnCompany(
+    public ResponseEntity<AlumniFeedBackOnCompanyDTO> postFeedbackOnCompany(
             @RequestBody AlumniFeedbackOnCompanyCreateDto feedback) {
         return ResponseEntity.status(HttpStatus.CREATED).body(feedbackService.createFeedback(feedback));
     }

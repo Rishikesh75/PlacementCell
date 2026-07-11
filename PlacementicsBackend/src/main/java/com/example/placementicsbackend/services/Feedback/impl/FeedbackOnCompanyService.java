@@ -1,7 +1,6 @@
 package com.example.placementicsbackend.services.Feedback.impl;
-
 import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyCreateDto;
-import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyDto;
+import com.example.placementicsbackend.dtos.AlumniFeedBackOnCompanyDTO;
 import com.example.placementicsbackend.models.Alumni;
 import com.example.placementicsbackend.models.Company;
 import com.example.placementicsbackend.models.FeedBacks.AlumniFeedBackonCompany;
@@ -27,7 +26,7 @@ public class FeedbackOnCompanyService implements IFeedbackOnCompanyService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<AlumniFeedbackOnCompanyDto> getAllFeedbacks() {
+    public List<AlumniFeedBackOnCompanyDTO> getAllFeedbacks() {
         List<AlumniFeedBackonCompany> feedbacks = alumniFeedBackonCompanyRepository.findAll();
         if (feedbacks.isEmpty()) {
             return List.of();
@@ -59,7 +58,7 @@ public class FeedbackOnCompanyService implements IFeedbackOnCompanyService {
 
     @Override
     @Transactional(readOnly = true)
-    public AlumniFeedbackOnCompanyDto getFeedbackById(String id) {
+    public AlumniFeedBackOnCompanyDTO getFeedbackById(String id) {
         AlumniFeedBackonCompany feedback = alumniFeedBackonCompanyRepository.findById(id).orElse(null);
         if (feedback == null) {
             return null;
@@ -76,7 +75,7 @@ public class FeedbackOnCompanyService implements IFeedbackOnCompanyService {
     }
 
     @Override
-    public AlumniFeedbackOnCompanyDto createFeedback(AlumniFeedbackOnCompanyCreateDto feedback) {
+    public AlumniFeedBackOnCompanyDTO createFeedback(AlumniFeedbackOnCompanyCreateDto feedback) {
         Alumni alumni = alumniRepository.findById(feedback.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Alumni not found"));
         Company company = companyRepository.findById(feedback.getCompanyId())
@@ -141,11 +140,11 @@ public class FeedbackOnCompanyService implements IFeedbackOnCompanyService {
         return true;
     }
 
-    private AlumniFeedbackOnCompanyDto toDto(
+    private AlumniFeedBackOnCompanyDTO toDto(
             AlumniFeedBackonCompany feedback,
             String companyName,
             String alumniProfile) {
-        AlumniFeedbackOnCompanyDto dto = new AlumniFeedbackOnCompanyDto();
+        AlumniFeedBackOnCompanyDTO dto = new AlumniFeedBackOnCompanyDTO();
         dto.setCompanyName(companyName);
         dto.setAlumniProfile(alumniProfile);
         dto.setJobProfile(feedback.getJobProfile());

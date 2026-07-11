@@ -1,7 +1,7 @@
 package com.example.placementicsbackend.services.Placements.impl;
 
 import com.example.placementicsbackend.dtos.PlacementDTOs.CreatePlacementDto;
-import com.example.placementicsbackend.dtos.PlacementDTOs.PlacementDto;
+import com.example.placementicsbackend.dtos.PlacementDTOs.PlacementDTO;
 import com.example.placementicsbackend.models.Company;
 import com.example.placementicsbackend.models.Placement;
 import com.example.placementicsbackend.models.Student;
@@ -27,7 +27,7 @@ public class PlacementService implements IPlacementService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PlacementDto> getAllPlacements() {
+    public List<PlacementDTO> getAllPlacements() {
         List<Placement> placements = placementRepository.findAll();
         if (placements.isEmpty()) {
             return List.of();
@@ -57,7 +57,7 @@ public class PlacementService implements IPlacementService {
 
     @Override
     @Transactional(readOnly = true)
-    public PlacementDto getPlacementById(int id) {
+    public PlacementDTO getPlacementById(int id) {
         Placement placement = placementRepository.findById(id).orElse(null);
         if (placement == null) {
             return null;
@@ -121,8 +121,8 @@ public class PlacementService implements IPlacementService {
         return true;
     }
 
-    private PlacementDto toDto(Placement placement, String studentName, String companyName) {
-        PlacementDto dto = new PlacementDto();
+    private PlacementDTO toDto(Placement placement, String studentName, String companyName) {
+        PlacementDTO dto = new PlacementDTO();
         dto.setId(placement.getStudent().getId());
         dto.setStudentName(studentName);
         dto.setCompanyId(placement.getCompany().getCompanyId());

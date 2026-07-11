@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlacementDto {
+public class PlacementDTO {
 
     private String id = "";
     private String studentName = "";

@@ -1,7 +1,7 @@
 package com.example.placementicsbackend.controllers;
 
 import com.example.placementicsbackend.dtos.PlacementDTOs.CreatePlacementDto;
-import com.example.placementicsbackend.dtos.PlacementDTOs.PlacementDto;
+import com.example.placementicsbackend.dtos.PlacementDTOs.PlacementDTO;
 import com.example.placementicsbackend.models.Placement;
 import com.example.placementicsbackend.services.Placements.Interfaces.IPlacementService;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +19,13 @@ public class PlacementController {
     private final IPlacementService placementService;
 
     @GetMapping
-    public ResponseEntity<List<PlacementDto>> getAllPlacements() {
+    public ResponseEntity<List<PlacementDTO>> getAllPlacements() {
         return ResponseEntity.ok(placementService.getAllPlacements());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlacementDto> getPlacementById(@PathVariable Integer id) {
-        PlacementDto placement = placementService.getPlacementById(id);
+    public ResponseEntity<PlacementDTO> getPlacementById(@PathVariable Integer id) {
+        PlacementDTO placement = placementService.getPlacementById(id);
         if (placement == null) {
             return ResponseEntity.notFound().build();
         }

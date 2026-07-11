@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AlumniFeedbackOnCompanyDto {
+public class AlumniFeedBackOnCompanyDTO {
 
     private String companyName = "";
     private String alumniProfile = "";
