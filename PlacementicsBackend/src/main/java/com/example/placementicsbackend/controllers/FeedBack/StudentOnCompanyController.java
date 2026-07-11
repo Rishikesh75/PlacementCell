@@ -2,7 +2,7 @@ package com.example.placementicsbackend.controllers.FeedBack;
 
 import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyCreateDto;
 import com.example.placementicsbackend.dtos.AlumniFeedBackOnCompanyDTO;
-import com.example.placementicsbackend.services.Feedback.Interfaces.IFeedbackOnCompanyService;
+import com.example.placementicsbackend.services.Feedback.Interfaces.IStudentOnCompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/feedback-on-company")
 @RequiredArgsConstructor
-public class feedbackoncompanyController {
+public class StudentOnCompanyController {
 
-    private final IFeedbackOnCompanyService feedbackService;
+    private final IStudentOnCompanyService feedbackService;
 
     @GetMapping
     public ResponseEntity<List<AlumniFeedBackOnCompanyDTO>> getFeedbackOnCompany() {

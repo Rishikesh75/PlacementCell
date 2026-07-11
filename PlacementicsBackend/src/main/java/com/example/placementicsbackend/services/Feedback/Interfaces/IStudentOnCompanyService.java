@@ -4,7 +4,7 @@ import com.example.placementicsbackend.dtos.AlumniFeedbackOnCompanyCreateDto;
 import com.example.placementicsbackend.dtos.AlumniFeedBackOnCompanyDTO;
 import java.util.List;
 
-public interface IFeedbackOnCompanyService {
+public interface IStudentOnCompanyService {
 
     List<AlumniFeedBackOnCompanyDTO> getAllFeedbacks();
 

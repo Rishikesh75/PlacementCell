@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/employee-on-students")
 @RequiredArgsConstructor
-public class employeeonstudentsController {
+public class EmployeeonstudentsController {
 
     private final IEmployeeOnStudentService employeeOnStudentService;
 
