@@ -1,7 +1,7 @@
-package com.example.placementicsbackend.controllers.CRUD;
+package com.example.placementicsbackend.controllers;
 
 import com.example.placementicsbackend.models.Restaurents;
-import com.example.placementicsbackend.services.CRUD.Interfaces.IRestaurantService;
+import com.example.placementicsbackend.services.Interfaces.IRestaurantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

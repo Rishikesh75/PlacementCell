@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.CRUD.Interfaces;
+package com.example.placementicsbackend.services.Interfaces;
 
 import com.example.placementicsbackend.models.Restaurents;
 import java.util.List;

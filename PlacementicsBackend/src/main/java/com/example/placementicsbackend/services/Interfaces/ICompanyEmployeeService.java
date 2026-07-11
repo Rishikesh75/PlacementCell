@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.CRUD.Interfaces;
+package com.example.placementicsbackend.services.Interfaces;
 
 import com.example.placementicsbackend.dtos.CompanyEmployee.CompanyEmployeeCreateDto;
 import com.example.placementicsbackend.dtos.CompanyEmployee.CompanyEmployeeDto;

@@ -1,10 +1,10 @@
-package com.example.placementicsbackend.controllers.CRUD;
+package com.example.placementicsbackend.controllers;
 
 import com.example.placementicsbackend.dtos.AlumniDtos.AlumniDto;
 import com.example.placementicsbackend.dtos.AlumniDtos.AlumniDtoCreate;
 import com.example.placementicsbackend.dtos.AlumniDtos.AlumniDtoUpdate;
 import com.example.placementicsbackend.models.Alumni;
-import com.example.placementicsbackend.services.CRUD.Interfaces.IAlumniService;
+import com.example.placementicsbackend.services.Interfaces.IAlumniService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

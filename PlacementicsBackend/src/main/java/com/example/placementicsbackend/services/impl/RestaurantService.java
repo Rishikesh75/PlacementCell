@@ -1,8 +1,8 @@
-package com.example.placementicsbackend.services.CRUD.impl;
+package com.example.placementicsbackend.services.impl;
 
 import com.example.placementicsbackend.models.Restaurents;
 import com.example.placementicsbackend.repositories.RestaurentsRepository;
-import com.example.placementicsbackend.services.CRUD.Interfaces.IRestaurantService;
+import com.example.placementicsbackend.services.Interfaces.IRestaurantService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

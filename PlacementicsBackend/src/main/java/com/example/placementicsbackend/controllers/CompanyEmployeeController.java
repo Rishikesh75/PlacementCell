@@ -1,8 +1,8 @@
-package com.example.placementicsbackend.controllers.CRUD;
+package com.example.placementicsbackend.controllers;
 
 import com.example.placementicsbackend.dtos.CompanyEmployee.CompanyEmployeeCreateDto;
 import com.example.placementicsbackend.dtos.CompanyEmployee.CompanyEmployeeDto;
-import com.example.placementicsbackend.services.CRUD.Interfaces.ICompanyEmployeeService;
+import com.example.placementicsbackend.services.Interfaces.ICompanyEmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

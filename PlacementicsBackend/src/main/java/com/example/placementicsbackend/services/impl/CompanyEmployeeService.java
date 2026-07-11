@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.CRUD.impl;
+package com.example.placementicsbackend.services.impl;
 
 import com.example.placementicsbackend.dtos.CompanyEmployee.CompanyEmployeeCreateDto;
 import com.example.placementicsbackend.dtos.CompanyEmployee.CompanyEmployeeDto;
@@ -6,7 +6,7 @@ import com.example.placementicsbackend.models.Company;
 import com.example.placementicsbackend.models.CompanyEmployee;
 import com.example.placementicsbackend.repositories.CompanyEmployeeRepository;
 import com.example.placementicsbackend.repositories.CompanyRepository;
-import com.example.placementicsbackend.services.CRUD.Interfaces.ICompanyEmployeeService;
+import com.example.placementicsbackend.services.Interfaces.ICompanyEmployeeService;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

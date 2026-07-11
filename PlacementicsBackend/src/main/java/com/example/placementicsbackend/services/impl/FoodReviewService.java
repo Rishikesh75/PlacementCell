@@ -1,4 +1,4 @@
-package com.example.placementicsbackend.services.Feedback.impl;
+package com.example.placementicsbackend.services.impl;
 
 import com.example.placementicsbackend.dtos.FoodReview.FoodReviewCreateDto;
 import com.example.placementicsbackend.dtos.FoodReview.FoodReviewDto;
@@ -8,10 +8,12 @@ import com.example.placementicsbackend.models.Restaurents;
 import com.example.placementicsbackend.repositories.CompanyRepository;
 import com.example.placementicsbackend.repositories.FoodReviewRepository;
 import com.example.placementicsbackend.repositories.RestaurentsRepository;
-import com.example.placementicsbackend.services.Feedback.Interfaces.IFoodReviewService;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.example.placementicsbackend.services.Interfaces.IFoodReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +29,7 @@ public class FoodReviewService implements IFoodReviewService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<FoodReviewDto> getAllFoodItems() {
+    public List<FoodReviewDto> getAllFoodReviews() {
         List<FoodReview> reviews = foodReviewRepository.findAll();
         if (reviews.isEmpty()) {
             return List.of();
@@ -57,7 +59,7 @@ public class FoodReviewService implements IFoodReviewService {
 
     @Override
     @Transactional(readOnly = true)
-    public FoodReviewDto getFoodItemById(int id) {
+    public FoodReviewDto getFoodReviewById(int id) {
         FoodReview review = foodReviewRepository.findById(id).orElse(null);
         if (review == null) {
             return null;
@@ -74,7 +76,7 @@ public class FoodReviewService implements IFoodReviewService {
     }
 
     @Override
-    public FoodReviewDto createFoodItem(FoodReviewCreateDto food) {
+    public FoodReviewDto createFoodReview(FoodReviewCreateDto food) {
         Restaurents restaurant = restaurentsRepository.findById(food.getRestaurentId())
                 .orElseThrow(() -> new IllegalArgumentException("Restaurant not found"));
         Company company = companyRepository.findById(food.getCompanyId())
@@ -92,7 +94,7 @@ public class FoodReviewService implements IFoodReviewService {
     }
 
     @Override
-    public boolean updateFoodItem(int id, FoodReviewCreateDto food) {
+    public boolean updateFoodReview(int id, FoodReviewCreateDto food) {
         FoodReview existing = foodReviewRepository.findById(id).orElse(null);
         if (existing == null) {
             return false;
@@ -114,7 +116,7 @@ public class FoodReviewService implements IFoodReviewService {
     }
 
     @Override
-    public boolean deleteFoodItem(int id) {
+    public boolean deleteFoodReview(int id) {
         if (!foodReviewRepository.existsById(id)) {
             return false;
         }

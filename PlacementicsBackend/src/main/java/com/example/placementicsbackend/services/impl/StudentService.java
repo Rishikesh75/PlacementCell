@@ -1,8 +1,8 @@
-package com.example.placementicsbackend.services.CRUD.impl;
+package com.example.placementicsbackend.services.impl;
 
 import com.example.placementicsbackend.models.Student;
 import com.example.placementicsbackend.repositories.StudentRepository;
-import com.example.placementicsbackend.services.CRUD.Interfaces.IStudentService;
+import com.example.placementicsbackend.services.Interfaces.IStudentService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
