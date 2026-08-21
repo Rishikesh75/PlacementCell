@@ -1,5 +1,5 @@
+import LoginPage from "@/features/auth/presentation/LoginPage";
 
-export default function LoginPage() {
- return <>Login Page</>
-
+export default function Page() {
+  return <LoginPage />;
 }

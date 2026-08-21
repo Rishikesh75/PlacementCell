@@ -1,5 +1,5 @@
 import HomePage from './homePage/page';
-
-export default function Home() {
+import './global.css';
+export default function App() {
   return <HomePage />;
 }

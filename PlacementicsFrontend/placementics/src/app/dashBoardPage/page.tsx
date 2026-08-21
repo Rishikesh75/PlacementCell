@@ -1,7 +1,5 @@
-export default function dashBoardPage() {
-    return (
-        <div>
-            <h1>Dashboard Page</h1>
-        </div>
-    );
+import DashboardPage from "@/features/dashboard/presentation/DashboardPage";
+
+export default function Page() {
+  return <DashboardPage />;
 }

@@ -1,7 +1,5 @@
-export default function FeedbackOnCompanyInterviewPage() {
-    return (
-        <div>
-            <h1>Feedback on Company Interview</h1>
-        </div>
-    );
+import CompanyFeedbackPage from "@/features/feedback/presentation/CompanyFeedbackPage";
+
+export default function Page() {
+  return <CompanyFeedbackPage />;
 }

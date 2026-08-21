@@ -1,0 +1,389 @@
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  background: #eeecdf;
+}
+
+/* =========================
+   LEFT PANEL
+========================= */
+
+.institutePanel {
+  width: 42%;
+  min-height: 100vh;
+
+  background: #0e211b;
+  color: #eee9d8;
+
+  padding: 38px 35px;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.changeInstitute {
+  width: fit-content;
+
+  background: transparent;
+  border: none;
+
+  color: #b4a97a;
+
+  font-family: monospace;
+  font-size: 10px;
+
+  cursor: pointer;
+}
+
+.instituteContent {
+  position: absolute;
+
+  left: 35px;
+  top: 35%;
+
+  transform: translateY(-50%);
+}
+
+.instituteLogo {
+  width: 60px;
+  height: 60px;
+
+  border: 1px solid #b49b53;
+  border-radius: 50%;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #d5bd73;
+
+  font-family: Georgia, serif;
+
+  font-size: 18px;
+  line-height: 16px;
+
+  margin-bottom: 16px;
+}
+
+.instituteName {
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 19px;
+  line-height: 21px;
+
+  font-weight: 700;
+
+  margin: 0;
+
+  color: #eee9d8;
+}
+
+.established {
+  margin-top: -2px;
+  margin-left: 88px;
+
+  color: #827d69;
+
+  font-family: monospace;
+  font-size: 8px;
+}
+
+.quoteSection {
+  position: absolute;
+
+  left: 35px;
+  right: 120px;
+  bottom: 32px;
+}
+
+.quoteLine {
+  height: 1px;
+
+  background: rgba(238, 233, 216, 0.15);
+
+  margin-bottom: 18px;
+}
+
+.quoteSection blockquote {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 14px;
+  line-height: 18px;
+
+  font-style: italic;
+
+  color: #ded9c8;
+}
+
+.quoteAuthor {
+  margin-top: 14px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  color: #b4a97a;
+}
+
+
+/* =========================
+   RIGHT PANEL
+========================= */
+
+.loginPanel {
+  width: 58%;
+  min-height: 100vh;
+
+  background: #eeecdf;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginContainer {
+  width: 325px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.loginHeader h2 {
+  margin: 0;
+
+  font-family: Georgia, "Times New Roman", serif;
+
+  font-size: 20px;
+
+  color: #17241f;
+}
+
+.loginHeader p {
+  margin-top: 5px;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 9px;
+
+  color: #77786f;
+}
+
+
+/* =========================
+   ROLE SELECTOR
+========================= */
+
+.roleSelector {
+  width: 100%;
+
+  display: flex;
+
+  margin-top: 20px;
+
+  border: 1px solid #d4d0c0;
+}
+
+.roleButton {
+  flex: 1;
+
+  height: 27px;
+
+  border: none;
+  border-right: 1px solid #d4d0c0;
+
+  background: #f7f6ed;
+
+  color: #59615b;
+
+  font-size: 8px;
+
+  cursor: pointer;
+}
+
+.roleButton:last-child {
+  border-right: none;
+}
+
+.roleButton:hover {
+  background: #e7e5d9;
+}
+
+.activeRole {
+  background: #52708a;
+  color: white;
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.loginForm {
+  margin-top: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 14px;
+}
+
+.inputGroup label {
+  margin-bottom: 8px;
+
+  font-family: monospace;
+
+  font-size: 8px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+
+  color: #74756d;
+}
+
+.inputGroup input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  border: none;
+
+  border-bottom: 1px solid #cfccbd;
+
+  background: transparent;
+
+  padding: 5px 2px 7px;
+
+  outline: none;
+
+  font-size: 10px;
+
+  color: #27302c;
+}
+
+.inputGroup input::placeholder {
+  color: #989991;
+}
+
+.inputGroup input:focus {
+  border-bottom-color: #52708a;
+}
+
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+.loginButton {
+  width: 100%;
+
+  height: 32px;
+
+  margin-top: 2px;
+
+  border: none;
+
+  background: #10221d;
+
+  color: #eeecdf;
+
+  font-size: 9px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+}
+
+.loginButton:hover {
+  background: #1a3029;
+}
+
+.loginButton span {
+  font-size: 14px;
+}
+
+
+/* =========================
+   REGISTER
+========================= */
+
+.registerText {
+  margin-top: 16px;
+
+  text-align: center;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 8px;
+
+  color: #77786f;
+}
+
+.registerText a {
+  color: #315b78;
+
+  font-weight: 600;
+
+  text-decoration: underline;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .loginPage {
+    flex-direction: column;
+  }
+
+  .institutePanel {
+    width: 100%;
+    min-height: 280px;
+
+    padding: 25px;
+  }
+
+  .instituteContent {
+    position: static;
+
+    transform: none;
+
+    margin-top: 55px;
+  }
+
+  .quoteSection {
+    display: none;
+  }
+
+  .loginPanel {
+    width: 100%;
+    min-height: calc(100vh - 280px);
+
+    padding: 40px 25px;
+
+    box-sizing: border-box;
+  }
+
+  .loginContainer {
+    width: 100%;
+    max-width: 325px;
+  }
+}
