@@ -1,0 +1,96 @@
+:global(body) {
+  margin: 0;
+}
+
+.page {
+  min-height: 100vh;
+  background: #efeddc;
+  color: #202821;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 48px 24px 72px;
+}
+
+.kicker {
+  margin: 0 0 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #a9975d;
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: #17241f;
+}
+
+.hero p {
+  margin: 12px 0 28px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #73766b;
+}
+
+.empty {
+  font-size: 14px;
+  color: #73766b;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.card {
+  display: flex;
+  gap: 16px;
+  padding: 20px 4px;
+  border-bottom: 1px solid #d5d1be;
+}
+
+.shortName {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #c3a45e;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 12px;
+  color: #9c8144;
+}
+
+.body {
+  min-width: 0;
+}
+
+.body h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #17241f;
+}
+
+.meta {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #5d6158;
+}
