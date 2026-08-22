@@ -1,12 +1,13 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 
 import AppHeader from "@/shared/layouts/AppHeader";
 import {
   availableCount,
   type PlacementDate,
 } from "@/data/placementSlots";
+import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 import {
   buildPlacementDate,
   getPublishedDates,
@@ -16,19 +17,17 @@ import {
 import styles from "./TpoPublishSlotsPage.module.css";
 
 export default function TpoPublishSlotsPage() {
-  const [dates, setDates] = useState<PlacementDate[]>([]);
+  const storedDates = useClientSnapshot(getPublishedDates);
+  const [dates, setDates] = useState<PlacementDate[] | null>(null);
   const [isoDate, setIsoDate] = useState("");
   const [venue, setVenue] = useState("");
   const [times, setTimes] = useState(["09:00 – 11:00"]);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    setDates(getPublishedDates());
-  }, []);
+  const publishedDates = dates ?? storedDates;
 
   const publishedNewestFirst = useMemo(
-    () => [...dates].reverse(),
-    [dates],
+    () => [...publishedDates].reverse(),
+    [publishedDates],
   );
 
   function addTime() {

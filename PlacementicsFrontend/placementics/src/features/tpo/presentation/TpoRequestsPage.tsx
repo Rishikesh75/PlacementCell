@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import AppHeader from "@/shared/layouts/AppHeader";
 import {
@@ -11,6 +11,7 @@ import {
   type TpoQueue,
   type TpoRequest,
 } from "@/data/tpoRequests";
+import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 
 import TpoQueueTabs from "./Components/TpoQueueTabs";
 import TpoRegistrationTabs from "./Components/TpoRegistrationTabs";
@@ -37,18 +38,20 @@ const QUEUE_COPY: Record<TpoQueue, { title: string; subtitle: string }> = {
   },
 };
 
+function getQueueItems(): TpoRequest[] {
+  return [...getSubmittedRegistrations(), ...tpoRequests];
+}
+
 export default function TpoRequestsPage() {
   const [queue, setQueue] = useState<TpoQueue>("registrations");
   const [registrationKind, setRegistrationKind] =
     useState<RegistrationKind>("company");
-  const [items, setItems] = useState<TpoRequest[]>(tpoRequests);
-
-  useEffect(() => {
-    setItems([...getSubmittedRegistrations(), ...tpoRequests]);
-  }, []);
+  const storedItems = useClientSnapshot(getQueueItems);
+  const [items, setItems] = useState<TpoRequest[] | null>(null);
+  const queueItems = items ?? storedItems;
 
   const visibleItems = useMemo(() => {
-    return items.filter((item) => {
+    return queueItems.filter((item) => {
       if (item.queue !== queue) {
         return false;
       }
@@ -59,11 +62,13 @@ export default function TpoRequestsPage() {
 
       return true;
     });
-  }, [items, queue, registrationKind]);
+  }, [queueItems, queue, registrationKind]);
 
   function handleDecide(id: string, status: Exclude<RequestStatus, "pending">) {
     setItems((current) =>
-      current.map((item) => (item.id === id ? { ...item, status } : item)),
+      (current ?? storedItems).map((item) =>
+        item.id === id ? { ...item, status } : item,
+      ),
     );
   }
 

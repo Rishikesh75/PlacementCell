@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 import AppHeader from "@/shared/layouts/AppHeader";
 import { getCurrentRole } from "@/shared/auth/session";
+import { subscribeNever } from "@/shared/lib/useClientSnapshot";
 import {
   CURRENT_YEAR,
   DASHBOARD_YEARS,
@@ -23,17 +24,12 @@ import OpenNow from "./Components/OpenNow";
 import styles from "./DashboardPage.module.css";
 
 export default function DashboardPage() {
-  const [role, setRole] = useState(getCurrentRole());
+  const role = useSyncExternalStore(
+    subscribeNever,
+    getCurrentRole,
+    getCurrentRole,
+  );
   const [selectedYear, setSelectedYear] = useState<DashboardYear>(CURRENT_YEAR);
-
-  useEffect(() => {
-    const current = getCurrentRole();
-    setRole(current);
-
-    if (current === "Company") {
-      setSelectedYear(LAST_YEAR);
-    }
-  }, []);
 
   const isCompany = role === "Company";
   const year = isCompany ? LAST_YEAR : selectedYear;
