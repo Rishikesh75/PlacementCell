@@ -1,0 +1,43 @@
+name: Frontend CI
+
+on:
+  pull_request:
+    paths:
+      - "PlacementicsFrontend/placementics/**"
+      - ".github/workflows/frontend-ci.yml"
+  push:
+    branches: [main, develop]
+    paths:
+      - "PlacementicsFrontend/placementics/**"
+      - ".github/workflows/frontend-ci.yml"
+
+defaults:
+  run:
+    working-directory: PlacementicsFrontend/placementics
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: PlacementicsFrontend/placementics/package-lock.json
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+        env:
+          API_BASE_URL: http://localhost:8080
+          NEXT_PUBLIC_APP_URL: http://localhost:3000
+          SESSION_SECRET: ci-placeholder-secret-at-least-32-chars

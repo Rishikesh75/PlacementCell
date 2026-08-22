@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
-import { type MonthKey, type PlacementDate } from "@/data/placementSlots";
+import { type MonthKey } from "@/data/placementSlots";
+import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 import {
   getPublishedDates,
   monthsFromDates,
@@ -23,49 +24,32 @@ function formatFooterDate(weekdayFull: string, time: string) {
 }
 
 export default function InterviewSlotBookingPage() {
-  const [dates, setDates] = useState<PlacementDate[]>([]);
-  const [month, setMonth] = useState<MonthKey>("Dec");
+  const dates = useClientSnapshot(getPublishedDates);
+  const [month, setMonth] = useState<MonthKey | null>(null);
   const [selectedDateId, setSelectedDateId] = useState<string | null>(null);
   const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
   const [reservedSlotId, setReservedSlotId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const published = getPublishedDates();
-    setDates(published);
-
-    const availableMonths = monthsFromDates(published);
-    const initialMonth = availableMonths.includes("Dec")
-      ? "Dec"
-      : (availableMonths[0] ?? "Dec");
-    setMonth(initialMonth);
-
-    const initialDate =
-      published.find((date) => date.month === initialMonth) ??
-      published[0] ??
-      null;
-
-    if (initialDate) {
-      setSelectedDateId(initialDate.id);
-      const openSlot =
-        initialDate.slots.find((slot) => slot.status === "available") ??
-        initialDate.slots[0];
-      if (openSlot) {
-        setSelectedSlotId(openSlot.id);
-      }
-    }
-  }, []);
-
   const availableMonths = useMemo(() => monthsFromDates(dates), [dates]);
+  const resolvedMonth: MonthKey = month
+    ?? (availableMonths.includes("Dec") ? "Dec" : (availableMonths[0] ?? "Dec"));
 
   const monthDates = useMemo(
-    () => dates.filter((date) => date.month === month),
-    [dates, month],
+    () => dates.filter((date) => date.month === resolvedMonth),
+    [dates, resolvedMonth],
   );
 
+  const defaultDate =
+    dates.find((date) => date.month === resolvedMonth) ?? dates[0] ?? null;
+  const resolvedDateId = selectedDateId ?? defaultDate?.id ?? null;
   const selectedDate =
-    dates.find((date) => date.id === selectedDateId) ?? null;
+    dates.find((date) => date.id === resolvedDateId) ?? null;
+  const defaultSlot =
+    selectedDate?.slots.find((slot) => slot.status === "available") ??
+    selectedDate?.slots[0];
+  const resolvedSlotId = selectedSlotId ?? defaultSlot?.id ?? null;
   const selectedSlot =
-    selectedDate?.slots.find((slot) => slot.id === selectedSlotId) ?? null;
+    selectedDate?.slots.find((slot) => slot.id === resolvedSlotId) ?? null;
 
   function handleMonthChange(next: MonthKey) {
     setMonth(next);
@@ -118,9 +102,9 @@ export default function InterviewSlotBookingPage() {
           <AvailableDatesPanel
             dates={monthDates}
             months={availableMonths}
-            month={month}
-            selectedDateId={selectedDateId}
-            selectedSlotId={selectedSlotId}
+            month={resolvedMonth}
+            selectedDateId={resolvedDateId}
+            selectedSlotId={resolvedSlotId}
             reservedSlotId={reservedSlotId}
             onMonthChange={handleMonthChange}
             onSelectSlot={handleSelectSlot}

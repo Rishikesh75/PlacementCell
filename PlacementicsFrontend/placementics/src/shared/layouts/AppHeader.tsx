@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 import { getCurrentRole, type UserRole } from "@/shared/auth/session";
+import { subscribeNever } from "@/shared/lib/useClientSnapshot";
 
 import styles from "./AppHeader.module.css";
 
@@ -81,11 +82,11 @@ const ROLE_AVATARS: Record<UserRole, string> = {
 };
 
 export default function AppHeader({ active }: AppHeaderProps) {
-  const [role, setRole] = useState<UserRole>("Student");
-
-  useEffect(() => {
-    setRole(getCurrentRole());
-  }, []);
+  const role = useSyncExternalStore(
+    subscribeNever,
+    getCurrentRole,
+    getCurrentRole,
+  );
 
   const visibleItems = useMemo(
     () => navItems.filter((item) => item.roles.includes(role)),

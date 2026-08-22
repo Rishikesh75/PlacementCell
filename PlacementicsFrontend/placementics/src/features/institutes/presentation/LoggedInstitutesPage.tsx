@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import { institutes } from "@/data/institutes";
 import {
   getCreatedInstitutes,
   type CreatedInstitute,
 } from "@/shared/institutes/instituteCatalog";
+import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 
 import styles from "./LoggedInstitutesPage.module.css";
 
@@ -47,12 +46,12 @@ function createdAsListed(items: CreatedInstitute[]): ListedInstitute[] {
   }));
 }
 
-export default function LoggedInstitutesPage() {
-  const [items, setItems] = useState<ListedInstitute[]>([]);
+function getListedInstitutes(): ListedInstitute[] {
+  return [...createdAsListed(getCreatedInstitutes()), ...seedAsListed()];
+}
 
-  useEffect(() => {
-    setItems([...createdAsListed(getCreatedInstitutes()), ...seedAsListed()]);
-  }, []);
+export default function LoggedInstitutesPage() {
+  const items = useClientSnapshot(getListedInstitutes);
 
   return (
     <main className={styles.page}>

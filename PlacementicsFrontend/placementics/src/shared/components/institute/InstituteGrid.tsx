@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import InstituteCard from "./InstituteCard";
-import { type Institute } from "@/data/institutes";
 import { getAllInstitutes } from "@/shared/institutes/instituteCatalog";
+import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 
 interface InstituteGridProps {
   search?: string;
@@ -13,11 +11,7 @@ interface InstituteGridProps {
 export default function InstituteGrid({
   search = "",
 }: InstituteGridProps) {
-  const [items, setItems] = useState<Institute[]>([]);
-
-  useEffect(() => {
-    setItems(getAllInstitutes());
-  }, []);
+  const items = useClientSnapshot(getAllInstitutes);
 
   const searchText = search.toLowerCase();
   const filteredInstitutes = items.filter((institute) => {
