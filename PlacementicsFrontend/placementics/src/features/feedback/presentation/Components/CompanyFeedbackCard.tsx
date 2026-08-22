@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import type { CompanyFeedback } from "@/data/companyFeedback";
 
 import styles from "../CompanyFeedbackPage.module.css";
@@ -58,9 +60,12 @@ export default function CompanyFeedbackCard({
           {feedback.studentCount} students shared feedback · &ldquo;
           {feedback.snippet}&rdquo;
         </p>
-        <a href="#" className={styles.readAll}>
+        <Link
+          href={`/feedbackOnCompanyInterviewPage/${feedback.id}`}
+          className={styles.readAll}
+        >
           Read all →
-        </a>
+        </Link>
       </div>
     </article>
   );

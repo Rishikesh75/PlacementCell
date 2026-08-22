@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { type MonthKey, type PlacementDate } from "@/data/placementSlots";
 import {
-  placementDates,
-  type MonthKey,
-} from "@/data/placementSlots";
+  getPublishedDates,
+  monthsFromDates,
+} from "@/shared/slots/publishedSlots";
 
 import CompanyPortalHeader from "./Components/CompanyPortalHeader";
 import ProgressStepper from "./Components/ProgressStepper";
@@ -13,9 +14,6 @@ import CompanyDetailsPanel from "./Components/CompanyDetailsPanel";
 import AvailableDatesPanel from "./Components/AvailableDatesPanel";
 import BookingSummaryFooter from "./Components/BookingSummaryFooter";
 import styles from "./InterviewSlotBookingPage.module.css";
-
-const DEFAULT_DATE_ID = "dec-15";
-const DEFAULT_SLOT_ID = "dec-15-1";
 
 function formatFooterDate(weekdayFull: string, time: string) {
   const parts = weekdayFull.split(", ");
@@ -25,24 +23,47 @@ function formatFooterDate(weekdayFull: string, time: string) {
 }
 
 export default function InterviewSlotBookingPage() {
+  const [dates, setDates] = useState<PlacementDate[]>([]);
   const [month, setMonth] = useState<MonthKey>("Dec");
-  const [selectedDateId, setSelectedDateId] = useState<string | null>(
-    DEFAULT_DATE_ID,
-  );
-  const [selectedSlotId, setSelectedSlotId] = useState<string | null>(
-    DEFAULT_SLOT_ID,
-  );
-  const [reservedSlotId, setReservedSlotId] = useState<string | null>(
-    DEFAULT_SLOT_ID,
-  );
+  const [selectedDateId, setSelectedDateId] = useState<string | null>(null);
+  const [selectedSlotId, setSelectedSlotId] = useState<string | null>(null);
+  const [reservedSlotId, setReservedSlotId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const published = getPublishedDates();
+    setDates(published);
+
+    const availableMonths = monthsFromDates(published);
+    const initialMonth = availableMonths.includes("Dec")
+      ? "Dec"
+      : (availableMonths[0] ?? "Dec");
+    setMonth(initialMonth);
+
+    const initialDate =
+      published.find((date) => date.month === initialMonth) ??
+      published[0] ??
+      null;
+
+    if (initialDate) {
+      setSelectedDateId(initialDate.id);
+      const openSlot =
+        initialDate.slots.find((slot) => slot.status === "available") ??
+        initialDate.slots[0];
+      if (openSlot) {
+        setSelectedSlotId(openSlot.id);
+      }
+    }
+  }, []);
+
+  const availableMonths = useMemo(() => monthsFromDates(dates), [dates]);
 
   const monthDates = useMemo(
-    () => placementDates.filter((date) => date.month === month),
-    [month],
+    () => dates.filter((date) => date.month === month),
+    [dates, month],
   );
 
   const selectedDate =
-    placementDates.find((date) => date.id === selectedDateId) ?? null;
+    dates.find((date) => date.id === selectedDateId) ?? null;
   const selectedSlot =
     selectedDate?.slots.find((slot) => slot.id === selectedSlotId) ?? null;
 
@@ -96,6 +117,7 @@ export default function InterviewSlotBookingPage() {
           <CompanyDetailsPanel onContinue={handleContinue} />
           <AvailableDatesPanel
             dates={monthDates}
+            months={availableMonths}
             month={month}
             selectedDateId={selectedDateId}
             selectedSlotId={selectedSlotId}

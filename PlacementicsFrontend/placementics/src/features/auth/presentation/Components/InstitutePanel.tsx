@@ -1,10 +1,12 @@
+'use client'
 import styles from "../LoginPage.module.css";
-
+import {useRouter} from "next/navigation";
 export default function InstitutePanel() {
+  const router = useRouter();
   return (
     <section className={styles.institutePanel}>
 
-      <button className={styles.changeInstitute}>
+      <button className={styles.changeInstitute} onClick={() => router.push(`/homePage`)}>
         ←&nbsp; Change institute
       </button>
 

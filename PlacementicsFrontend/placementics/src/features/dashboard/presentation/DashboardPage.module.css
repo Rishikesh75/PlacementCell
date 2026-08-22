@@ -63,6 +63,37 @@
   background: #f7f4e8;
 }
 
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.pill {
+  padding: 7px 14px;
+  background: #ffffff;
+  border: 1px solid #c8c6b8;
+  border-radius: 999px;
+  color: #202821;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pill:hover {
+  border-color: #a9975d;
+}
+
+.activePill {
+  background: #0e211b;
+  border-color: #0e211b;
+  color: #eee9d8;
+}
+
+.activePill:hover {
+  border-color: #0e211b;
+}
+
 /* =========================
    STATS
 ========================= */

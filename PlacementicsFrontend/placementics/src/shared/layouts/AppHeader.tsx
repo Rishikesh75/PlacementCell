@@ -1,9 +1,17 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+
+import { getCurrentRole, type UserRole } from "@/shared/auth/session";
 
 import styles from "./AppHeader.module.css";
 
 export type AppHeaderActive =
   | "dashboard"
+  | "requests"
+  | "publishSlots"
+  | "booking"
   | "feedback"
   | "opportunities"
   | "alumni";
@@ -12,22 +20,78 @@ interface AppHeaderProps {
   active?: AppHeaderActive;
 }
 
-const navItems: { id: AppHeaderActive; label: string; href: string }[] = [
-  { id: "dashboard", label: "Dashboard", href: "/dashBoardPage" },
+const navItems: {
+  id: AppHeaderActive;
+  label: string;
+  href: string;
+  roles: UserRole[];
+}[] = [
+  {
+    id: "dashboard",
+    label: "Dashboard",
+    href: "/dashBoardPage",
+    roles: ["TPOAdmin", "Company"],
+  },
+  {
+    id: "requests",
+    label: "Requests",
+    href: "/tpoRequestsPage",
+    roles: ["TPOAdmin"],
+  },
+  {
+    id: "publishSlots",
+    label: "Publish slots",
+    href: "/tpoPublishSlotsPage",
+    roles: ["TPOAdmin"],
+  },
+  {
+    id: "booking",
+    label: "Book slots",
+    href: "/interviewSlotBookingPage",
+    roles: ["Company"],
+  },
   {
     id: "feedback",
     label: "Company Feedback",
     href: "/feedbackOnCompanyInterviewPage",
+    roles: ["Student", "Teacher", "Alumni", "TPOAdmin"],
   },
   {
     id: "opportunities",
     label: "Opportunities",
     href: "/JobopportunitiesBoardPage",
+    roles: ["Student", "Teacher", "Alumni", "TPOAdmin"],
   },
-  { id: "alumni", label: "Alumni Directory", href: "#" },
 ];
 
+const ROLE_CHIPS: Record<UserRole, string> = {
+  Student: "STUDENT · FINAL YR",
+  Teacher: "TEACHER",
+  Alumni: "ALUMNI",
+  TPOAdmin: "TPO ADMIN",
+  Company: "COMPANY",
+};
+
+const ROLE_AVATARS: Record<UserRole, string> = {
+  Student: "AK",
+  Teacher: "TR",
+  Alumni: "AL",
+  TPOAdmin: "TA",
+  Company: "CO",
+};
+
 export default function AppHeader({ active }: AppHeaderProps) {
+  const [role, setRole] = useState<UserRole>("Student");
+
+  useEffect(() => {
+    setRole(getCurrentRole());
+  }, []);
+
+  const visibleItems = useMemo(
+    () => navItems.filter((item) => item.roles.includes(role)),
+    [role],
+  );
+
   return (
     <header className={styles.header}>
       <Link href="/homePage" className={styles.brand}>
@@ -38,7 +102,7 @@ export default function AppHeader({ active }: AppHeaderProps) {
       </Link>
 
       <nav className={styles.nav}>
-        {navItems.map((item) => (
+        {visibleItems.map((item) => (
           <Link
             key={item.id}
             href={item.href}
@@ -52,8 +116,8 @@ export default function AppHeader({ active }: AppHeaderProps) {
       </nav>
 
       <div className={styles.user}>
-        <span className={styles.roleChip}>STUDENT · FINAL YR</span>
-        <span className={styles.avatar}>AK</span>
+        <span className={styles.roleChip}>{ROLE_CHIPS[role]}</span>
+        <span className={styles.avatar}>{ROLE_AVATARS[role]}</span>
       </div>
     </header>
   );

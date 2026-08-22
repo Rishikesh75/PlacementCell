@@ -1,6 +1,6 @@
 import InstituteStats from "./InstituteStats";
 import { Institute } from "@/data/institutes";
-
+import { useRouter } from "next/navigation";
 interface InstituteCardProps {
   institute: Institute;
 }
@@ -8,6 +8,8 @@ interface InstituteCardProps {
 export default function InstituteCard({
   institute,
 }: InstituteCardProps) {
+
+  const router = useRouter();
   return (
     <article className="institute-card">
 
@@ -29,11 +31,11 @@ export default function InstituteCard({
       <InstituteStats
         alumni={institute.alumni}
         recruiters={institute.recruiters}
-        placement={institute.placement}
+        // placement={institute.placement}
       />
 
       {/* Action */}
-      <button className="select-button">
+      <button className="select-button" onClick={() => router.push(`/loginPage`)} >
         Select institute
         <span>→</span>
       </button>

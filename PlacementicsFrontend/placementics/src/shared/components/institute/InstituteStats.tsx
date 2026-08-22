@@ -1,13 +1,11 @@
 interface InstituteStatsProps {
   alumni: string;
   recruiters: string;
-  placement: string;
 }
 
 export default function InstituteStats({
   alumni,
   recruiters,
-  placement,
 }: InstituteStatsProps) {
   return (
     <div className="institute-stats">
@@ -21,10 +19,6 @@ export default function InstituteStats({
         <span>RECRUITERS &apos;26</span>
       </div>
 
-      <div className="stat">
-        <strong>{placement}</strong>
-        <span>PLACED</span>
-      </div>
     </div>
   );
 }

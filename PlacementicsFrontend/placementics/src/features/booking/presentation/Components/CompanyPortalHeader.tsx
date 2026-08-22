@@ -17,8 +17,11 @@ export default function CompanyPortalHeader() {
       </Link>
 
       <div className={styles.headerActions}>
-        <Link href="/loginPage" className={styles.registerLink}>
-          REGISTER
+        <Link href="/dashBoardPage" className={styles.registerLink}>
+          Dashboard
+        </Link>
+        <Link href="/interviewSlotBookingPage" className={styles.registerLink}>
+          Book slots
         </Link>
         <span className={styles.avatar} aria-label="Signed in as RZ">
           RZ

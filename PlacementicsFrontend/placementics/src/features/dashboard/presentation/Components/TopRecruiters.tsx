@@ -1,16 +1,24 @@
-import { topRecruiters } from "@/data/dashboard";
+import type { RecruiterStat } from "@/data/dashboard";
 
 import styles from "../DashboardPage.module.css";
 
-export default function TopRecruiters() {
+interface TopRecruitersProps {
+  recruiters: RecruiterStat[];
+  heading?: string;
+}
+
+export default function TopRecruiters({
+  recruiters,
+  heading = "Top recruiters this season",
+}: TopRecruitersProps) {
   return (
     <section className={styles.section} aria-labelledby="recruiters-heading">
       <h2 id="recruiters-heading" className={styles.sectionTitle}>
-        Top recruiters this season
+        {heading}
       </h2>
 
       <ul className={styles.recruiterList}>
-        {topRecruiters.map((recruiter) => (
+        {recruiters.map((recruiter) => (
           <li key={recruiter.id} className={styles.recruiterRow}>
             <span>{recruiter.name}</span>
             <strong>{recruiter.packageAvg}</strong>

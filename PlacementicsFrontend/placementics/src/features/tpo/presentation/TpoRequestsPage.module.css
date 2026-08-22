@@ -1,0 +1,217 @@
+:global(body) {
+  margin: 0;
+}
+
+.page {
+  min-height: 100vh;
+  background: #efeddc;
+  color: #202821;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.content {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 48px 72px;
+}
+
+.hero {
+  margin-bottom: 24px;
+}
+
+.heroText h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: #17241f;
+}
+
+.heroText p {
+  margin: 10px 0 0;
+  max-width: 560px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #73766b;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tab {
+  padding: 8px 14px;
+  border: 1px solid #c8c6b8;
+  background: #ffffff;
+  color: #202821;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tab:hover {
+  border-color: #a9975d;
+}
+
+.activeTab {
+  background: #0e211b;
+  border-color: #0e211b;
+  color: #eee9d8;
+}
+
+.activeTab:hover {
+  border-color: #0e211b;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.pill {
+  padding: 7px 14px;
+  background: #ffffff;
+  border: 1px solid #c8c6b8;
+  border-radius: 999px;
+  color: #202821;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pill:hover {
+  border-color: #a9975d;
+}
+
+.activePill {
+  background: #0e211b;
+  border-color: #0e211b;
+  color: #eee9d8;
+}
+
+.activePill:hover {
+  border-color: #0e211b;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  padding: 48px 8px;
+  font-size: 14px;
+  color: #73766b;
+}
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 4px 18px;
+  border-bottom: 1px solid #d5d1be;
+}
+
+.cardBody {
+  min-width: 0;
+}
+
+.cardTitle {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #17241f;
+}
+
+.cardDetail {
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: #5d6158;
+}
+
+.cardMeta {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #8a8c82;
+}
+
+.actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+}
+
+.approveButton,
+.rejectButton {
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.approveButton {
+  border: none;
+  background: #b49b53;
+  color: #17241f;
+}
+
+.approveButton:hover {
+  background: #c3a45e;
+}
+
+.rejectButton {
+  border: 1px solid #c8c6b8;
+  background: transparent;
+  color: #202821;
+}
+
+.rejectButton:hover {
+  border-color: #8a8c82;
+  background: #e9e6d4;
+}
+
+.statusChip {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.statusApproved {
+  background: #e4eedc;
+  color: #2c4a32;
+}
+
+.statusRejected {
+  background: #f3e4dc;
+  color: #6b3a2c;
+}
+
+@media (max-width: 800px) {
+  .content {
+    padding: 28px 20px 56px;
+  }
+
+  .heroText h1 {
+    font-size: 28px;
+  }
+
+  .card {
+    flex-direction: column;
+    gap: 14px;
+  }
+}

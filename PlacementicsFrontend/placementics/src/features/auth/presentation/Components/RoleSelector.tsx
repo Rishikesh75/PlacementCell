@@ -1,38 +1,47 @@
 "use client";
 
-import { useState } from "react";
 import styles from "../LoginPage.module.css";
 
-const roles = [
+export const LOGIN_ROLES = [
   "Student",
   "Teacher",
   "Alumni",
-  "TPO Admin",
+  "TPOAdmin",
   "Company",
-];
+] as const;
 
-export default function RoleSelector() {
+export const REGISTER_ROLES = [
+  "Student",
+  "Teacher",
+  "Alumni",
+  "Company",
+] as const;
 
-  const [selectedRole, setSelectedRole] = useState("Student");
+interface RoleSelectorProps {
+  selectedRole: string;
+  onSelectRole: (role: string) => void;
+  roles?: readonly string[];
+}
 
+export default function RoleSelector({
+  selectedRole,
+  onSelectRole,
+  roles = LOGIN_ROLES,
+}: RoleSelectorProps) {
   return (
     <div className={styles.roleSelector}>
-
       {roles.map((role) => (
         <button
           key={role}
           type="button"
-          onClick={() => setSelectedRole(role)}
+          onClick={() => onSelectRole(role)}
           className={`${styles.roleButton} ${
-            selectedRole === role
-              ? styles.activeRole
-              : ""
+            selectedRole === role ? styles.activeRole : ""
           }`}
         >
           {role}
         </button>
       ))}
-
     </div>
   );
 }

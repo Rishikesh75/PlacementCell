@@ -14,6 +14,7 @@ import styles from "../InterviewSlotBookingPage.module.css";
 
 interface AvailableDatesPanelProps {
   dates: PlacementDate[];
+  months?: MonthKey[];
   month: MonthKey;
   selectedDateId: string | null;
   selectedSlotId: string | null;
@@ -25,6 +26,7 @@ interface AvailableDatesPanelProps {
 
 export default function AvailableDatesPanel({
   dates,
+  months = MONTHS,
   month,
   selectedDateId,
   selectedSlotId,
@@ -47,7 +49,7 @@ export default function AvailableDatesPanel({
       </header>
 
       <div className={styles.monthTabs} role="tablist" aria-label="Season months">
-        {MONTHS.map((item) => (
+        {months.map((item) => (
           <button
             key={item}
             type="button"

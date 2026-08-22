@@ -1,99 +1,215 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import styles from "../OpportunityFormPage.module.css";
 
-const OPPORTUNITY_TYPES = [
-  "Job opening",
-  "Internship",
-  "Research / lab",
-  "Referral",
-];
+type OpportunitySource = "company" | "institute";
+type JobType = "Internship" | "Full Time" | "Intern + PPO";
+
+const JOB_TYPES: JobType[] = ["Internship", "Full Time", "Intern + PPO"];
 
 export default function OpportunityForm() {
-  const [type, setType] = useState("Job opening");
+  const router = useRouter();
+  const [source, setSource] = useState<OpportunitySource>("company");
+  const [jobType, setJobType] = useState<JobType>("Internship");
   const [title, setTitle] = useState("");
-  const [organization, setOrganization] = useState("");
-  const [location, setLocation] = useState("");
-  const [description, setDescription] = useState("");
+  const [company, setCompany] = useState("");
+  const [salary, setSalary] = useState("");
+  const [jobLink, setJobLink] = useState("");
+  const [yearsOfExperience, setYearsOfExperience] = useState("");
+  const [institute, setInstitute] = useState("");
+  const [stipend, setStipend] = useState("");
+  const [requirements, setRequirements] = useState("");
+
+  const isCompany = source === "company";
+  const isFullTimeJob = isCompany && jobType === "Full Time";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    console.log({
-      type,
-      title,
-      organization,
-      location,
-      description,
-    });
+    if (isCompany) {
+      console.log({
+        kind: "job",
+        jobType,
+        title,
+        company,
+        ...(isFullTimeJob ? { yearsOfExperience } : {}),
+        salary,
+        jobLink,
+        requirements,
+      });
+    } else {
+      console.log({
+        kind: "research",
+        title,
+        institute,
+        stipend,
+        requirements,
+      });
+    }
+
+    router.push("/JobopportunitiesBoardPage");
   }
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.field}>
-        <label htmlFor="opportunity-type">Type</label>
+        <label htmlFor="opportunity-source">Source</label>
         <select
-          id="opportunity-type"
+          id="opportunity-source"
           className={styles.underlineSelect}
-          value={type}
-          onChange={(event) => setType(event.target.value)}
+          value={source}
+          onChange={(event) =>
+            setSource(event.target.value as OpportunitySource)
+          }
+          required
         >
-          {OPPORTUNITY_TYPES.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
+          <option value="company">Company — job opening</option>
+          <option value="institute">Institute — research opening</option>
         </select>
       </div>
 
-      <div className={styles.field}>
-        <label htmlFor="opportunity-title">Title</label>
-        <input
-          id="opportunity-title"
-          className={styles.underlineInput}
-          type="text"
-          placeholder="e.g. SDE II — Backend"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-      </div>
+      {isCompany ? (
+        <>
+          <div className={styles.field}>
+            <label htmlFor="opportunity-job-type">Job type</label>
+            <select
+              id="opportunity-job-type"
+              className={styles.underlineSelect}
+              value={jobType}
+              onChange={(event) => setJobType(event.target.value as JobType)}
+              required
+            >
+              {JOB_TYPES.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="opportunity-title">Job title</label>
+            <input
+              id="opportunity-title"
+              className={styles.underlineInput}
+              type="text"
+              placeholder="e.g. SDE II — Backend"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="opportunity-company">Company</label>
+            <input
+              id="opportunity-company"
+              className={styles.underlineInput}
+              type="text"
+              placeholder="e.g. Razorpay"
+              value={company}
+              onChange={(event) => setCompany(event.target.value)}
+              required
+            />
+          </div>
+
+          {isFullTimeJob ? (
+            <div className={styles.field}>
+              <label htmlFor="opportunity-yoe">Years of experience</label>
+              <input
+                id="opportunity-yoe"
+                className={styles.underlineInput}
+                type="text"
+                placeholder="e.g. 2–4 years"
+                value={yearsOfExperience}
+                onChange={(event) => setYearsOfExperience(event.target.value)}
+                required
+              />
+            </div>
+          ) : null}
+
+          <div className={styles.field}>
+            <label htmlFor="opportunity-salary">Salary</label>
+            <input
+              id="opportunity-salary"
+              className={styles.underlineInput}
+              type="text"
+              placeholder="e.g. ₹12–16L or ₹40k/month"
+              value={salary}
+              onChange={(event) => setSalary(event.target.value)}
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="opportunity-job-link">Link to job</label>
+            <input
+              id="opportunity-job-link"
+              className={styles.underlineInput}
+              type="url"
+              placeholder="e.g. https://company.com/careers/role"
+              value={jobLink}
+              onChange={(event) => setJobLink(event.target.value)}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={styles.field}>
+            <label htmlFor="opportunity-title">Research title</label>
+            <input
+              id="opportunity-title"
+              className={styles.underlineInput}
+              type="text"
+              placeholder="e.g. ML for Structural Health Monitoring"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="opportunity-institute">Institute</label>
+            <input
+              id="opportunity-institute"
+              className={styles.underlineInput}
+              type="text"
+              placeholder="e.g. Dept. of Civil Engineering"
+              value={institute}
+              onChange={(event) => setInstitute(event.target.value)}
+              required
+            />
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="opportunity-stipend">Stipend</label>
+            <input
+              id="opportunity-stipend"
+              className={styles.underlineInput}
+              type="text"
+              placeholder="e.g. ₹35k/month"
+              value={stipend}
+              onChange={(event) => setStipend(event.target.value)}
+            />
+          </div>
+        </>
+      )}
 
       <div className={styles.field}>
-        <label htmlFor="opportunity-organization">Organization / lab</label>
-        <input
-          id="opportunity-organization"
-          className={styles.underlineInput}
-          type="text"
-          placeholder="e.g. Razorpay, or Dept. of Civil Engineering"
-          value={organization}
-          onChange={(event) => setOrganization(event.target.value)}
-        />
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="opportunity-location">
-          Location & package (if applicable)
-        </label>
-        <input
-          id="opportunity-location"
-          className={styles.underlineInput}
-          type="text"
-          placeholder="e.g. Bengaluru · ₹28–32L"
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
-        />
-      </div>
-
-      <div className={styles.field}>
-        <label htmlFor="opportunity-description">Description</label>
+        <label htmlFor="opportunity-requirements">Requirements</label>
         <textarea
-          id="opportunity-description"
+          id="opportunity-requirements"
           className={styles.textarea}
-          placeholder="What's the role, who should apply, how to reach you..."
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
+          placeholder={
+            isCompany
+              ? "Skills, experience, eligibility, and who should apply..."
+              : "Background needed, duration, and who should apply..."
+          }
+          value={requirements}
+          onChange={(event) => setRequirements(event.target.value)}
+          required
         />
       </div>
 

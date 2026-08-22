@@ -1,13 +1,15 @@
-import {
-  seasonStats,
-} from "@/data/dashboard";
+import type { SeasonStat } from "@/data/dashboard";
 
 import styles from "../DashboardPage.module.css";
 
-export default function SeasonStats() {
+interface SeasonStatsProps {
+  stats: SeasonStat[];
+}
+
+export default function SeasonStats({ stats }: SeasonStatsProps) {
   return (
     <section className={styles.stats} aria-label="Season summary">
-      {seasonStats.map((stat) => (
+      {stats.map((stat) => (
         <article key={stat.id} className={styles.stat}>
           <strong className={styles.statValue}>{stat.value}</strong>
           <span className={styles.statLabel}>{stat.label}</span>
