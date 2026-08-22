@@ -1,5 +1,5 @@
-import LoginPage from "./login/page";
-
-export default function Home() {
-  return <LoginPage />;
+import HomePage from './homePage/page';
+import './global.css';
+export default function App() {
+  return <HomePage />;
 }

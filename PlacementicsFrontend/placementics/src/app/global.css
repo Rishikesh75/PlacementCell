@@ -1,0 +1,292 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #efeddc;
+  color: #202821;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.page {
+  min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  height: 66px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 48px;
+
+  border-bottom: 1px solid #d5d1be;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo {
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid #273027;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-logo span {
+  font-size: 18px;
+}
+
+.brand-name {
+  font-family: Georgia, serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.brand-subtitle {
+  margin-top: 2px;
+
+  font-size: 7px;
+  letter-spacing: 1.5px;
+
+  color: #a9975d;
+}
+
+.header-info {
+  font-size: 9px;
+  color: #73766b;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  padding: 36px 48px 4px;
+}
+
+.step {
+  margin-bottom: 10px;
+
+  font-size: 8px;
+  letter-spacing: 1.5px;
+
+  color: #a9975d;
+}
+
+.hero h1 {
+  margin: 0;
+
+  font-family: Georgia, serif;
+
+  font-size: 29px;
+  line-height: 1.05;
+
+  letter-spacing: -0.5px;
+}
+
+.description {
+  max-width: 450px;
+
+  margin-top: 14px;
+  margin-bottom: 27px;
+
+  color: #73766b;
+
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-container {
+  width: 400px;
+}
+
+.search-input {
+  width: 100%;
+
+  height: 28px;
+
+  padding: 0 10px;
+
+  border: 1px solid #c8c6b8;
+
+  background: #fff;
+
+  font-size: 9px;
+
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #a9975d;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.institute-grid {
+  width: 78%;
+
+  margin-top: 5px;
+
+  padding: 22px 28px 28px;
+
+  background: #b8b9ac;
+
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* =========================
+   CARD
+========================= */
+
+.institute-card {
+  min-height: 185px;
+
+  padding: 16px 14px;
+
+  background: #efeddc;
+
+  border-right: 1px solid #c8c6b8;
+  border-bottom: 1px solid #c8c6b8;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.institute-card:nth-child(3n) {
+  border-right: none;
+}
+
+.institute-card:nth-last-child(-n + 3) {
+  border-bottom: none;
+}
+
+/* =========================
+   INSTITUTE LOGO
+========================= */
+
+.institute-logo {
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid #c3a45e;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #9c8144;
+
+  font-family: Georgia, serif;
+
+  font-size: 10px;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.institute-info {
+  margin-top: 10px;
+
+  min-height: 46px;
+}
+
+.institute-info h2 {
+  max-width: 170px;
+
+  margin: 0;
+
+  font-family: Georgia, serif;
+
+  font-size: 12px;
+  line-height: 1.15;
+}
+
+.location {
+  margin: 4px 0 0;
+
+  font-size: 8px;
+
+  color: #77796f;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.institute-stats {
+  display: flex;
+
+  gap: 20px;
+
+  padding: 9px 0 8px;
+
+  border-top: 1px solid #d6d3c2;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat strong {
+  font-size: 10px;
+}
+
+.stat span {
+  margin-top: 3px;
+
+  font-size: 6px;
+
+  color: #77796f;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.select-button {
+  width: 88px;
+  height: 23px;
+
+  border: 1px solid #7e8075;
+
+  background: transparent;
+
+  font-size: 7px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.select-button:hover {
+  background: #e1dfcf;
+}

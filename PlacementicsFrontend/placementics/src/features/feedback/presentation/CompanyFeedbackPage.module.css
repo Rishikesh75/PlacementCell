@@ -1,0 +1,413 @@
+:global(body) {
+  margin: 0;
+}
+
+.page {
+  min-height: 100vh;
+  background: #efeddc;
+  color: #202821;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+
+.content {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 40px 48px 72px;
+}
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.heroText h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: #17241f;
+}
+
+.heroText p {
+  margin: 10px 0 0;
+  max-width: 520px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #73766b;
+}
+
+.addButton {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #b49b53;
+  color: #17241f;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.addButton:hover {
+  background: #c3a45e;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.pill {
+  padding: 7px 14px;
+  background: #ffffff;
+  border: 1px solid #c8c6b8;
+  border-radius: 999px;
+  color: #202821;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.pill:hover {
+  border-color: #a9975d;
+}
+
+.activePill {
+  background: #0e211b;
+  border-color: #0e211b;
+  color: #eee9d8;
+}
+
+.activePill:hover {
+  border-color: #0e211b;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  padding: 48px 8px;
+  font-size: 14px;
+  color: #73766b;
+}
+
+.card {
+  padding: 22px 4px 18px;
+  border-bottom: 1px solid #d5d1be;
+}
+
+.cardTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.initials {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: #0e211b;
+  color: #eee9d8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+}
+
+.info {
+  flex: 1;
+  min-width: 0;
+}
+
+.company {
+  margin: 2px 0 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #17241f;
+}
+
+.meta {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #73766b;
+}
+
+.metrics {
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  min-width: 72px;
+}
+
+.metricValue {
+  font-size: 13px;
+  font-weight: 600;
+  color: #202821;
+}
+
+.metricLabel {
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #8a8c82;
+}
+
+.stars {
+  letter-spacing: 1px;
+  color: #202821;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 14px;
+  padding-left: 64px;
+}
+
+.snippet {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #5d6158;
+}
+
+.readAll {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: #315b78;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.readAll:hover {
+  text-decoration: underline;
+}
+
+.backRow {
+  margin: 0 0 16px;
+}
+
+.backLink {
+  font-size: 13px;
+  color: #315b78;
+  text-decoration: none;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.studentCard {
+  display: block;
+  width: 100%;
+  padding: 22px 4px 18px;
+  border: none;
+  border-bottom: 1px solid #d5d1be;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.studentCard:hover {
+  background: #e9e6d4;
+}
+
+.studentCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.studentLabel {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #17241f;
+}
+
+.studentMeta {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #73766b;
+}
+
+.studentRating {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.overlayBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  background: rgba(23, 36, 31, 0.45);
+}
+
+.overlayModal {
+  width: 100%;
+  max-width: 640px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  padding: 36px 40px 32px;
+  background: #efeddc;
+  border: 1px solid #cfcbb8;
+}
+
+.overlayHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.overlayTitle {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: #17241f;
+}
+
+.overlayMeta {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #73766b;
+}
+
+.overlayClose {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin: -4px -8px 0 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #202821;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.overlayClose:hover {
+  color: #73766b;
+}
+
+.overlayRounds {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.roundBlock {
+  padding: 16px 16px 14px;
+  border: 1px solid #d6d3c2;
+  background: #e9e6d4;
+}
+
+.roundHeading {
+  margin: 0 0 10px;
+  font-family: ui-monospace, "Cascadia Mono", "Courier New", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #74756d;
+}
+
+.questionList {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #27302c;
+}
+
+.emptyRound {
+  margin: 0;
+  font-size: 13px;
+  color: #73766b;
+}
+
+@media (max-width: 800px) {
+  .content {
+    padding: 28px 20px 56px;
+  }
+
+  .hero {
+    flex-direction: column;
+  }
+
+  .cardTop {
+    flex-wrap: wrap;
+  }
+
+  .metrics {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 12px;
+    padding-left: 64px;
+  }
+
+  .cardFooter {
+    padding-left: 0;
+    flex-wrap: wrap;
+  }
+
+  .overlayBackdrop {
+    padding: 24px 16px;
+    align-items: flex-start;
+  }
+
+  .overlayModal {
+    padding: 28px 20px 24px;
+  }
+
+  .overlayTitle {
+    font-size: 24px;
+  }
+}
