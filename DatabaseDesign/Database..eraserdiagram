@@ -1,13 +1,14 @@
-// title: Backend Database Design
+entity-relationship-diagram
+
+title: Backend Database Design
 
 // ==========================================
 // APPLICATION
 // ==========================================
 
-// Backend Application {
-//     name string
-//     technology string
-// }
+Backend Application {
+
+}
 
 
 // ==========================================
@@ -51,14 +52,14 @@ Students [icon: database] {
 // ==========================================
 
 // SQL relationship
-// Users.id < Orders.userId
+Users.id < Orders.userId
 
 // // NoSQL reference
-// Colleges._id < Students.collegeId
+Colleges._id < Students.collegeId
 
 // // Application connections
-// Backend Application > Users
-// Backend Application > Orders
+Backend Application > Users
+Backend Application > Orders
 
-// Backend Application > Colleges
-// Backend Application > Students
+Backend Application > Colleges
+Backend Application > Students
