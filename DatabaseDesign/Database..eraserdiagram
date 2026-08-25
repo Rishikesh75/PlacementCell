@@ -1,0 +1,65 @@
+entity-relationship-diagram
+
+title: Backend Database Design
+
+// ==========================================
+// APPLICATION
+// ==========================================
+
+Backend Application {
+
+}
+
+
+// ==========================================
+// SQL DATABASE - POSTGRESQL
+// ==========================================
+
+Users [icon: database] {
+    id uuid pk
+    displayName string
+    email string
+    createdAt timestamp
+}
+
+Orders [icon: database] {
+    id uuid pk
+    userId uuid fk
+    amount decimal
+    status string
+    createdAt timestamp
+}
+
+
+// ==========================================
+// NoSQL DATABASE - MONGODB
+// ==========================================
+
+Colleges [icon: database] {
+    _id objectId
+    displayName string
+}
+
+Students [icon: database] {
+    _id objectId
+    displayName string
+    collegeId objectId
+}
+
+
+// ==========================================
+// RELATIONSHIPS
+// ==========================================
+
+// SQL relationship
+Users.id < Orders.userId
+
+// // NoSQL reference
+Colleges._id < Students.collegeId
+
+// // Application connections
+Backend Application > Users
+Backend Application > Orders
+
+Backend Application > Colleges
+Backend Application > Students
