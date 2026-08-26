@@ -1,231 +1,403 @@
--- -- ============================================
--- -- SQL INSERT QUERIES FOR PLACEMENT CELL DATABASE
--- -- Tables are ordered by foreign key dependencies
--- -- ============================================
+-- -- ============================================================
+-- -- SEED DATA
+-- -- ============================================================
 
--- -- ============================================
--- -- 1. COMPANY TABLE (No dependencies)
--- -- ============================================
--- INSERT INTO company (CompanyId, CompanyName, Industry) VALUES
--- ('COMP001', 'Google', 'Technology'),
--- ('COMP002', 'Microsoft', 'Technology'),
--- ('COMP003', 'Amazon', 'E-Commerce'),
--- ('COMP004', 'Goldman Sachs', 'Finance'),
--- ('COMP005', 'Deloitte', 'Consulting'),
--- ('COMP006', 'Infosys', 'IT Services'),
--- ('COMP007', 'TCS', 'IT Services'),
--- ('COMP008', 'Flipkart', 'E-Commerce'),
--- ('COMP009', 'Adobe', 'Software'),
--- ('COMP010', 'Tesla', 'Automotive');
+-- -- ============================================================
+-- -- 1. COLLEGE
+-- -- ============================================================
 
--- -- ============================================
--- -- 2. STUDENT TABLE (No dependencies)
--- -- ============================================
--- INSERT INTO student (Id, password, name, major, Email, GraduationYear, PhoneNo) VALUES
--- ('STU001', 'password123', 'Rahul Sharma', 'Computer Science', 'rahul.sharma@university.edu', 2025, '9876543210'),
--- ('STU002', 'password123', 'Priya Patel', 'Information Technology', 'priya.patel@university.edu', 2025, '9876543211'),
--- ('STU003', 'password123', 'Amit Kumar', 'Electronics', 'amit.kumar@university.edu', 2024, '9876543212'),
--- ('STU004', 'password123', 'Sneha Reddy', 'Computer Science', 'sneha.reddy@university.edu', 2025, '9876543213'),
--- ('STU005', 'password123', 'Vikram Singh', 'Mechanical Engineering', 'vikram.singh@university.edu', 2024, '9876543214'),
--- ('STU006', 'password123', 'Anjali Nair', 'Data Science', 'anjali.nair@university.edu', 2025, '9876543215'),
--- ('STU007', 'password123', 'Karthik Menon', 'Computer Science', 'karthik.menon@university.edu', 2026, '9876543216'),
--- ('STU008', 'password123', 'Divya Gupta', 'Information Technology', 'divya.gupta@university.edu', 2024, '9876543217'),
--- ('STU009', 'password123', 'Rohan Joshi', 'Computer Science', 'rohan.joshi@university.edu', 2025, '9876543218'),
--- ('STU010', 'password123', 'Meera Krishnan', 'Electronics', 'meera.krishnan@university.edu', 2026, '9876543219');
+INSERT INTO college (
+    id,
+    name,
+    address,
+    contact,
+    verified_status
+)
+VALUES
+(
+    '11111111-1111-1111-1111-111111111111',
+    'IIITDM Kancheepuram',
+    'Chennai, Tamil Nadu',
+    '+91-9876543210',
+    TRUE
+),
+(
+    '22222222-2222-2222-2222-222222222222',
+    'IIT Madras',
+    'Chennai, Tamil Nadu',
+    '+91-9876543211',
+    TRUE
+);
 
--- -- ============================================
--- -- 3. TEACHER TABLE (No dependencies)
--- -- ============================================
--- INSERT INTO teacher (Id, name, Department, Email) VALUES
--- ('TCH001', 'Dr. Ramesh Iyer', 'Computer Science', 'ramesh.iyer@university.edu'),
--- ('TCH002', 'Dr. Sunita Verma', 'Information Technology', 'sunita.verma@university.edu'),
--- ('TCH003', 'Dr. Arun Pillai', 'Electronics', 'arun.pillai@university.edu'),
--- ('TCH004', 'Dr. Kavitha Rao', 'Data Science', 'kavitha.rao@university.edu'),
--- ('TCH005', 'Dr. Mohan Das', 'Mechanical Engineering', 'mohan.das@university.edu');
 
--- -- ============================================
--- -- 4. RESTAURENTS TABLE (No dependencies)
--- -- ============================================
--- INSERT INTO restaurents (Id, name, Contact, Address, Rating) VALUES
--- (1, 'Campus Canteen', '9800000001', 'Main Campus Building', '4.2'),
--- (2, 'Food Court Express', '9800000002', 'Student Center', '4.5'),
--- (3, 'The Grill House', '9800000003', 'Near East Gate', '4.0'),
--- (4, 'Veggie Delight', '9800000004', 'South Campus', '4.3'),
--- (5, 'Quick Bites', '9800000005', 'Library Building', '3.8');
+-- -- ============================================================
+-- -- 2. COMPANY
+-- -- ============================================================
 
--- -- ============================================
--- -- 5. ALUMNI TABLE (Depends on: company)
--- -- ============================================
--- INSERT INTO alumni (Id, position, Linkdinprofile, CompanyId) VALUES
--- ('ALM001', 'Senior Software Engineer', 'https://linkedin.com/in/alumni001', 'COMP001'),
--- ('ALM002', 'Product Manager', 'https://linkedin.com/in/alumni002', 'COMP002'),
--- ('ALM003', 'Data Scientist', 'https://linkedin.com/in/alumni003', 'COMP003'),
--- ('ALM004', 'Investment Analyst', 'https://linkedin.com/in/alumni004', 'COMP004'),
--- ('ALM005', 'Consultant', 'https://linkedin.com/in/alumni005', 'COMP005'),
--- ('ALM006', 'Tech Lead', 'https://linkedin.com/in/alumni006', 'COMP006'),
--- ('ALM007', 'Software Architect', 'https://linkedin.com/in/alumni007', 'COMP001'),
--- ('ALM008', 'Engineering Manager', 'https://linkedin.com/in/alumni008', 'COMP008');
+INSERT INTO company (
+    id,
+    name,
+    industry
+)
+VALUES
+(
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    'Microsoft',
+    'Technology'
+),
+(
+    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+    'Google',
+    'Technology'
+),
+(
+    'cccccccc-cccc-cccc-cccc-cccccccccccc',
+    'Amazon',
+    'E-Commerce'
+),
+(
+    'dddddddd-dddd-dddd-dddd-dddddddddddd',
+    'Adobe',
+    'Software'
+);
 
--- -- ============================================
--- -- 6. COMPANYEMPLOYEE TABLE (Depends on: company)
--- -- ============================================
--- INSERT INTO companyemployee (EmployeeId, name, Designation, Email, CompanyId) VALUES
--- ('EMP001', 'John Smith', 'HR Manager', 'john.smith@google.com', 'COMP001'),
--- ('EMP002', 'Sarah Johnson', 'Technical Recruiter', 'sarah.johnson@microsoft.com', 'COMP002'),
--- ('EMP003', 'Michael Brown', 'Campus Relations Lead', 'michael.brown@amazon.com', 'COMP003'),
--- ('EMP004', 'Emily Davis', 'Talent Acquisition', 'emily.davis@goldmansachs.com', 'COMP004'),
--- ('EMP005', 'Robert Wilson', 'Recruitment Head', 'robert.wilson@deloitte.com', 'COMP005'),
--- ('EMP006', 'Lisa Anderson', 'HR Executive', 'lisa.anderson@infosys.com', 'COMP006'),
--- ('EMP007', 'David Miller', 'Senior Recruiter', 'david.miller@tcs.com', 'COMP007'),
--- ('EMP008', 'Jennifer Taylor', 'Campus Coordinator', 'jennifer.taylor@flipkart.com', 'COMP008');
 
--- -- ============================================
--- -- 7. PLACEMENT TABLE (Depends on: student, company)
--- -- ============================================
--- INSERT INTO placement (Id, CompanyId, JobTitle, PlacementDate, Package) VALUES
--- ('STU001', 'COMP001', 'Software Engineer', '2024-12-15', '25 LPA'),
--- ('STU002', 'COMP002', 'Associate SDE', '2024-12-18', '22 LPA'),
--- ('STU003', 'COMP003', 'SDE-1', '2024-11-20', '28 LPA'),
--- ('STU004', 'COMP004', 'Technology Analyst', '2024-12-01', '18 LPA'),
--- ('STU005', 'COMP006', 'Systems Engineer', '2024-10-25', '8 LPA'),
--- ('STU006', 'COMP009', 'Data Analyst', '2025-01-05', '20 LPA'),
--- ('STU008', 'COMP007', 'Assistant Consultant', '2024-09-15', '7.5 LPA'),
--- ('STU003', 'COMP008', 'Backend Developer', '2024-11-10', '15 LPA');
+-- -- ============================================================
+-- -- 3. STUDENT
+-- -- ============================================================
 
--- -- ============================================
--- -- 8. TEACHERRESEARCHOPENING TABLE (Depends on: teacher)
--- -- ============================================
--- INSERT INTO teacherresearchopening (Id, Title, Description, Department, Researcharea, Stipend, Duration, PostedDate, DeadLine, IsActive) VALUES
--- ('TCH001', 'Machine Learning for Healthcare', 'Research on ML applications in medical diagnosis', 'Computer Science', 'Machine Learning', '25000/month', '6 months', '2025-01-01', '2025-02-15', true),
--- ('TCH002', 'Cloud Computing Security', 'Study of security vulnerabilities in cloud infrastructure', 'Information Technology', 'Cybersecurity', '20000/month', '4 months', '2025-01-05', '2025-02-28', true),
--- ('TCH004', 'Natural Language Processing', 'Research on NLP for regional languages', 'Data Science', 'NLP', '30000/month', '8 months', '2024-12-20', '2025-01-31', true),
--- ('TCH003', 'IoT in Smart Cities', 'Implementation of IoT solutions for urban management', 'Electronics', 'Internet of Things', '22000/month', '6 months', '2025-01-02', '2025-03-01', true),
--- ('TCH001', 'Blockchain for Supply Chain', 'Applying blockchain technology in logistics', 'Computer Science', 'Blockchain', '28000/month', '5 months', '2024-12-15', '2025-01-20', false);
+INSERT INTO student (
+    id,
+    college_id,
+    name,
+    email,
+    roll_no,
+    batch,
+    department
+)
+VALUES
+(
+    '10000000-0000-0000-0000-000000000001',
+    '11111111-1111-1111-1111-111111111111',
+    'Ravi Kumar',
+    'ravi@example.com',
+    'CSE001',
+    '2027',
+    'Computer Science'
+),
+(
+    '10000000-0000-0000-0000-000000000002',
+    '11111111-1111-1111-1111-111111111111',
+    'Priya Sharma',
+    'priya@example.com',
+    'CSE002',
+    '2027',
+    'Computer Science'
+),
+(
+    '10000000-0000-0000-0000-000000000003',
+    '11111111-1111-1111-1111-111111111111',
+    'Arjun Reddy',
+    'arjun@example.com',
+    'ECE001',
+    '2027',
+    'Electronics'
+),
+(
+    '20000000-0000-0000-0000-000000000001',
+    '22222222-2222-2222-2222-222222222222',
+    'Karthik Rao',
+    'karthik@example.com',
+    'CS001',
+    '2027',
+    'Computer Science'
+);
 
--- -- ============================================
--- -- 9. ALUMNIJOBPOSITION TABLE (Depends on: company, alumni, companyemployee)
--- -- PostedByType: Alumni=0, CompanyEmployee=1
--- -- ============================================
--- INSERT INTO alumnijobposition (CompanyId, JobTitle, PostedDate, Package, PostedBytype, PostedId, PostedByEmployeeId) VALUES
--- ('COMP001', 'Software Engineer L3', '2025-01-02', '30 LPA', 0, 'ALM001', NULL),
--- ('COMP002', 'Product Manager', '2025-01-05', '35 LPA', 0, 'ALM002', NULL),
--- ('COMP003', 'SDE Intern', '2024-12-28', '80K/month Stipend', 1, NULL, 'EMP003'),
--- ('COMP004', 'Quantitative Analyst', '2025-01-03', '40 LPA', 1, NULL, 'EMP004'),
--- ('COMP005', 'Business Analyst', '2024-12-20', '15 LPA', 1, NULL, 'EMP005'),
--- ('COMP006', 'Full Stack Developer', '2025-01-08', '12 LPA', 0, 'ALM006', NULL),
--- ('COMP008', 'Backend Engineer', '2025-01-06', '20 LPA', 0, 'ALM008', NULL),
--- ('COMP001', 'ML Engineer', '2025-01-07', '45 LPA', 0, 'ALM007', NULL);
 
--- -- ============================================
--- -- 10. EXPERIENCEOPENING TABLE (Depends on: company)
--- -- ============================================
--- INSERT INTO experienceopening (CompanyId, jobid, JobTitle, experiencerequired, companyempEmail) VALUES
--- ('COMP001', 'JOB001', 'Senior Software Engineer', '3-5 years', 'john.smith@google.com'),
--- ('COMP002', 'JOB002', 'Technical Lead', '5-8 years', 'sarah.johnson@microsoft.com'),
--- ('COMP003', 'JOB003', 'Principal Engineer', '8+ years', 'michael.brown@amazon.com'),
--- ('COMP004', 'JOB004', 'VP Technology', '10+ years', 'emily.davis@goldmansachs.com'),
--- ('COMP006', 'JOB005', 'Project Manager', '4-6 years', 'lisa.anderson@infosys.com'),
--- ('COMP009', 'JOB006', 'UX Designer', '2-4 years', 'hr@adobe.com'),
--- ('COMP010', 'JOB007', 'Embedded Systems Engineer', '3-5 years', 'careers@tesla.com');
+-- -- ============================================================
+-- -- 4. ALUMNI
+-- -- ============================================================
 
--- -- ============================================
--- -- 11. FOODREVIEW TABLE (Depends on: restaurents, company)
--- -- ============================================
--- INSERT INTO "foodReview" (Id, CompanyId, Description, Date) VALUES
--- (1, 'COMP001', 'Google team visited - excellent lunch arrangements with variety', '2024-12-10'),
--- (2, 'COMP002', 'Microsoft recruitment drive - good quality food served', '2024-12-15'),
--- (3, 'COMP003', 'Amazon campus placement - BBQ options were appreciated', '2024-11-20'),
--- (1, 'COMP004', 'Goldman Sachs visit - professional catering setup', '2024-12-01'),
--- (4, 'COMP005', 'Deloitte team preferred vegetarian options - great service', '2024-11-25'),
--- (2, 'COMP006', 'Infosys recruitment - standard buffet arrangement', '2024-10-20'),
--- (5, 'COMP007', 'TCS campus drive - quick snacks during breaks worked well', '2024-09-15');
+INSERT INTO alumni (
+    id,
+    college_id,
+    name,
+    email,
+    company_id,
+    designation,
+    passing_year
+)
+VALUES
+(
+    '30000000-0000-0000-0000-000000000001',
+    '11111111-1111-1111-1111-111111111111',
+    'Rahul Verma',
+    'rahul@example.com',
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    'Software Engineer',
+    2022
+),
+(
+    '30000000-0000-0000-0000-000000000002',
+    '11111111-1111-1111-1111-111111111111',
+    'Sneha Reddy',
+    'sneha@example.com',
+    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+    'Senior Software Engineer',
+    2021
+),
+(
+    '30000000-0000-0000-0000-000000000003',
+    '22222222-2222-2222-2222-222222222222',
+    'Vikram Singh',
+    'vikram@example.com',
+    'cccccccc-cccc-cccc-cccc-cccccccccccc',
+    'Software Development Engineer',
+    2020
+);
 
--- -- ============================================
--- -- 12. EMPLOYEEFEEDBACKONSTUDENT TABLE (Depends on: companyemployee)
--- -- Note: Column name has typo "CompnayEmpId" as per model
--- -- ============================================
--- INSERT INTO employeefeedbackonstudent ("RecordId", "CompnayEmpId", "BatchId", "Description") VALUES
--- (2, 'EMP001', 'BATCH2024', 'Students showed excellent problem-solving skills. Technical knowledge was impressive.'),
--- (3, 'EMP002', 'BATCH2024', 'Good communication skills observed. Need improvement in system design concepts.'),
--- (4, 'EMP003', 'BATCH2024', 'Outstanding performance in coding rounds. Very well prepared batch.'),
--- (5, 'EMP004', 'BATCH2024', 'Strong analytical skills. Could improve on financial domain knowledge.'),
--- (6, 'EMP005', 'BATCH2025', 'Creative thinkers with good case study approach. Recommended for consulting roles.'),
--- (7, 'EMP006', 'BATCH2025', 'Decent technical skills. Need to work on soft skills and presentation.'),
--- (8, 'EMP007', 'BATCH2024', 'Average batch overall. Few standout performers in aptitude.'),
--- (9, 'EMP008', 'BATCH2025', 'Enthusiastic candiDates with good startup mindset.');
 
--- -- ============================================
--- -- 13. ALUMNIFEEDBACKONCOMPANY TABLE (Depends on: company, alumni)
--- -- JobType: FullTime=0, Internship=1, InternshipAndFullTime=2
--- -- WorkMode: OnSite=0, Remote=1, Hybrid=2
--- -- DifficultyLevel: Easy=0, Medium=1, Hard=2
--- -- InterviewMode: Online=0, Offline=1
--- -- ============================================
--- INSERT INTO alumnifeedbackoncompany (
---     Id, CompanyId, Id, "JobProfile", "JobType", "JobLocation", "CTC", "WorkMode",
---     "CodingRoundInfo_CodingPlatform", "CodingRoundInfo_Duration", "CodingRoundInfo_Questions", 
---     "CodingRoundInfo_DifficultyLevel", "CodingRoundInfo_InterviewMode",
---     "TechnicalRoundInfo_InterviewMode", "TechnicalRoundInfo_InterviewDuration",
---     "TechnicalRoundInfo_DSAQuestions", "TechnicalRoundInfo_CoreCSQuestions",
---     "TechnicalRoundInfo_SystemDesignQuestions", "TechnicalRoundInfo_PuzzleBasedQuestions",
---     "HRRoundInfo_InterviewMode", "HRRoundInfo_InterviewDuration",
---     "HRRoundInfo_SituationBasedQuestions", "HRRoundInfo_UnExpectedQuestions",
---     "ResourcesInfo_Links", "ResourcesInfo_Books"
--- ) VALUES
+-- -- ============================================================
+-- -- 5. TEACHER
+-- -- ============================================================
+
+INSERT INTO teacher (
+    id,
+    college_id,
+    name,
+    email,
+    department,
+    joining_year
+)
+VALUES
+(
+    '40000000-0000-0000-0000-000000000001',
+    '11111111-1111-1111-1111-111111111111',
+    'Dr. Suresh Kumar',
+    'suresh@college.edu',
+    'Computer Science',
+    2018
+),
+(
+    '40000000-0000-0000-0000-000000000002',
+    '11111111-1111-1111-1111-111111111111',
+    'Dr. Anitha Rao',
+    'anitha@college.edu',
+    'Electronics',
+    2020
+),
+(
+    '40000000-0000-0000-0000-000000000003',
+    '22222222-2222-2222-2222-222222222222',
+    'Dr. Rajesh Kumar',
+    'rajesh@iitm.edu',
+    'Computer Science',
+    2015
+);
+
+
+-- -- ============================================================
+-- -- 6. TPO
+-- -- ============================================================
+
+-- INSERT INTO tpo (
+--     id,
+--     college_id,
+--     name,
+--     email
+-- )
+-- VALUES
 -- (
---     'FB001', 'COMP001', 'ALM001', 'Software Engineer', 0, 'Bangalore', '25 LPA', 2,
---     'HackerRank', '01:30:00', '["Two Sum", "LRU Cache", "Binary Tree Maximum Path Sum"]',
---     1, 0,
---     0, '45 minutes',
---     '[{"QuestionType": "Array", "DifficultyLevel": 1, "Question": "Find the kth largest element"}, {"QuestionType": "Tree", "DifficultyLevel": 2, "Question": "Serialize and deserialize binary tree"}]',
---     '[{"QuestionType": "SQL", "DifficultyLevel": 1, "Question": "Write a query to find second highest salary"}]',
---     '[]', '[]',
---     1, '30 minutes',
---     '[{"Question": "Tell me about a time you handled conflict in a team", "Answer": "Discussed calmly and found middle ground"}]',
---     '[{"Question": "Why should we not hire you?", "Answer": "I can be too detail-oriented sometimes"}]',
---     '[{"Title": "LeetCode", "Url": "https://leetcode.com", "Description": "Best for coding practice", "Category": "DSA"}]',
---     '[{"BookName": "Cracking the Coding Interview", "Author": "Gayle McDowell", "Description": "Must read for interviews", "ISBN": "978-0984782857", "Publisher": "CareerCup", "Category": "Interview Prep"}]'
+--     '50000000-0000-0000-0000-000000000001',
+--     '11111111-1111-1111-1111-111111111111',
+--     'Mahesh Kumar',
+--     'tpo@iiitdm.ac.in'
 -- ),
 -- (
---     'FB002', 'COMP002', 'ALM002', 'Product Manager', 0, 'Hyderabad', '35 LPA', 2,
---     'CodeSignal', '02:00:00', '["Product Metrics Design", "A/B Testing Scenario"]',
---     1, 0,
---     0, '60 minutes',
---     '[{"QuestionType": "String", "DifficultyLevel": 1, "Question": "Implement string compression"}]',
---     '[{"QuestionType": "Design", "DifficultyLevel": 2, "Question": "Design database for e-commerce"}]',
---     '[]', '[]',
---     1, '45 minutes',
---     '[{"Question": "How would you prioritize features with limited resources?", "Answer": "Use RICE framework and stakeholder input"}]',
---     '[{"Question": "Describe your biggest product failure", "Answer": "Feature launch that missed user needs - learned importance of user research"}]',
---     '[{"Title": "Product School", "Url": "https://productschool.com", "Description": "Great PM resources", "Category": "Product Management"}]',
---     '[{"BookName": "Inspired", "Author": "Marty Cagan", "Description": "Product management bible", "ISBN": "978-1119387503", "Publisher": "Wiley", "Category": "Product Management"}]'
--- ),
--- (
---     'FB003', 'COMP003', 'ALM003', 'Data Scientist', 0, 'Pune', '28 LPA', 1,
---     'HackerEarth', '01:45:00', '["Implement K-Means from scratch", "Time Series Forecasting"]',
---     2, 0,
---     0, '50 minutes',
---     '[{"QuestionType": "Graph", "DifficultyLevel": 2, "Question": "Shortest path in weighted graph"}, {"QuestionType": "DP", "DifficultyLevel": 2, "Question": "Longest increasing subsequence"}]',
---     '[{"QuestionType": "SQL", "DifficultyLevel": 2, "Question": "Complex join with window functions"}]',
---     '[]', '[]',
---     1, '40 minutes',
---     '[{"Question": "How do you handle ambiguity in data requirements?", "Answer": "Ask clarifying questions and valiDate assumptions with stakeholders"}]',
---     '[{"Question": "What would you do if your model is biased?", "Answer": "Investigate data sources, check for underrepresented groups, and apply fairness techniques"}]',
---     '[{"Title": "Kaggle", "Url": "https://kaggle.com", "Description": "Hands-on ML practice", "Category": "Data Science"}]',
---     '[{"BookName": "Hands-On Machine Learning", "Author": "Aurélien Géron", "Description": "Practical ML guide", "ISBN": "978-1492032649", "Publisher": "OReilly", "Category": "Machine Learning"}]'
--- ),
--- (
---     'FB004', 'COMP004', 'ALM004', 'Technology Analyst', 0, 'Mumbai', '18 LPA', 0,
---     'Codility', '01:00:00', '["Stock Price Analysis", "Dynamic Programming Problem"]',
---     2, 0,
---     1, '60 minutes',
---     '[{"QuestionType": "Math", "DifficultyLevel": 2, "Question": "Implement Black-Scholes model"}]',
---     '[{"QuestionType": "SQL", "DifficultyLevel": 2, "Question": "Query optimization for large datasets"}]',
---     '[]', '[]',
---     1, '45 minutes',
---     '[{"Question": "How do you work under pressure with tight DeadLines?", "Answer": "Prioritize tasks and communicate proactively"}]',
---     '[{"Question": "Where do you see yourself in 10 years?", "Answer": "Leading a technology team solving complex financial problems"}]',
---     '[{"Title": "QuantStart", "Url": "https://quantstart.com", "Description": "Quant finance tutorials", "Category": "Finance"}]',
---     '[{"BookName": "Options, Futures, and Other Derivatives", "Author": "John Hull", "Description": "Finance derivatives guide", "ISBN": "978-0134472089", "Publisher": "Pearson", "Category": "Finance"}]'
+--     '50000000-0000-0000-0000-000000000002',
+--     '22222222-2222-2222-2222-222222222222',
+--     'Priya Menon',
+--     'tpo@iitm.ac.in'
 -- );
-select * from placement;
+
+
+-- -- ============================================================
+-- -- 7. COLLEGE COMPANY
+-- -- ============================================================
+
+INSERT INTO college_company (
+    id,
+    college_id,
+    company_id,
+    company_key
+)
+VALUES
+(
+    '60000000-0000-0000-0000-000000000001',
+    '11111111-1111-1111-1111-111111111111',
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    'IIITDM-MICROSOFT'
+),
+(
+    '60000000-0000-0000-0000-000000000002',
+    '11111111-1111-1111-1111-111111111111',
+    'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb',
+    'IIITDM-GOOGLE'
+),
+(
+    '60000000-0000-0000-0000-000000000003',
+    '11111111-1111-1111-1111-111111111111',
+    'cccccccc-cccc-cccc-cccc-cccccccccccc',
+    'IIITDM-AMAZON'
+),
+(
+    '60000000-0000-0000-0000-000000000004',
+    '22222222-2222-2222-2222-222222222222',
+    'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa',
+    'IITM-MICROSOFT'
+);
+
+
+-- -- ============================================================
+-- -- 8. PLACEMENT
+-- -- ============================================================
+
+INSERT INTO placement (
+    id,
+    student_id,
+    college_company_id,
+    package,
+    role,
+    placement_date
+)
+VALUES
+(
+    '70000000-0000-0000-0000-000000000001',
+    '10000000-0000-0000-0000-000000000001',
+    '60000000-0000-0000-0000-000000000001',
+    1800000.00,
+    'Software Engineer',
+    '2026-08-01'
+),
+(
+    '70000000-0000-0000-0000-000000000002',
+    '10000000-0000-0000-0000-000000000002',
+    '60000000-0000-0000-0000-000000000002',
+    2200000.00,
+    'Software Engineer',
+    '2026-08-05'
+),
+(
+    '70000000-0000-0000-0000-000000000003',
+    '20000000-0000-0000-0000-000000000001',
+    '60000000-0000-0000-0000-000000000004',
+    2000000.00,
+    'Software Development Engineer',
+    '2026-08-10'
+);
+
+
+-- -- ============================================================
+-- -- 9. PLACEMENT OPPORTUNITY
+-- -- ============================================================
+
+-- -- Opportunity created by Alumni
+
+INSERT INTO placement_opportunity (
+    id,
+    alumni_id,
+    teacher_id,
+    college_company_id,
+    role,
+    status,
+    eligibility,
+    deadline
+)
+VALUES
+(
+    '80000000-0000-0000-0000-000000000001',
+    '30000000-0000-0000-0000-000000000001',
+    NULL,
+    '60000000-0000-0000-0000-000000000001',
+    'Software Engineer',
+    'OPEN',
+    'CGPA >= 7.5, No active backlogs, CSE/IT students',
+    '2026-09-15 23:59:59+05:30'
+);
+
+-- -- Opportunity created by Teacher
+
+INSERT INTO placement_opportunity (
+    id,
+    alumni_id,
+    teacher_id,
+    college_company_id,
+    role,
+    status,
+    eligibility,
+    deadline
+)
+VALUES
+(
+    '80000000-0000-0000-0000-000000000002',
+    NULL,
+    '40000000-0000-0000-0000-000000000001',
+    '60000000-0000-0000-0000-000000000002',
+    'Software Engineer',
+    'OPEN',
+    'CGPA >= 8.0, CSE students, Batch 2027',
+    '2026-09-20 23:59:59+05:30'
+);
+
+
+-- ============================================================
+-- 10. COMPANY REQUEST
+-- ============================================================
+
+INSERT INTO company_request (
+    id,
+    college_company_id,
+    interview_requested_at,
+    number_of_positions,
+    number_of_rounds,
+    timings,
+    breakfast,
+    lunch,
+    dinner,
+    status,
+    number_of_people_attending,
+    contact_phone,
+    announcement_for_students
+)
+VALUES
+(
+    '90000000-0000-0000-0000-000000000001',
+    '60000000-0000-0000-0000-000000000001',
+    '2026-09-01 10:00:00+05:30',
+    20,
+    4,
+    '10:00 AM - 5:00 PM',
+    TRUE,
+    TRUE,
+    FALSE,
+    'PENDING',
+    8,
+    '+91-9000000000',
+    'Microsoft placement drive for eligible CSE students.'
+),
+(
+    '90000000-0000-0000-0000-000000000002',
+    '60000000-0000-0000-0000-000000000002',
+    '2026-09-10 09:30:00+05:30',
+    15,
+    5,
+    '09:30 AM - 6:00 PM',
+    TRUE,
+    TRUE,
+    TRUE,
+    'APPROVED',
+    10,
+    '+91-9111111111',
+    'Google recruitment drive for 2027 batch.'
+);
+

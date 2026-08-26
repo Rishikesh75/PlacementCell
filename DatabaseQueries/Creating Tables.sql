@@ -1,218 +1,383 @@
--- -- =======================
--- -- DROP TABLES (Correct Order)
--- -- =======================
--- DROP TABLE IF EXISTS Food CASCADE;
--- DROP TABLE IF EXISTS FeedBackOnCompany CASCADE;
--- DROP TABLE IF EXISTS ExperienceOpening CASCADE;
--- DROP TABLE IF EXISTS EmployeeonStudent CASCADE;
--- DROP TABLE IF EXISTS CompanyEmployee CASCADE;
--- DROP TABLE IF EXISTS Alumni CASCADE;
--- DROP TABLE IF EXISTS TeacherPlacements CASCADE;
--- DROP TABLE IF EXISTS Teacher CASCADE;
--- DROP TABLE IF EXISTS Student CASCADE;
--- DROP TABLE IF EXISTS Restaurents CASCADE;
--- DROP TABLE IF EXISTS Company CASCADE;
+-- -- ============================================================
+-- -- COLLEGE PLACEMENT MANAGEMENT DATABASE
+-- -- PostgreSQL
+-- -- ============================================================
 
--- -- =======================
--- -- CREATE TABLES (Correct Order)
--- -- =======================
+-- -- ============================================================
+-- -- 1. COLLEGE
+-- -- ============================================================
 
--- -- 1. Company (Parent)
--- CREATE TABLE Company (
---     CompanyId TEXT PRIMARY KEY,
---     CompanyName TEXT NOT NULL,
---     Industry TEXT NOT NULL
+-- CREATE TABLE college (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+--     name VARCHAR(255) NOT NULL,
+
+--     address TEXT,
+
+--     contact VARCHAR(50),
+
+--     verified_status BOOLEAN NOT NULL DEFAULT FALSE,
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT uq_college_name UNIQUE (name)
 -- );
 
--- -- 2. Alumni (Depends on Company)
--- CREATE TABLE Alumni (
---     Id TEXT PRIMARY KEY,
---     Position TEXT,
---     Linkdinprofile TEXT,
---     CompanyId TEXT NOT NULL,
 
---     CONSTRAINT fk_company
---         FOREIGN KEY (CompanyId)
---         REFERENCES Company(CompanyId)
---         ON DELETE SET NULL
+-- -- ============================================================
+-- -- 2. COMPANY
+-- -- ============================================================
+
+-- CREATE TABLE company (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+--     name VARCHAR(255) NOT NULL,
+
+--     industry VARCHAR(150),
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT uq_company_name UNIQUE (name)
 -- );
 
--- -- 3. CompanyEmployee (Depends on Company)
--- CREATE TABLE CompanyEmployee (
---     EmployeeId TEXT PRIMARY KEY,
---     Name TEXT,
---     Designation TEXT,
---     Email TEXT,
---     CompanyId TEXT NOT NULL,
 
---     CONSTRAINT fk_company
---         FOREIGN KEY (CompanyId)
---         REFERENCES Company(CompanyId)
---         ON DELETE CASCADE
--- );
+-- -- ============================================================
+-- -- 3. STUDENT
+-- -- ============================================================
 
--- -- 4. EmployeeonStudent (Depends on CompanyEmployee)
--- CREATE TABLE EmployeeonStudent (
---     RecordId SERIAL PRIMARY KEY,
---     CompnayEmpId TEXT NOT NULL,
---     BatchId TEXT,
---     Description TEXT,
+-- CREATE TABLE student (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     CONSTRAINT fk_company_employee
---         FOREIGN KEY (CompnayEmpId)
---         REFERENCES CompanyEmployee(EmployeeId)
---         ON DELETE CASCADE
--- );
+--     college_id UUID NOT NULL,
 
--- -- 5. ExperienceOpening (Depends on Company)
--- CREATE TABLE ExperienceOpening (
---     Id SERIAL PRIMARY KEY,
---     CompanyId TEXT NOT NULL,
---     JobID TEXT NOT NULL,
---     JobTitle TEXT,
---     ExperienceRequired TEXT,
---     CompanyEmpEmail TEXT,
+--     name VARCHAR(255) NOT NULL,
 
---     CONSTRAINT fk_company
---         FOREIGN KEY (CompanyId)
---         REFERENCES Company(CompanyId)
---         ON DELETE CASCADE
--- );
+--     email VARCHAR(255) NOT NULL,
 
--- -- 6. Restaurents (Independent)
--- CREATE TABLE Restaurents (
---     Id SERIAL PRIMARY KEY,
---     Name TEXT NOT NULL,
---     Contact TEXT,
---     Address TEXT,
---     Rating TEXT
--- );
+--     roll_no VARCHAR(100) NOT NULL,
 
--- -- 7. Food (Depends on Restaurents & Company)
--- CREATE TABLE Food (
---     Id SERIAL PRIMARY KEY,
---     Id INT NOT NULL,
---     CompanyId TEXT NOT NULL,
---     Description TEXT,
---     Date Date DEFAULT CURRENT_Date,
+--     batch VARCHAR(20) NOT NULL,
 
---     CONSTRAINT fk_restaurent
---         FOREIGN KEY (Id)
---         REFERENCES Restaurents(Id)
+--     department VARCHAR(150),
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT fk_student_college
+--         FOREIGN KEY (college_id)
+--         REFERENCES college(id)
 --         ON DELETE CASCADE,
 
---     CONSTRAINT fk_company
---         FOREIGN KEY (CompanyId)
---         REFERENCES Company(CompanyId)
---         ON DELETE CASCADE
+--     CONSTRAINT uq_student_email UNIQUE (email),
+
+--     CONSTRAINT uq_student_roll_no
+--         UNIQUE (college_id, roll_no)
 -- );
 
--- -- 8. FeedBackOnCompany (Depends on Company, Alumni)
--- CREATE TABLE FeedBackOnCompany (
---     Id TEXT PRIMARY KEY,
---     CompanyId TEXT NOT NULL,
---     Id TEXT NOT NULL,
---     Description TEXT,
 
---     CONSTRAINT fk_company
---         FOREIGN KEY (CompanyId)
---         REFERENCES Company(CompanyId)
+-- -- ============================================================
+-- -- 4. ALUMNI
+-- -- ============================================================
+
+-- CREATE TABLE alumni (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+--     college_id UUID NOT NULL,
+
+--     name VARCHAR(255) NOT NULL,
+
+--     email VARCHAR(255),
+
+--     company_id UUID,
+
+--     designation VARCHAR(150),
+
+--     passing_year INTEGER NOT NULL,
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT fk_alumni_college
+--         FOREIGN KEY (college_id)
+--         REFERENCES college(id)
 --         ON DELETE CASCADE,
 
---     CONSTRAINT fk_alumni
---         FOREIGN KEY (Id)
---         REFERENCES Alumni(Id)
---         ON DELETE CASCADE
--- );
-
--- -- 9. Student (Independent)
--- CREATE TABLE Student (
---     Id VARCHAR PRIMARY KEY,
---     name VARCHAR,
---     Major VARCHAR,
---     Email VARCHAR,
---     GraduationYear BIGINT,
---     PhoneNo VARCHAR
--- );
-
--- -- 10. Teacher (Independent)
--- CREATE TABLE Teacher (
---     Id Text PRIMARY KEY,
---     Name VARCHAR,
---     Email VARCHAR,
---     Department BIGINT
--- );
-
--- -- 11. TeacherPlacements (Depends on Teacher & Company)
--- CREATE TABLE TeacherPlacements (
---     Id SERIAL PRIMARY KEY,
---     Id TEXT NOT NULL,
---     CompanyId TEXT NOT NULL,
---     EmployeeEmail TEXT,
-
---     CONSTRAINT fk_teacher
---         FOREIGN KEY (Id)
---         REFERENCES Teacher(Id)
+--     CONSTRAINT fk_alumni_company
+--         FOREIGN KEY (company_id)
+--         REFERENCES company(id)
 --         ON DELETE SET NULL,
 
---     CONSTRAINT fk_company
---         FOREIGN KEY (CompanyId)
---         REFERENCES Company(CompanyId)
---         ON DELETE CASCADE
+--     CONSTRAINT chk_alumni_passing_year
+--         CHECK (passing_year >= 1900),
+
+--     CONSTRAINT uq_alumni_email
+--         UNIQUE (email)
 -- );
 
--- -- -- =======================
--- -- -- VIEW EXISTING TABLES
--- -- -- =======================
--- -- SELECT table_name 
--- -- FROM information_schema.tables 
--- -- WHERE table_schema = 'public' AND table_type = 'BASE TABLE';
--- -- =======================
--- -- INSERT SAMPLE DATA
--- -- =======================
 
--- INSERT INTO Company (CompanyId, CompanyName, Industry) VALUES
--- ('C001', 'TechNova', 'Software'),
--- ('C002', 'GreenFoods', 'AgriTech'),
--- ('C003', 'FinMate', 'Fintech');
+-- -- ============================================================
+-- -- 5. TEACHER
+-- -- ============================================================
 
--- INSERT INTO Alumni (Id, Position, Linkdinprofile, CompanyId) VALUES
--- ('A001', 'Software Engineer', 'https://linkedin.com/in/a001', 'C001'),
--- ('A002', 'Data Scientist', 'https://linkedin.com/in/a002', 'C003')
+-- CREATE TABLE teacher (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
--- INSERT INTO CompanyEmployee (EmployeeId, Name, Designation, Email, CompanyId) VALUES
--- ('E001', 'Alice Johnson', 'HR Manager', 'alice@technova.com', 'C001'),
--- ('E002', 'Bob Smith', 'Tech Lead', 'bob@finmate.com', 'C003');
+--     college_id UUID NOT NULL,
 
--- INSERT INTO EmployeeonStudent (CompnayEmpId, BatchId, Description) VALUES
--- ('E001', 'B2022', 'Mentored students on career paths'),
--- ('E002', 'B2023', 'Conducted resume review sessions');
+--     name VARCHAR(255) NOT NULL,
 
--- INSERT INTO ExperienceOpening (CompanyId, JobID, JobTitle, ExperienceRequired, CompanyEmpEmail) VALUES
--- ('C001', 'J001', 'Backend Developer', '2+ years', 'alice@technova.com'),
--- ('C003', 'J002', 'ML Engineer', '1+ year', 'bob@finmate.com');
+--     email VARCHAR(255) NOT NULL,
 
--- INSERT INTO Restaurents (Name, Contact, Address, Rating) VALUES
--- ('Spice Delight', '9876543210', '123 Food Lane', '4.5'),
--- ('Green Bites', '9123456780', '456 Vegan St', '4.2');
+--     department VARCHAR(150),
 
--- INSERT INTO Food (Id, CompanyId, Description) VALUES
--- (1, 'C001', 'Lunch for company event'),
--- (2, 'C002', 'Healthy snacks partnership');
+--     joining_year INTEGER,
 
--- INSERT INTO FeedBackOnCompany (Id, CompanyId, Id, Description) VALUES
--- ('F001', 'C001', 'A001', 'Great company culture'),
--- ('F002', 'C003', 'A002', 'Good opportunities for growth');
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- INSERT INTO Student (Id, name, Major, Email, GraduationYear, PhoneNo) VALUES
--- ('Cs21b1075', 'Rahul Mehta', 'Computer Science', 'rahul@example.com', 2022, '9876543210'),
--- ('CS21B1043', 'Priya Singh', 'Information Technology', 'priya@example.com', 2023, '8765432109');
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- INSERT INTO Teacher (Id, Name, Email, Department) VALUES
--- ('CS21001', 'Dr. Neha Sharma', 'neha.sharma@univ.edu', 101),
--- ('CS21002', 'Prof. Arjun Rao', 'arjun.rao@univ.edu', 102);
+--     CONSTRAINT fk_teacher_college
+--         FOREIGN KEY (college_id)
+--         REFERENCES college(id)
+--         ON DELETE CASCADE,
 
--- INSERT INTO TeacherPlacements (Id, CompanyId, EmployeeEmail) VALUES
--- ('CS21001', 'C001', 'alice@technova.com'),
--- ('CS21002', 'C003', 'bob@finmate.com');
-select * from Alumni;
+--     CONSTRAINT uq_teacher_email
+--         UNIQUE (email)
+-- );
+
+
+-- -- ============================================================
+-- -- 6. TPO
+-- -- ============================================================
+
+-- CREATE TABLE tpo (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+--     college_id UUID NOT NULL,
+
+--     name VARCHAR(255) NOT NULL,
+
+--     email VARCHAR(255) NOT NULL,
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT fk_tpo_college
+--         FOREIGN KEY (college_id)
+--         REFERENCES college(id)
+--         ON DELETE CASCADE,
+
+--     CONSTRAINT uq_tpo_email
+--         UNIQUE (email)
+-- );
+
+
+-- -- ============================================================
+-- -- 7. COLLEGE COMPANY
+-- -- ============================================================
+
+-- CREATE TABLE college_company (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+--     college_id UUID NOT NULL,
+
+--     company_id UUID NOT NULL,
+
+--     company_key VARCHAR(100) NOT NULL,
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT fk_college_company_college
+--         FOREIGN KEY (college_id)
+--         REFERENCES college(id)
+--         ON DELETE CASCADE,
+
+--     CONSTRAINT fk_college_company_company
+--         FOREIGN KEY (company_id)
+--         REFERENCES company(id)
+--         ON DELETE CASCADE,
+
+--     CONSTRAINT uq_college_company
+--         UNIQUE (college_id, company_id),
+
+--     CONSTRAINT uq_college_company_key
+--         UNIQUE (college_id, company_key)
+-- );
+
+
+-- -- ============================================================
+-- -- 8. PLACEMENT
+-- -- ============================================================
+
+-- CREATE TABLE placement (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+--     student_id UUID NOT NULL,
+
+--     college_company_id UUID NOT NULL,
+
+--     package NUMERIC(12,2) NOT NULL,
+
+--     role VARCHAR(150) NOT NULL,
+
+--     placement_date DATE NOT NULL,
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT fk_placement_student
+--         FOREIGN KEY (student_id)
+--         REFERENCES student(id)
+--         ON DELETE CASCADE,
+
+--     CONSTRAINT fk_placement_college_company
+--         FOREIGN KEY (college_company_id)
+--         REFERENCES college_company(id)
+--         ON DELETE CASCADE,
+
+--     CONSTRAINT chk_placement_package
+--         CHECK (package >= 0)
+-- );
+
+
+-- -- ============================================================
+-- -- 9. PLACEMENT OPPORTUNITY
+-- -- ============================================================
+
+-- CREATE TABLE placement_opportunity (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+--     alumni_id UUID,
+
+--     teacher_id UUID,
+
+--     college_company_id UUID NOT NULL,
+
+--     role VARCHAR(150) NOT NULL,
+
+--     status VARCHAR(50) NOT NULL DEFAULT 'OPEN',
+
+--     eligibility TEXT,
+
+--     deadline TIMESTAMPTZ,
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT fk_opportunity_alumni
+--         FOREIGN KEY (alumni_id)
+--         REFERENCES alumni(id)
+--         ON DELETE SET NULL,
+
+--     CONSTRAINT fk_opportunity_teacher
+--         FOREIGN KEY (teacher_id)
+--         REFERENCES teacher(id)
+--         ON DELETE SET NULL,
+
+--     CONSTRAINT fk_opportunity_company
+--         FOREIGN KEY (college_company_id)
+--         REFERENCES college_company(id)
+--         ON DELETE CASCADE,
+
+--     -- Exactly one creator must exist
+--     CONSTRAINT chk_opportunity_creator
+--         CHECK (
+--             (alumni_id IS NOT NULL AND teacher_id IS NULL)
+--             OR
+--             (alumni_id IS NULL AND teacher_id IS NOT NULL)
+--         ),
+
+--     CONSTRAINT chk_opportunity_status
+--         CHECK (
+--             status IN (
+--                 'OPEN',
+--                 'CLOSED',
+--                 'CANCELLED',
+--                 'FILLED'
+--             )
+--         )
+-- );
+
+
+-- -- ============================================================
+-- -- 10. COMPANY REQUEST
+-- -- ============================================================
+
+-- CREATE TABLE company_request (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+--     college_company_id UUID NOT NULL,
+
+--     interview_requested_at TIMESTAMPTZ NOT NULL,
+
+--     number_of_positions INTEGER NOT NULL,
+
+--     number_of_rounds INTEGER NOT NULL,
+
+--     timings TEXT,
+
+--     breakfast BOOLEAN NOT NULL DEFAULT FALSE,
+
+--     lunch BOOLEAN NOT NULL DEFAULT FALSE,
+
+--     dinner BOOLEAN NOT NULL DEFAULT FALSE,
+
+--     status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+
+--     number_of_people_attending INTEGER,
+
+--     contact_name VARCHAR(255),
+
+--     contact_email VARCHAR(255),
+
+--     contact_phone VARCHAR(50),
+
+--     announcement_for_students TEXT,
+
+--     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+--     CONSTRAINT fk_company_request_company
+--         FOREIGN KEY (college_company_id)
+--         REFERENCES college_company(id)
+--         ON DELETE CASCADE,
+
+--     CONSTRAINT chk_company_request_positions
+--         CHECK (number_of_positions > 0),
+
+--     CONSTRAINT chk_company_request_rounds
+--         CHECK (number_of_rounds > 0),
+
+--     CONSTRAINT chk_company_request_attendees
+--         CHECK (
+--             number_of_people_attending IS NULL
+--             OR number_of_people_attending >= 0
+--         ),
+
+--     CONSTRAINT chk_company_request_status
+--         CHECK (
+--             status IN (
+--                 'PENDING',
+--                 'APPROVED',
+--                 'REJECTED',
+--                 'CANCELLED',
+--                 'COMPLETED'
+--             )
+--         )
+-- );
+
+
+
+
