@@ -27,3 +27,10 @@ ON company_request(college_company_id);
 
 CREATE INDEX idx_company_request_status
 ON company_request(status);
+
+
+CREATE UNIQUE INDEX uq_user_student ON user_account(student_id) WHERE student_id IS NOT NULL;
+CREATE UNIQUE INDEX uq_user_teacher ON user_account(teacher_id) WHERE teacher_id IS NOT NULL;
+CREATE UNIQUE INDEX uq_user_alumni ON user_account(alumni_id) WHERE alumni_id IS NOT NULL;
+CREATE UNIQUE INDEX uq_user_tpo ON user_account(tpo_id) WHERE tpo_id IS NOT NULL;
+CREATE UNIQUE INDEX uq_user_college_company ON user_account(college_company_id) WHERE college_company_id IS NOT NULL;

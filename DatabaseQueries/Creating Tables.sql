@@ -1,383 +1,458 @@
--- -- ============================================================
--- -- COLLEGE PLACEMENT MANAGEMENT DATABASE
--- -- PostgreSQL
--- -- ============================================================
+-- ============================================================
+-- RESET (MVP) — drop everything this file creates, then recreate
+-- ============================================================
 
--- -- ============================================================
--- -- 1. COLLEGE
--- -- ============================================================
+DROP TABLE IF EXISTS
+    user_account,
+    company_request,
+    placement_opportunity,
+    placement,
+    college_company,
+    student,
+    alumni,
+    teacher,
+    tpo,
+    college,
+    company CASCADE;
 
--- CREATE TABLE college (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     name VARCHAR(255) NOT NULL,
+-- ============================================================
+-- COLLEGE PLACEMENT MANAGEMENT DATABASE
+-- PostgreSQL
+-- ============================================================
 
---     address TEXT,
+-- ============================================================
+-- 1. COLLEGE
+-- ============================================================
 
---     contact VARCHAR(50),
+CREATE TABLE college (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     verified_status BOOLEAN NOT NULL DEFAULT FALSE,
+    name VARCHAR(255) NOT NULL,
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    address TEXT,
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    contact VARCHAR(50),
 
---     CONSTRAINT uq_college_name UNIQUE (name)
--- );
+    verified_status BOOLEAN NOT NULL DEFAULT FALSE,
 
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- -- ============================================================
--- -- 2. COMPANY
--- -- ============================================================
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- CREATE TABLE company (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT uq_college_name UNIQUE (name)
+);
 
---     name VARCHAR(255) NOT NULL,
 
---     industry VARCHAR(150),
+-- ============================================================
+-- 2. COMPANY
+-- ============================================================
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE company (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(255) NOT NULL,
 
---     CONSTRAINT uq_company_name UNIQUE (name)
--- );
+    industry VARCHAR(150),
 
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- -- ============================================================
--- -- 3. STUDENT
--- -- ============================================================
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- CREATE TABLE student (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT uq_company_name UNIQUE (name)
+);
 
---     college_id UUID NOT NULL,
 
---     name VARCHAR(255) NOT NULL,
+-- ============================================================
+-- 3. STUDENT
+-- ============================================================
 
---     email VARCHAR(255) NOT NULL,
+CREATE TABLE student (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     roll_no VARCHAR(100) NOT NULL,
+    college_id UUID NOT NULL,
 
---     batch VARCHAR(20) NOT NULL,
+    name VARCHAR(255) NOT NULL,
 
---     department VARCHAR(150),
+    email VARCHAR(255) NOT NULL,
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    roll_no VARCHAR(100) NOT NULL,
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    batch VARCHAR(20) NOT NULL,
 
---     CONSTRAINT fk_student_college
---         FOREIGN KEY (college_id)
---         REFERENCES college(id)
---         ON DELETE CASCADE,
+    department VARCHAR(150),
 
---     CONSTRAINT uq_student_email UNIQUE (email),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT uq_student_roll_no
---         UNIQUE (college_id, roll_no)
--- );
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
+    CONSTRAINT fk_student_college
+        FOREIGN KEY (college_id)
+        REFERENCES college(id)
+        ON DELETE CASCADE,
 
--- -- ============================================================
--- -- 4. ALUMNI
--- -- ============================================================
+    CONSTRAINT uq_student_email UNIQUE (email),
 
--- CREATE TABLE alumni (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT uq_student_roll_no
+        UNIQUE (college_id, roll_no)
+);
 
---     college_id UUID NOT NULL,
 
---     name VARCHAR(255) NOT NULL,
+-- ============================================================
+-- 4. ALUMNI
+-- ============================================================
 
---     email VARCHAR(255),
+CREATE TABLE alumni (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     company_id UUID,
+    college_id UUID NOT NULL,
 
---     designation VARCHAR(150),
+    name VARCHAR(255) NOT NULL,
 
---     passing_year INTEGER NOT NULL,
+    email VARCHAR(255),
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    company_id UUID,
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    designation VARCHAR(150),
 
---     CONSTRAINT fk_alumni_college
---         FOREIGN KEY (college_id)
---         REFERENCES college(id)
---         ON DELETE CASCADE,
+    passing_year INTEGER NOT NULL,
 
---     CONSTRAINT fk_alumni_company
---         FOREIGN KEY (company_id)
---         REFERENCES company(id)
---         ON DELETE SET NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT chk_alumni_passing_year
---         CHECK (passing_year >= 1900),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT uq_alumni_email
---         UNIQUE (email)
--- );
+    CONSTRAINT fk_alumni_college
+        FOREIGN KEY (college_id)
+        REFERENCES college(id)
+        ON DELETE CASCADE,
 
+    CONSTRAINT fk_alumni_company
+        FOREIGN KEY (company_id)
+        REFERENCES company(id)
+        ON DELETE SET NULL,
 
--- -- ============================================================
--- -- 5. TEACHER
--- -- ============================================================
+    CONSTRAINT chk_alumni_passing_year
+        CHECK (passing_year >= 1900),
 
--- CREATE TABLE teacher (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT uq_alumni_email
+        UNIQUE (email)
+);
 
---     college_id UUID NOT NULL,
 
---     name VARCHAR(255) NOT NULL,
+-- ============================================================
+-- 5. TEACHER
+-- ============================================================
 
---     email VARCHAR(255) NOT NULL,
+CREATE TABLE teacher (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     department VARCHAR(150),
+    college_id UUID NOT NULL,
 
---     joining_year INTEGER,
+    name VARCHAR(255) NOT NULL,
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    email VARCHAR(255) NOT NULL,
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    department VARCHAR(150),
 
---     CONSTRAINT fk_teacher_college
---         FOREIGN KEY (college_id)
---         REFERENCES college(id)
---         ON DELETE CASCADE,
+    joining_year INTEGER,
 
---     CONSTRAINT uq_teacher_email
---         UNIQUE (email)
--- );
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- -- ============================================================
--- -- 6. TPO
--- -- ============================================================
+    CONSTRAINT fk_teacher_college
+        FOREIGN KEY (college_id)
+        REFERENCES college(id)
+        ON DELETE CASCADE,
 
--- CREATE TABLE tpo (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT uq_teacher_email
+        UNIQUE (email)
+);
 
---     college_id UUID NOT NULL,
 
---     name VARCHAR(255) NOT NULL,
+-- ============================================================
+-- 6. TPO
+-- ============================================================
 
---     email VARCHAR(255) NOT NULL,
+CREATE TABLE tpo (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    college_id UUID NOT NULL,
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    name VARCHAR(255) NOT NULL,
 
---     CONSTRAINT fk_tpo_college
---         FOREIGN KEY (college_id)
---         REFERENCES college(id)
---         ON DELETE CASCADE,
+    email VARCHAR(255) NOT NULL,
 
---     CONSTRAINT uq_tpo_email
---         UNIQUE (email)
--- );
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
--- -- ============================================================
--- -- 7. COLLEGE COMPANY
--- -- ============================================================
+    CONSTRAINT fk_tpo_college
+        FOREIGN KEY (college_id)
+        REFERENCES college(id)
+        ON DELETE CASCADE,
 
--- CREATE TABLE college_company (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT uq_tpo_email
+        UNIQUE (email)
+);
 
---     college_id UUID NOT NULL,
 
---     company_id UUID NOT NULL,
+-- ============================================================
+-- 7. COLLEGE COMPANY
+-- ============================================================
 
---     company_key VARCHAR(100) NOT NULL,
+CREATE TABLE college_company (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    college_id UUID NOT NULL,
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    company_id UUID NOT NULL,
 
---     CONSTRAINT fk_college_company_college
---         FOREIGN KEY (college_id)
---         REFERENCES college(id)
---         ON DELETE CASCADE,
+    company_key VARCHAR(100) NOT NULL,
 
---     CONSTRAINT fk_college_company_company
---         FOREIGN KEY (company_id)
---         REFERENCES company(id)
---         ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT uq_college_company
---         UNIQUE (college_id, company_id),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT uq_college_company_key
---         UNIQUE (college_id, company_key)
--- );
+    CONSTRAINT fk_college_company_college
+        FOREIGN KEY (college_id)
+        REFERENCES college(id)
+        ON DELETE CASCADE,
 
+    CONSTRAINT fk_college_company_company
+        FOREIGN KEY (company_id)
+        REFERENCES company(id)
+        ON DELETE CASCADE,
 
--- -- ============================================================
--- -- 8. PLACEMENT
--- -- ============================================================
+    CONSTRAINT uq_college_company
+        UNIQUE (college_id, company_id),
 
--- CREATE TABLE placement (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT uq_college_company_key
+        UNIQUE (college_id, company_key)
+);
 
---     student_id UUID NOT NULL,
 
---     college_company_id UUID NOT NULL,
+-- ============================================================
+-- 8. PLACEMENT
+-- ============================================================
 
---     package NUMERIC(12,2) NOT NULL,
+CREATE TABLE placement (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     role VARCHAR(150) NOT NULL,
+    student_id UUID NOT NULL,
 
---     placement_date DATE NOT NULL,
+    college_company_id UUID NOT NULL,
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    package NUMERIC(12,2) NOT NULL,
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    role VARCHAR(150) NOT NULL,
 
---     CONSTRAINT fk_placement_student
---         FOREIGN KEY (student_id)
---         REFERENCES student(id)
---         ON DELETE CASCADE,
+    placement_date DATE NOT NULL,
 
---     CONSTRAINT fk_placement_college_company
---         FOREIGN KEY (college_company_id)
---         REFERENCES college_company(id)
---         ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT chk_placement_package
---         CHECK (package >= 0)
--- );
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
+    CONSTRAINT fk_placement_student
+        FOREIGN KEY (student_id)
+        REFERENCES student(id)
+        ON DELETE CASCADE,
 
--- -- ============================================================
--- -- 9. PLACEMENT OPPORTUNITY
--- -- ============================================================
+    CONSTRAINT fk_placement_college_company
+        FOREIGN KEY (college_company_id)
+        REFERENCES college_company(id)
+        ON DELETE CASCADE,
 
--- CREATE TABLE placement_opportunity (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT chk_placement_package
+        CHECK (package >= 0)
+);
 
---     alumni_id UUID,
 
---     teacher_id UUID,
+-- ============================================================
+-- 9. PLACEMENT OPPORTUNITY
+-- ============================================================
 
---     college_company_id UUID NOT NULL,
+CREATE TABLE placement_opportunity (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     role VARCHAR(150) NOT NULL,
+    alumni_id UUID,
 
---     status VARCHAR(50) NOT NULL DEFAULT 'OPEN',
+    teacher_id UUID,
 
---     eligibility TEXT,
+    college_company_id UUID NOT NULL,
 
---     deadline TIMESTAMPTZ,
+    role VARCHAR(150) NOT NULL,
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(50) NOT NULL DEFAULT 'OPEN',
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    eligibility TEXT,
 
---     CONSTRAINT fk_opportunity_alumni
---         FOREIGN KEY (alumni_id)
---         REFERENCES alumni(id)
---         ON DELETE SET NULL,
+    deadline TIMESTAMPTZ,
 
---     CONSTRAINT fk_opportunity_teacher
---         FOREIGN KEY (teacher_id)
---         REFERENCES teacher(id)
---         ON DELETE SET NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT fk_opportunity_company
---         FOREIGN KEY (college_company_id)
---         REFERENCES college_company(id)
---         ON DELETE CASCADE,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     -- Exactly one creator must exist
---     CONSTRAINT chk_opportunity_creator
---         CHECK (
---             (alumni_id IS NOT NULL AND teacher_id IS NULL)
---             OR
---             (alumni_id IS NULL AND teacher_id IS NOT NULL)
---         ),
+    CONSTRAINT fk_opportunity_alumni
+        FOREIGN KEY (alumni_id)
+        REFERENCES alumni(id)
+        ON DELETE SET NULL,
 
---     CONSTRAINT chk_opportunity_status
---         CHECK (
---             status IN (
---                 'OPEN',
---                 'CLOSED',
---                 'CANCELLED',
---                 'FILLED'
---             )
---         )
--- );
+    CONSTRAINT fk_opportunity_teacher
+        FOREIGN KEY (teacher_id)
+        REFERENCES teacher(id)
+        ON DELETE SET NULL,
 
+    CONSTRAINT fk_opportunity_company
+        FOREIGN KEY (college_company_id)
+        REFERENCES college_company(id)
+        ON DELETE CASCADE,
 
--- -- ============================================================
--- -- 10. COMPANY REQUEST
--- -- ============================================================
+    -- Exactly one creator must exist
+    CONSTRAINT chk_opportunity_creator
+        CHECK (
+            (alumni_id IS NOT NULL AND teacher_id IS NULL)
+            OR
+            (alumni_id IS NULL AND teacher_id IS NOT NULL)
+        ),
 
--- CREATE TABLE company_request (
---     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    CONSTRAINT chk_opportunity_status
+        CHECK (
+            status IN (
+                'OPEN',
+                'CLOSED',
+                'CANCELLED',
+                'FILLED'
+            )
+        )
+);
 
---     college_company_id UUID NOT NULL,
 
---     interview_requested_at TIMESTAMPTZ NOT NULL,
+-- ============================================================
+-- 10. COMPANY REQUEST
+-- ============================================================
 
---     number_of_positions INTEGER NOT NULL,
+CREATE TABLE company_request (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 
---     number_of_rounds INTEGER NOT NULL,
+    college_company_id UUID NOT NULL,
 
---     timings TEXT,
+    interview_requested_at TIMESTAMPTZ NOT NULL,
 
---     breakfast BOOLEAN NOT NULL DEFAULT FALSE,
+    number_of_positions INTEGER NOT NULL,
 
---     lunch BOOLEAN NOT NULL DEFAULT FALSE,
+    number_of_rounds INTEGER NOT NULL,
 
---     dinner BOOLEAN NOT NULL DEFAULT FALSE,
+    timings TEXT,
 
---     status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+    breakfast BOOLEAN NOT NULL DEFAULT FALSE,
 
---     number_of_people_attending INTEGER,
+    lunch BOOLEAN NOT NULL DEFAULT FALSE,
 
---     contact_name VARCHAR(255),
+    dinner BOOLEAN NOT NULL DEFAULT FALSE,
 
---     contact_email VARCHAR(255),
+    status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
 
---     contact_phone VARCHAR(50),
+    number_of_people_attending INTEGER,
 
---     announcement_for_students TEXT,
+    contact_name VARCHAR(255),
 
---     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    contact_email VARCHAR(255),
 
---     updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    contact_phone VARCHAR(50),
 
---     CONSTRAINT fk_company_request_company
---         FOREIGN KEY (college_company_id)
---         REFERENCES college_company(id)
---         ON DELETE CASCADE,
+    announcement_for_students TEXT,
 
---     CONSTRAINT chk_company_request_positions
---         CHECK (number_of_positions > 0),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT chk_company_request_rounds
---         CHECK (number_of_rounds > 0),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
---     CONSTRAINT chk_company_request_attendees
---         CHECK (
---             number_of_people_attending IS NULL
---             OR number_of_people_attending >= 0
---         ),
+    CONSTRAINT fk_company_request_company
+        FOREIGN KEY (college_company_id)
+        REFERENCES college_company(id)
+        ON DELETE CASCADE,
 
---     CONSTRAINT chk_company_request_status
---         CHECK (
---             status IN (
---                 'PENDING',
---                 'APPROVED',
---                 'REJECTED',
---                 'CANCELLED',
---                 'COMPLETED'
---             )
---         )
--- );
+    CONSTRAINT chk_company_request_positions
+        CHECK (number_of_positions > 0),
 
+    CONSTRAINT chk_company_request_rounds
+        CHECK (number_of_rounds > 0),
 
+    CONSTRAINT chk_company_request_attendees
+        CHECK (
+            number_of_people_attending IS NULL
+            OR number_of_people_attending >= 0
+        ),
 
+    CONSTRAINT chk_company_request_status
+        CHECK (
+            status IN (
+                'PENDING',
+                'APPROVED',
+                'REJECTED',
+                'CANCELLED',
+                'COMPLETED'
+            )
+        )
+);
+
+
+
+
+CREATE TABLE user_account (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    email VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+
+    student_id UUID,
+    teacher_id UUID,
+    alumni_id UUID,
+    tpo_id UUID,
+    college_company_id UUID,
+
+    enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT uq_user_account_email UNIQUE (email),
+
+    CONSTRAINT fk_user_student
+        FOREIGN KEY (student_id) REFERENCES student(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_teacher
+        FOREIGN KEY (teacher_id) REFERENCES teacher(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_alumni
+        FOREIGN KEY (alumni_id) REFERENCES alumni(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_tpo
+        FOREIGN KEY (tpo_id) REFERENCES tpo(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_college_company
+        FOREIGN KEY (college_company_id) REFERENCES college_company(id) ON DELETE CASCADE,
+
+    CONSTRAINT chk_user_role
+        CHECK (role IN ('STUDENT', 'TEACHER', 'ALUMNI', 'TPO', 'COMPANY')),
+
+    CONSTRAINT chk_user_profile
+        CHECK (
+            (role = 'STUDENT' AND student_id IS NOT NULL
+                AND teacher_id IS NULL AND alumni_id IS NULL
+                AND tpo_id IS NULL AND college_company_id IS NULL)
+            OR
+            (role = 'TEACHER' AND teacher_id IS NOT NULL
+                AND student_id IS NULL AND alumni_id IS NULL
+                AND tpo_id IS NULL AND college_company_id IS NULL)
+            OR
+            (role = 'ALUMNI' AND alumni_id IS NOT NULL
+                AND student_id IS NULL AND teacher_id IS NULL
+                AND tpo_id IS NULL AND college_company_id IS NULL)
+            OR
+            (role = 'TPO' AND tpo_id IS NOT NULL
+                AND student_id IS NULL AND teacher_id IS NULL
+                AND alumni_id IS NULL AND college_company_id IS NULL)
+            OR
+            (role = 'COMPANY' AND college_company_id IS NOT NULL
+                AND student_id IS NULL AND teacher_id IS NULL
+                AND alumni_id IS NULL AND tpo_id IS NULL)
+        )
+);
 

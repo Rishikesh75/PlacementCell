@@ -200,25 +200,25 @@ VALUES
 -- -- 6. TPO
 -- -- ============================================================
 
--- INSERT INTO tpo (
---     id,
---     college_id,
---     name,
---     email
--- )
--- VALUES
--- (
---     '50000000-0000-0000-0000-000000000001',
---     '11111111-1111-1111-1111-111111111111',
---     'Mahesh Kumar',
---     'tpo@iiitdm.ac.in'
--- ),
--- (
---     '50000000-0000-0000-0000-000000000002',
---     '22222222-2222-2222-2222-222222222222',
---     'Priya Menon',
---     'tpo@iitm.ac.in'
--- );
+INSERT INTO tpo (
+    id,
+    college_id,
+    name,
+    email
+)
+VALUES
+(
+    '50000000-0000-0000-0000-000000000001',
+    '11111111-1111-1111-1111-111111111111',
+    'Mahesh Kumar',
+    'tpo@iiitdm.ac.in'
+),
+(
+    '50000000-0000-0000-0000-000000000002',
+    '22222222-2222-2222-2222-222222222222',
+    'Priya Menon',
+    'tpo@iitm.ac.in'
+);
 
 
 -- -- ============================================================
@@ -401,3 +401,70 @@ VALUES
     'Google recruitment drive for 2027 batch.'
 );
 
+
+-- ============================================================
+-- 11. USER ACCOUNT
+-- ============================================================
+INSERT INTO user_account (
+    id,
+    email,
+    password_hash,
+    role,
+    student_id,
+    teacher_id,
+    alumni_id,
+    tpo_id,
+    college_company_id,
+    enabled
+) VALUES (
+    'aa000000-0000-0000-0000-000000000001',
+    'ravi@example.com',
+    '$2a$10$abcdefghijklmnopqrstuvHASHNOTREAL',  -- BCrypt of "Ravi@123"
+    'STUDENT',
+    '10000000-0000-0000-0000-000000000001',  -- points at Ravi
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    TRUE
+);
+
+-- Alumni Rahul (already in alumni as 30000000-...0001)
+INSERT INTO user_account (id, email, password_hash, role, alumni_id)
+VALUES (
+    'aa000000-0000-0000-0000-000000000002',
+    'rahul@example.com',
+    '$2a$10$abcdefghijklmnopqrstuvHASHNOTREAL',
+    'ALUMNI',
+    '30000000-0000-0000-0000-000000000001'
+);
+
+-- Teacher Dr. Suresh
+INSERT INTO user_account (id, email, password_hash, role, teacher_id)
+VALUES (
+    'aa000000-0000-0000-0000-000000000003',
+    'suresh@college.edu',
+    '$2a$10$abcdefghijklmnopqrstuvHASHNOTREAL',
+    'TEACHER',
+    '40000000-0000-0000-0000-000000000001'
+);
+
+-- -- TPO Mahesh (uncomment tpo insert first)
+INSERT INTO user_account (id, email, password_hash, role, tpo_id)
+VALUES (
+    'aa000000-0000-0000-0000-000000000004',
+    'tpo@iiitdm.ac.in',
+    '$2a$10$abcdefghijklmnopqrstuvHASHNOTREAL',
+    'TPO',
+    '50000000-0000-0000-0000-000000000001'
+);
+
+-- Company login for IIITDM × Microsoft (college_company 60000000-...0001)
+INSERT INTO user_account (id, email, password_hash, role, college_company_id)
+VALUES (
+    'aa000000-0000-0000-0000-000000000005',
+    'recruiter.microsoft@iiitdm.ac.in',
+    '$2a$10$abcdefghijklmnopqrstuvHASHNOTREAL',
+    'COMPANY',
+    '60000000-0000-0000-0000-000000000001'
+);
