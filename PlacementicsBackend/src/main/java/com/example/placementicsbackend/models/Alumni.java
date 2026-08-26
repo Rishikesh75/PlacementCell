@@ -1,40 +1,66 @@
 package com.example.placementicsbackend.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 @Entity
-@Table(name = "alumni")
-@Data
+@Table(
+    name = "alumni",
+    uniqueConstraints = @UniqueConstraint(name = "uq_alumni_email", columnNames = "email")
+)
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Alumni {
 
     @Id
-    @Column(name = "Id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @Column(name = "Name", nullable = false)
-    private String name = "";
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "college_id", nullable = false)
+    private College college;
 
-    @Column(name = "position", nullable = false)
-    private String position = "";
+    @Column(nullable = false, length = 255)
+    private String name;
 
-    @Column(name = "Linkdinprofile", nullable = false)
-    private String linkedinProfile = "";
-
-    @Column(name = "CompanyId", nullable = false)
-    private String companyId;
+    /** Nullable in SQL; unique when present. */
+    @Column(length = 255)
+    private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CompanyId", insertable = false, updatable = false)
+    @JoinColumn(name = "company_id")
     private Company company;
+
+    @Column(length = 150)
+    private String designation;
+
+    @Column(name = "passing_year", nullable = false)
+    private Integer passingYear;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
+
+    @OneToOne(mappedBy = "alumni")
+    private UserAccount userAccount;
+
+    @PrePersist
+    void onCreate() {
+        Instant now = Instant.now();
+        createdAt = now;
+        updatedAt = now;
+    }
+
+    @PreUpdate
+    void onUpdate() {
+        updatedAt = Instant.now();
+    }
 }

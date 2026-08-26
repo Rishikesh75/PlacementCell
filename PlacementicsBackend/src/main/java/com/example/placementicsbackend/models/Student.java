@@ -1,42 +1,54 @@
 package com.example.placementicsbackend.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import jakarta.persistence.*;
+import lombok.*;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 @Entity
-@Table(name = "student")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Table(
+    name = "student",
+    uniqueConstraints = {
+        @UniqueConstraint(name = "uq_student_email", columnNames = "email"),
+        @UniqueConstraint(name = "uq_student_roll_no", columnNames = {"college_id", "roll_no"})
+    }
+)
+@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Student {
-
     @Id
-    @Column(name = "Id")
-    private String id;
-
-    @Column(name = "password", nullable = false)
-    private String password = "password123";
-
-    @Column(name = "name", nullable = false)
-    private String name = "";
-
-    @Column(name = "major", nullable = false)
-    private String major = "";
-
-    @Column(name = "Email", nullable = false)
-    private String email = "";
-
-    @Column(name = "GraduationYear", nullable = false)
-    private Long graduationYear;
-
-    @Column(name = "PhoneNo", nullable = false)
-    private String phoneNo = "";
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "college_id", nullable = false)
+    private College college;
+    @Column(nullable = false, length = 255)
+    private String name;
+    @Column(nullable = false, length = 255)
+    private String email;
+    @Column(name = "roll_no", nullable = false, length = 100)
+    private String rollNo;
+    @Column(nullable = false, length = 20)
+    private String batch;
+    @Column(length = 150)
+    private String department;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
+    @OneToMany(mappedBy = "student")
+    @Builder.Default
+    private List<Placement> placements = new ArrayList<>();
+    @OneToOne(mappedBy = "student")
+    private UserAccount userAccount;
+    @PrePersist
+    void onCreate() {
+        Instant now = Instant.now();
+        createdAt = now;
+        updatedAt = now;
+    }
+    @PreUpdate
+    void onUpdate() {
+        updatedAt = Instant.now();
+    }
 }

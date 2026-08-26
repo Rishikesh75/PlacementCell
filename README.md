@@ -15,7 +15,7 @@ Monorepo for the IIITDM Placement Cell platform.
 ### Backend
 ```bash
 cd PlacementCellBackend
-dotnet run
+mvn spring-boot:rum
 ```
 Runs on `https://localhost:7070`
 

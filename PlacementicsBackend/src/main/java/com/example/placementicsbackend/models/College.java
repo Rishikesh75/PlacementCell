@@ -1,50 +1,80 @@
 package com.example.placementicsbackend.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.Instant;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "college")
-@Data
+@Table(name = "college", uniqueConstraints = @UniqueConstraint(name = "uq_college_name", columnNames = "name"))
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class College {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
-    @NotNull
-    @Size(max = 200)
-    @Column(name = "CollegeName", nullable = false, length = 200)
-    private String collegeName = "";
+    @Column(nullable = false, length = 255)
+    private String name;
 
-    @Size(max = 500)
-    @Column(name = "Address", length = 500)
-    private String address = "";
+    @Column(columnDefinition = "TEXT")
+    private String address;
 
-    @Size(max = 100)
-    @Column(name = "City", length = 100)
-    private String city = "";
+    @Column(length = 50)
+    private String contact;
 
-    @Size(max = 100)
-    @Column(name = "State", length = 100)
-    private String state = "";
+    @Column(name = "verified_status", nullable = false)
+    @Builder.Default
+    private boolean verifiedStatus = false;
 
-    @NotNull
-    @Column(name = "AdminID", nullable = false)
-    private String adminId = "";
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
 
-    @Column(name = "RegisteredOn")
-    private Instant registeredOn = Instant.now();
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "college")
+    @Builder.Default
+    private List<Student> students = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "college")
+    @Builder.Default
+    private List<Alumni> alumni = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "college")
+    @Builder.Default
+    private List<Teacher> teachers = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "college")
+    @Builder.Default
+    private List<TPO> tpos = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "college")
+    @Builder.Default
+    private List<CollegeCompany> collegeCompanies = new ArrayList<>();
+
+    @PrePersist
+    void onCreate() {
+        Instant now = Instant.now();
+        createdAt = now;
+        updatedAt = now;
+    }
+
+    @PreUpdate
+    void onUpdate() {
+        updatedAt = Instant.now();
+    }
 }
