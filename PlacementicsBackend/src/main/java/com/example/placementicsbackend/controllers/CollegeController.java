@@ -18,7 +18,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/colleges")
 @RequiredArgsConstructor
-@Tag(name = "Colleges", description = "CRUD for colleges stored in PostgreSQL")
+@Tag(name = "Colleges", description = "Colleges information management APIs")
 public class CollegeController {
 
     private final CollegeService collegeService;
