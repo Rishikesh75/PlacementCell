@@ -1,6 +1,3 @@
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://placelytics.onrender.com";
-
 export interface College {
   id: string;
   name: string;
@@ -14,7 +11,7 @@ export interface College {
 }
 
 export async function fetchColleges(): Promise<College[]> {
-  const response = await fetch(`${API_BASE}/api/colleges`);
+  const response = await fetch("/api/colleges", { cache: "no-store" });
 
   if (!response.ok) {
     throw new Error(`Failed to load colleges (${response.status})`);
