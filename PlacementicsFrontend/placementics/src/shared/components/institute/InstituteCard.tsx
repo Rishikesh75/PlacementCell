@@ -1,45 +1,48 @@
-import InstituteStats from "./InstituteStats";
-import { Institute } from "@/data/institutes";
+"use client";
+
 import { useRouter } from "next/navigation";
+
+import { collegeInitials, type College } from "@/shared/institutes/collegesApi";
+
 interface InstituteCardProps {
-  institute: Institute;
+  college: College;
 }
 
 export default function InstituteCard({
-  institute,
+  college,
 }: InstituteCardProps) {
-
   const router = useRouter();
+
   return (
     <article className="institute-card">
-
-      {/* Institute abbreviation */}
       <div className="institute-logo">
-        {institute.shortName}
+        {college.imageUrl ? (
+          // Native img: college logos are hosted on R2, not the Next image optimizer.
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={college.imageUrl}
+            alt=""
+            className="institute-logo-image"
+          />
+        ) : (
+          collegeInitials(college.name)
+        )}
       </div>
 
-      {/* Institute information */}
       <div className="institute-info">
-        <h2>{institute.name}</h2>
+        <h2>{college.name}</h2>
 
-        <p className="location">
-          {institute.location}
-        </p>
+        {college.address ? (
+          <p className="location">
+            {college.address}
+          </p>
+        ) : null}
       </div>
 
-      {/* Statistics */}
-      <InstituteStats
-        alumni={institute.alumni}
-        recruiters={institute.recruiters}
-        // placement={institute.placement}
-      />
-
-      {/* Action */}
       <button className="select-button" onClick={() => router.push(`/loginPage`)} >
         Select institute
         <span>→</span>
       </button>
-
     </article>
   );
 }
