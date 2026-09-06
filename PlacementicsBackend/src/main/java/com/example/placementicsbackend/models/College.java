@@ -31,6 +31,9 @@ public class College {
     @Column(length = 50)
     private String contact;
 
+    @Column(name = "image_file_name", length = 500)
+    private String imageFileName;
+
     @Column(name = "verified_status", nullable = false)
     @Builder.Default
     private boolean verifiedStatus = false;

@@ -13,6 +13,9 @@ public record CollegeRequest(
         @Size(max = 50, message = "Contact must be at most 50 characters")
         String contact,
 
+        @Size(max = 500, message = "Image file name must be at most 500 characters")
+        String imageFileName,
+
         Boolean verifiedStatus
 ) {
 }

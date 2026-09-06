@@ -8,6 +8,8 @@ public record CollegeResponse(
         String name,
         String address,
         String contact,
+        String imageFileName,
+        String imageUrl,
         boolean verifiedStatus,
         Instant createdAt,
         Instant updatedAt

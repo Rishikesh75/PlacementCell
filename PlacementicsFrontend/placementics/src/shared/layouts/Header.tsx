@@ -1,9 +1,16 @@
+import Image from "next/image";
+
 export default function Header() {
   return (
     <header className="header">
       <div className="brand">
         <div className="brand-logo">
-          <span>▥</span>
+          <Image
+            src="/icons/placementics.svg"
+            alt="Placementics logo"
+            width={48}
+            height={48}
+          />
         </div>
 
         <div>
