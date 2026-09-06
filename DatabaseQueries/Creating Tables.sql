@@ -34,6 +34,8 @@ CREATE TABLE college (
 
     contact VARCHAR(50),
 
+	image_file_name VARCHAR(500),
+
     verified_status BOOLEAN NOT NULL DEFAULT FALSE,
 
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
