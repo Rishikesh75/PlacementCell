@@ -3,7 +3,7 @@
 import { useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 
-import { getCurrentRole, type UserRole } from "@/shared/auth/session";
+import { getCurrentRole, type UserRole } from "@/features/auth/application/session";
 import { subscribeNever } from "@/shared/lib/useClientSnapshot";
 
 import styles from "./AppHeader.module.css";

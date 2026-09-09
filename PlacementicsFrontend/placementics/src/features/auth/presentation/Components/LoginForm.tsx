@@ -3,8 +3,8 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { setCurrentUser, type UserRole } from "@/shared/auth/session";
-import { LoginError, loginWithEmail } from "@/shared/auth/loginApi";
+import { setCurrentUser, type UserRole } from "@/features/auth/application/session";
+import { LoginError, loginWithEmail } from "@/features/auth/application/loginWithEmail";
 
 import styles from "../LoginPage.module.css";
 

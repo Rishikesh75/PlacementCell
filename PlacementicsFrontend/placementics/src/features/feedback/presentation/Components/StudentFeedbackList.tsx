@@ -1,4 +1,4 @@
-import type { StudentFeedback } from "@/data/companyFeedback";
+import type { StudentFeedback } from "@/features/feedback/infrastructure/companyFeedbackData";
 
 import StudentFeedbackCard from "./StudentFeedbackCard";
 import styles from "../CompanyFeedbackPage.module.css";

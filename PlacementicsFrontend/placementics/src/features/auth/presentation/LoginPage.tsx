@@ -3,7 +3,7 @@
 import InstitutePanel from "./Components/InstitutePanel";
 import LoginPanel from "./Components/LoginPanel";
 import styles from "./LoginPage.module.css";
-import { useCollege } from "@/features/auth/Application/useCollege";
+import { useCollege } from "@/features/auth/application/useCollege";
 
 interface LoginPageProps {
   collegeId?: string;

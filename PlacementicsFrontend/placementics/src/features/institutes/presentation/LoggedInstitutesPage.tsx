@@ -1,10 +1,10 @@
 "use client";
 
-import { institutes } from "@/data/institutes";
+import { institutes } from "@/features/institutes/infrastructure/institutesData";
 import {
   getCreatedInstitutes,
   type CreatedInstitute,
-} from "@/shared/institutes/instituteCatalog";
+} from "@/features/institutes/infrastructure/instituteCatalog";
 import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 
 import styles from "./LoggedInstitutesPage.module.css";

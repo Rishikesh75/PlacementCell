@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 
 import AppHeader from "@/shared/layouts/AppHeader";
-import { opportunities } from "@/data/opportunities";
+import { opportunities } from "@/features/opportunities/infrastructure/opportunitiesData";
 
 import OpportunityTabs, {
   type OpportunityTab,

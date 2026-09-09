@@ -8,7 +8,7 @@ import {
   getCompanyFeedback,
   getStudentFeedbacks,
   type StudentFeedback,
-} from "@/data/companyFeedback";
+} from "@/features/feedback/infrastructure/companyFeedbackData";
 
 import StudentFeedbackList from "./Components/StudentFeedbackList";
 import StudentFeedbackOverlay from "./Components/StudentFeedbackOverlay";

@@ -1,4 +1,4 @@
-import type { RequestStatus, TpoRequest } from "@/data/tpoRequests";
+import type { RequestStatus, TpoRequest } from "@/features/tpo/infrastructure/tpoRequests";
 
 import styles from "../TpoRequestsPage.module.css";
 

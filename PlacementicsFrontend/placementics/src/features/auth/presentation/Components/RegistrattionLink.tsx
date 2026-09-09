@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import styles from "../LoginPage.module.css";
-import { collegeAuthHref } from "@/shared/institutes/collegesApi";
+import { collegeAuthHref } from "@/features/auth/application/collegeAuthHref";
 
 interface RegisterLinkProps {
   collegeId?: string;

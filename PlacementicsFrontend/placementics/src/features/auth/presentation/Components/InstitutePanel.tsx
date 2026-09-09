@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import styles from "../LoginPage.module.css";
-import { collegeInitials, type College } from "@/shared/institutes/collegesApi";
+import { collegeInitials, type College } from "@/features/institutes/infrastructure/collegesApi";
 
 interface InstitutePanelProps {
   college: College | null;

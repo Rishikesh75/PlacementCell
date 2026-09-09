@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import type { CompanyFeedback, StudentFeedback } from "@/data/companyFeedback";
+import type { CompanyFeedback, StudentFeedback } from "@/features/feedback/infrastructure/companyFeedbackData";
 
 import styles from "../CompanyFeedbackPage.module.css";
 

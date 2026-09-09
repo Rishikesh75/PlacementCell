@@ -1,4 +1,4 @@
-import type { TpoQueue } from "@/data/tpoRequests";
+import type { TpoQueue } from "@/features/tpo/infrastructure/tpoRequests";
 
 import styles from "../TpoRequestsPage.module.css";
 

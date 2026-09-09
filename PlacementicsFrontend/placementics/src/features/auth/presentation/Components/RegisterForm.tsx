@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import {
   saveSubmittedRegistration,
   type RegistrationKind,
-} from "@/data/tpoRequests";
+} from "@/features/tpo/infrastructure/tpoRequests";
 
 import styles from "../LoginPage.module.css";
-import { collegeAuthHref } from "@/shared/institutes/collegesApi";
+import { collegeAuthHref } from "@/features/auth/application/collegeAuthHref";
 
 interface RegisterFormProps {
   selectedRole: string;

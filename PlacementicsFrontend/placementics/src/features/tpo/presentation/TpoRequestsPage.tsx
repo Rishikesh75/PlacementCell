@@ -10,7 +10,7 @@ import {
   type RequestStatus,
   type TpoQueue,
   type TpoRequest,
-} from "@/data/tpoRequests";
+} from "@/features/tpo/infrastructure/tpoRequests";
 import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 
 import TpoQueueTabs from "./Components/TpoQueueTabs";

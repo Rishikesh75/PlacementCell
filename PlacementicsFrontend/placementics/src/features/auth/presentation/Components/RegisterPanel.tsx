@@ -6,7 +6,7 @@ import Link from "next/link";
 import RoleSelector, { REGISTER_ROLES } from "./RoleSelector";
 import RegisterForm from "./RegisterForm";
 import styles from "../LoginPage.module.css";
-import { collegeAuthHref } from "@/shared/institutes/collegesApi";
+import { collegeAuthHref } from "@/features/auth/application/collegeAuthHref";
 
 interface RegisterPanelProps {
   collegeId?: string;

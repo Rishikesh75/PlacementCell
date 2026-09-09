@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { openRightNow } from "@/data/dashboard";
+import { openRightNow } from "@/features/dashboard/infrastructure/dashboardData";
 
 import styles from "../DashboardPage.module.css";
 

@@ -1,4 +1,4 @@
-import type { RecruiterStat } from "@/data/dashboard";
+import type { RecruiterStat } from "@/features/dashboard/infrastructure/dashboardData";
 
 import styles from "../DashboardPage.module.css";
 

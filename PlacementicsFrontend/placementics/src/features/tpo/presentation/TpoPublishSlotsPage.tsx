@@ -6,13 +6,13 @@ import AppHeader from "@/shared/layouts/AppHeader";
 import {
   availableCount,
   type PlacementDate,
-} from "@/data/placementSlots";
+} from "@/features/tpo/infrastructure/placementSlots";
 import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 import {
   buildPlacementDate,
   getPublishedDates,
   publishDate,
-} from "@/shared/slots/publishedSlots";
+} from "@/features/tpo/infrastructure/publishedSlots";
 
 import styles from "./TpoPublishSlotsPage.module.css";
 
