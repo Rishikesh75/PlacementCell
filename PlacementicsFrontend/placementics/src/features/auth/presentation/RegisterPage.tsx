@@ -1,50 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 import InstitutePanel from "./Components/InstitutePanel";
 import RegisterPanel from "./Components/RegisterPanel";
 import styles from "./LoginPage.module.css";
-import {
-  fetchCollegeById,
-  type College,
-} from "@/shared/institutes/collegesApi";
+import { useCollege } from "@/shared/institutes/useCollege";
 
 interface RegisterPageProps {
   collegeId?: string;
 }
 
 export default function RegisterPage({ collegeId }: RegisterPageProps) {
-  const [college, setCollege] = useState<College | null>(null);
-
-  useEffect(() => {
-    if (!collegeId) {
-      setCollege(null);
-      return;
-    }
-
-    const id = collegeId;
-    let cancelled = false;
-
-    async function load() {
-      try {
-        const item = await fetchCollegeById(id);
-        if (!cancelled) {
-          setCollege(item);
-        }
-      } catch {
-        if (!cancelled) {
-          setCollege(null);
-        }
-      }
-    }
-
-    void load();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [collegeId]);
+  const college = useCollege(collegeId);
 
   return (
     <main className={styles.loginPage}>
