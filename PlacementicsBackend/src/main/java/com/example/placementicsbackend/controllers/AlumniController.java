@@ -1,6 +1,7 @@
 package com.example.placementicsbackend.controllers;
 
 import com.example.placementicsbackend.dto.alumni.*;
+import com.example.placementicsbackend.dto.common.IdResponse;
 import com.example.placementicsbackend.services.AlumniService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -24,6 +25,14 @@ public class AlumniController {
             @RequestParam(required = false) String name
     ) {
         return service.findAll(name);
+    }
+
+    @GetMapping("/by-email")
+    public IdResponse findIdByEmail(
+            @RequestParam String email,
+            @RequestParam UUID collegeId
+    ) {
+        return new IdResponse(service.findIdByEmail(email, collegeId));
     }
 
     @GetMapping("/{id}")

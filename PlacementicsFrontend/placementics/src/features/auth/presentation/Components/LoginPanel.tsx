@@ -6,7 +6,11 @@ import LoginForm from "./LoginForm";
 import RegisterLink from "./RegistrattionLink";
 import styles from "../LoginPage.module.css";
 
-export default function LoginPanel() {
+interface LoginPanelProps {
+  collegeId?: string;
+}
+
+export default function LoginPanel({ collegeId }: LoginPanelProps) {
   const [selectedRole, setSelectedRole] = useState("Student");
 
   return (
@@ -25,9 +29,9 @@ export default function LoginPanel() {
           onSelectRole={setSelectedRole}
         />
 
-        <LoginForm selectedRole={selectedRole} />
+        <LoginForm selectedRole={selectedRole} collegeId={collegeId} />
 
-        <RegisterLink />
+        <RegisterLink collegeId={collegeId} />
       </div>
     </section>
   );

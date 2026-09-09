@@ -3,8 +3,12 @@ package com.example.placementicsbackend.services;
 import com.example.placementicsbackend.dto.company.*;
 import com.example.placementicsbackend.exceptions.*;
 import com.example.placementicsbackend.mappers.CompanyMapper;
+import com.example.placementicsbackend.models.CollegeCompany;
 import com.example.placementicsbackend.models.Company;
+import com.example.placementicsbackend.models.UserAccount;
+import com.example.placementicsbackend.models.enums.UserRole;
 import com.example.placementicsbackend.repositories.jpa.CompanyRepository;
+import com.example.placementicsbackend.repositories.jpa.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +23,7 @@ public class CompanyService {
 
     private final CompanyRepository repository;
     private final CompanyMapper mapper;
+    private final UserAccountRepository userAccountRepository;
 
     public List<CompanyResponse> findAll(String name) {
         List<Company> companies = name == null || name.isBlank()
@@ -30,6 +35,27 @@ public class CompanyService {
 
     public CompanyResponse findById(UUID id) {
         return mapper.toResponse(getCompany(id));
+    }
+
+    public UUID findIdByEmail(String email, UUID collegeId) {
+        UserAccount account = userAccountRepository
+                .findByEmailIgnoreCaseAndRoleAndCollegeCompanyCollegeId(
+                        email.trim(),
+                        UserRole.COMPANY,
+                        collegeId
+                )
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Company not found for email: " + email
+                ));
+
+        CollegeCompany collegeCompany = account.getCollegeCompany();
+        if (collegeCompany == null) {
+            throw new ResourceNotFoundException(
+                    "Company not found for email: " + email
+            );
+        }
+
+        return collegeCompany.getId();
     }
 
     @Transactional

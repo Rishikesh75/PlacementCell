@@ -1,36 +1,54 @@
-'use client'
+"use client";
+
+import { useRouter } from "next/navigation";
+
 import styles from "../LoginPage.module.css";
-import {useRouter} from "next/navigation";
-export default function InstitutePanel() {
+import { collegeInitials, type College } from "@/shared/institutes/collegesApi";
+
+interface InstitutePanelProps {
+  college: College | null;
+}
+
+export default function InstitutePanel({ college }: InstitutePanelProps) {
   const router = useRouter();
+  const initials = collegeInitials(college?.name ?? "");
+
   return (
     <section className={styles.institutePanel}>
-
-      <button className={styles.changeInstitute} onClick={() => router.push(`/homePage`)}>
+      <button
+        className={styles.changeInstitute}
+        onClick={() => router.push(`/homePage`)}
+      >
         ←&nbsp; Change institute
       </button>
 
       <div className={styles.instituteContent}>
-
         <div className={styles.instituteLogo}>
-          <span>I</span>
-          <span>T</span>
+          {college?.imageUrl ? (
+            // Native img: college logos are hosted on R2, not the Next image optimizer.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={college.imageUrl}
+              alt=""
+              className={styles.instituteLogoImage}
+            />
+          ) : (
+            initials.split("").map((char, index) => (
+              <span key={`${char}-${index}`}>{char}</span>
+            ))
+          )}
         </div>
 
         <h1 className={styles.instituteName}>
-          Indian Institute of Technology,
-          <br />
-          Chennai
+          {college?.name ?? "Select an institute"}
         </h1>
 
-        <p className={styles.established}>
-          Established in 2001
-        </p>
-
+        {college?.address ? (
+          <p className={styles.established}>{college.address}</p>
+        ) : null}
       </div>
 
       <div className={styles.quoteSection}>
-
         <div className={styles.quoteLine} />
 
         <blockquote>
@@ -43,9 +61,7 @@ export default function InstitutePanel() {
         <p className={styles.quoteAuthor}>
           — T. Rangarajan, Training & Placement Officer
         </p>
-
       </div>
-
     </section>
   );
 }
