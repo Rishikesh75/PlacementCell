@@ -9,9 +9,11 @@ import {
 } from "@/data/tpoRequests";
 
 import styles from "../LoginPage.module.css";
+import { collegeAuthHref } from "@/shared/institutes/collegesApi";
 
 interface RegisterFormProps {
   selectedRole: string;
+  collegeId?: string;
 }
 
 const ROLE_TO_KIND: Record<string, RegistrationKind> = {
@@ -29,7 +31,10 @@ function todayLabel() {
   }).format(new Date());
 }
 
-export default function RegisterForm({ selectedRole }: RegisterFormProps) {
+export default function RegisterForm({
+  selectedRole,
+  collegeId,
+}: RegisterFormProps) {
   const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [instituteId, setInstituteId] = useState("");
@@ -81,7 +86,7 @@ export default function RegisterForm({ selectedRole }: RegisterFormProps) {
       status: "pending",
     });
 
-    router.push("/loginPage");
+    router.push(collegeAuthHref("/loginPage", collegeId));
   }
 
   return (

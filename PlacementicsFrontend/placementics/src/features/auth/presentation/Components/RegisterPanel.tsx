@@ -6,8 +6,13 @@ import Link from "next/link";
 import RoleSelector, { REGISTER_ROLES } from "./RoleSelector";
 import RegisterForm from "./RegisterForm";
 import styles from "../LoginPage.module.css";
+import { collegeAuthHref } from "@/shared/institutes/collegesApi";
 
-export default function RegisterPanel() {
+interface RegisterPanelProps {
+  collegeId?: string;
+}
+
+export default function RegisterPanel({ collegeId }: RegisterPanelProps) {
   const [selectedRole, setSelectedRole] = useState("Student");
 
   return (
@@ -29,11 +34,11 @@ export default function RegisterPanel() {
           TPO registration here.
         </p>
 
-        <RegisterForm selectedRole={selectedRole} />
+        <RegisterForm selectedRole={selectedRole} collegeId={collegeId} />
 
         <p className={styles.registerText}>
           Already have an account?{" "}
-          <Link href="/loginPage">Log in</Link>.
+          <Link href={collegeAuthHref("/loginPage", collegeId)}>Log in</Link>.
         </p>
       </div>
     </section>

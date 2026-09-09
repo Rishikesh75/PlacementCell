@@ -32,6 +32,14 @@ public class TeacherService {
         return mapper.toResponse(getTeacher(id));
     }
 
+    public UUID findIdByEmail(String email, UUID collegeId) {
+        return repository.findByCollegeIdAndEmailIgnoreCase(collegeId, email.trim())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Teacher not found for email: " + email
+                ))
+                .getId();
+    }
+
     public List<TeacherResponse> findByCollege(UUID collegeId) {
         return repository.findByCollegeIdOrderByNameAsc(collegeId)
                 .stream().map(mapper::toResponse).toList();

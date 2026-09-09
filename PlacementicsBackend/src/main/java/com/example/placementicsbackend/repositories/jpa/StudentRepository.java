@@ -4,11 +4,16 @@ import com.example.placementicsbackend.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface StudentRepository extends JpaRepository<Student, UUID> {
 
     boolean existsByEmailIgnoreCase(String email);
+
+    Optional<Student> findByEmailIgnoreCase(String email);
+
+    Optional<Student> findByCollegeIdAndEmailIgnoreCase(UUID collegeId, String email);
 
     boolean existsByEmailIgnoreCaseAndIdNot(String email, UUID id);
 

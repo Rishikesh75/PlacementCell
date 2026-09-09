@@ -39,6 +39,15 @@ public class AlumniService {
         return alumniMapper.toResponse(getAlumni(id));
     }
 
+    public UUID findIdByEmail(String email, UUID collegeId) {
+        return alumniRepository
+                .findByCollegeIdAndEmailIgnoreCase(collegeId, email.trim())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Alumni not found for email: " + email
+                ))
+                .getId();
+    }
+
     public List<AlumniResponse> findByCollege(UUID collegeId) {
         return alumniRepository.findByCollegeIdOrderByNameAsc(collegeId)
                 .stream()

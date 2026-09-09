@@ -32,6 +32,14 @@ public class TPOService {
         return mapper.toResponse(getTPO(id));
     }
 
+    public UUID findIdByEmail(String email, UUID collegeId) {
+        return repository.findByCollegeIdAndEmailIgnoreCase(collegeId, email.trim())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "TPO not found for email: " + email
+                ))
+                .getId();
+    }
+
     public List<TPOResponse> findByCollege(UUID collegeId) {
         return repository.findByCollegeIdOrderByNameAsc(collegeId)
                 .stream().map(mapper::toResponse).toList();

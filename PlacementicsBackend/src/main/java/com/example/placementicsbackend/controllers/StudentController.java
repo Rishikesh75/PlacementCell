@@ -1,5 +1,6 @@
 package com.example.placementicsbackend.controllers;
 
+import com.example.placementicsbackend.dto.common.IdResponse;
 import com.example.placementicsbackend.dto.student.*;
 import com.example.placementicsbackend.services.StudentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,6 +25,14 @@ public class StudentController {
             @RequestParam(required = false) String name
     ) {
         return service.findAll(name);
+    }
+
+    @GetMapping("/by-email")
+    public IdResponse findIdByEmail(
+            @RequestParam String email,
+            @RequestParam UUID collegeId
+    ) {
+        return new IdResponse(service.findIdByEmail(email, collegeId));
     }
 
     @GetMapping("/{id}")

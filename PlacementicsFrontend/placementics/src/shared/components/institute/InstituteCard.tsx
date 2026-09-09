@@ -39,7 +39,14 @@ export default function InstituteCard({
         ) : null}
       </div>
 
-      <button className="select-button" onClick={() => router.push(`/loginPage`)} >
+      <button
+        className="select-button"
+        onClick={() =>
+          router.push(
+            `/loginPage?collegeId=${encodeURIComponent(college.id)}`,
+          )
+        }
+      >
         Select institute
         <span>→</span>
       </button>

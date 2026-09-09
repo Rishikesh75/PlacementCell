@@ -26,6 +26,35 @@ export async function fetchColleges(): Promise<College[]> {
   return data as College[];
 }
 
+export async function fetchCollegeById(id: string): Promise<College> {
+  const response = await fetch(`/api/colleges/${encodeURIComponent(id)}`, {
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to load college (${response.status})`);
+  }
+
+  const data: unknown = await response.json();
+
+  if (!data || typeof data !== "object" || !("id" in data) || !("name" in data)) {
+    throw new Error("Unexpected college response");
+  }
+
+  return data as College;
+}
+
+export function collegeAuthHref(
+  path: string,
+  collegeId: string | null | undefined,
+): string {
+  if (!collegeId) {
+    return path;
+  }
+
+  return `${path}?collegeId=${encodeURIComponent(collegeId)}`;
+}
+
 export function collegeInitials(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
 

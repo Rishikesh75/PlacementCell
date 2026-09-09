@@ -16,6 +16,12 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, UUID> 
 
     Optional<UserAccount> findByEmailIgnoreCase(String email);
 
+    Optional<UserAccount> findByEmailIgnoreCaseAndRoleAndCollegeCompanyCollegeId(
+            String email,
+            UserRole role,
+            UUID collegeId
+    );
+
     List<UserAccount> findByRole(UserRole role);
 
     Optional<UserAccount> findByStudentId(UUID studentId);

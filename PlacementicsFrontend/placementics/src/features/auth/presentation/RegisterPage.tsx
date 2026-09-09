@@ -1,12 +1,21 @@
+"use client";
+
 import InstitutePanel from "./Components/InstitutePanel";
 import RegisterPanel from "./Components/RegisterPanel";
 import styles from "./LoginPage.module.css";
+import { useCollege } from "@/shared/institutes/useCollege";
 
-export default function RegisterPage() {
+interface RegisterPageProps {
+  collegeId?: string;
+}
+
+export default function RegisterPage({ collegeId }: RegisterPageProps) {
+  const college = useCollege(collegeId);
+
   return (
     <main className={styles.loginPage}>
-      <InstitutePanel />
-      <RegisterPanel />
+      <InstitutePanel college={college} />
+      <RegisterPanel collegeId={collegeId} />
     </main>
   );
 }
