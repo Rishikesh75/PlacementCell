@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 import {
   nextInstituteId,
   saveCreatedInstitute,
-} from "@/shared/institutes/instituteCatalog";
+} from "@/features/institutes/infrastructure/instituteCatalog";
 
 import styles from "./CreateInstitutePage.module.css";
 

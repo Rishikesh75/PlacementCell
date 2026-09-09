@@ -1,4 +1,4 @@
-import type { PlacementRatePoint } from "@/data/dashboard";
+import type { PlacementRatePoint } from "@/features/dashboard/infrastructure/dashboardData";
 
 import styles from "../DashboardPage.module.css";
 

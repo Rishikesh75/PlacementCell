@@ -2,12 +2,12 @@
 
 import { useMemo, useState } from "react";
 
-import { type MonthKey } from "@/data/placementSlots";
+import { type MonthKey } from "@/features/tpo/infrastructure/placementSlots";
 import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 import {
   getPublishedDates,
   monthsFromDates,
-} from "@/shared/slots/publishedSlots";
+} from "@/features/tpo/infrastructure/publishedSlots";
 
 import CompanyPortalHeader from "./Components/CompanyPortalHeader";
 import ProgressStepper from "./Components/ProgressStepper";

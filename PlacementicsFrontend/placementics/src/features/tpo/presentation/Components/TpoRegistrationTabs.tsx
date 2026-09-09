@@ -1,4 +1,4 @@
-import type { RegistrationKind } from "@/data/tpoRequests";
+import type { RegistrationKind } from "@/features/tpo/infrastructure/tpoRequests";
 
 import styles from "../TpoRequestsPage.module.css";
 

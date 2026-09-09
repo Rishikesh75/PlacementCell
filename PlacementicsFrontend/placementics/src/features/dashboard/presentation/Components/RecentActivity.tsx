@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { recentActivity } from "@/data/dashboard";
+import { recentActivity } from "@/features/dashboard/infrastructure/dashboardData";
 
 import styles from "../DashboardPage.module.css";
 

@@ -7,7 +7,7 @@ import AppHeader from "@/shared/layouts/AppHeader";
 import {
   companyFeedback,
   type FeedbackBranch,
-} from "@/data/companyFeedback";
+} from "@/features/feedback/infrastructure/companyFeedbackData";
 
 import FilterPills from "./Components/FilterPills";
 import CompanyFeedbackList from "./Components/CompanyFeedbackList";

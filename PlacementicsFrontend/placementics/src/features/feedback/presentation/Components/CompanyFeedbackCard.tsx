@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import type { CompanyFeedback } from "@/data/companyFeedback";
+import type { CompanyFeedback } from "@/features/feedback/infrastructure/companyFeedbackData";
 
 import styles from "../CompanyFeedbackPage.module.css";
 

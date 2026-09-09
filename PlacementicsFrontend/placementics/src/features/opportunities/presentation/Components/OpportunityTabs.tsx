@@ -1,4 +1,4 @@
-import type { OpportunityKind } from "@/data/opportunities";
+import type { OpportunityKind } from "@/features/opportunities/infrastructure/opportunitiesData";
 
 import styles from "../OpportunityBoardPage.module.css";
 

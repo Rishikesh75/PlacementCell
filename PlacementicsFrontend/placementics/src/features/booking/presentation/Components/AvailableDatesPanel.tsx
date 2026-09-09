@@ -7,7 +7,7 @@ import {
   bookedCompanies,
   type MonthKey,
   type PlacementDate,
-} from "@/data/placementSlots";
+} from "@/features/tpo/infrastructure/placementSlots";
 
 import DateSlotCard from "./DateSlotCard";
 import styles from "../InterviewSlotBookingPage.module.css";

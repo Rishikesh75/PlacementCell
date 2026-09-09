@@ -4,7 +4,7 @@ import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 import AppHeader from "@/shared/layouts/AppHeader";
-import { getCurrentRole } from "@/shared/auth/session";
+import { getCurrentRole } from "@/features/auth/application/session";
 import { subscribeNever } from "@/shared/lib/useClientSnapshot";
 import {
   CURRENT_YEAR,
@@ -14,7 +14,7 @@ import {
   recruitersByYear,
   statsByYear,
   type DashboardYear,
-} from "@/data/dashboard";
+} from "@/features/dashboard/infrastructure/dashboardData";
 
 import SeasonStats from "./Components/SeasonStats";
 import PlacementRateChart from "./Components/PlacementRateChart";

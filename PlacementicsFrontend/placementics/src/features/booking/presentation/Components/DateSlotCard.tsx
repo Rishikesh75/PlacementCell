@@ -1,4 +1,4 @@
-import type { PlacementDate } from "@/data/placementSlots";
+import type { PlacementDate } from "@/features/tpo/infrastructure/placementSlots";
 
 import styles from "../InterviewSlotBookingPage.module.css";
 
