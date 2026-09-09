@@ -3,7 +3,7 @@
 import InstitutePanel from "./Components/InstitutePanel";
 import RegisterPanel from "./Components/RegisterPanel";
 import styles from "./LoginPage.module.css";
-import { useCollege } from "@/shared/institutes/useCollege";
+import { useCollege } from "@/features/auth/Application/useCollege";
 
 interface RegisterPageProps {
   collegeId?: string;
