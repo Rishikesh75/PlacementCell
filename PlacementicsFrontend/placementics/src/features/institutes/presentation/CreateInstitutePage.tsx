@@ -144,7 +144,8 @@ export default function CreateInstitutePage() {
               required
             />
           </div>
-
+          
+          {/* Todo:Here I need the add the option where to add the Icon for the iamge... */}
           {saved ? (
             <p className={styles.success}>
               Institute saved. The TPO can log in with that email. Open

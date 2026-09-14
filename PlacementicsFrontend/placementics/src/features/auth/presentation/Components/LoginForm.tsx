@@ -22,11 +22,11 @@ const roleConfig: Record<
     buttonText: "Continue to feedback",
   },
   Teacher: {
-    route: "/JobopportunitiesBoardPage",
+    route: "/opportunities",
     buttonText: "Continue to opportunities",
   },
   Alumni: {
-    route: "/JobopportunitiesBoardPage",
+    route: "/opportunities",
     buttonText: "Continue to opportunities",
   },
   TPOAdmin: {

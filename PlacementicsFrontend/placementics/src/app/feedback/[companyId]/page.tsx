@@ -1,4 +1,4 @@
-import CompanyStudentFeedbacksPage from "@/features/feedback/presentation/CompanyStudentFeedbacksPage";
+import CompanyStudentFeedbacksPage from "@/features/feedback/presentation/StudentFeedbacksPage";
 
 interface PageProps {
   params: Promise<{ companyId: string }>;

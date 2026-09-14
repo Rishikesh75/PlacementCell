@@ -16,7 +16,7 @@ import { useClientSnapshot } from "@/shared/lib/useClientSnapshot";
 import TpoQueueTabs from "./Components/TpoQueueTabs";
 import TpoRegistrationTabs from "./Components/TpoRegistrationTabs";
 import TpoRequestList from "./Components/TpoRequestList";
-import styles from "./TpoRequestsPage.module.css";
+import styles from "./RequestsPage.module.css";
 
 const QUEUE_COPY: Record<TpoQueue, { title: string; subtitle: string }> = {
   registrations: {

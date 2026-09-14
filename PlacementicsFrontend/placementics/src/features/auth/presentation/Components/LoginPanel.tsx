@@ -3,7 +3,7 @@
 import { useState } from "react";
 import RoleSelector from "./RoleSelector";
 import LoginForm from "./LoginForm";
-import RegisterLink from "./RegistrattionLink";
+import RegisterLink from "./RegistrationLink";
 import styles from "../LoginPage.module.css";
 
 interface LoginPanelProps {
