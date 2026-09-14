@@ -12,7 +12,7 @@ import {
 
 import StudentFeedbackList from "./Components/StudentFeedbackList";
 import StudentFeedbackOverlay from "./Components/StudentFeedbackOverlay";
-import styles from "./CompanyFeedbackPage.module.css";
+import styles from "./FeedbackOverviewPage.module.css";
 
 interface CompanyStudentFeedbacksPageProps {
   companyId: string;

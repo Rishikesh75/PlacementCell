@@ -1,4 +1,4 @@
-import styles from "../CompanyFeedbackPage.module.css";
+import styles from "../FeedbackOverviewPage.module.css";
 
 interface FilterPillsProps {
   years: string[];

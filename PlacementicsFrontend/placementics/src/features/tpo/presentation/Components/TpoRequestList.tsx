@@ -1,6 +1,6 @@
 import type { RequestStatus, TpoRequest } from "@/features/tpo/infrastructure/tpoRequests";
 
-import styles from "../TpoRequestsPage.module.css";
+import styles from "../RequestsPage.module.css";
 
 interface TpoRequestListProps {
   items: TpoRequest[];
