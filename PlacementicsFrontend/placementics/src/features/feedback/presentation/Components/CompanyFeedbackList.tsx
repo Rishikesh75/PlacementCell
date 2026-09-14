@@ -1,7 +1,7 @@
 import type { CompanyFeedback } from "@/features/feedback/infrastructure/companyFeedbackData";
 
 import CompanyFeedbackCard from "./CompanyFeedbackCard";
-import styles from "../CompanyFeedbackPage.module.css";
+import styles from "../FeedbackOverviewPage.module.css";
 
 interface CompanyFeedbackListProps {
   items: CompanyFeedback[];
