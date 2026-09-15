@@ -12,7 +12,7 @@ export default function OpportunityFormPage() {
   const router = useRouter();
 
   const handleClose = useCallback(() => {
-    router.push("/JobopportunitiesBoardPage");
+    router.push("/opportunities");
   }, [router]);
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import type { CompanyFeedback, StudentFeedback } from "@/features/feedback/infrastructure/companyFeedbackData";
 
-import styles from "../CompanyFeedbackPage.module.css";
+import styles from "../FeedbackOverviewPage.module.css";
 
 interface StudentFeedbackOverlayProps {
   company: CompanyFeedback;

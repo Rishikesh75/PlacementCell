@@ -14,7 +14,7 @@ import {
   publishDate,
 } from "@/features/tpo/infrastructure/publishedSlots";
 
-import styles from "./TpoPublishSlotsPage.module.css";
+import styles from "./PublishSlotsPage.module.css";
 
 export default function TpoPublishSlotsPage() {
   const storedDates = useClientSnapshot(getPublishedDates);

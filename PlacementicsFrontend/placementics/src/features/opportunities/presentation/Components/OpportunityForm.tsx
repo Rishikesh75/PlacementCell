@@ -50,7 +50,7 @@ export default function OpportunityForm() {
       });
     }
 
-    router.push("/JobopportunitiesBoardPage");
+    router.push("/opportunities");
   }
 
   return (

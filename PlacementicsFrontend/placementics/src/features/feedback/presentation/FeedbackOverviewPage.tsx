@@ -11,7 +11,7 @@ import {
 
 import FilterPills from "./Components/FilterPills";
 import CompanyFeedbackList from "./Components/CompanyFeedbackList";
-import styles from "./CompanyFeedbackPage.module.css";
+import styles from "./FeedbackOverviewPage.module.css";
 
 const YEARS = ["2025–26", "2024–25", "All years"];
 const BRANCHES: FeedbackBranch[] = [

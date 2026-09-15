@@ -31,6 +31,7 @@ export default function HomePage() {
         </p>
 
         <SearchBar onSearch={setSearch} />
+        {/*Todo: Add the icon when clicking on this it should route to new createNew Institute. */}
       </section>
 
       <InstituteGrid search={search} />

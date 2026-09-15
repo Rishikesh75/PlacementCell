@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import type { CompanyFeedback } from "@/features/feedback/infrastructure/companyFeedbackData";
 
-import styles from "../CompanyFeedbackPage.module.css";
+import styles from "../FeedbackOverviewPage.module.css";
 
 interface CompanyFeedbackCardProps {
   feedback: CompanyFeedback;

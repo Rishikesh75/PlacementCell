@@ -1,6 +1,5 @@
 import HomePage from "@/features/institutes/presentation/InstitutesHomePage";
-import "./global.css";
 
-export default function App() {
+export default function Page() {
   return <HomePage />;
 }

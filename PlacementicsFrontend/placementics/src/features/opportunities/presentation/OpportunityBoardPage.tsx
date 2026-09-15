@@ -42,7 +42,7 @@ export default function OpportunityBoardPage() {
             </p>
           </div>
 
-          <Link href="/JobOpporunitesFormPage" className={styles.addButton}>
+          <Link href="/opportunities/form" className={styles.addButton}>
             + Post an opportunity
           </Link>
         </section>

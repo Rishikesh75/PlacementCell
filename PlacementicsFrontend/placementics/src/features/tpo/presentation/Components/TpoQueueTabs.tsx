@@ -1,6 +1,6 @@
 import type { TpoQueue } from "@/features/tpo/infrastructure/tpoRequests";
 
-import styles from "../TpoRequestsPage.module.css";
+import styles from "../RequestsPage.module.css";
 
 interface TpoQueueTabsProps {
   active: TpoQueue;
