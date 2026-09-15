@@ -30,37 +30,37 @@ const navItems: {
   {
     id: "dashboard",
     label: "Dashboard",
-    href: "/dashBoardPage",
+    href: "/dashboard",
     roles: ["TPOAdmin", "Company"],
   },
   {
     id: "requests",
     label: "Requests",
-    href: "/tpoRequestsPage",
+    href: "/tpo/requests",
     roles: ["TPOAdmin"],
   },
   {
     id: "publishSlots",
     label: "Publish slots",
-    href: "/tpoPublishSlotsPage",
+    href: "/tpo/publish-slots",
     roles: ["TPOAdmin"],
   },
   {
     id: "booking",
     label: "Book slots",
-    href: "/interviewSlotBookingPage",
+    href: "/booking",
     roles: ["Company"],
   },
   {
     id: "feedback",
     label: "Company Feedback",
-    href: "/feedbackOnCompanyInterviewPage",
+    href: "/feedback",
     roles: ["Student", "Teacher", "Alumni", "TPOAdmin"],
   },
   {
     id: "opportunities",
     label: "Opportunities",
-    href: "/JobopportunitiesBoardPage",
+    href: "/opportunities",
     roles: ["Student", "Teacher", "Alumni", "TPOAdmin"],
   },
 ];

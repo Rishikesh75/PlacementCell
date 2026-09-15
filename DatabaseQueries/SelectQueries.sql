@@ -29,4 +29,6 @@
 -- SET password_hash = '$2a$10$xx.21HsDLG.8LVC6K5Ymu.AHkd0leAC7FdWe3oL/wQXakqegj0Ara',
 --     updated_at = CURRENT_TIMESTAMP;
 
-select * from registration_request;
+-- select * from registration_request;
+
+select * from tpo;

@@ -52,3 +52,26 @@ export async function proxyBackendPost(
     );
   }
 }
+
+export async function proxyBackendPatch(
+  pathSegments: string[],
+): Promise<Response> {
+  const path = pathSegments.map(encodeURIComponent).join("/");
+
+  try {
+    const response = await fetch(`${API_BASE}/api/${path}`, {
+      method: "PATCH",
+    });
+
+    const data: unknown = await response.json().catch(() => ({
+      error: "Unexpected API response",
+    }));
+
+    return Response.json(data, { status: response.status });
+  } catch {
+    return Response.json(
+      { error: "Failed to reach API" },
+      { status: 502 },
+    );
+  }
+}

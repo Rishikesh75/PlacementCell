@@ -1,4 +1,8 @@
-import { proxyBackendGet, proxyBackendPost } from "../_lib/proxyBackend";
+import {
+  proxyBackendGet,
+  proxyBackendPatch,
+  proxyBackendPost,
+} from "../_lib/proxyBackend";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
@@ -19,4 +23,10 @@ export async function POST(request: Request, { params }: RouteContext) {
   const body = await request.json().catch(() => null);
 
   return proxyBackendPost(path, body);
+}
+
+export async function PATCH(request: Request, { params }: RouteContext) {
+  const { path } = await params;
+
+  return proxyBackendPatch(path);
 }
