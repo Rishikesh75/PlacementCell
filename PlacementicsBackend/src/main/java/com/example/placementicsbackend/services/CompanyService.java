@@ -10,8 +10,11 @@ import com.example.placementicsbackend.models.enums.UserRole;
 import com.example.placementicsbackend.repositories.jpa.CompanyRepository;
 import com.example.placementicsbackend.repositories.jpa.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +27,7 @@ public class CompanyService {
     private final CompanyRepository repository;
     private final CompanyMapper mapper;
     private final UserAccountRepository userAccountRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<CompanyResponse> findAll(String name) {
         List<Company> companies = name == null || name.isBlank()
@@ -37,7 +41,7 @@ public class CompanyService {
         return mapper.toResponse(getCompany(id));
     }
 
-    public UUID findIdByEmail(String email, UUID collegeId) {
+    public UUID findIdByEmail(String email, UUID collegeId, String password) {
         UserAccount account = userAccountRepository
                 .findByEmailIgnoreCaseAndRoleAndCollegeCompanyCollegeId(
                         email.trim(),
@@ -47,6 +51,13 @@ public class CompanyService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Company not found for email: " + email
                 ));
+
+        if (!passwordEncoder.matches(password, account.getPasswordHash())) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Invalid email or password"
+            );
+        }
 
         CollegeCompany collegeCompany = account.getCollegeCompany();
         if (collegeCompany == null) {

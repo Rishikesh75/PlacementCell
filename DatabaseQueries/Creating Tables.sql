@@ -2,18 +2,18 @@
 -- RESET (MVP) — drop everything this file creates, then recreate
 -- ============================================================
 
-DROP TABLE IF EXISTS
-    user_account,
-    company_request,
-    placement_opportunity,
-    placement,
-    college_company,
-    student,
-    alumni,
-    teacher,
-    tpo,
-    college,
-    company CASCADE;
+-- DROP TABLE IF EXISTS
+--     user_account,
+--     company_request,
+--     placement_opportunity,
+--     placement,
+--     college_company,
+--     student,
+--     alumni,
+--     teacher,
+--     tpo,
+--     college,
+--     company CASCADE;
 
 
 -- ============================================================
@@ -458,3 +458,43 @@ CREATE TABLE user_account (
         )
 );
 
+
+CREATE TABLE registration_request (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+
+    college_id UUID NOT NULL,
+
+    role VARCHAR(50) NOT NULL,
+
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+
+    roll_no VARCHAR(100),
+    batch VARCHAR(20),
+    department VARCHAR(150),
+    passing_year INTEGER,
+    company_name VARCHAR(255),
+    company_key VARCHAR(100),
+    designation VARCHAR(150),
+
+    status VARCHAR(50) NOT NULL DEFAULT 'PENDING',
+
+    submitted_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    reviewed_at TIMESTAMPTZ,
+
+    CONSTRAINT fk_registration_college
+        FOREIGN KEY (college_id)
+        REFERENCES college(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT chk_registration_role
+        CHECK (role IN ('STUDENT', 'TEACHER', 'ALUMNI', 'COMPANY')),
+
+    CONSTRAINT chk_registration_status
+        CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED'))
+);
+
+CREATE INDEX idx_registration_request_college_status
+    ON registration_request (college_id, status);
+	

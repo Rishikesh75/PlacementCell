@@ -355,6 +355,17 @@
   font-size: 14px;
 }
 
+.registrationSuccess {
+  margin: 20px 0;
+  padding: 14px;
+  border: 1px solid #c9d2c6;
+  background: #f3f5ed;
+  color: #27302c;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
 
 /* =========================
    REGISTER

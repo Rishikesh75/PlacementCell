@@ -4,10 +4,15 @@ import com.example.placementicsbackend.dto.student.*;
 import com.example.placementicsbackend.exceptions.*;
 import com.example.placementicsbackend.mappers.StudentMapper;
 import com.example.placementicsbackend.models.Student;
+import com.example.placementicsbackend.models.UserAccount;
 import com.example.placementicsbackend.repositories.jpa.StudentRepository;
+import com.example.placementicsbackend.repositories.jpa.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +24,8 @@ public class StudentService {
 
     private final StudentRepository repository;
     private final StudentMapper mapper;
+    private final UserAccountRepository userAccountRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<StudentResponse> findAll(String name) {
         List<Student> students = name == null || name.isBlank()
@@ -32,12 +39,25 @@ public class StudentService {
         return mapper.toResponse(getStudent(id));
     }
 
-    public UUID findIdByEmail(String email, UUID collegeId) {
-        return repository.findByCollegeIdAndEmailIgnoreCase(collegeId, email.trim())
+    public UUID findIdByEmail(String email, UUID collegeId, String password) {
+        Student student = repository.findByCollegeIdAndEmailIgnoreCase(collegeId, email.trim())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Student not found for email: " + email
-                ))
-                .getId();
+                ));
+
+        UserAccount account = userAccountRepository.findByStudentId(student.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Student account not found for email: " + email
+                ));
+
+        if (!passwordEncoder.matches(password, account.getPasswordHash())) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Invalid email or password"
+            );
+        }
+
+        return student.getId();
     }
 
     public List<StudentResponse> findByCollege(UUID collegeId) {

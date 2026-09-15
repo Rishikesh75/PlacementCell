@@ -32,9 +32,10 @@ public class CollegeCompanyController {
     @GetMapping("/college/{collegeId}/company/{companyId}")
     public CollegeCompanyResponse findByCollegeAndCompany(
             @PathVariable UUID collegeId,
-            @PathVariable UUID companyId
+            @PathVariable UUID companyId,
+            @RequestParam String password
     ) {
-        return service.findByCollegeAndCompany(collegeId, companyId);
+        return service.findByCollegeAndCompany(collegeId, companyId, password);
     }
 
     @PostMapping

@@ -4,10 +4,15 @@ import com.example.placementicsbackend.dto.collegeCompany.*;
 import com.example.placementicsbackend.exceptions.ResourceNotFoundException;
 import com.example.placementicsbackend.mappers.CollegeCompanyMapper;
 import com.example.placementicsbackend.models.CollegeCompany;
+import com.example.placementicsbackend.models.UserAccount;
 import com.example.placementicsbackend.repositories.jpa.CollegeCompanyRepository;
+import com.example.placementicsbackend.repositories.jpa.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +24,8 @@ public class CollegeCompanyService {
 
     private final CollegeCompanyRepository repository;
     private final CollegeCompanyMapper mapper;
+    private final UserAccountRepository userAccountRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<CollegeCompanyResponse> findAll() {
         return repository.findAll().stream()
@@ -32,13 +39,26 @@ public class CollegeCompanyService {
 
     public CollegeCompanyResponse findByCollegeAndCompany(
             UUID collegeId,
-            UUID companyId
+            UUID companyId,
+            String password
     ) {
         CollegeCompany entity = repository
                 .findByCollegeIdAndCompanyId(collegeId, companyId)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "College-company relationship not found"
                 ));
+
+        UserAccount account = userAccountRepository.findByCollegeCompanyId(entity.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Company account not found for this college-company relationship"
+                ));
+
+        if (!passwordEncoder.matches(password, account.getPasswordHash())) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Invalid email or password"
+            );
+        }
 
         return mapper.toResponse(entity);
     }

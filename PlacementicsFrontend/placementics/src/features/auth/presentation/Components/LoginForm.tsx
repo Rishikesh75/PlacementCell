@@ -18,7 +18,7 @@ const roleConfig: Record<
   { route: string; buttonText: string }
 > = {
   Student: {
-    route: "/feedbackOnCompanyInterviewPage",
+    route: "/feedback",
     buttonText: "Continue to feedback",
   },
   Teacher: {
@@ -30,11 +30,11 @@ const roleConfig: Record<
     buttonText: "Continue to opportunities",
   },
   TPOAdmin: {
-    route: "/tpoRequestsPage",
+    route: "/tpo/requests",
     buttonText: "Continue to requests",
   },
   Company: {
-    route: "/dashBoardPage",
+    route: "/dashboard",
     buttonText: "Continue to dashboard",
   },
 };
@@ -71,6 +71,7 @@ export default function LoginForm({
         role: selectedRole as UserRole,
         email,
         collegeId,
+        password,
       });
 
       setCurrentUser(user);

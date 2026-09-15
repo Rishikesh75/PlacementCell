@@ -44,7 +44,7 @@ export default function InstituteCard({
       <button
         className="select-button"
         onClick={() =>
-          router.push(collegeAuthHref("/loginPage", college.id))
+          router.push(collegeAuthHref("/login", college.id))
         }
       >
         Select institute

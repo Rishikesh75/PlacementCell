@@ -30,9 +30,10 @@ public class AlumniController {
     @GetMapping("/by-email")
     public IdResponse findIdByEmail(
             @RequestParam String email,
-            @RequestParam UUID collegeId
+            @RequestParam UUID collegeId,
+            @RequestParam String password
     ) {
-        return new IdResponse(service.findIdByEmail(email, collegeId));
+        return new IdResponse(service.findIdByEmail(email, collegeId, password));
     }
 
     @GetMapping("/{id}")

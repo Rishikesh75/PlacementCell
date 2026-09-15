@@ -14,6 +14,33 @@ interface RegisterPanelProps {
 
 export default function RegisterPanel({ collegeId }: RegisterPanelProps) {
   const [selectedRole, setSelectedRole] = useState("Student");
+  const [registrationSubmitted, setRegistrationSubmitted] = useState(false);
+
+  if (registrationSubmitted) {
+    return (
+      <section className={styles.loginPanel}>
+        <div className={`${styles.loginContainer} ${styles.registerContainer}`}>
+          <div className={styles.loginHeader}>
+            <h2>Registration submitted</h2>
+            <p>Your account is waiting for TPO approval.</p>
+          </div>
+
+          <div className={styles.registrationSuccess}>
+            The TPO will review your request. You can log in after your account
+            has been approved.
+          </div>
+
+          <Link
+            className={styles.loginButton}
+            href={collegeAuthHref("/login", collegeId)}
+          >
+            Go to login
+            <span>→</span>
+          </Link>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.loginPanel}>
@@ -34,11 +61,15 @@ export default function RegisterPanel({ collegeId }: RegisterPanelProps) {
           TPO registration here.
         </p>
 
-        <RegisterForm selectedRole={selectedRole} collegeId={collegeId} />
+        <RegisterForm
+          selectedRole={selectedRole}
+          collegeId={collegeId}
+          onSubmitted={() => setRegistrationSubmitted(true)}
+        />
 
         <p className={styles.registerText}>
           Already have an account?{" "}
-          <Link href={collegeAuthHref("/loginPage", collegeId)}>Log in</Link>.
+          <Link href={collegeAuthHref("/login", collegeId)}>Log in</Link>.
         </p>
       </div>
     </section>

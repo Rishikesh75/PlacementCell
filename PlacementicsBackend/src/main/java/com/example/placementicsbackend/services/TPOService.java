@@ -4,10 +4,15 @@ import com.example.placementicsbackend.dto.tpo.*;
 import com.example.placementicsbackend.exceptions.*;
 import com.example.placementicsbackend.mappers.TPOMapper;
 import com.example.placementicsbackend.models.TPO;
+import com.example.placementicsbackend.models.UserAccount;
 import com.example.placementicsbackend.repositories.jpa.TPORepository;
+import com.example.placementicsbackend.repositories.jpa.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,6 +24,8 @@ public class TPOService {
 
     private final TPORepository repository;
     private final TPOMapper mapper;
+    private final UserAccountRepository userAccountRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<TPOResponse> findAll(String name) {
         List<TPO> tpos = name == null || name.isBlank()
@@ -32,12 +39,25 @@ public class TPOService {
         return mapper.toResponse(getTPO(id));
     }
 
-    public UUID findIdByEmail(String email, UUID collegeId) {
-        return repository.findByCollegeIdAndEmailIgnoreCase(collegeId, email.trim())
+    public UUID findIdByEmail(String email, UUID collegeId, String password) {
+        TPO tpo = repository.findByCollegeIdAndEmailIgnoreCase(collegeId, email.trim())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "TPO not found for email: " + email
-                ))
-                .getId();
+                ));
+
+        UserAccount account = userAccountRepository.findByTpoId(tpo.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "TPO account not found for email: " + email
+                ));
+
+        if (!passwordEncoder.matches(password, account.getPasswordHash())) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Invalid email or password"
+            );
+        }
+
+        return tpo.getId();
     }
 
     public List<TPOResponse> findByCollege(UUID collegeId) {
