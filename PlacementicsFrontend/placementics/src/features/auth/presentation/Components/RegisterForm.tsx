@@ -1,19 +1,22 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { useRouter } from "next/navigation";
 
 import {
   saveSubmittedRegistration,
   type RegistrationKind,
 } from "@/features/tpo/infrastructure/tpoRequests";
+import {
+  submitRegistration,
+  type RegistrationRole,
+} from "@/features/auth/infrastructure/registrationApi";
 
 import styles from "../LoginPage.module.css";
-import { collegeAuthHref } from "@/features/auth/application/collegeAuthHref";
 
 interface RegisterFormProps {
   selectedRole: string;
   collegeId?: string;
+  onSubmitted: () => void;
 }
 
 const ROLE_TO_KIND: Record<string, RegistrationKind> = {
@@ -34,8 +37,8 @@ function todayLabel() {
 export default function RegisterForm({
   selectedRole,
   collegeId,
+  onSubmitted,
 }: RegisterFormProps) {
-  const router = useRouter();
   const [fullName, setFullName] = useState("");
   const [instituteId, setInstituteId] = useState("");
   const [branch, setBranch] = useState("");
@@ -46,47 +49,68 @@ export default function RegisterForm({
   const [recruiterName, setRecruiterName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setError(null);
 
-    const payload = {
-      role: selectedRole,
-      email,
-      password,
-      ...(selectedRole === "Student"
-        ? { fullName, instituteId, branch, year }
-        : {}),
-      ...(selectedRole === "Teacher" ? { fullName, department } : {}),
-      ...(selectedRole === "Alumni" ? { fullName, batch, company } : {}),
-      ...(selectedRole === "Company" ? { company, recruiterName } : {}),
-    };
+    if (!collegeId) {
+      setError("Select an institute before submitting your registration.");
+      return;
+    }
 
-    console.log(payload);
+    setSubmitting(true);
 
-    const kind = ROLE_TO_KIND[selectedRole] ?? "student";
-    const title =
-      selectedRole === "Company" ? company : fullName || recruiterName;
-    const detail =
-      selectedRole === "Student"
-        ? `${branch} · ${year} · institute ID ${instituteId}`
-        : selectedRole === "Teacher"
-          ? `${department} · faculty registration`
-          : selectedRole === "Alumni"
-            ? `Class of ${batch} · ${company}`
-            : `Recruiter ${recruiterName} · requested portal access`;
+    try {
+      await submitRegistration({
+        collegeId,
+        role: selectedRole as RegistrationRole,
+        fullName,
+        email,
+        password,
+        instituteId,
+        branch,
+        year,
+        department,
+        batch,
+        company,
+        recruiterName,
+      });
 
-    saveSubmittedRegistration({
-      id: `reg-live-${Date.now()}`,
-      queue: "registrations",
-      kind,
-      title,
-      detail,
-      submittedOn: todayLabel(),
-      status: "pending",
-    });
+      const kind = ROLE_TO_KIND[selectedRole] ?? "student";
+      const title =
+        selectedRole === "Company" ? company : fullName || recruiterName;
+      const detail =
+        selectedRole === "Student"
+          ? `${branch} · ${year} · institute ID ${instituteId}`
+          : selectedRole === "Teacher"
+            ? `${department} · faculty registration`
+            : selectedRole === "Alumni"
+              ? `Class of ${batch} · ${company}`
+              : `Recruiter ${recruiterName} · requested portal access`;
 
-    router.push(collegeAuthHref("/loginPage", collegeId));
+      saveSubmittedRegistration({
+        id: `reg-live-${Date.now()}`,
+        queue: "registrations",
+        kind,
+        title,
+        detail,
+        submittedOn: todayLabel(),
+        status: "pending",
+      });
+
+      onSubmitted();
+    } catch (cause) {
+      setError(
+        cause instanceof Error
+          ? cause.message
+          : "Could not submit registration. Please try again.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -262,8 +286,14 @@ export default function RegisterForm({
         />
       </div>
 
-      <button type="submit" className={styles.loginButton}>
-        Submit for TPO approval
+      {error ? <p className={styles.formError}>{error}</p> : null}
+
+      <button
+        type="submit"
+        className={styles.loginButton}
+        disabled={submitting}
+      >
+        {submitting ? "Submitting…" : "Submit for TPO approval"}
         <span>→</span>
       </button>
     </form>

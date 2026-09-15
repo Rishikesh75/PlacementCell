@@ -1,7 +1,7 @@
 package com.example.placementicsbackend.models.mongoDB.enums;
 
 public enum FeedbackStatus {
-    PENDING,
+    PENDING, APPROVED,
     IN_PROGRESS,
     COMPLETED
 }

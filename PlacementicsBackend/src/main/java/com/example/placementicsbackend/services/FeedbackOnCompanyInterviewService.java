@@ -5,11 +5,13 @@ import com.example.placementicsbackend.exceptions.ResourceNotFoundException;
 import com.example.placementicsbackend.mappers.FeedbackOnCompanyInterviewMapper;
 import com.example.placementicsbackend.models.mongoDB.FeedbackOnCompanyInterview;
 import com.example.placementicsbackend.models.mongoDB.enums.FeedbackStatus;
+import com.example.placementicsbackend.repositories.jpa.CollegeCompanyRepository;
 import com.example.placementicsbackend.repositories.mongo.FeedbackOnCompanyInterviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +19,7 @@ public class FeedbackOnCompanyInterviewService {
 
     private final FeedbackOnCompanyInterviewRepository repository;
     private final FeedbackOnCompanyInterviewMapper mapper;
+    private final CollegeCompanyRepository collegeCompanyRepository;
 
     public List<FeedbackOnCompanyInterviewResponse> findAll() {
         return repository.findAll().stream()
@@ -35,6 +38,52 @@ public class FeedbackOnCompanyInterviewService {
                 .map(mapper::toResponse)
                 .toList();
     }
+
+            public List<FeedbackOnCompanyInterviewResponse> findPendingByCollege(
+                UUID collegeId
+            ) {
+            List<String> collegeCompanyIds = collegeCompanyRepository
+                .findByCollegeId(collegeId)
+                .stream()
+                .map(collegeCompany -> collegeCompany.getId().toString())
+                .toList();
+
+            if (collegeCompanyIds.isEmpty()) {
+                return List.of();
+            }
+
+            return repository
+                .findByCollegeCompanyIdInAndStatus(
+                    collegeCompanyIds,
+                    FeedbackStatus.PENDING
+                )
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
+            }
+
+            public List<FeedbackOnCompanyInterviewResponse> findApprovedByCollege(
+                UUID collegeId
+            ) {
+            List<String> collegeCompanyIds = collegeCompanyRepository
+                .findByCollegeId(collegeId)
+                .stream()
+                .map(collegeCompany -> collegeCompany.getId().toString())
+                .toList();
+
+            if (collegeCompanyIds.isEmpty()) {
+                return List.of();
+            }
+
+            return repository
+                .findByCollegeCompanyIdInAndStatus(
+                    collegeCompanyIds,
+                    FeedbackStatus.APPROVED
+                )
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
+            }
 
     public FeedbackOnCompanyInterviewResponse create(
             FeedbackOnCompanyInterviewRequest request
@@ -55,6 +104,15 @@ public class FeedbackOnCompanyInterviewService {
         updated.setId(feedback.getId());
 
         return mapper.toResponse(repository.save(updated));
+    }
+
+    public FeedbackOnCompanyInterviewResponse updateStatus(
+            String id,
+            FeedbackStatus status
+    ) {
+        FeedbackOnCompanyInterview feedback = getFeedback(id);
+        feedback.setStatus(status);
+        return mapper.toResponse(repository.save(feedback));
     }
 
     public void delete(String id) {

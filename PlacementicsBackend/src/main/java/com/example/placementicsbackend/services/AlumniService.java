@@ -6,10 +6,15 @@ import com.example.placementicsbackend.exceptions.DuplicateResourceException;
 import com.example.placementicsbackend.exceptions.ResourceNotFoundException;
 import com.example.placementicsbackend.mappers.AlumniMapper;
 import com.example.placementicsbackend.models.Alumni;
+import com.example.placementicsbackend.models.UserAccount;
 import com.example.placementicsbackend.repositories.jpa.AlumniRepository;
+import com.example.placementicsbackend.repositories.jpa.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +26,8 @@ public class AlumniService {
 
     private final AlumniRepository alumniRepository;
     private final AlumniMapper alumniMapper;
+    private final UserAccountRepository userAccountRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<AlumniResponse> findAll(String name) {
         List<Alumni> alumni = name == null || name.isBlank()
@@ -39,13 +46,26 @@ public class AlumniService {
         return alumniMapper.toResponse(getAlumni(id));
     }
 
-    public UUID findIdByEmail(String email, UUID collegeId) {
-        return alumniRepository
+    public UUID findIdByEmail(String email, UUID collegeId, String password) {
+        Alumni alumni = alumniRepository
                 .findByCollegeIdAndEmailIgnoreCase(collegeId, email.trim())
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Alumni not found for email: " + email
-                ))
-                .getId();
+                ));
+
+        UserAccount account = userAccountRepository.findByAlumniId(alumni.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Alumni account not found for email: " + email
+                ));
+
+        if (!passwordEncoder.matches(password, account.getPasswordHash())) {
+            throw new ResponseStatusException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Invalid email or password"
+            );
+        }
+
+        return alumni.getId();
     }
 
     public List<AlumniResponse> findByCollege(UUID collegeId) {

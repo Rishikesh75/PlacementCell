@@ -50,14 +50,17 @@ export default function InstitutePanel({ college }: InstitutePanelProps) {
 
       <div className={styles.quoteSection}>
         <div className={styles.quoteLine} />
-
-        <blockquote>
+        
+        {/*TODO: Add Quote Option to the TPO..*/}
+        {/* <blockquote>
           “Every recruiter visit, every offer, every
           question a student asked in interview—
           logged, so the next batch walks in
           prepared.”
-        </blockquote>
+        </blockquote> */}
 
+
+        {/*TODO:GET Name from the API Based on the institute ID */}
         <p className={styles.quoteAuthor}>
           — T. Rangarajan, Training & Placement Officer
         </p>

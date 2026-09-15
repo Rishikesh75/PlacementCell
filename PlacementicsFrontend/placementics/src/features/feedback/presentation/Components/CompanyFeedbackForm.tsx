@@ -1,10 +1,12 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import StarRating from "./StarRating";
 import styles from "../CompanyFeedbackFormPage.module.css";
+import { getCollegeCompanies, createInterviewFeedback, type CollegeCompanyOption } from "@/features/feedback/infrastructure/feedbackApi";
+import { getCurrentUser } from "@/features/auth/application/session";
 
 type RoundDetail = {
   heading: string;
@@ -55,14 +57,26 @@ function syncRoundDetails(
 
 export default function CompanyFeedbackForm() {
   const router = useRouter();
-  const [company, setCompany] = useState("");
+  const [companies, setCompanies] = useState<CollegeCompanyOption[]>([]);
+  const [collegeCompanyId, setCollegeCompanyId] = useState("");
   const [roleOffered, setRoleOffered] = useState("");
   const [rounds, setRounds] = useState("");
   const [rating, setRating] = useState(4);
   const [roundDetails, setRoundDetails] = useState<RoundDetail[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const roundCount = parseRoundCount(rounds);
   const canSubmit = roundCount >= 1;
+
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (user) {
+      getCollegeCompanies(user.collegeId)
+        .then(setCompanies)
+        .catch((cause) => setError(cause instanceof Error ? cause.message : "Could not load companies."));
+    }
+  }, []);
 
   function handleRoundsChange(value: string) {
     if (value !== "" && !/^\d+$/.test(value)) {
@@ -127,23 +141,41 @@ export default function CompanyFeedbackForm() {
     );
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     if (!canSubmit) {
       return;
     }
 
-    console.log({
-      company,
-      roleOffered,
-      rounds: roundCount,
-      rating,
-      roundDetails: roundDetails.map((round) => ({
-        heading: round.heading.trim(),
-        questions: round.questions.map((question) => question.trim()).filter(Boolean),
-      })),
-    });
+    const user = getCurrentUser();
+    if (!user || user.role !== "Alumni") {
+      setError("Only an alumni account can submit interview feedback.");
+      return;
+    }
+    if (!collegeCompanyId) {
+      setError("Select a company before submitting feedback.");
+      return;
+    }
+
+    setError(null);
+    setSubmitting(true);
+
+    try {
+      await createInterviewFeedback({
+        collegeCompanyId,
+        alumniId: user.userId,
+        info: roundDetails.map((round) => ({
+          heading: round.heading.trim(),
+          questions: round.questions.map((question) => question.trim()).filter(Boolean),
+        })),
+      });
+      router.push("/feedbackOnCompanyInterviewPage");
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not submit feedback.");
+    } finally {
+      setSubmitting(false);
+    }
 
     router.push("/feedbackOnCompanyInterviewPage");
   }
@@ -152,14 +184,19 @@ export default function CompanyFeedbackForm() {
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.field}>
         <label htmlFor="company">Company</label>
-        <input
+        <select
           id="company"
-          type="text"
-          placeholder="e.g. Goldman Sachs"
-          value={company}
-          onChange={(event) => setCompany(event.target.value)}
+          value={collegeCompanyId}
+          onChange={(event) => {
+            setCollegeCompanyId(event.target.value);
+          }}
           required
-        />
+        >
+          <option value="">Select a company</option>
+          {companies.map((option) => (
+            <option key={option.id} value={option.id}>{option.companyName}</option>
+          ))}
+        </select>
       </div>
 
       <div className={styles.field}>
@@ -268,12 +305,14 @@ export default function CompanyFeedbackForm() {
         </section>
       ))}
 
+      {error ? <p className={styles.formError}>{error}</p> : null}
+
       <button
         type="submit"
         className={styles.submitButton}
-        disabled={!canSubmit}
+        disabled={!canSubmit || submitting}
       >
-        Submit feedback
+        {submitting ? "Submitting..." : "Submit feedback"}
       </button>
     </form>
   );

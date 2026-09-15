@@ -1,10 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import AppHeader from "@/shared/layouts/AppHeader";
-import { opportunities } from "@/features/opportunities/infrastructure/opportunitiesData";
+import type { Opportunity } from "@/features/opportunities/domain/types";
+import { getCurrentUser } from "@/features/auth/application/session";
+import { getApprovedOpportunities } from "@/features/tpo/infrastructure/moderationApi";
 
 import OpportunityTabs, {
   type OpportunityTab,
@@ -12,13 +14,47 @@ import OpportunityTabs, {
 import OpportunityGrid from "./Components/OpportunityGrid";
 import styles from "./OpportunityBoardPage.module.css";
 
-const jobCount = opportunities.filter((item) => item.kind === "job").length;
-const researchCount = opportunities.filter(
-  (item) => item.kind === "research",
-).length;
-
 export default function OpportunityBoardPage() {
   const [tab, setTab] = useState<OpportunityTab>("all");
+  const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const collegeId = getCurrentUser()?.collegeId;
+    if (!collegeId) {
+      Promise.resolve().then(() => {
+        setError("Log in with an institute account to view opportunities.");
+        setLoading(false);
+      });
+      return;
+    }
+
+    getApprovedOpportunities(collegeId)
+      .then((records) => {
+        setOpportunities(records.map((record) => ({
+          id: record.id,
+          kind: "job",
+          title: record.role,
+          meta: `College company ${record.collegeCompanyId}`,
+          description: record.eligibility ?? "No eligibility details provided.",
+          poster: {
+            initials: record.alumniId ? "AL" : "TR",
+            name: record.alumniId ?? record.teacherId ?? "Institute team",
+            caption: record.alumniId ? "Alumni" : "Teacher",
+            role: record.alumniId ? "alumni" : "faculty",
+          },
+          postedAgo: record.deadline
+            ? `Deadline ${new Date(record.deadline).toLocaleDateString()}`
+            : "Recently approved",
+        })));
+      })
+      .catch((cause) => setError(cause instanceof Error ? cause.message : "Could not load opportunities."))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const jobCount = opportunities.filter((item) => item.kind === "job").length;
+  const researchCount = opportunities.filter((item) => item.kind === "research").length;
 
   const items = useMemo(() => {
     if (tab === "all") {
@@ -26,7 +62,7 @@ export default function OpportunityBoardPage() {
     }
 
     return opportunities.filter((item) => item.kind === tab);
-  }, [tab]);
+  }, [opportunities, tab]);
 
   return (
     <main className={styles.page}>
@@ -47,15 +83,20 @@ export default function OpportunityBoardPage() {
           </Link>
         </section>
 
-        <OpportunityTabs
-          active={tab}
-          allCount={opportunities.length}
-          jobCount={jobCount}
-          researchCount={researchCount}
-          onChange={setTab}
-        />
-
-        <OpportunityGrid items={items} />
+        {!loading && !error ? (
+          <>
+            <OpportunityTabs
+              active={tab}
+              allCount={opportunities.length}
+              jobCount={jobCount}
+              researchCount={researchCount}
+              onChange={setTab}
+            />
+            <OpportunityGrid items={items} />
+          </>
+        ) : null}
+        {loading ? <p className={styles.empty}>Loading approved opportunities...</p> : null}
+        {error ? <p className={styles.empty}>{error}</p> : null}
       </div>
     </main>
   );

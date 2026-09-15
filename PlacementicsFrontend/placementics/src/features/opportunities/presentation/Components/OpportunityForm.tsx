@@ -1,9 +1,11 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import styles from "../OpportunityFormPage.module.css";
+import { getCurrentUser } from "@/features/auth/application/session";
+import { createPlacementOpportunity, getOpportunityCompanies, type CollegeCompanyOption } from "@/features/opportunities/infrastructure/opportunityApi";
 
 type OpportunitySource = "company" | "institute";
 type JobType = "Internship" | "Full Time" | "Intern + PPO";
@@ -15,42 +17,56 @@ export default function OpportunityForm() {
   const [source, setSource] = useState<OpportunitySource>("company");
   const [jobType, setJobType] = useState<JobType>("Internship");
   const [title, setTitle] = useState("");
-  const [company, setCompany] = useState("");
+  const [companies, setCompanies] = useState<CollegeCompanyOption[]>([]);
+  const [collegeCompanyId, setCollegeCompanyId] = useState("");
   const [salary, setSalary] = useState("");
   const [jobLink, setJobLink] = useState("");
   const [yearsOfExperience, setYearsOfExperience] = useState("");
   const [institute, setInstitute] = useState("");
   const [stipend, setStipend] = useState("");
   const [requirements, setRequirements] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const isCompany = source === "company";
   const isFullTimeJob = isCompany && jobType === "Full Time";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  useEffect(() => {
+    const user = getCurrentUser();
+    if (user) {
+      getOpportunityCompanies(user.collegeId)
+        .then(setCompanies)
+        .catch((cause) => setError(cause instanceof Error ? cause.message : "Could not load companies."));
+    }
+  }, []);
 
-    if (isCompany) {
-      console.log({
-        kind: "job",
-        jobType,
-        title,
-        company,
-        ...(isFullTimeJob ? { yearsOfExperience } : {}),
-        salary,
-        jobLink,
-        requirements,
-      });
-    } else {
-      console.log({
-        kind: "research",
-        title,
-        institute,
-        stipend,
-        requirements,
-      });
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const user = getCurrentUser();
+    if (!user || !["Alumni", "Teacher"].includes(user.role)) {
+      setError("Only a teacher or alumni account can submit opportunities.");
+      return;
+    }
+    if (!collegeCompanyId) {
+      setError("Select a company relationship before submitting.");
+      return;
     }
 
-    router.push("/opportunities");
+    setError(null);
+    setSubmitting(true);
+    try {
+      await createPlacementOpportunity({
+        collegeCompanyId,
+        role: title,
+        eligibility: requirements,
+        ...(user.role === "Alumni" ? { alumniId: user.userId } : { teacherId: user.userId }),
+      });
+      router.push("/opportunities");
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not submit opportunity.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -105,15 +121,20 @@ export default function OpportunityForm() {
 
           <div className={styles.field}>
             <label htmlFor="opportunity-company">Company</label>
-            <input
+            <select
               id="opportunity-company"
-              className={styles.underlineInput}
-              type="text"
-              placeholder="e.g. Razorpay"
-              value={company}
-              onChange={(event) => setCompany(event.target.value)}
+              className={styles.underlineSelect}
+              value={collegeCompanyId}
+              onChange={(event) => {
+                setCollegeCompanyId(event.target.value);
+              }}
               required
-            />
+            >
+              <option value="">Select a company</option>
+              {companies.map((option) => (
+                <option key={option.id} value={option.id}>{option.companyName}</option>
+              ))}
+            </select>
           </div>
 
           {isFullTimeJob ? (
@@ -213,8 +234,10 @@ export default function OpportunityForm() {
         />
       </div>
 
-      <button type="submit" className={styles.submitButton}>
-        Publish to opportunities board
+      {error ? <p className={styles.formError}>{error}</p> : null}
+
+      <button type="submit" className={styles.submitButton} disabled={submitting}>
+        {submitting ? "Submitting..." : "Submit for TPO approval"}
       </button>
     </form>
   );

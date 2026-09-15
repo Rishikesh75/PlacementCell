@@ -644,10 +644,12 @@ export const studentFeedbacks: StudentFeedback[] = [
   },
 ];
 
-export function getCompanyFeedback(id: number): CompanyFeedback | undefined {
-  return companyFeedback.find((item) => item.id === id);
+export function getCompanyFeedback(id: number | string): CompanyFeedback | undefined {
+  return companyFeedback.find((item) => String(item.id) === String(id));
 }
 
-export function getStudentFeedbacks(companyId: number): StudentFeedback[] {
-  return studentFeedbacks.filter((item) => item.companyId === companyId);
+export function getStudentFeedbacks(companyId: number | string): StudentFeedback[] {
+  return studentFeedbacks.filter(
+    (item) => String(item.companyId) === String(companyId),
+  );
 }

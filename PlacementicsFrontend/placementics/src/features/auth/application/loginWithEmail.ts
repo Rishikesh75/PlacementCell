@@ -13,11 +13,12 @@ export async function loginWithEmail(params: {
   role: UserRole;
   email: string;
   collegeId: string;
+  password: string;
 }): Promise<AuthUser> {
   const email = params.email.trim();
-  const { collegeId, role } = params;
+  const { collegeId, role, password } = params;
   const config = roleLoginConfig(role);
-  const query = new URLSearchParams({ email, collegeId });
+  const query = new URLSearchParams({ email, collegeId, password });
 
   const idData = await fetchJson(
     `/api/${config.collection}/by-email?${query.toString()}`,

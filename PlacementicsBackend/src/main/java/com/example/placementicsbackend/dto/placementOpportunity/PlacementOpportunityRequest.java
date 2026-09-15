@@ -2,6 +2,7 @@ package com.example.placementicsbackend.dto.placementOpportunity;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import com.example.placementicsbackend.models.enums.OpportunityStatus;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -19,6 +20,8 @@ public record PlacementOpportunityRequest(
 
         String eligibility,
 
-        Instant deadline
+        Instant deadline,
+
+        OpportunityStatus status
 ) {
 }

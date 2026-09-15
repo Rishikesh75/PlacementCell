@@ -43,6 +43,7 @@ public class CollegeCompanyMapper {
                 collegeCompany.getId(),
                 collegeCompany.getCollege().getId(),
                 collegeCompany.getCompany().getId(),
+                collegeCompany.getCompany().getName(),
                 collegeCompany.getCompanyKey(),
                 collegeCompany.getCreatedAt(),
                 collegeCompany.getUpdatedAt()

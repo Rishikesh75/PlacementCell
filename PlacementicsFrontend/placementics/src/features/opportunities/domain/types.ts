@@ -9,7 +9,7 @@ export interface OpportunityPoster {
 }
 
 export interface Opportunity {
-  id: number;
+  id: number | string;
   kind: OpportunityKind;
   title: string;
   meta: string;

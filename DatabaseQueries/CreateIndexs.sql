@@ -34,3 +34,22 @@ CREATE UNIQUE INDEX uq_user_teacher ON user_account(teacher_id) WHERE teacher_id
 CREATE UNIQUE INDEX uq_user_alumni ON user_account(alumni_id) WHERE alumni_id IS NOT NULL;
 CREATE UNIQUE INDEX uq_user_tpo ON user_account(tpo_id) WHERE tpo_id IS NOT NULL;
 CREATE UNIQUE INDEX uq_user_college_company ON user_account(college_company_id) WHERE college_company_id IS NOT NULL;
+
+CREATE INDEX idx_registration_request_college_status
+    ON registration_request (college_id, status);
+
+
+-- ALTER TABLE placement_opportunity
+-- DROP CONSTRAINT chk_opportunity_status;
+
+-- ALTER TABLE placement_opportunity
+-- ADD CONSTRAINT chk_opportunity_status
+-- CHECK (
+--     status IN (
+--         'DRAFT',
+--         'OPEN',
+--         'CLOSED',
+--         'CANCELLED',
+--         'FILLED'
+--     )
+-- );

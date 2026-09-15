@@ -4,11 +4,14 @@ import com.example.placementicsbackend.models.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CompanyRepository extends JpaRepository<Company, UUID> {
 
     boolean existsByNameIgnoreCase(String name);
+
+    Optional<Company> findByNameIgnoreCase(String name);
 
     boolean existsByNameIgnoreCaseAndIdNot(String name, UUID id);
 
