@@ -321,6 +321,7 @@ CREATE TABLE placement_opportunity (
     CONSTRAINT chk_opportunity_status
         CHECK (
             status IN (
+                'DRAFT',
                 'OPEN',
                 'CLOSED',
                 'CANCELLED',

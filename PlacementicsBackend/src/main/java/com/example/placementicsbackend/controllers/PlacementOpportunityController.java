@@ -25,6 +25,13 @@ public class PlacementOpportunityController {
         return service.findAll();
     }
 
+    @GetMapping("/college/{collegeId}/draft")
+    public List<PlacementOpportunityResponse> findDraftByCollege(
+            @PathVariable UUID collegeId
+    ) {
+        return service.findDraftByCollege(collegeId);
+    }
+
     @GetMapping("/{id}")
     public PlacementOpportunityResponse findById(@PathVariable UUID id) {
         return service.findById(id);

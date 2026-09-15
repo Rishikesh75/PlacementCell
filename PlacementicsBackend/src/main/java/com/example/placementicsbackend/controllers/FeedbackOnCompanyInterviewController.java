@@ -10,6 +10,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/interview-feedback")
@@ -38,6 +39,13 @@ public class FeedbackOnCompanyInterviewController {
         return service.findByStatus(status);
     }
 
+    @GetMapping("/college/{collegeId}/pending")
+    public List<FeedbackOnCompanyInterviewResponse> findPendingByCollege(
+            @PathVariable UUID collegeId
+    ) {
+        return service.findPendingByCollege(collegeId);
+    }
+
     @PostMapping
     public ResponseEntity<FeedbackOnCompanyInterviewResponse> create(
             @Valid @RequestBody FeedbackOnCompanyInterviewRequest request
@@ -52,6 +60,14 @@ public class FeedbackOnCompanyInterviewController {
             @Valid @RequestBody FeedbackOnCompanyInterviewRequest request
     ) {
         return service.update(id, request);
+    }
+
+    @PatchMapping("/{id}/status")
+    public FeedbackOnCompanyInterviewResponse updateStatus(
+            @PathVariable String id,
+            @RequestParam FeedbackStatus status
+    ) {
+        return service.updateStatus(id, status);
     }
 
     @DeleteMapping("/{id}")

@@ -75,3 +75,26 @@ export async function proxyBackendPatch(
     );
   }
 }
+
+export async function proxyBackendDelete(
+  pathSegments: string[],
+): Promise<Response> {
+  const path = pathSegments.map(encodeURIComponent).join("/");
+
+  try {
+    const response = await fetch(`${API_BASE}/api/${path}`, {
+      method: "DELETE",
+    });
+
+    const data: unknown = await response.json().catch(() => null);
+
+    return data === null
+      ? new Response(null, { status: response.status })
+      : Response.json(data, { status: response.status });
+  } catch {
+    return Response.json(
+      { error: "Failed to reach API" },
+      { status: 502 },
+    );
+  }
+}

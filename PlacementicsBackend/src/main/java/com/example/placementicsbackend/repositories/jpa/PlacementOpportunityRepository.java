@@ -18,6 +18,11 @@ public interface PlacementOpportunityRepository
             OpportunityStatus status
     );
 
+    List<PlacementOpportunity> findByCollegeCompanyCollegeIdAndStatusOrderByDeadlineAsc(
+            UUID collegeId,
+            OpportunityStatus status
+    );
+
     List<PlacementOpportunity> findByTeacherIdOrderByDeadlineAsc(UUID teacherId);
 
     List<PlacementOpportunity> findByAlumniIdOrderByDeadlineAsc(UUID alumniId);

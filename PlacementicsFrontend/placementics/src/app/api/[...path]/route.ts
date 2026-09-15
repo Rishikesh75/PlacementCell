@@ -1,5 +1,6 @@
 import {
   proxyBackendGet,
+  proxyBackendDelete,
   proxyBackendPatch,
   proxyBackendPost,
 } from "../_lib/proxyBackend";
@@ -29,4 +30,10 @@ export async function PATCH(request: Request, { params }: RouteContext) {
   const { path } = await params;
 
   return proxyBackendPatch(path);
+}
+
+export async function DELETE(request: Request, { params }: RouteContext) {
+  const { path } = await params;
+
+  return proxyBackendDelete(path);
 }

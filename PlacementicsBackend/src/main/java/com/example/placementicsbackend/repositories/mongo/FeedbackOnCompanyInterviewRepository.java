@@ -17,6 +17,11 @@ public interface FeedbackOnCompanyInterviewRepository
 
     List<FeedbackOnCompanyInterview> findByStatus(FeedbackStatus status);
 
+    List<FeedbackOnCompanyInterview> findByCollegeCompanyIdInAndStatus(
+            List<String> collegeCompanyIds,
+            FeedbackStatus status
+    );
+
     List<FeedbackOnCompanyInterview> findByCollegeCompanyIdAndAlumniId(
             String collegeCompanyId,
             String alumniId
