@@ -97,9 +97,10 @@ export default function AppHeader({ active }: AppHeaderProps) {
     <header className={styles.header}>
       <Link href="/homePage" className={styles.brand}>
         <div className={styles.logo}>P</div>
-        <div className={styles.brandText}>
-          Placementics | IIT CHENNAI · PLACEMENT CELL
-        </div>
+        {/* TODO: Here Add the image of the institution here */}
+        {/* <div className={styles.brandText}>
+          Placementics
+        </div> */}
       </Link>
 
       <nav className={styles.nav}>
