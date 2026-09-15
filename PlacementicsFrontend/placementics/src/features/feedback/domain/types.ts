@@ -6,7 +6,7 @@ export type FeedbackBranch =
   | "Mechanical";
 
 export interface CompanyFeedback {
-  id: number;
+  id: number | string;
   initials: string;
   company: string;
   role: string;

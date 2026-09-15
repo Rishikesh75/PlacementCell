@@ -63,3 +63,15 @@ export function rejectRecord(path: string, id: string) {
     method: "DELETE",
   });
 }
+
+export function getApprovedFeedback(collegeId: string) {
+  return requestJson<FeedbackRecord[]>(
+    `/api/interview-feedback/college/${encodeURIComponent(collegeId)}/approved`,
+  );
+}
+
+export function getApprovedOpportunities(collegeId: string) {
+  return requestJson<OpportunityRecord[]>(
+    `/api/placement-opportunities/college/${encodeURIComponent(collegeId)}/approved`,
+  );
+}

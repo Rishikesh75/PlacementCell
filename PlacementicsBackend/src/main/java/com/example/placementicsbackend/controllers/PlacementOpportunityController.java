@@ -32,6 +32,13 @@ public class PlacementOpportunityController {
         return service.findDraftByCollege(collegeId);
     }
 
+    @GetMapping("/college/{collegeId}/approved")
+    public List<PlacementOpportunityResponse> findApprovedByCollege(
+            @PathVariable UUID collegeId
+    ) {
+        return service.findApprovedByCollege(collegeId);
+    }
+
     @GetMapping("/{id}")
     public PlacementOpportunityResponse findById(@PathVariable UUID id) {
         return service.findById(id);

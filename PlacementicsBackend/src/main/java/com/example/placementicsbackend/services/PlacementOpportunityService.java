@@ -51,6 +51,17 @@ public class PlacementOpportunityService {
                 .toList();
     }
 
+            public List<PlacementOpportunityResponse> findApprovedByCollege(UUID collegeId) {
+            return repository
+                .findByCollegeCompanyCollegeIdAndStatusOrderByCreatedAtDesc(
+                    collegeId,
+                    OpportunityStatus.OPEN
+                )
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
+            }
+
     @Transactional
     public PlacementOpportunityResponse create(
             PlacementOpportunityRequest request

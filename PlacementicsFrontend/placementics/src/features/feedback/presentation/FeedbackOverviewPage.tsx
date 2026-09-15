@@ -1,13 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
 import AppHeader from "@/shared/layouts/AppHeader";
-import {
-  companyFeedback,
-  type FeedbackBranch,
-} from "@/features/feedback/infrastructure/companyFeedbackData";
+import type { CompanyFeedback, FeedbackBranch } from "@/features/feedback/domain/types";
+import { getCurrentUser } from "@/features/auth/application/session";
+import { getApprovedFeedback } from "@/features/tpo/infrastructure/moderationApi";
 
 import FilterPills from "./Components/FilterPills";
 import CompanyFeedbackList from "./Components/CompanyFeedbackList";
@@ -23,6 +22,40 @@ const BRANCHES: FeedbackBranch[] = [
 export default function CompanyFeedbackPage() {
   const [selectedYear, setSelectedYear] = useState("2025–26");
   const [selectedBranch, setSelectedBranch] = useState<string | null>(null);
+  const [companyFeedback, setCompanyFeedback] = useState<CompanyFeedback[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const collegeId = getCurrentUser()?.collegeId;
+    if (!collegeId) {
+      Promise.resolve().then(() => {
+        setError("Log in with an institute account to view feedback.");
+        setLoading(false);
+      });
+      return;
+    }
+
+    getApprovedFeedback(collegeId)
+      .then((records) => {
+        setCompanyFeedback(records.map((record) => ({
+          id: record.id,
+          initials: "FB",
+          company: record.collegeCompanyId,
+          role: "Interview feedback",
+          visitedOn: "Approved",
+          year: "2025–26",
+          branch: "Computer Science",
+          rounds: record.info.length,
+          packageLpa: 0,
+          rating: 0,
+          studentCount: 1,
+          snippet: `Submitted by alumni ${record.alumniId}`,
+        })));
+      })
+      .catch((cause) => setError(cause instanceof Error ? cause.message : "Could not load feedback."))
+      .finally(() => setLoading(false));
+  }, []);
 
   const items = useMemo(() => {
     return companyFeedback.filter((item) => {
@@ -33,7 +66,7 @@ export default function CompanyFeedbackPage() {
 
       return yearMatch && branchMatch;
     });
-  }, [selectedYear, selectedBranch]);
+  }, [companyFeedback, selectedYear, selectedBranch]);
 
   function handleBranchChange(branch: string) {
     setSelectedBranch((current) => (current === branch ? null : branch));
@@ -70,7 +103,9 @@ export default function CompanyFeedbackPage() {
           onBranchChange={handleBranchChange}
         />
 
-        <CompanyFeedbackList items={items} />
+        {loading ? <p className={styles.empty}>Loading approved feedback...</p> : null}
+        {error ? <p className={styles.empty}>{error}</p> : null}
+        {!loading && !error ? <CompanyFeedbackList items={items} /> : null}
       </div>
     </main>
   );

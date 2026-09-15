@@ -7,6 +7,7 @@ public record CollegeCompanyResponse(
         UUID id,
         UUID collegeId,
         UUID companyId,
+        String companyName,
         String companyKey,
         Instant createdAt,
         Instant updatedAt

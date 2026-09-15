@@ -62,6 +62,29 @@ public class FeedbackOnCompanyInterviewService {
                 .toList();
             }
 
+            public List<FeedbackOnCompanyInterviewResponse> findApprovedByCollege(
+                UUID collegeId
+            ) {
+            List<String> collegeCompanyIds = collegeCompanyRepository
+                .findByCollegeId(collegeId)
+                .stream()
+                .map(collegeCompany -> collegeCompany.getId().toString())
+                .toList();
+
+            if (collegeCompanyIds.isEmpty()) {
+                return List.of();
+            }
+
+            return repository
+                .findByCollegeCompanyIdInAndStatus(
+                    collegeCompanyIds,
+                    FeedbackStatus.APPROVED
+                )
+                .stream()
+                .map(mapper::toResponse)
+                .toList();
+            }
+
     public FeedbackOnCompanyInterviewResponse create(
             FeedbackOnCompanyInterviewRequest request
     ) {

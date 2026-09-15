@@ -33,6 +33,12 @@ public class CollegeCompanyService {
                 .toList();
     }
 
+        public List<CollegeCompanyResponse> findByCollege(UUID collegeId) {
+                return repository.findByCollegeId(collegeId).stream()
+                                .map(mapper::toResponse)
+                                .toList();
+        }
+
     public CollegeCompanyResponse findById(UUID id) {
         return mapper.toResponse(getCollegeCompany(id));
     }

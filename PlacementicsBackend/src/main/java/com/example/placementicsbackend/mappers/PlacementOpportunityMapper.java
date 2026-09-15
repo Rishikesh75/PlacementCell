@@ -40,7 +40,9 @@ public class PlacementOpportunityMapper {
                 .role(request.role())
                 .eligibility(request.eligibility())
                 .deadline(request.deadline())
-                .status(OpportunityStatus.OPEN)
+                .status(request.status() == null
+                        ? OpportunityStatus.DRAFT
+                        : request.status())
                 .build();
     }
 

@@ -24,6 +24,13 @@ public class CollegeCompanyController {
         return service.findAll();
     }
 
+    @GetMapping("/college/{collegeId}")
+    public List<CollegeCompanyResponse> findByCollege(
+            @PathVariable UUID collegeId
+    ) {
+        return service.findByCollege(collegeId);
+    }
+
     @GetMapping("/{id}")
     public CollegeCompanyResponse findById(@PathVariable UUID id) {
         return service.findById(id);

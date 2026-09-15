@@ -46,6 +46,13 @@ public class FeedbackOnCompanyInterviewController {
         return service.findPendingByCollege(collegeId);
     }
 
+    @GetMapping("/college/{collegeId}/approved")
+    public List<FeedbackOnCompanyInterviewResponse> findApprovedByCollege(
+            @PathVariable UUID collegeId
+    ) {
+        return service.findApprovedByCollege(collegeId);
+    }
+
     @PostMapping
     public ResponseEntity<FeedbackOnCompanyInterviewResponse> create(
             @Valid @RequestBody FeedbackOnCompanyInterviewRequest request
