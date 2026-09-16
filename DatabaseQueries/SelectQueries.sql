@@ -31,4 +31,8 @@
 
 -- select * from registration_request;
 
-select * from tpo;
+-- select * from tpo;
+
+SELECT conname, pg_get_constraintdef(oid)
+FROM pg_constraint
+WHERE conrelid = 'placement_opportunity'::regclass;

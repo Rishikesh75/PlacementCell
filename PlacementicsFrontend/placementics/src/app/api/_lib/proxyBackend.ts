@@ -55,11 +55,12 @@ export async function proxyBackendPost(
 
 export async function proxyBackendPatch(
   pathSegments: string[],
+  search: string = "",
 ): Promise<Response> {
   const path = pathSegments.map(encodeURIComponent).join("/");
 
   try {
-    const response = await fetch(`${API_BASE}/api/${path}`, {
+    const response = await fetch(`${API_BASE}/api/${path}${search}`, {
       method: "PATCH",
     });
 

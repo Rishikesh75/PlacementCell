@@ -8,11 +8,14 @@ import AppHeader from "@/shared/layouts/AppHeader";
 import OpportunityForm from "./Components/OpportunityForm";
 import styles from "./OpportunityFormPage.module.css";
 
+import { getCurrentUser } from "@/features/auth/application/session";
+
 export default function OpportunityFormPage() {
   const router = useRouter();
 
   const handleClose = useCallback(() => {
-    router.push("/opportunities");
+    const collegeId = getCurrentUser()?.collegeId;
+    router.push(collegeId ? `/${encodeURIComponent(collegeId)}/opportunities` : "/opportunities");
   }, [router]);
 
   useEffect(() => {

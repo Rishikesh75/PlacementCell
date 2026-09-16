@@ -170,14 +170,12 @@ export default function CompanyFeedbackForm() {
           questions: round.questions.map((question) => question.trim()).filter(Boolean),
         })),
       });
-      router.push("/feedbackOnCompanyInterviewPage");
+      router.push(user.collegeId ? `/${encodeURIComponent(user.collegeId)}/feedback` : "/feedback");
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not submit feedback.");
     } finally {
       setSubmitting(false);
     }
-
-    router.push("/feedbackOnCompanyInterviewPage");
   }
 
   return (

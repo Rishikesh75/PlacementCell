@@ -61,7 +61,7 @@ export default function OpportunityForm() {
         eligibility: requirements,
         ...(user.role === "Alumni" ? { alumniId: user.userId } : { teacherId: user.userId }),
       });
-      router.push("/opportunities");
+      router.push(user.collegeId ? `/${encodeURIComponent(user.collegeId)}/opportunities` : "/opportunities");
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Could not submit opportunity.");
     } finally {

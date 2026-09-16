@@ -12,7 +12,6 @@ const TABS: { id: RegistrationKind; label: string }[] = [
   { id: "student", label: "Student registers" },
   { id: "teacher", label: "Teacher registers" },
   { id: "alumni", label: "Alumni registers" },
-  { id: "tpoCompany", label: "TPO Admin company" },
 ];
 
 export default function TpoRegistrationTabs({

@@ -49,7 +49,7 @@ export default function Page() {
 
     return (
         <main className={styles.page}>
-            <AppHeader active="requests" />
+            <AppHeader active="feedback" />
             <div className={styles.content}>
                 <section className={styles.hero}>
                     <div className={styles.heroText}>

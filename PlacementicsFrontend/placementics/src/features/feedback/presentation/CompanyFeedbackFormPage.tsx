@@ -7,11 +7,14 @@ import AppHeader from "@/shared/layouts/AppHeader";
 import CompanyFeedbackForm from "./Components/CompanyFeedbackForm";
 import styles from "./CompanyFeedbackFormPage.module.css";
 
+import { getCurrentUser } from "@/features/auth/application/session";
+
 export default function CompanyFeedbackFormPage() {
   const router = useRouter();
 
   function handleClose() {
-    router.push("/feedbackOnCompanyInterviewPage");
+    const collegeId = getCurrentUser()?.collegeId;
+    router.push(collegeId ? `/${encodeURIComponent(collegeId)}/feedback` : "/feedback");
   }
 
   return (

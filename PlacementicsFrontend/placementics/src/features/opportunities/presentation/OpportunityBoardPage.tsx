@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 
 import AppHeader from "@/shared/layouts/AppHeader";
 import type { Opportunity } from "@/features/opportunities/domain/types";
-import { getCurrentUser } from "@/features/auth/application/session";
+import { getCurrentUser, getServerUserSnapshot } from "@/features/auth/application/session";
 import { getApprovedOpportunities } from "@/features/tpo/infrastructure/moderationApi";
+import { subscribeNever } from "@/shared/lib/useClientSnapshot";
 
 import OpportunityTabs, {
   type OpportunityTab,
@@ -19,6 +20,16 @@ export default function OpportunityBoardPage() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const currentUser = useSyncExternalStore(
+    subscribeNever,
+    getCurrentUser,
+    getServerUserSnapshot,
+  );
+  const collegeId = currentUser?.collegeId ?? undefined;
+  const addOpportunityHref = collegeId
+    ? `/${encodeURIComponent(collegeId)}/opportunities/form`
+    : "/opportunities/form";
 
   useEffect(() => {
     const collegeId = getCurrentUser()?.collegeId;
@@ -78,7 +89,7 @@ export default function OpportunityBoardPage() {
             </p>
           </div>
 
-          <Link href="/opportunities/form" className={styles.addButton}>
+          <Link href={addOpportunityHref} className={styles.addButton}>
             + Post an opportunity
           </Link>
         </section>

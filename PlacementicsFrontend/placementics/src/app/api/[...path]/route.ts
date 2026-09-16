@@ -28,8 +28,9 @@ export async function POST(request: Request, { params }: RouteContext) {
 
 export async function PATCH(request: Request, { params }: RouteContext) {
   const { path } = await params;
+  const search = new URL(request.url).search;
 
-  return proxyBackendPatch(path);
+  return proxyBackendPatch(path, search);
 }
 
 export async function DELETE(request: Request, { params }: RouteContext) {

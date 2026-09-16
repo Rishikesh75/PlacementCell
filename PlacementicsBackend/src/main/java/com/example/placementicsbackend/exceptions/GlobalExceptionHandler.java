@@ -4,6 +4,7 @@ import com.example.placementicsbackend.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -66,6 +67,11 @@ public class GlobalExceptionHandler {
         return error(HttpStatus.BAD_REQUEST, "Request body is missing or malformed", request);
     }
 
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateKey(DuplicateKeyException ex, HttpServletRequest request) {
+        return error(HttpStatus.CONFLICT, "A record with this data already exists.", request);
+    }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponse> handleDataIntegrity(
             DataIntegrityViolationException ex,
@@ -73,7 +79,7 @@ public class GlobalExceptionHandler {
     ) {
         return error(
                 HttpStatus.CONFLICT,
-                "Request conflicts with existing data. The college name may already be taken, or related records may still exist.",
+                "Request conflicts with existing data. A unique constraint was violated.",
                 request
         );
     }

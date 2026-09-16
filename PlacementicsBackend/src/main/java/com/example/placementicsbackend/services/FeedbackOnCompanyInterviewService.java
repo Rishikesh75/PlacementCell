@@ -8,6 +8,10 @@ import com.example.placementicsbackend.models.mongoDB.enums.FeedbackStatus;
 import com.example.placementicsbackend.repositories.jpa.CollegeCompanyRepository;
 import com.example.placementicsbackend.repositories.mongo.FeedbackOnCompanyInterviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +24,7 @@ public class FeedbackOnCompanyInterviewService {
     private final FeedbackOnCompanyInterviewRepository repository;
     private final FeedbackOnCompanyInterviewMapper mapper;
     private final CollegeCompanyRepository collegeCompanyRepository;
+    private final MongoTemplate mongoTemplate;
 
     public List<FeedbackOnCompanyInterviewResponse> findAll() {
         return repository.findAll().stream()
@@ -110,9 +115,16 @@ public class FeedbackOnCompanyInterviewService {
             String id,
             FeedbackStatus status
     ) {
-        FeedbackOnCompanyInterview feedback = getFeedback(id);
-        feedback.setStatus(status);
-        return mapper.toResponse(repository.save(feedback));
+        // Verify the document exists first so we return 404 if the id is wrong.
+        getFeedback(id);
+
+        // Use an atomic field-level update so we never re-insert the document,
+        // which would cause a DuplicateKeyException if any unique index exists.
+        Query query = new Query(Criteria.where("_id").is(id));
+        Update update = new Update().set("status", status);
+        mongoTemplate.updateFirst(query, update, FeedbackOnCompanyInterview.class);
+
+        return mapper.toResponse(getFeedback(id));
     }
 
     public void delete(String id) {
