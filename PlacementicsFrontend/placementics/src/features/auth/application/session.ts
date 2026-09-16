@@ -29,6 +29,13 @@ export function setCurrentRole(role: string) {
   }
 }
 
+let cachedUserRaw: string | null | undefined;
+let cachedUser: AuthUser | null = null;
+
+export function getServerUserSnapshot(): AuthUser | null {
+  return null;
+}
+
 export function getCurrentUser(): AuthUser | null {
   if (typeof window === "undefined") {
     return null;
@@ -36,6 +43,16 @@ export function getCurrentUser(): AuthUser | null {
 
   const stored = window.localStorage.getItem(USER_KEY);
 
+  if (stored === cachedUserRaw) {
+    return cachedUser;
+  }
+
+  cachedUserRaw = stored;
+  cachedUser = parseStoredUser(stored);
+  return cachedUser;
+}
+
+function parseStoredUser(stored: string | null): AuthUser | null {
   if (!stored) {
     return null;
   }
@@ -72,5 +89,8 @@ export function setCurrentUser(user: AuthUser) {
   }
 
   setCurrentRole(user.role);
-  window.localStorage.setItem(USER_KEY, JSON.stringify(user));
+  const serialized = JSON.stringify(user);
+  window.localStorage.setItem(USER_KEY, serialized);
+  cachedUserRaw = serialized;
+  cachedUser = user;
 }

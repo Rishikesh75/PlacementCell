@@ -3,7 +3,11 @@
 import { useMemo, useSyncExternalStore } from "react";
 import Link from "next/link";
 
-import { getCurrentRole, type UserRole } from "@/features/auth/application/session";
+import {
+  getCurrentUser,
+  getServerUserSnapshot,
+  type UserRole,
+} from "@/features/auth/application/session";
 import { subscribeNever } from "@/shared/lib/useClientSnapshot";
 
 import styles from "./AppHeader.module.css";
@@ -55,18 +59,30 @@ const navItems: {
     id: "feedback",
     label: "Company Feedback",
     href: "/feedback",
-    roles: ["Student", "Teacher", "Alumni", "TPOAdmin"],
+    roles: ["Student", "Teacher", "Alumni"],
   },
   {
     id: "opportunities",
     label: "Opportunities",
     href: "/opportunities",
-    roles: ["Student", "Teacher", "Alumni", "TPOAdmin"],
+    roles: ["Student", "Teacher", "Alumni"],
+  },
+    {
+    id: "feedback",
+    label: "Company Feedback",
+    href: "/tpo/feedback",
+    roles: ["TPOAdmin"],
+  },
+  {
+    id: "opportunities",
+    label: "Opportunities",
+    href: "/tpo/opportunities",
+    roles: ["TPOAdmin"],
   },
 ];
 
 const ROLE_CHIPS: Record<UserRole, string> = {
-  Student: "STUDENT · FINAL YR",
+  Student: "STUDENT",
   Teacher: "TEACHER",
   Alumni: "ALUMNI",
   TPOAdmin: "TPO ADMIN",
@@ -81,21 +97,51 @@ const ROLE_AVATARS: Record<UserRole, string> = {
   Company: "CO",
 };
 
+function getCollegeScopedPath(
+  pathname: string,
+  collegeId?: string | null,
+  role?: UserRole,
+) {
+  if (!collegeId) {
+    return pathname;
+  }
+
+  const isCollegeScopedRoute =
+    pathname === "/feedback" || pathname === "/opportunities";
+  const isCollegeMemberRole =
+    role === "Student" || role === "Teacher" || role === "Alumni";
+
+  if (!isCollegeScopedRoute || !isCollegeMemberRole) {
+    return pathname;
+  }
+
+  return `/${encodeURIComponent(collegeId)}${pathname}`;
+}
+
 export default function AppHeader({ active }: AppHeaderProps) {
-  const role = useSyncExternalStore(
+  const user = useSyncExternalStore(
     subscribeNever,
-    getCurrentRole,
-    getCurrentRole,
+    getCurrentUser,
+    getServerUserSnapshot,
   );
 
+  const role = user?.role ?? "Student";
+  const collegeId = user?.collegeId;
+
   const visibleItems = useMemo(
-    () => navItems.filter((item) => item.roles.includes(role)),
-    [role],
+    () =>
+      navItems
+        .filter((item) => item.roles.includes(role))
+        .map((item) => ({
+          ...item,
+          href: getCollegeScopedPath(item.href, collegeId, role),
+        })),
+    [collegeId, role],
   );
 
   return (
     <header className={styles.header}>
-      <Link href="/homePage" className={styles.brand}>
+      <Link href="/home" className={styles.brand}>
         <div className={styles.logo}>P</div>
         {/* TODO: Here Add the image of the institution here */}
         {/* <div className={styles.brandText}>

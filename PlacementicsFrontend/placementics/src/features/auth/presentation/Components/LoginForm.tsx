@@ -13,6 +13,27 @@ interface LoginFormProps {
   collegeId?: string;
 }
 
+function getCollegeScopedPath(
+  pathname: string,
+  collegeId?: string,
+  role?: UserRole,
+) {
+  if (!collegeId) {
+    return pathname;
+  }
+
+  const isCollegeScopedRoute =
+    pathname === "/feedback" || pathname === "/opportunities";
+  const isCollegeMemberRole =
+    role === "Student" || role === "Teacher" || role === "Alumni";
+
+  if (!isCollegeScopedRoute || !isCollegeMemberRole) {
+    return pathname;
+  }
+
+  return `/${encodeURIComponent(collegeId)}${pathname}`;
+}
+
 const roleConfig: Record<
   string,
   { route: string; buttonText: string }
@@ -75,7 +96,9 @@ export default function LoginForm({
       });
 
       setCurrentUser(user);
-      router.push(currentRoleConfig.route);
+      router.push(
+        getCollegeScopedPath(currentRoleConfig.route, collegeId, selectedRole as UserRole),
+      );
     } catch (cause) {
       if (cause instanceof LoginError) {
         setError(cause.message);

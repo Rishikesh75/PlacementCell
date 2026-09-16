@@ -25,6 +25,10 @@ export default function CompanyFeedbackPage() {
   const [companyFeedback, setCompanyFeedback] = useState<CompanyFeedback[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const collegeId = getCurrentUser()?.collegeId;
+  const addFeedbackHref = collegeId
+    ? `/${encodeURIComponent(collegeId)}/feedback/form`
+    : "/feedback/form";
 
   useEffect(() => {
     const collegeId = getCurrentUser()?.collegeId;
@@ -86,10 +90,7 @@ export default function CompanyFeedbackPage() {
             </p>
           </div>
 
-          <Link
-            href="/feedBackOnCompanyInterviewFormPage"
-            className={styles.addButton}
-          >
+          <Link href={addFeedbackHref} className={styles.addButton}>
             + Add feedback
           </Link>
         </section>
