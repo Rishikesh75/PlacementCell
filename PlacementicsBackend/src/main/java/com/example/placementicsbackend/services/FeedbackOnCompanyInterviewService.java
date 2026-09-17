@@ -8,6 +8,8 @@ import com.example.placementicsbackend.models.mongoDB.enums.FeedbackStatus;
 import com.example.placementicsbackend.repositories.jpa.CollegeCompanyRepository;
 import com.example.placementicsbackend.repositories.mongo.FeedbackOnCompanyInterviewRepository;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -115,16 +117,33 @@ public class FeedbackOnCompanyInterviewService {
             String id,
             FeedbackStatus status
     ) {
-        // Verify the document exists first so we return 404 if the id is wrong.
-        getFeedback(id);
+        // Build the _id criteria. Convert to ObjectId explicitly so the query
+        // works regardless of how Spring Data MongoDB represents the ID internally
+        // (ObjectId type vs. String type in the BSON document).
+        Criteria idCriteria;
+        try {
+            idCriteria = Criteria.where("_id").is(new ObjectId(id));
+        } catch (IllegalArgumentException e) {
+            // id is not a valid 24-hex-char ObjectId string — treat as plain String
+            idCriteria = Criteria.where("_id").is(id);
+        }
 
-        // Use an atomic field-level update so we never re-insert the document,
-        // which would cause a DuplicateKeyException if any unique index exists.
-        Query query = new Query(Criteria.where("_id").is(id));
+        Query query = new Query(idCriteria);
         Update update = new Update().set("status", status);
-        mongoTemplate.updateFirst(query, update, FeedbackOnCompanyInterview.class);
+        FindAndModifyOptions options = FindAndModifyOptions.options().returnNew(true);
 
-        return mapper.toResponse(getFeedback(id));
+        // findAndModify atomically updates the document and returns the result.
+        // Unlike save(), it can never insert a new document, so it will never
+        // trigger a DuplicateKeyException regardless of what indexes exist.
+        FeedbackOnCompanyInterview updated = mongoTemplate.findAndModify(
+                query, update, options, FeedbackOnCompanyInterview.class
+        );
+
+        if (updated == null) {
+            throw new ResourceNotFoundException("Interview feedback not found: " + id);
+        }
+
+        return mapper.toResponse(updated);
     }
 
     public void delete(String id) {
