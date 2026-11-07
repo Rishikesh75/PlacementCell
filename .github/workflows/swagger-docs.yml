@@ -1,0 +1,82 @@
+name: Publish Swagger UI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "PlacementicsBackend/**"
+      - "docs/api/**"
+      - ".github/workflows/swagger-docs.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "PlacementicsBackend/**"
+      - "docs/api/**"
+      - ".github/workflows/swagger-docs.yml"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: swagger-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Build backend and validate OpenAPI document
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+          cache-dependency-path: PlacementicsBackend/pom.xml
+
+      - name: Build backend (no application startup or database)
+        working-directory: PlacementicsBackend
+        run: mvn -B -DskipTests package
+
+      - name: Validate committed OpenAPI JSON
+        run: |
+          test -s docs/api/openapi.json
+          jq -e '.openapi and .info and (.paths | type == "object")' docs/api/openapi.json > /dev/null
+          echo "Validated $(jq '.paths | length' docs/api/openapi.json) documented API paths."
+
+  deploy:
+    name: Deploy Swagger UI to GitHub Pages
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare static Swagger UI site
+        run: |
+          mkdir -p _site
+          cp docs/api/index.html _site/index.html
+          cp docs/api/openapi.json _site/openapi.json
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
