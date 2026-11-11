@@ -7,8 +7,7 @@ Monorepo for the IIITDM Placement Cell platform.
 | Project | Status | Description |
 |---------|--------|-------------|
 | [PlacementicsFrontend/placementics](PlacementicsFrontend/placementics/) | **Active** | Next.js 16 student portal (login, feedback form, feedback display) |
-| [PlacementCellBackend](PlacementCellBackend/) | Active | ASP.NET Core API |
-| [PlacementCellFrontend](PlacementCellFrontend/) | **Deprecated** | Legacy Angular 20 app — replaced by PlacementicsFrontend |
+| [PlacementCellBackend](PlacementCellBackend/) | Active | Spring API |
 
 ## Quick Start
 
