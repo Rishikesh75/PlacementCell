@@ -12,12 +12,14 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 @RestController
 @RequestMapping("/api/health")
 @RequiredArgsConstructor
 public class HealthController {
-
+private static final Logger log =
+        LoggerFactory.getLogger(HealthController.class);
     private final DataSource dataSource;
     private final MongoTemplate mongoTemplate;
 
@@ -42,9 +44,10 @@ public class HealthController {
             result.put("status", connection.isValid(3) ? "UP" : "DOWN");
             result.put("database", connection.getCatalog());
         } catch (Exception ex) {
-            result.put("status", "DOWN");
-            result.put("error", ex.getMessage());
-        }
+    log.error("PostgreSQL health check failed", ex);
+    result.put("status", "DOWN");
+    result.put("error", "PostgreSQL health check failed");
+}
         return result;
     }
 
@@ -55,9 +58,10 @@ public class HealthController {
             result.put("status", "UP");
             result.put("database", mongoTemplate.getDb().getName());
         } catch (Exception ex) {
-            result.put("status", "DOWN");
-            result.put("error", ex.getMessage());
-        }
+    log.error("MongoDB health check failed", ex);
+    result.put("status", "DOWN");
+    result.put("error", "MongoDB health check failed");
+}
         return result;
     }
 }
