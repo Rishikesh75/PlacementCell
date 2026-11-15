@@ -1,0 +1,190 @@
+name: Sync Postman after Render deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "PlacementicsBackend/**"
+      - ".github/workflows/postman-render-sync.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: postman-render-sync
+  cancel-in-progress: false
+
+jobs:
+  sync-postman:
+    name: Wait for Render and synchronize Postman
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+      RENDER_SERVICE_ID: ${{ vars.RENDER_SERVICE_ID }}
+      OPENAPI_URL: ${{ vars.RENDER_OPENAPI_URL }}
+      POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
+      POSTMAN_SPEC_ID: ${{ vars.POSTMAN_SPEC_ID }}
+      POSTMAN_COLLECTION_UID: ${{ vars.POSTMAN_COLLECTION_UID }}
+      POSTMAN_SPEC_FILE_PATH: ${{ vars.POSTMAN_SPEC_FILE_PATH || 'index.json' }}
+      TARGET_COMMIT: ${{ github.sha }}
+
+    steps:
+      - name: Validate configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          : "${RENDER_API_KEY:?Add RENDER_API_KEY as a GitHub Actions secret}"
+          : "${RENDER_SERVICE_ID:?Add RENDER_SERVICE_ID as a GitHub Actions variable}"
+          : "${OPENAPI_URL:?Add RENDER_OPENAPI_URL as a GitHub Actions variable}"
+          : "${POSTMAN_API_KEY:?Add POSTMAN_API_KEY as a GitHub Actions secret}"
+          : "${POSTMAN_SPEC_ID:?Add POSTMAN_SPEC_ID as a GitHub Actions variable}"
+          : "${POSTMAN_COLLECTION_UID:?Add POSTMAN_COLLECTION_UID as a GitHub Actions variable}"
+          echo "Configuration is present."
+
+      - name: Wait for this commit to become live on Render
+        id: render
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Waiting for Render to deploy commit ${TARGET_COMMIT}..."
+
+          for attempt in $(seq 1 60); do
+            response="$(curl --fail --silent --show-error \
+              --retry 3 --retry-all-errors \
+              --header "Authorization: Bearer ${RENDER_API_KEY}" \
+              --header "Accept: application/json" \
+              "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys?limit=100")"
+
+            deploy="$(jq -c --arg sha "${TARGET_COMMIT}" \
+              '[.[] | .deploy | select(.commit.id == $sha)] | first // empty' \
+              <<< "$response")"
+
+            if [[ -n "$deploy" ]]; then
+              status="$(jq -r '.status' <<< "$deploy")"
+              deploy_id="$(jq -r '.id' <<< "$deploy")"
+              echo "Render deploy ${deploy_id}: ${status}"
+
+              case "$status" in
+                live)
+                  echo "deploy_id=${deploy_id}" >> "$GITHUB_OUTPUT"
+                  exit 0
+                  ;;
+                build_failed|update_failed|pre_deploy_failed|canceled)
+                  echo "::error::Render deployment for ${TARGET_COMMIT} ended with status: ${status}"
+                  exit 1
+                  ;;
+              esac
+            else
+              echo "No Render deployment found for this commit yet."
+            fi
+
+            sleep 30
+          done
+
+          echo "::error::Timed out waiting for Render deployment of ${TARGET_COMMIT}."
+          exit 1
+
+      - name: Fetch OpenAPI document from Render
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          curl --fail --silent --show-error --location \
+            --retry 5 --retry-all-errors --retry-delay 5 --max-time 90 \
+            "${OPENAPI_URL}" \
+            --output openapi.json
+
+          test -s openapi.json
+          echo "Fetched the live OpenAPI document from Render."
+
+      - name: Validate OpenAPI document
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          jq -e '
+            (.openapi | type == "string") and
+            (.info | type == "object") and
+            (.paths | type == "object")
+          ' openapi.json > /dev/null
+
+          echo "OpenAPI version: $(jq -r '.openapi' openapi.json)"
+          echo "Documented paths: $(jq '.paths | length' openapi.json)"
+
+          npx --yes @redocly/cli@1.34.5 lint openapi.json
+
+      - name: Update existing Postman API specification
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          encoded_path="$(jq -rn --arg path "${POSTMAN_SPEC_FILE_PATH}" '$path | @uri')"
+          jq -n --rawfile content openapi.json '{content: $content}' > postman-spec-update.json
+
+          curl --fail-with-body --silent --show-error \
+            --request PATCH \
+            "https://api.postman.com/specs/${POSTMAN_SPEC_ID}/files/${encoded_path}" \
+            --header "x-api-key: ${POSTMAN_API_KEY}" \
+            --header "Content-Type: application/json" \
+            --data-binary @postman-spec-update.json \
+            --output postman-spec-response.json
+
+          echo "Postman API specification updated."
+
+      - name: Synchronize existing Postman collection
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          curl --fail-with-body --silent --show-error \
+            --request PUT \
+            "https://api.postman.com/collections/${POSTMAN_COLLECTION_UID}/synchronizations?specId=${POSTMAN_SPEC_ID}" \
+            --header "x-api-key: ${POSTMAN_API_KEY}" \
+            --output postman-sync-response.json
+
+          task_id="$(jq -r '.taskId // empty' postman-sync-response.json)"
+          if [[ -z "$task_id" ]]; then
+            echo "::error::Postman did not return a synchronization task ID."
+            cat postman-sync-response.json
+            exit 1
+          fi
+
+          echo "Started Postman collection synchronization task: ${task_id}"
+
+          for attempt in $(seq 1 60); do
+            curl --fail --silent --show-error \
+              "https://api.postman.com/collections/${POSTMAN_COLLECTION_UID}/tasks/${task_id}" \
+              --header "x-api-key: ${POSTMAN_API_KEY}" \
+              --output postman-task-status.json
+
+            status="$(jq -r '.status // .data.status // empty' postman-task-status.json | tr '[:upper:]' '[:lower:]')"
+            echo "Postman task status: ${status:-unknown}"
+
+            case "$status" in
+              success|completed|complete|done)
+                echo "Postman collection synchronized successfully."
+                exit 0
+                ;;
+              failed|error)
+                echo "::error::Postman collection synchronization failed."
+                cat postman-task-status.json
+                exit 1
+                ;;
+              pending|processing|in_progress|inprogress)
+                sleep 5
+                ;;
+              *)
+                echo "::error::Unexpected Postman task status: ${status}"
+                cat postman-task-status.json
+                exit 1
+                ;;
+            esac
+          done
+
+          echo "::error::Timed out waiting for Postman collection synchronization."
+          exit 1
