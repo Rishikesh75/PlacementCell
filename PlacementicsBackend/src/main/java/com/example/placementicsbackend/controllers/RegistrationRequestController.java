@@ -4,6 +4,7 @@ import com.example.placementicsbackend.dto.registration.RegistrationRequestCreat
 import com.example.placementicsbackend.dto.registration.RegistrationRequestResponse;
 import com.example.placementicsbackend.models.enums.RegistrationStatus;
 import com.example.placementicsbackend.services.RegistrationRequestService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class RegistrationRequestController {
     private final RegistrationRequestService service;
 
     @GetMapping
+    @Operation(summary = "List registration requests")
     public List<RegistrationRequestResponse> findAll(
             @RequestParam UUID collegeId,
             @RequestParam(required = false) RegistrationStatus status
@@ -31,11 +33,13 @@ public class RegistrationRequestController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a registration request by ID")
     public RegistrationRequestResponse findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @PostMapping
+    @Operation(summary = "Submit a registration request")
     public ResponseEntity<RegistrationRequestResponse> submit(
             @Valid @RequestBody RegistrationRequestCreate request
     ) {
@@ -44,11 +48,13 @@ public class RegistrationRequestController {
     }
 
     @PatchMapping("/{id}/approve")
+    @Operation(summary = "Approve a registration request")
     public RegistrationRequestResponse approve(@PathVariable UUID id) {
         return service.approve(id);
     }
 
     @PatchMapping("/{id}/reject")
+    @Operation(summary = "Reject a registration request")
     public RegistrationRequestResponse reject(@PathVariable UUID id) {
         return service.reject(id);
     }

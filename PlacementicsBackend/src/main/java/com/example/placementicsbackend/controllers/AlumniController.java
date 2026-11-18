@@ -3,6 +3,7 @@ package com.example.placementicsbackend.controllers;
 import com.example.placementicsbackend.dto.alumni.*;
 import com.example.placementicsbackend.dto.common.IdResponse;
 import com.example.placementicsbackend.services.AlumniService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class AlumniController {
     private final AlumniService service;
 
     @GetMapping
+    @Operation(summary = "List alumni")
     public List<AlumniResponse> findAll(
             @RequestParam(required = false) String name
     ) {
@@ -28,6 +30,7 @@ public class AlumniController {
     }
 
     @GetMapping("/by-email")
+    @Operation(summary = "Find an alumni account by email")
     public IdResponse findIdByEmail(
             @RequestParam String email,
             @RequestParam UUID collegeId,
@@ -37,11 +40,13 @@ public class AlumniController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get an alumnus by ID")
     public AlumniResponse findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @GetMapping("/college/{collegeId}")
+    @Operation(summary = "List alumni by college")
     public List<AlumniResponse> findByCollege(
             @PathVariable UUID collegeId
     ) {
@@ -49,6 +54,7 @@ public class AlumniController {
     }
 
     @GetMapping("/company/{companyId}")
+    @Operation(summary = "List alumni by company")
     public List<AlumniResponse> findByCompany(
             @PathVariable UUID companyId
     ) {
@@ -56,6 +62,7 @@ public class AlumniController {
     }
 
     @GetMapping("/passing-year/{passingYear}")
+    @Operation(summary = "List alumni by passing year")
     public List<AlumniResponse> findByPassingYear(
             @PathVariable Integer passingYear
     ) {
@@ -63,6 +70,7 @@ public class AlumniController {
     }
 
     @PostMapping
+    @Operation(summary = "Create an alumnus")
     public ResponseEntity<AlumniResponse> create(
             @Valid @RequestBody AlumniRequest request
     ) {
@@ -71,6 +79,7 @@ public class AlumniController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update an alumnus")
     public AlumniResponse update(
             @PathVariable UUID id,
             @Valid @RequestBody AlumniRequest request
@@ -79,6 +88,7 @@ public class AlumniController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete an alumnus")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

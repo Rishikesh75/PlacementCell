@@ -2,6 +2,7 @@ package com.example.placementicsbackend.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ private static final Logger log =
     private final MongoTemplate mongoTemplate;
 
     @GetMapping
+    @Operation(summary = "Check API and database health")
     public ResponseEntity<Map<String, Object>> health() {
         Map<String, Object> postgres = checkPostgres();
         Map<String, Object> mongodb = checkMongo();

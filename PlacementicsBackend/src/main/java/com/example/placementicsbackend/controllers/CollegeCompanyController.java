@@ -2,6 +2,7 @@ package com.example.placementicsbackend.controllers;
 
 import com.example.placementicsbackend.dto.collegeCompany.*;
 import com.example.placementicsbackend.services.CollegeCompanyService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +21,13 @@ public class CollegeCompanyController {
     private final CollegeCompanyService service;
 
     @GetMapping
+    @Operation(summary = "List college-company relationships")
     public List<CollegeCompanyResponse> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/college/{collegeId}")
+    @Operation(summary = "List companies associated with a college")
     public List<CollegeCompanyResponse> findByCollege(
             @PathVariable UUID collegeId
     ) {
@@ -32,11 +35,13 @@ public class CollegeCompanyController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a college-company relationship by ID")
     public CollegeCompanyResponse findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @GetMapping("/college/{collegeId}/company/{companyId}")
+    @Operation(summary = "Get a college-company relationship by college and company")
     public CollegeCompanyResponse findByCollegeAndCompany(
             @PathVariable UUID collegeId,
             @PathVariable UUID companyId,
@@ -46,6 +51,7 @@ public class CollegeCompanyController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a college-company relationship")
     public ResponseEntity<CollegeCompanyResponse> create(
             @Valid @RequestBody CollegeCompanyRequest request
     ) {
@@ -54,6 +60,7 @@ public class CollegeCompanyController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a college-company relationship")
     public CollegeCompanyResponse update(
             @PathVariable UUID id,
             @Valid @RequestBody CollegeCompanyRequest request
@@ -62,6 +69,7 @@ public class CollegeCompanyController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a college-company relationship")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

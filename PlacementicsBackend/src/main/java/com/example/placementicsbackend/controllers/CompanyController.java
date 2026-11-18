@@ -3,6 +3,7 @@ package com.example.placementicsbackend.controllers;
 import com.example.placementicsbackend.dto.common.IdResponse;
 import com.example.placementicsbackend.dto.company.*;
 import com.example.placementicsbackend.services.CompanyService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class CompanyController {
     private final CompanyService service;
 
     @GetMapping
+    @Operation(summary = "List companies")
     public List<CompanyResponse> findAll(
             @RequestParam(required = false) String name
     ) {
@@ -28,6 +30,7 @@ public class CompanyController {
     }
 
     @GetMapping("/by-email")
+    @Operation(summary = "Find a company account by email")
     public IdResponse findIdByEmail(
             @RequestParam String email,
             @RequestParam UUID collegeId,
@@ -37,11 +40,13 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a company by ID")
     public CompanyResponse findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @PostMapping
+    @Operation(summary = "Create a company")
     public ResponseEntity<CompanyResponse> create(
             @Valid @RequestBody CompanyRequest request
     ) {
@@ -50,6 +55,7 @@ public class CompanyController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a company")
     public CompanyResponse update(
             @PathVariable UUID id,
             @Valid @RequestBody CompanyRequest request
@@ -58,6 +64,7 @@ public class CompanyController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a company")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
