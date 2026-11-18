@@ -3,6 +3,7 @@ package com.example.placementicsbackend.controllers;
 import com.example.placementicsbackend.dto.placementOpportunity.*;
 import com.example.placementicsbackend.models.enums.OpportunityStatus;
 import com.example.placementicsbackend.services.PlacementOpportunityService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +22,13 @@ public class PlacementOpportunityController {
     private final PlacementOpportunityService service;
 
     @GetMapping
+    @Operation(summary = "List placement opportunities")
     public List<PlacementOpportunityResponse> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/college/{collegeId}/draft")
+    @Operation(summary = "List draft placement opportunities for a college")
     public List<PlacementOpportunityResponse> findDraftByCollege(
             @PathVariable UUID collegeId
     ) {
@@ -33,6 +36,7 @@ public class PlacementOpportunityController {
     }
 
     @GetMapping("/college/{collegeId}/approved")
+    @Operation(summary = "List approved placement opportunities for a college")
     public List<PlacementOpportunityResponse> findApprovedByCollege(
             @PathVariable UUID collegeId
     ) {
@@ -40,11 +44,13 @@ public class PlacementOpportunityController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a placement opportunity by ID")
     public PlacementOpportunityResponse findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @GetMapping("/status/{status}")
+    @Operation(summary = "List placement opportunities by status")
     public List<PlacementOpportunityResponse> findByStatus(
             @PathVariable OpportunityStatus status
     ) {
@@ -52,6 +58,7 @@ public class PlacementOpportunityController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a placement opportunity")
     public ResponseEntity<PlacementOpportunityResponse> create(
             @Valid @RequestBody PlacementOpportunityRequest request
     ) {
@@ -60,6 +67,7 @@ public class PlacementOpportunityController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a placement opportunity")
     public PlacementOpportunityResponse update(
             @PathVariable UUID id,
             @Valid @RequestBody PlacementOpportunityRequest request
@@ -68,6 +76,7 @@ public class PlacementOpportunityController {
     }
 
     @PatchMapping("/{id}/status")
+    @Operation(summary = "Update a placement opportunity status")
     public PlacementOpportunityResponse updateStatus(
             @PathVariable UUID id,
             @RequestParam OpportunityStatus status
@@ -76,6 +85,7 @@ public class PlacementOpportunityController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a placement opportunity")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

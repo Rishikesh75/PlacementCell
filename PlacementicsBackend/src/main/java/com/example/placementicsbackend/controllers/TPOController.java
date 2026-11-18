@@ -3,6 +3,7 @@ package com.example.placementicsbackend.controllers;
 import com.example.placementicsbackend.dto.common.IdResponse;
 import com.example.placementicsbackend.dto.tpo.*;
 import com.example.placementicsbackend.services.TPOService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class TPOController {
     private final TPOService service;
 
     @GetMapping
+    @Operation(summary = "List TPOs")
     public List<TPOResponse> findAll(
             @RequestParam(required = false) String name
     ) {
@@ -28,6 +30,7 @@ public class TPOController {
     }
 
     @GetMapping("/by-email")
+    @Operation(summary = "Find a TPO account by email")
     public IdResponse findIdByEmail(
             @RequestParam String email,
             @RequestParam UUID collegeId,
@@ -37,11 +40,13 @@ public class TPOController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a TPO by ID")
     public TPOResponse findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @GetMapping("/college/{collegeId}")
+    @Operation(summary = "List TPOs by college")
     public List<TPOResponse> findByCollege(
             @PathVariable UUID collegeId
     ) {
@@ -49,6 +54,7 @@ public class TPOController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a TPO")
     public ResponseEntity<TPOResponse> create(
             @Valid @RequestBody TPORequest request
     ) {
@@ -57,6 +63,7 @@ public class TPOController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a TPO")
     public TPOResponse update(
             @PathVariable UUID id,
             @Valid @RequestBody TPORequest request
@@ -65,6 +72,7 @@ public class TPOController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a TPO")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();

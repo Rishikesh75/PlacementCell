@@ -3,6 +3,7 @@ package com.example.placementicsbackend.controllers;
 import com.example.placementicsbackend.dto.common.IdResponse;
 import com.example.placementicsbackend.dto.student.*;
 import com.example.placementicsbackend.services.StudentService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class StudentController {
     private final StudentService service;
 
     @GetMapping
+    @Operation(summary = "List students")
     public List<StudentResponse> findAll(
             @RequestParam(required = false) String name
     ) {
@@ -28,6 +30,7 @@ public class StudentController {
     }
 
     @GetMapping("/by-email")
+    @Operation(summary = "Find a student account by email")
     public IdResponse findIdByEmail(
             @RequestParam String email,
             @RequestParam UUID collegeId,
@@ -37,11 +40,13 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a student by ID")
     public StudentResponse findById(@PathVariable UUID id) {
         return service.findById(id);
     }
 
     @GetMapping("/college/{collegeId}")
+    @Operation(summary = "List students by college")
     public List<StudentResponse> findByCollege(
             @PathVariable UUID collegeId
     ) {
@@ -49,6 +54,7 @@ public class StudentController {
     }
 
     @PostMapping
+    @Operation(summary = "Create a student")
     public ResponseEntity<StudentResponse> create(
             @Valid @RequestBody StudentRequest request
     ) {
@@ -57,6 +63,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update a student")
     public StudentResponse update(
             @PathVariable UUID id,
             @Valid @RequestBody StudentRequest request
@@ -65,6 +72,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a student")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
