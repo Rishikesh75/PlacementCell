@@ -127,7 +127,7 @@ jobs:
           jq -n --rawfile content openapi.json '{content: $content}' > postman-spec-update.json
 
           curl --fail-with-body --silent --show-error \
-            --request PUT \
+            --request PATCH \
             "https://api.postman.com/specs/${POSTMAN_SPEC_ID}/files/${encoded_path}" \
             --header "x-api-key: ${POSTMAN_API_KEY}" \
             --header "Content-Type: application/json" \
